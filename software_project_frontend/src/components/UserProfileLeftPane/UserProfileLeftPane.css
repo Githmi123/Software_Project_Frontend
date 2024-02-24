@@ -1,37 +1,39 @@
 .LeftPane{
-    /* Rectangle 30 */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-position: absolute;
-width: 23%;
-height: 100vh;
-/* left: -10px; */
-/* top: 0px; */
+    /* position: absolute; */
+    width: 23%;
+    height: 100vh;
+    /* left: -10px; */
+    top: 0px;
 
-background: #FFFFFF;
-box-shadow: 0px 10px 60px rgba(226, 236, 249, 0.5);
-/* border-radius: 0px; */
+    background: #FFFFFF;
+    /* box-shadow: 0px 10px 60px rgba(226, 236, 249, 0.5); */
+    /* border-radius: 0px; */
+    margin: 0;
+    padding: 0;
 
 }
 
 
-#container{
-    /* container */
+#container1{
 
-position:inherit;
-display: flex;
+    position:relative;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-width:100%;
-height: 50%;
-/* left: 0px; */
-top: 0px;
+    width:100%;
+    height: 50vh;
+    /* left: 0px; */
+    top: 0vh;
 
-background: #C1A5FD;
-border-radius: 0px 0px 30px 30px;
+    background: #C1A5FD;
+    border-radius: 0px 0px 5vh 5vh;
+    /* margin: 0;
+    padding: 0; */
 
 
 
@@ -40,14 +42,14 @@ border-radius: 0px 0px 30px 30px;
 
 #ringcontainer{
     position:inherit;
-    position: relative;
-display: flex;
+    /* position: relative; */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /* background-color: blue;
     color: #000; */
-    width: 20vh; /* Set a width */
+    width: 20vh; 
     height: 20vh;
     border-radius: 50%;
 
@@ -85,10 +87,10 @@ display: flex;
     height: 70%;
     object-fit: cover; 
     border-radius: 50%;
-        object-fit: cover;
-        /* position: absolute;
-        border: 5px solid white;
-        transform: translate(-50%, -50%); */
+    object-fit: cover;
+    /* position: absolute;
+    border: 5px solid white;
+    transform: translate(-50%, -50%); */
 
 }
 
@@ -105,7 +107,7 @@ h1{
     position: relative;
     font-size: 5vh;
     font-weight: lighter;
-} /* Driving excellence in education with cutting-edge technology */
+} 
 
 p{
     
@@ -130,14 +132,13 @@ text-transform: capitalize;
 
 
 
-/* Inside auto layout 
 flex: none;
 order: 1;
 align-self: stretch;
 flex-grow: 0; */
 
 
-#editProfile{
+.greytext{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,12 +149,64 @@ flex-grow: 0; */
     border: 0;
     margin: 2vh;
     color: hsl(0, 0%, 37%);
+    font-size: 2vh;
+    font-weight:700;
 
 }
 
 span{
     margin-left: 5px;
 }
-/* Edit profile */
+
+h2{
+    color: #5B0DFF;
+    margin-top: 1vh;
+    font-size: 3vh;
+}
 
 
+#container2{
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width:100%; */
+    height: 50vh;
+    /* left: 0px; */
+    /* top: 0px; */
+
+    /* background: #C1A5FD; */
+    /* border-radius: 0px 0px 30px 30px; */
+
+
+
+}
+
+.fas.fa-envelope {
+
+    color: #5E88E9;
+    font-size: 3vh; 
+    margin-top: 2vh;
+}
+
+.fas.fa-phone-alt{
+    color: #5E88E9; 
+    font-size: 3vh; 
+    margin-top: 2vh;
+}
+
+.fas.fa-map-marker-alt{
+    color: #5E88E9; 
+    font-size: 3vh;
+    margin-top: 2vh;
+}
+
+#stars{
+    position: absolute;
+    margin-top: 0;
+    margin-right: 0;
+    height: 30vh;
+    padding: 0;
+    
+}
