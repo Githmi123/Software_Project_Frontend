@@ -17,11 +17,15 @@ function App() {
     <div id='App' className='background' style={{backgroundColor: "#7894DB"}}>
       <Router>
       <Routes>
-        <Route exact path="/" element={<UserProfile/>}></Route>
+        <Route exact path="/" element={<RecentPage/>}></Route>
         {/* <Route exact path="/" element={<Login/>}></Route> */}
         <Route exact path="/SignUp" element={<SignUp/>}></Route>
+<<<<<<< HEAD
         <Route exact path="/RecentPage" element={<RecentPage/>}></Route>
         <Route exact path="/MyModulePage" element={<MyModulesPage/>}></Route>
+=======
+      
+>>>>>>> origin/Branch2
         {/* Define other routes as needed */}
       </Routes>
     </Router>
