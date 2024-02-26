@@ -18,7 +18,7 @@ function App() {
     <div id='App' className='background' style={{backgroundColor: "#7894DB"}}>
       <Router>
       <Routes>
-        <Route exact path="/" element={<UserProfile/>}></Route>
+        <Route exact path="/" element={<Login/>}></Route>
         {/* <Route exact path="/" element={<Login/>}></Route> */}
         <Route exact path="/SignUp" element={<SignUp/>}></Route>
       
