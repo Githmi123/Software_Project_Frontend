@@ -8,6 +8,7 @@ import UserProfile from './pages/UserProfile';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
+import RecentPage1 from './pages/RecentPage1';
 
 
 
@@ -18,7 +19,7 @@ function App() {
     <div id='App' className='background' style={{backgroundColor: "#7894DB"}}>
       <Router>
       <Routes>
-        <Route exact path="/" element={<Login/>}></Route>
+        <Route exact path="/" element={<UserProfile/>}></Route>
         {/* <Route exact path="/" element={<Login/>}></Route> */}
         <Route exact path="/SignUp" element={<SignUp/>}></Route>
       
