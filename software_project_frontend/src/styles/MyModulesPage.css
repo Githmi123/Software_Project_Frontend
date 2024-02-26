@@ -3,7 +3,7 @@
     font-weight: bold;
   }
   
-.new-module-button {
+#new-module-button {
     margin-left: 120vh;
     background-color: #C3D3FB;
     border-radius: 15px;
