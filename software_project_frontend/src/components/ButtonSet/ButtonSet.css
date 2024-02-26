@@ -1,13 +1,13 @@
 .button{
     text-align: left;
     text-transform: none;
-    background-color: white;
+    background-color: red;
     color: black;
     width: 200px;
     display: flex;
 }
 
 .button:hover {
-    background-color: #7894DB;
+    background-color: red;
     color: white;
 }
