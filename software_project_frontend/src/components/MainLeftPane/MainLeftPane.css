@@ -1,0 +1,14 @@
+.maindiv-left {
+    width:25%;
+    height:100dvh;
+    background-color:white;
+    flex:1;
+    float:left;
+}
+
+img {
+    width: 200px;
+    height:70px;
+    margin-top: 75px;
+    margin-left: 70px;
+}
