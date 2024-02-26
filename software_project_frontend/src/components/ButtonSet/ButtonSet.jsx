@@ -10,12 +10,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const ButtonSet = () => {
   return (
-    <Stack direction='column' spacing={2} alignItems='center'  >
-        <Button className='button' sx={{textAlign:'left'}} startIcon={<DashboardIcon/>} endIcon={<ArrowForwardIosIcon/>}>Dashboard</Button>
+    <Stack direction='column' spacing={2} alignItems='center' alignContent='left' >
+        <Button className='button' sx={{'& .MuiButton-startIcon': {marginRight: '45px',}}} startIcon={<DashboardIcon/>} endIcon={<ArrowForwardIosIcon/>}>Dashboard</Button>
         <Button className='button' sx={{textAlign:'left'}} startIcon={<AssignmentIcon/>} endIcon={<ArrowForwardIosIcon/>}>New Assignment</Button>
-        <Button className='button'startIcon={<BookIcon/>} endIcon={<ArrowForwardIosIcon/>}>My Modules</Button>
-        <Button className='button' startIcon={<SettingsIcon/>} endIcon={<ArrowForwardIosIcon/>}>Settings</Button>
-        <Button className='button' startIcon={<LiveHelpIcon/>} endIcon={<ArrowForwardIosIcon/>}>Help</Button>   
+        <Button className='button' sx={{'& .MuiButton-startIcon': {marginRight: '39px',}}} startIcon={<BookIcon/>} endIcon={<ArrowForwardIosIcon/>}>My Modules</Button>
+        <Button className='button' sx={{'& .MuiButton-startIcon': {marginRight: '65px',}}} startIcon={<SettingsIcon/>} endIcon={<ArrowForwardIosIcon/>}>Settings</Button>
+        <Button className='button' sx={{'& .MuiButton-startIcon': {marginRight: '90px',}}} startIcon={<LiveHelpIcon/>} endIcon={<ArrowForwardIosIcon/>}>Help</Button>   
     </Stack>
   )
 }
