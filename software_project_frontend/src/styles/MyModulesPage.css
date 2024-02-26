@@ -1,0 +1,40 @@
+#heading{
+    margin-left: 20px;
+    font-weight: bold;
+  }
+  
+#new-module-button {
+    margin-left: 120vh;
+    background-color: #C3D3FB;
+    border-radius: 15px;
+  }
+
+#module-table-headers{
+    color: #B5B7C0;
+    font-size: 14px;
+    font-weight: medium; 
+    align-items: center;  
+}
+
+
+#module-table {
+  margin-left: 20vh; 
+  padding: 0 20px; 
+  margin-right: 20vh;
+}
+
+table {
+  border-collapse: collapse; 
+  width: 100%; 
+}
+
+table th, table td {
+  padding: 10px; 
+  text-align: left; 
+  
+}
+
+table tr {
+    border-radius: 30px;
+    
+}
