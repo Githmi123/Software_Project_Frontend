@@ -7,7 +7,6 @@
     display: flex;
 }
 
-
 .button:hover {
     background-color: #7894DB;
     color: white;

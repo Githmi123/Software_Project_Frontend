@@ -11,8 +11,6 @@ const MainLeftPane = () => {
         
         <img src={projectlogo}/>
         <ButtonSet/>
-        
-
     </div>
   )
 }
