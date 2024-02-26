@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
 import RecentPage from './pages/RecentPage';
 import MyModulesPage from './pages/MyModulesPage';
+import NewAssignmentPage from './pages/NewAssignmentPage';
 
 
 function App() {
@@ -17,11 +18,12 @@ function App() {
     <div id='App' className='background' style={{backgroundColor: "#7894DB"}}>
       <Router>
       <Routes>
-        <Route exact path="/" element={<UserProfile/>}></Route>
-        {/* <Route exact path="/" element={<Login/>}></Route> */}
+        <Route exact path="/" element={<Login/>}></Route>
+        <Route exact path="/UserProfile" element={<UserProfile/>}></Route>
         <Route exact path="/SignUp" element={<SignUp/>}></Route>
         <Route exact path="/RecentPage" element={<RecentPage/>}></Route>
         <Route exact path="/MyModulePage" element={<MyModulesPage/>}></Route>
+        <Route exact path="/NewAssignment" element={<NewAssignmentPage/>}></Route>
         {/* Define other routes as needed */}
       </Routes>
     </Router>
