@@ -11,6 +11,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import RecentPage from './pages/RecentPage';
 import MyModulesPage from './pages/MyModulesPage';
 import NewAssignmentPage from './pages/NewAssignmentPage';
+import BatchesPage from './pages/BatchesPage';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/RecentPage" element={<RecentPage/>}></Route>
         <Route exact path="/MyModulePage" element={<MyModulesPage/>}></Route>
         <Route exact path="/NewAssignment" element={<NewAssignmentPage/>}></Route>
+        <Route exact path="/Batches" element={<BatchesPage/>}></Route>
         {/* Define other routes as needed */}
       </Routes>
     </Router>
