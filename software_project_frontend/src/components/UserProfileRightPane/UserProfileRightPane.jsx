@@ -2,8 +2,21 @@ import React from 'react'
 import './UserProfileRightPane.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CustomButton from '../Buttons/CustomButton';
+
+
 
 export const UserProfileRightPane = () => {
+
+
+    const handleCancel = (event) => {
+        
+    };
+
+    const handleSave = (event) => {
+        
+    };
+
   return (
     <div id='rightpane'>
         <div className='row'>
@@ -85,8 +98,11 @@ export const UserProfileRightPane = () => {
         </div>
 
         <div className='row' style={{justifyContent:"center"}}>
-            <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button>
-            <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button>
+            <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" />
+            <CustomButton text = "Save" onClick = {handleSave} backgroundColor = "#7894DB" textColor = "white" />
+
+            {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
+            {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}
         </div>
         
         

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 import MainRightPane from '../components/MainRightPane/MainRightPane'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {Button, TextField } from '@mui/material'
+import {Button, InputAdornment, TextField } from '@mui/material'
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -13,6 +13,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import '../styles/NewAssignmentPage.css'
 import CustomSelect from '../components/Other/CustomSelect';
 import InputFileUploadButton from '../components/Buttons/InputFileUploadButton';
+import CustomButton from '../components/Buttons/CustomButton';
 
 
 
@@ -21,6 +22,7 @@ const NewAssignmentPage = () => {
     const [selectedModule, setSelectedModule] = useState('');
     const [selectedBatch, setSelectedBatch] = useState('');
     const [assignmentName, setAssignmentName] = useState('');
+    const [selectedImage, setSelectedImage] = useState('');
 
     const handleModuleChange = (event) => {
         setSelectedModule(event.target.value);
@@ -33,6 +35,26 @@ const NewAssignmentPage = () => {
     const handleAssignmentNameChange = (event) => {
         setAssignmentName(event.target.value);
     };
+
+    const handleSelectedImageChange = (event) => {
+        if (event.target && event.target.files && event.target.files.length > 0) {
+            const file = event.target.files[0];
+            setSelectedImage(file);
+          
+        }
+    };
+
+    const handleCancel = (event) => {
+        
+    };
+
+    const handleSave = (event) => {
+        
+    };
+    // const onFileSelect = (event) => {
+    
+    //     console.log("File selected");
+    // };
 
 
   return (
@@ -75,12 +97,95 @@ const NewAssignmentPage = () => {
                     variant="outlined"
                     value={assignmentName}
                     onChange={handleAssignmentNameChange}
-                    sx={{ m: 0.5, maxWidth: 400}} // Apply the same height as the CustomSelect
+                    sx={{ m: 0.5, maxWidth: 400, padding:"0", position:"relative"}}
                 />
 
 
                 <span className='label1'>Marking Scheme</span>
+                <div className='center'>
+                    <TextField
+                        id="outlined-basic"
+                        label="Marking Scheme"
+                        variant="outlined"
+                        value={selectedImage ? selectedImage.name : ''}
+                        onChange={handleSelectedImageChange}
+                        sx={{ m: 0.5, maxWidth: 400, padding:"0", position:"relative"}}
+                    />
+                    <InputFileUploadButton onFileSelect={setSelectedImage} />
+                    {/* <InputFileUploadButton onFileSelect={onFileSelect}/> */}
+                </div>
+
+                
+            </div>
+
+            <div className='row'>
+                    <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" />
+                    <CustomButton text = "Next" onClick = {handleSave} backgroundColor = "#7894DB" textColor = "white" />
+
+                    {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
+                    {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}
+            </div>
+        </MainRightPane>
+        
+      
+    </div>
+    )
+}
+
+export default NewAssignmentPage;
+    
+                                            {/* {selectedImage && (
+                                                <TextField
+                                                id="outlined-basic"
+                                                label="Marking Scheme"
+                                                variant="outlined"
+                                                value={selectedImage.name}
+                                                sx={{ m: 0.5, maxWidth: 400, padding:"0", position:"relative"}}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                    <InputAdornment position="start">Selected: {selectedImage.name} </InputAdornment>
+                                                    ),
+                                                }}
+                                                />
+                                            )} */}
+                
+
+                {/* <span className='label1'>Marking Scheme</span>
+                <div className='center'>
+                    <InputFileUploadButton onFileSelect={onFileSelect} /> */}
+                {/* <label htmlFor="contained-button-file">
                 <InputFileUploadButton/>
+                </label>*/}
+                   
+                        {/* <TextField
+                            id="outlined-basic"
+                            label="Marking Scheme"
+                            variant="outlined"
+                            // type='file'
+                            value={selectedImage.name}
+                            onChange={handleSelectedImageChange}
+                            sx={{ m: 0.5, maxWidth: 400, padding:"0", position:"relative"}}
+                            InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">Selected: {selectedImage.name} </InputAdornment>
+                                                    ),
+                            }}
+                            // InputProps={{
+                            //     endAdornment: (
+                            //         <InputAdornment position='end'>
+                                        
+                            //         </InputAdornment>
+                            //     )
+                            // }}
+                        
+                        /> */}
+
+                    
+                    {/* <InputFileUploadButton/> */}
+                    {/* <InputFileUploadButton onFileSelect={onFileSelect} /> */}
+                
+            
+                
                 
                     
                 {/* <div> */}
@@ -168,14 +273,6 @@ const NewAssignmentPage = () => {
 
 
 
-            </div>
+            {/* </div> */}
     
 
-        </MainRightPane>
-        
-      
-    </div>
-  )
-}
-
-export default NewAssignmentPage;

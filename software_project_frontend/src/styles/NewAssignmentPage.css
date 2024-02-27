@@ -12,3 +12,21 @@
     margin-top: 2vh;
     margin-bottom: 1.5vh;
 }
+
+.center{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    /* margin-left: 10vh; */
+    /* margin-right: 10vh; */
+    margin: auto;
+    /* position: relative; */
+    /* justify-content: left; */
+    /* align-items: flex-start; */
+}
