@@ -39,3 +39,20 @@
     border-radius: 10px;
     cursor: pointer;
 } */
+
+.tableStyle{
+    width: 70%;
+}
+
+.theadStyle{
+    color: #B5B7C0 ;
+    font-weight: lighter;
+    /* display: flex;
+    flex-direction: row; */
+}
+
+.trStyle{
+    padding: 5px;
+    cursor: pointer;
+
+}
