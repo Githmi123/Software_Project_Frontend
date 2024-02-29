@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CustomNewButton from '../components/Buttons/CustomNewButton'
 
-import '../styles/BatchesPage.css'
+import '../styles/AssignmentsPage.css'
 
 const batches = [
     { assignmentNo:'01', name: "Assignment 01-quiz", date_created: '24/12/2023', status: "Graded" },
@@ -14,6 +14,8 @@ const batches = [
     { assignmentNo: '03', name: "Takehome 01 ", date_created: '05/01/2024', status: "Graded" },
     { assignmentNo: '04', name: "Assignment 02", date_created: '20/01/2024', status: "Not Graded" }
   ];
+
+const headers = ['Assignment No.', 'Name', 'Date Created', 'Status'];
 
 
 const AssignmentsPage = () => {
@@ -40,22 +42,19 @@ const AssignmentsPage = () => {
                 </div>
 
                 <div className='column'>
-                    <table style={{ width: '70%' }}>
-                        <thead style={{color: "#B5B7C0", fontWeight:"lighter"}}>
+                    <table className = "tableStyle">
+                        <thead className="theadStyle">
                             <tr>
-                                <th>Assignment No.</th>
-                                <th>Name</th>
-                                <th>Date Created</th>
-                                <th>Status</th>
+                                {headers.map((header) => (
+                                    <th key={header}>{header}</th>
+                                ))}
                             </tr>
                         </thead>
 
                         <tbody>
                             {batches.map((batchInfo) => (
-                                <tr key={batchInfo.assignmentNo} style={{ backgroundColor: selectedAssignmentNo === batchInfo.assignmentNo ? '#7894DB' : '#E3DDE8', color: selectedAssignmentNo === batchInfo.assignmentNo ? 'white' : 'black', border: '7px solid white', // Border style
-                                borderRadius: '10px', 
-                                padding: '5px', 
-                                cursor: 'pointer' 
+                                <tr key={batchInfo.assignmentNo} className='trStyle' style={{ backgroundColor: selectedAssignmentNo === batchInfo.assignmentNo ? '#7894DB' : '#E3DDE8', color: selectedAssignmentNo === batchInfo.assignmentNo ? 'white' : 'black', border: '7px solid white', // Border style
+                                borderRadius: '10px'
                                     }}
                                 >
                                     <td onClick={() => handleSelectedAssignmentNo(batchInfo.assignmentNo)}>
