@@ -13,6 +13,7 @@ import MyModulesPage from './pages/MyModulesPage';
 import NewAssignmentPage from './pages/NewAssignmentPage';
 import BatchesPage from './pages/BatchesPage';
 import AssignmentsPage from './pages/AssignmentsPage';
+import AnswerScriptsPage from './pages/AnswerScriptsPage';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/NewAssignment" element={<NewAssignmentPage/>}></Route>
         <Route exact path="/Batches" element={<BatchesPage/>}></Route>
         <Route exact path="/Assignments" element={<AssignmentsPage/>}></Route>
+        <Route exact path="/AnswerScripts" element={<AnswerScriptsPage/>}></Route>
         {/* Define other routes as needed */}
       </Routes>
     </Router>
