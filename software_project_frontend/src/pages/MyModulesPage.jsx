@@ -14,7 +14,6 @@ const table_data_modules = [
     { Module_Code:'EE5262',Module_Name:'Database Systems'},
     { Module_Code:'EE5262',Module_Name:'Database Systems'},  
    ]
-   
 
 const MyModulesPage = () => {
   return (
@@ -24,7 +23,7 @@ const MyModulesPage = () => {
       <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
       <h1 id='heading' >My Modules</h1>
 
-      <Button sx={{ m: 2, width: '150px', height: '50px', color: 'black', fontWeight: 'bold', textTransform: 'none' }} startIcon={<AddCircleIcon/>} id='new-module-button'>New Module</Button>
+      <Button sx={{ m: 2, width: '150px', height: '50px', color: 'black', fontWeight: 'bold', textTransform: 'none' }} startIcon={<AddCircleIcon/>} className='new-module-button'>New Module</Button>
    
       <div id='module-table'>
           <table>
@@ -34,7 +33,7 @@ const MyModulesPage = () => {
             </tr>
             {table_data_modules.map((val,key)=>{
               return(
-                <tr key={key} style={{backgroundColor:'#E3DDE8'}}>
+                <tr key={key} style={{backgroundColor:'#E3DDE8', borderRadius:'30px', margin:'0 0 5px 0'}}>
                   <td>{val.Module_Code}</td>
                   <td>{val.Module_Name}</td>
                 </tr>
