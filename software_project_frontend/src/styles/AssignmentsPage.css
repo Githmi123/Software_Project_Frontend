@@ -1,0 +1,94 @@
+.newButton{
+    display: flex;
+    margin-left: auto;
+    /* position: relative; */
+    /* margin-right: 2vh; */
+    /* justify-content: space-between; */
+    /* align-items:end; */
+}
+
+#module-table-headers{
+    color: #B5B7C0;
+    font-size: 14px;
+    font-weight: medium; 
+    align-items: center;  
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+#heading{
+    font-weight: bold;
+    font-size: 4.5vh;
+    margin-left: 7vh;
+}
+
+/* .options-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.option {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+} */
+
+.tableStyle{
+    width: 80%;
+    /* overflow-y: auto; */
+}
+
+.theadStyle{
+    color: #B5B7C0 ;
+    font-weight: lighter;
+    /* display: flex;
+    flex-direction: row; */
+}
+
+.trStyle{
+    padding: 2vh;
+    cursor: pointer;
+
+}
+
+.columnAnswerScripts{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+    max-height: 50%;
+    overflow-y: auto;
+    /* overflow-y: scroll; */
+    /* padding-bottom: 10px; */
+
+}
+
+.trStyleAnswerScript{
+    padding: 2vh;
+    cursor: pointer;
+    margin-top: auto;
+    margin: 0;
+
+}
+
+
+.tableStyle td {
+    padding: 5px; /* Adjust the padding as needed */
+    font-size: 14px; /* Adjust the font size as needed */
+}
+
+.tableStyle2{
+    width: 80%;
+    overflow-y: auto;
+    border-collapse: collapse;
+    max-height: 20vh;
+    margin-top: 20%;
+}
