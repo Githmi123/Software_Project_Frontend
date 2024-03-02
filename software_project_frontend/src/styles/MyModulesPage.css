@@ -16,6 +16,14 @@
     align-items: center;  
 }
 
+.column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vh;
+}
+
 
 #module-table {
   margin-left: 20vh; 
@@ -23,9 +31,9 @@
   margin-right: 20vh;
 }
 
-table {
+.table {
   border-collapse: collapse; 
-  width: 100%; 
+  width: 80%; 
 }
 
 table th, table td {
@@ -34,8 +42,14 @@ table th, table td {
   
 }
 
-table tr {
-    border-radius: 30px;
-    
+.tablehead{
+  color: #B5B7C0 ;
+  font-weight: lighter;
+}
+
+.table-data{
+  padding: 2vh;
+  cursor: pointer;
+  border-radius: 30px;
 }
 
