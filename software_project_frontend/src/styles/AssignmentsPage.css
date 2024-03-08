@@ -66,6 +66,7 @@
     margin-top: 5vh;
     max-height: 50%;
     overflow-y: auto;
+    margin-right: 10vh;
     /* overflow-y: scroll; */
     /* padding-bottom: 10px; */
 
@@ -91,4 +92,12 @@
     border-collapse: collapse;
     max-height: 20vh;
     margin-top: 20%;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
 }
