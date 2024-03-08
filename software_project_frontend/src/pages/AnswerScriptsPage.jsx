@@ -3,11 +3,15 @@ import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 import MainRightPane from '../components/MainRightPane/MainRightPane'
 import { Button, Checkbox } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import { CheckCircle } from '@mui/icons-material';
+import { Edit } from '@mui/icons-material';
+import { TrendingUp } from '@mui/icons-material';
 import CustomNewButton from '../components/Buttons/CustomNewButton'
 
 import '../styles/AssignmentsPage.css'
 import RemoveFileButton from '../components/Buttons/RemoveFileButton'
+import GradingButton from '../components/Buttons/GradingButton'
 
 const batches = [
     { regNo:'EG_2024_5671.png', date: "12/12/2023", size: '314.5 kB', status: "Graded" },
@@ -29,6 +33,18 @@ const AnswerScriptsPage = () => {
     const [selectedAssignmentNos, setSelectedAssignmentNos] = useState([]);
 
     const handleNewAnswerScript = (event) => {
+    };
+
+    const handleGradeAllFiles = (event) => {
+    };
+
+    const handleGradeSelectedFiles = (event) => {
+    };
+
+    const handleGradeManually = (event) => {
+    };
+
+    const handleVisualizeAGraph = (event) => {
     };
 
     const handleToggleAssignmentNo = (regNo) => {
@@ -130,6 +146,13 @@ const AnswerScriptsPage = () => {
                     </table>
                     </div> */}
             
+                </div>
+
+                <div className='row'>
+                    <GradingButton text = "Grade all files" onClick={{handleGradeAllFiles}} icon = {AssignmentTurnedInIcon}/>
+                    <GradingButton text = "Grade selected files" onClick={{handleGradeSelectedFiles}} icon = {CheckCircle}/>
+                    <GradingButton text = "Grade manually" onClick={{handleGradeManually}} icon = {Edit }/>
+                    <GradingButton text = "Visualize a graph" onClick={{handleVisualizeAGraph}} icon = {TrendingUp}/>
                 </div>
         
             </MainRightPane>
