@@ -101,3 +101,13 @@
     align-items: center;
     margin-top: 5vh;
 }
+
+#rectangle{
+    position: relative;
+    width: 55vh;
+    height: 35vh;
+    margin-left: 5vh;
+    background-color: #D9D9D9;
+    border-radius: 3vh;
+
+}
