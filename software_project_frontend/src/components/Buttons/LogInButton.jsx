@@ -13,9 +13,9 @@ function LogInButton() {
       variant="text"
       style={{
         position: 'absolute',
-        left: '43%',
+        left: '45%',
         right: '0%',
-        top: '85%',
+        top: '80%',
         bottom: '0%',
         background: '#7894DB',
         borderRadius: '12px',
