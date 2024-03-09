@@ -7,9 +7,9 @@ import ButtonSet from '../ButtonSet/ButtonSet'
 
 const MainLeftPane = () => {
   return (
-    <div className='maindiv-left'>
+    <div className='maindiv-left'>    
+        <img id='main-left-pane-image' src={projectlogo}/>
         
-        <img src={projectlogo}/>
         <ButtonSet/>
     </div>
   )

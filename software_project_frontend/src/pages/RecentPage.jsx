@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 import MainRightPane from '../components/MainRightPane/MainRightPane'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -11,7 +11,14 @@ const table_data = [
  { Assignment : 'EE3307 GUI Programming - Assignment 1', Batch:'22nd',Status:'Submitted for Grading',Graded:201},
 ]
 
+const headers = ['Assignment','Batch', 'Status','Graded'];
+
 const RecentPage = () => {
+ const [selectRecentModule, setSelectedRecentModule]=useState(null);
+
+ const handleSelectedRecentModule =(Assignment)
+
+
   return (
     <div>
       <MainLeftPane/>

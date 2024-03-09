@@ -10,7 +10,7 @@ const MainRightPane = ({ children }) => {
   return (
     <div className='maindiv-right'>
       
-      <div className='container' style={{margin:'40px 40px 40px auto'}}>   
+      <div className='container' >   
       {children} 
       
         
