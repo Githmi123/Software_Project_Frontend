@@ -14,6 +14,7 @@ import NewAssignmentPage from './pages/NewAssignmentPage';
 import BatchesPage from './pages/BatchesPage';
 import AssignmentsPage from './pages/AssignmentsPage';
 import AnswerScriptsPage from './pages/AnswerScriptsPage';
+import DataVisualizationPage from './pages/DataVisualizationPage';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/Batches" element={<BatchesPage/>}></Route>
         <Route exact path="/Assignments" element={<AssignmentsPage/>}></Route>
         <Route exact path="/AnswerScripts" element={<AnswerScriptsPage/>}></Route>
+        <Route exact path="/DataVisualization" element={<DataVisualizationPage/>}></Route>
         {/* Define other routes as needed */}
       </Routes>
     </Router>
