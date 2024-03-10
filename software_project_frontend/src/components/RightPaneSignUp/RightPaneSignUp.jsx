@@ -32,11 +32,10 @@ export const RightPaneSignUp = () => {
     };
 
     const [values, setValues] = useState({
-        firstname:'',
-        lastname:'',
         email: '',
         password: '',
-        confirmpassword: '',
+        firstname:'',
+        lastname:'',
         designation:''
     })
 
@@ -45,8 +44,9 @@ export const RightPaneSignUp = () => {
     })
 
     const handleInput = (event) => {
-        setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+        setValues(prev => ({...prev, [event.target.name]: event.target.value}))
     }
+    
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -429,6 +429,7 @@ style={{
               
 
               <SignUpButton/>
+              <button type='submit' onClick={handleSubmit} style={{marginTop: "200px"}}>Sign Up</button>
             </form>
 
             
