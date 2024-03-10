@@ -2,7 +2,7 @@
     position: relative;
     display: flex;
     /* height: 80vh; */
-    width: 150vh;
+    width: 160vh;
     background-color: white;
     border-radius: 5vh;
     margin: 3vw;
@@ -14,46 +14,19 @@
     
 }
 
-.fas.fa-angle-left{
-    font-size: 2vh;
-}
-
-#homeText{
-    font-family: 'Roboto', 'Times New Roman', Times, serif;
-}
-
-#homeButton{
-    background-color: transparent;
-    border: 0cap;
-    margin: 3vh;
-    display: flex;
-}
-
 .notificationButton{
-    /* border: 0cap; */
-    /* background-color: transparent; */
-    display: flex;
     border-radius: 50vh;
-    right: 3vh;
-    margin-left: auto;
-    margin-top: 3vh; 
-    position:absolute;
     background-color: #7894DB;
+    margin-right: 50vh;
     border: 0vh;
-    /* border-color: aqua; */
-    /* font-size: large; */
     height: 3vh;
     width: 3vh;
-    justify-content: center;
-    align-items: center;
-
-    
+ 
 }
 
 .row{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 #outlined-basic{

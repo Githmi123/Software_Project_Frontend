@@ -1,8 +1,8 @@
 .RightPane{
 position: absolute;
-width: 830px;
-height: 650px;
-left: 673px;
+width: 145vh;
+height: 90vh;
+margin-left: 75vh;
 top: 44px;
 z-index: 2;
 background-color: #F5F5F5;
@@ -10,54 +10,38 @@ mix-blend-mode: overlay;
 box-shadow: 0px 1.2px 3.6px rgba(0, 0, 0, 0.1), 0px 6.4px 14.4px rgba(0, 0, 0, 0.13);
 border-radius: 30px;
 overflow: hidden;
-
-
 }
-
 
 .RightPane1{
     position: absolute;
-    width: 970px;
-    height: 1350px;
-    left: 673px;
-    top: 44px;
+    width: 145vh;
+    height: 90vh;
+    margin-left: 75vh;
+    margin-top: -95vh;
     z-index: 5;
     background-color:transparent;
-    
-    box-shadow: 0px 1.2px 3.6px rgba(0, 0, 0, 0.1), 0px 6.4px 14.4px rgba(0, 0, 0, 0.13);
     border-radius: 30px;
-    overflow: hidden;
-    
-    
+    overflow: hidden; 
+    align-items: center;
+    text-align: center;
+    align-content: center;
     }
     
-
 #RS{
-
-position: absolute;
-width: 358px;
-height: 118px;
-left: 251px;
-top: 145px;
-
+    margin-top: 10vh;
+    width: 60vh;
+    height: 20vh;
 }
 
 #LogText{
-position: absolute;
-width: 283.23px;
-height: 72.1px;
-left: 298px;
-top: 251px;
-
-font-family: 'Karla';
-
-font-weight: 700;
-font-size: 35.2264px;
-line-height: 42px;
-
-text-align: center;
-
-color: #212B27;
+    position: absolute;
+    width: 40vh;
+    font-family: 'Karla';
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    color: #212B27;
+    margin-left: 55vh;
 }
 
 .subtext{
@@ -71,11 +55,9 @@ font-family: 'Roboto';
 font-style: normal;
 font-weight: 400;
 font-size: 20px;
-line-height: 23px;
 display: flex;
 align-items: center;
 text-align: center;
-
 color: #000000;
 
 
@@ -83,20 +65,17 @@ color: #000000;
 
 .NoAccount{
 position: absolute;
-width: 278px;
-height: 15px;
-left: 253px;
-top: 595px;
+width: 50vh;
+height: 10vh;
+left: 45vh;
+top: 80vh;
 
 font-family: 'Roboto';
 font-style: italic;
 font-weight: 400;
-font-size: 14px;
-line-height: 16px;
+font-size: 1rem;
 text-align: center;
 color: #242D3F;
-
-
 }
 
 #rectangle1{

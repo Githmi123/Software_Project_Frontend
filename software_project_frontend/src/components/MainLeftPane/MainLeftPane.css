@@ -4,11 +4,13 @@
     background-color:white;
     flex:1;
     float:left;
+    align-items: center;
+    align-content: center;
 }
 
-img {
-    width: 200px;
-    height:70px;
-    margin-top: 75px;
-    margin-left: 70px;
+#main-left-pane-image {
+    margin: auto;
+    margin-top: 15vh;
+    margin-left: 5vh;
+    
 }

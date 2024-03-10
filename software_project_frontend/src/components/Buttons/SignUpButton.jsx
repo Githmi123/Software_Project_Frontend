@@ -14,7 +14,7 @@ function SignUpButton() {
       type='submit'
       style={{
         position: 'absolute',
-        left: '43%',
+        left: '46%',
         right: '0%',
         top: '5%',
         bottom: '0%',

@@ -3,6 +3,7 @@ import './UserProfileRightPane.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CustomButton from '../Buttons/CustomButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 
 
@@ -19,17 +20,12 @@ export const UserProfileRightPane = () => {
 
   return (
     <div id='rightpane'>
-        <div className='row'>
-            <button id='homeButton'>
-                <i className="fas fa-angle-left">
-                    <span id='homeText'> Home </span>
-                </i>
+        <div>
+        <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold',marginLeft:'10vh' }} startIcon={<ArrowBackIcon/>}>Home</Button>
 
-            </button>
-            <button className="notificationButton">
+        <button className="notificationButton" >
                 <i className="fas fa-bell"></i>
-
-            </button>
+        </button>
         </div>
 
         <div className='row'>

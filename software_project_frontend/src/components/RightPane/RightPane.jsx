@@ -51,12 +51,10 @@ export const RightPane = () => {
 
     return(
         <div >
-            <div className="RightPane"></div>
+        <div className="RightPane"></div>
         <div className="RightPane1" >
-            {/* <MuiTextField/> */}
-                <img src={rapidscore} id='RS' alt="rs"/>
+            <img src={rapidscore} id='RS' alt="rs"/>
            
-
             <div id="LogText">
                 Log into your account 
             </div>
@@ -66,23 +64,23 @@ export const RightPane = () => {
             helperText={errors.username && <span className='text-danger'>{errors.username}</span>}
             style={{
                 position: 'absolute',
-                width: '489px',
-                height: '55px',
-                left: '188px',
-                backgroundColor: 'transparent',
-                top: '389px',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '48vh',
                 color: '#000000',
-                }} InputProps={{ style: {
+                }} 
+                InputProps={{ style: {
                     boxSizing: 'border-box',
                     position: 'absolute',
                     left: 0,
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    borderBottom: '4px solid #5932EA',
-                    borderRadius: '8px',
-                
-                }, startAdornment: (
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh'   }, 
+
+                startAdornment: (
                     <InputAdornment position="start" style={{
                     position: 'absolute',
                     left: '4.38%',
@@ -92,7 +90,7 @@ export const RightPane = () => {
                     background: '#000000',
                     height: "0%"
                     }}>
-                    <img src={username} alt="username" style={{ height: "15px", width: "auto" }}/>
+                    <img src={username} alt="username" style={{ height: "2vh", width: "auto" }}/>
                     </InputAdornment>
                 ),
                 }}
@@ -106,8 +104,8 @@ export const RightPane = () => {
                     fontFamily: 'Roboto',
                     fontStyle: 'normal',
                     fontWeight: 800,
-                    fontSize: '20px',
-                    lineHeight: '23px',
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
                     display: 'flex',
                     alignItems: 'center',
                     color: '#000000',
@@ -119,10 +117,10 @@ export const RightPane = () => {
             helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
             style={{
                 position: 'absolute',
-                width: '489px',
-                height: '55px',
-                left: '188px',
-                top: '469px',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '58vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -131,8 +129,8 @@ export const RightPane = () => {
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    borderBottom: '4px solid #5932EA',
-                    borderRadius: '8px',
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
                     // Add other styles as needed
                 }, startAdornment: (
                     <InputAdornment position="start" style={{
@@ -165,28 +163,27 @@ export const RightPane = () => {
                     fontFamily: 'Roboto',
                     fontStyle: 'normal',
                     fontWeight: 800,
-                    fontSize: '20px',
-                    lineHeight: '23px',
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
                     display: 'flex',
                     alignItems: 'center',
                     color: '#000000',
                 },
                 }}
       />
-      
+
+        <LogInButton/>
       </form>
 
-              
+
             
             <div className='NoAccount'>
             
                 Don't have an account?
+              
             </div>
-          
-            <Link to="/SignUp" className='NoAccount' style={{ color: "#FF2442", left: "350px", textDecoration: "underline" }}>
-  Sign Up
-  
-        </Link>
+            <Link to="/SignUp" className='NoAccount' style={{ color: "#FF2442",marginLeft:'15vh', textDecoration: "underline" }}> Sign Up</Link>
+           
             
 
             
@@ -199,68 +196,5 @@ export const RightPane = () => {
         </div>
     )
 }
-
-
-
-
-
-
-// import React from 'react';
-// import './RightPane.css';
-// import LogInButton from '../Buttons/LogInButton';
-// import TextField from '@mui/material/TextField';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import { Link } from 'react-router-dom';
-
-// import ima from '../../images/rs.png';
-// import img from '../../images/username.png';
-// import passwordImg from '../../images/password.png';
-
-// export const RightPane = () => {
-//     return (
-//         <div className="RightPaneContainer">
-//             <div className="RightPane">
-//                 <img src={ima} alt="rs" id="RS" />
-
-//                 <div id="LogText">Log into your account</div>
-
-//                 <TextField
-//                     id="standard-basic"
-//                     label="Username"
-//                     variant="standard"
-//                     InputProps={{
-//                         startAdornment: (
-//                             <InputAdornment position="start">
-//                                 <img src={img} alt="username" />
-//                             </InputAdornment>
-//                         ),
-//                     }}
-//                 />
-
-//                 <TextField
-//                     id="standard-basic"
-//                     label="Password"
-//                     type="password"
-//                     variant="standard"
-//                     InputProps={{
-//                         startAdornment: (
-//                             <InputAdornment position="start">
-//                                 <img src={passwordImg} alt="password" />
-//                             </InputAdornment>
-//                         ),
-//                     }}
-//                 />
-
-//                 <LogInButton />
-
-//                 <div className="NoAccount">Don't have an account?</div>
-
-//                 <Link to="/SignUp" className="NoAccount">
-//                     Sign Up
-//                 </Link>
-//             </div>
-//         </div>
-//     );
-// };
 
 

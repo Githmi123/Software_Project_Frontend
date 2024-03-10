@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 import MainRightPane from '../components/MainRightPane/MainRightPane'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
+
+import SearchAppBar from '../components/Other/SearchBar/SearchBar';
+
 import '../styles/RecentPage.css'
 
 const table_data = [
@@ -11,40 +14,59 @@ const table_data = [
  { Assignment : 'EE3307 GUI Programming - Assignment 1', Batch:'22nd',Status:'Submitted for Grading',Graded:201},
 ]
 
+const headers = ['Assignment','Batch', 'Status','Graded'];
+
 const RecentPage = () => {
+ const [selectedRecentModule, setSelectedRecentModule]=useState(null);
+
+ const handleRecentModule = (event)=>{
+
+ };
+
+ const handleSelectedRecentModule=(Assignment)=>{
+  setSelectedRecentModule(Assignment===selectedRecentModule?null:Assignment);
+ };
+
+
   return (
     <div>
       <MainLeftPane/>
       <MainRightPane >
       <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
+        <SearchAppBar/>
         <h1 id='heading' >Recents</h1>
 
-        <div id='recent-table'>
-          <table>
-            <tr id='recent-table-headers' sx={{fontWeight:'bolder'}}>
-              <th>Assignment</th>
-              <th>Batch</th>
-              <th>Status</th>
-              <th>Graded</th>
-            </tr>
-            {table_data.map((val,key)=>{
-              return(
-                <tr key={key}>
-                  <td>{val.Assignment}</td>
-                  <td>{val.Batch}</td>
-                  <td>{val.Status}</td>
-                  <td>{val.Graded}</td>
+        <div className='column'>
+          <table className='table'>
+            <thead className='tablehead'>
+              <tr>
+                {headers.map((header) => (
+                  <th key={header}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {table_data.map((recentdata) => (
+                <tr
+                  className='table-data'
+                  key={recentdata.Assignment}
+                  style={{
+                    backgroundColor: recentdata.Assignment === selectedRecentModule ? '#7894DB' : '#E3DDE8',
+                    color: recentdata.Assignment === selectedRecentModule ? 'white' : 'black',
+                    border: '7px solid white', 
+                    borderRadius: '10px'
+                  }}
+                  onClick={() => handleSelectedRecentModule(recentdata.Assignment)}
+                >
+                  <td>{recentdata.Assignment}</td>
+                  <td>{recentdata.Batch}</td>
+                  <td>{recentdata.Status}</td>
+                  <td>{recentdata.Graded}</td>
                 </tr>
-              )
-            }
-
-            )
-
-            }
-
+              ))}
+            </tbody>
           </table>
         </div>
-
       </MainRightPane>
     </div>
   )

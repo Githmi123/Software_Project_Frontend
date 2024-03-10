@@ -13,26 +13,23 @@ function Login() {
   return (
     <div  style={{backgroundColor: "#7894DB"}}>
         <LeftPane/>
-        <RightPane/>
+        <RightPane>
+          
+        </RightPane>
         <div id='rectangle1'>
-
         </div>
 
         <div id='rectangle2'>
-
         </div>
 
         <div id='rectangle3'>
-
         </div>
 
-        <div id='rectangle4'>
-
+       {/*  <div id='rectangle4'>
         </div>
 
         <div id='rectangle5'>
-
-        </div>
+        </div> */}
         
 
     </div>

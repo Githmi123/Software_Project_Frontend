@@ -27,14 +27,14 @@ function SignUp() {
 
         </div>
 
-        <div id='rectangle4'>
+       {/*  <div id='rectangle4'>
 
         </div>
 
         <div id='rectangle5'>
 
         </div>
-     
+      */}
 
     </div>  
   );

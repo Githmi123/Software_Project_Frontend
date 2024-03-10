@@ -1,101 +1,27 @@
 .LeftPane{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    height: 100%;/****************************************************/
+    height: 100vh;
     background: #FFFFFF;
-    z-index: 1; /****************************************************/
-    margin: 0; /* Reset margin */
-    padding: 0; /* Reset padding */
-
-/* position: absolute;
-width: 40%;
-height: 100%;
-left: 0px;
-top: 0px;
-bottom: 0px;
-z-index: 1;
-background: #FFFFFF; */
+    flex-direction: column;
+    align-items: center;
 }
-
-
 
 #Logo{
-    position: absolute;
-    width: 130px;
-    height: 179px;
-    top: 209px;
-    /* left: 256px; */
-    justify-content: center;
-    align-items: center;
-    /* position: absolute;
-    width: 130px;
-    height: 179px;
-    left: 256px;
-    top: 209px; */
+    width: 20vh;
+    height: 30vh;   
+  margin-top: 25vh;
+  
 }
-
-
 
 .APGSText{
-    font-family: 'Roboto';
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 28px;
-    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
     color: #000000;
-    margin-bottom: 10px;
-
-    position: absolute;
-    width: 395px;
-    height: 104px;
-    /* left: 143px; */
-    top: 406px;
-
-
-
-/* position: absolute;
-width: 395px;
-height: 104px;
-left: 143px;
-top: 406px;
-
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 28px;
-display: flex;
-align-items: center;
-text-align: center;
-color: #000000; */
+    margin-top: 5vh;
 }
 
-.subtext{
-    position: absolute;
-    font-family: 'Roboto';
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 23px;
-    text-align: center;
+.subtext-leftpane{
+    font-size: 1rem;
     color: #000000;
-    margin-bottom: 10px;
-    top: 508px;
-    align-items: center;
-
-
-position: absolute;
-width: 395px;
-left: 123px;
-top: 508px;
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 23px;
-align-items: center;
-text-align: center;
-color: #000000;
 }

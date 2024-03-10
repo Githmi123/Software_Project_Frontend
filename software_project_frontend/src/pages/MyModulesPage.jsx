@@ -11,13 +11,13 @@ import CustomNewButton from '../components/Buttons/CustomNewButton';
 
 
 const table_data_modules = [
-    { Module_Code:'EE5262',Module_Name:'Database Systems'},
-    { Module_Code:'EE5263',Module_Name:'Database Systems 2'},
-    { Module_Code:'EE5264',Module_Name:'Database Systems 3'},
-    { Module_Code:'EE5265',Module_Name:'Database Systems 4'},  
+    { Module_Code:'EE5262',Module_Name:'Database Systems',Credits:2},
+    { Module_Code:'EE5263',Module_Name:'Database Systems 2',Credits:2},
+    { Module_Code:'EE5264',Module_Name:'Database Systems 3',Credits:2},
+    { Module_Code:'EE5265',Module_Name:'Database Systems 4',Credits:2},  
 ];
 
-const headers = ['Module_Code','Module_Name'];
+const headers = ['Module_Code','Module_Name','Credits'];
 
 const MyModulesPage = () => {
   const [selectedModule, setSelectedModule] = useState(null);
@@ -66,6 +66,7 @@ const MyModulesPage = () => {
                 >
                   <td>{moduledata.Module_Code}</td>
                   <td>{moduledata.Module_Name}</td>
+                  <td>{moduledata.Credits}</td>
                 </tr>
               ))}
             </tbody>
