@@ -32,12 +32,10 @@ export const RightPaneSignUp = () => {
     };
 
     const [values, setValues] = useState({
-        firstname:'',
-        lastname:'',
+        username: '',
         email: '',
         password: '',
-        confirmpassword: '',
-        designation:''
+        confirmpassword: ''
     })
 
     const [errors, setErrors] = useState({
@@ -53,7 +51,7 @@ export const RightPaneSignUp = () => {
         const validationErrors = SignUpValidation(values);
         setErrors(validationErrors);
 
-        if(errors.firstname === " " && errors.lastname === "" && errors.email === "" && errors.password === "" && errors.designation === ""){
+        if(errors.username === "" && errors.email === "" && errors.password === ""){
             axios.post("http://localhost:3500/register", values)
             .then(res => {
                 navigate('/');
@@ -80,23 +78,23 @@ export const RightPaneSignUp = () => {
         <div className="RightPane1">
            
             <div >
-                <img src={ima} id='RS' alt="rs"/>
+                <img src={ima} id='RS' alt="rs" style={{top:"10vh"}}/>
             </div>
 
-            <div id="LogText" style={{top: "20vh",width:'50vh',left:'-5vh'}}>
+            <div id="LogText" style={{top: "28vh",width:'50vh',left:'-5vh'}}>
                 Create an account 
             </div>
             <form onSubmit={handleSubmit}>
-             
-            <TextField id="standard-basic" label="First Name" type='text' name='firstname' variant="standard" 
-            helperText={errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
+            <SignUpButton/>  
+            <TextField id="standard-basic" label="Name" type='text' name='username' variant="standard" 
+            helperText={errors.username && <span className='text-danger'>{errors.username}</span>}
             onChange={handleInput}
             style={{
                 position: 'absolute',
                 width: '60vh',
-                height: '5vh',
+                height: '7vh',
                 left: '45vh',
-                top: '30vh',
+                top: '36vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -126,61 +124,6 @@ export const RightPaneSignUp = () => {
                 style: {
                     position: 'absolute',
                     left: '8.23%',
-                    right: '70.56%',
-                    width:'90%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
-      />
-
-        <TextField id="standard-basic" label="Last Name" type='text' name='lastname' variant="standard" 
-            helperText={errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
-            onChange={handleInput}
-            style={{
-                position: 'absolute',
-                width: '60vh',
-                height: '5vh',
-                left: '45vh',
-                top: '38vh',
-                color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
-                
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '8.23%',
-                    width:'90%',
                     right: '70.56%',
                     top: '5%',
                     bottom: '27.27%',
@@ -202,7 +145,7 @@ export const RightPaneSignUp = () => {
             style={{
                 position: 'absolute',
                 width: '60vh',
-                height: '5vh',
+                height: '7vh',
                 left: '45vh',
                 top: '46vh',
                 color: '#000000',
@@ -249,15 +192,16 @@ export const RightPaneSignUp = () => {
                 }}
       />
 
+
             <TextField id="standard-basic" label="Password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
             helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
             onChange={handleInput}
             style={{
                 position: 'absolute',
                 width: '60vh',
-                height: '5vh',
+                height: '7vh',
                 left: '45vh',
-                top: '54vh',
+                top: '56vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -317,9 +261,9 @@ helperText={errors.password && <span className='text-danger'>{errors.password}</
 style={{
                 position: 'absolute',
                 width: '60vh',
-                height: '5vh',
+                height: '7vh',
                 left: '45vh',
-                top: '62vh',
+                top: '66vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -372,60 +316,6 @@ style={{
                 }}
       />
 
-<TextField id="standard-basic" label="Designation" type='text' name='designation' variant="standard" 
-            helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
-            onChange={handleInput}
-            style={{
-                position: 'absolute',
-                width: '60vh',
-                height: '5vh',
-                left: '45vh',
-                top: '70vh',
-                color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
-            
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%",
-                    width:'10%'
-                    }}>
-                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '10.23%',
-                    width:'90%',
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
-      />
               
 
               <SignUpButton/>
@@ -433,7 +323,7 @@ style={{
 
             
             <div className='no-account-1' style={{position: 'absolute',width:'50vh',height:'10vh',left:'45vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
- fontWeight: 400, fontSize: '1rem', color: 'black'}}>
+
                 Already have an account?
             </div>
 
