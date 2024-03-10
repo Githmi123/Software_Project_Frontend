@@ -10,11 +10,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
 import RecentPage from './pages/RecentPage';
 import MyModulesPage from './pages/MyModulesPage';
+import NewModule from './pages/NewModule';
 import NewAssignmentPage from './pages/NewAssignmentPage';
 import BatchesPage from './pages/BatchesPage';
 import AssignmentsPage from './pages/AssignmentsPage';
 import AnswerScriptsPage from './pages/AnswerScriptsPage';
 import DataVisualizationPage from './pages/DataVisualizationPage';
+import ManualGradingPage from './pages/ManualGradingPage';
 
 
 function App() {
@@ -27,11 +29,14 @@ function App() {
         <Route exact path="/SignUp" element={<SignUp/>}></Route>
         <Route exact path="/RecentPage" element={<RecentPage/>}></Route>
         <Route exact path="/MyModulePage" element={<MyModulesPage/>}></Route>
+        <Route exact path="/NewModule" element={<NewModule/>}></Route> 
         <Route exact path="/NewAssignment" element={<NewAssignmentPage/>}></Route>
         <Route exact path="/Batches" element={<BatchesPage/>}></Route>
         <Route exact path="/Assignments" element={<AssignmentsPage/>}></Route>
         <Route exact path="/AnswerScripts" element={<AnswerScriptsPage/>}></Route>
         <Route exact path="/DataVisualization" element={<DataVisualizationPage/>}></Route>
+        <Route exact path="/ManualGradingPage" element={<ManualGradingPage/>}></Route>
+
         {/* Define other routes as needed */}
       </Routes>
     </Router>
