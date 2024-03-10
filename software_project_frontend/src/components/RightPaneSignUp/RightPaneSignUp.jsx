@@ -8,10 +8,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import img from '../../images/username.png'
 import email from '../../images/email.png'
 import password from '../../images/password.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignUpButton from '../Buttons/SignUpButton';
 import  {IconButton}  from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import SignUpValidation from '../Validation/SignUpValidation';
+import axios from 'axios';
 
 
 
@@ -29,6 +31,44 @@ export const RightPaneSignUp = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
 
+    const [values, setValues] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmpassword: ''
+    })
+
+    const [errors, setErrors] = useState({
+
+    })
+
+    const handleInput = (event) => {
+        setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+    }
+    const navigate = useNavigate();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const validationErrors = SignUpValidation(values);
+        setErrors(validationErrors);
+
+        if(errors.username === "" && errors.email === "" && errors.password === ""){
+            axios.post("http://localhost:3500/register", values)
+            .then(res => {
+                navigate('/');
+            })
+            .catch(err => console.log(err));
+        }
+        // if (Object.keys(validationErrors).length === 0) {
+        //     // If there are no errors, proceed with form submission
+        //     console.log('Form submitted');
+        // } else {
+        //     // If there are errors, focus on the first erroneous field
+        //     const firstErrorField = Object.keys(validationErrors)[0];
+        //     document.getElementsByName(firstErrorField)[0].focus();
+        // }
+    };
+    
+
 
     return(
         <div >
@@ -44,7 +84,12 @@ export const RightPaneSignUp = () => {
             <div id="LogText" style={{top: "28vh",width:'50vh',left:'-5vh'}}>
                 Create an account 
             </div>
-            <TextField id="standard-basic" label="Name" variant="standard" style={{
+            <form onSubmit={handleSubmit}>
+            <SignUpButton/>  
+            <TextField id="standard-basic" label="Name" type='text' name='username' variant="standard" 
+            helperText={errors.username && <span className='text-danger'>{errors.username}</span>}
+            onChange={handleInput}
+            style={{
                 position: 'absolute',
                 width: '60vh',
                 height: '7vh',
@@ -94,7 +139,10 @@ export const RightPaneSignUp = () => {
                 }}
       />
 
-<TextField id="standard-basic" label="Email" variant="standard" style={{
+        <TextField id="standard-basic" label="Email" type='email' name='email' variant="standard" 
+            helperText={errors.email && <span className='text-danger'>{errors.email}</span>}
+            onChange={handleInput}
+            style={{
                 position: 'absolute',
                 width: '60vh',
                 height: '7vh',
@@ -145,7 +193,10 @@ export const RightPaneSignUp = () => {
       />
 
 
-            <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "password"} variant="standard" style={{
+            <TextField id="standard-basic" label="Password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
+            helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
+            onChange={handleInput}
+            style={{
                 position: 'absolute',
                 width: '60vh',
                 height: '7vh',
@@ -205,7 +256,9 @@ export const RightPaneSignUp = () => {
                 }}
       />
 
-<TextField id="standard-basic" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" style={{
+<TextField id="standard-basic" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
+helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
+style={{
                 position: 'absolute',
                 width: '60vh',
                 height: '7vh',
@@ -264,9 +317,13 @@ export const RightPaneSignUp = () => {
       />
 
               
-            <SignUpButton/>
+
+              <SignUpButton/>
+            </form>
+
+            
             <div className='no-account-1' style={{position: 'absolute',width:'50vh',height:'10vh',left:'45vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
-                fontWeight: 400, fontSize: '1rem', color: '#242D3F'}}>
+
                 Already have an account?
             </div>
 

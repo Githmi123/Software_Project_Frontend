@@ -12,6 +12,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import rapidscore from '../../images/rs.png';
 import username from '../../images/username.png'
 import password from '../../images/password.png'
+import LoginValidation from '../Validation/LoginValidation';
 
 export const RightPane = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +20,33 @@ export const RightPane = () => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
    
+    };
+
+    const [values, setValues] = useState({
+        username: '',
+        password: ''
+    })
+
+    const [errors, setErrors] = useState({
+
+    })
+
+    const handleInput = (event) => {
+        setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const validationErrors = LoginValidation(values);
+        setErrors(validationErrors);
+        if (Object.keys(validationErrors).length === 0) {
+            // If there are no errors, proceed with form submission
+            console.log('Form submitted');
+        } else {
+            // If there are errors, focus on the first erroneous field
+            const firstErrorField = Object.keys(validationErrors)[0];
+            document.getElementsByName(firstErrorField)[0].focus();
+        }
     };
 
     return(
@@ -30,13 +58,15 @@ export const RightPane = () => {
             <div id="LogText">
                 Log into your account 
             </div>
-
-            <TextField id="standard-basic" label="Username" variant="standard" style={{
+            <form onSubmit={handleSubmit}> 
+            <LogInButton/>
+            <TextField id="standard-basic" label="Username" name='username' variant="standard" onChange={handleInput} 
+            helperText={errors.username && <span className='text-danger'>{errors.username}</span>}
+            style={{
                 position: 'absolute',
                 width: '60vh',
                 height: '7vh',
                 left: '45vh',
-                
                 top: '48vh',
                 color: '#000000',
                 }} 
@@ -83,7 +113,9 @@ export const RightPane = () => {
                 }}
       />
 
-            <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "password"} variant="standard" style={{
+            <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "password"} name='password' onChange={handleInput} variant="standard" 
+            helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
+            style={{
                 position: 'absolute',
                 width: '60vh',
                 height: '7vh',
@@ -139,11 +171,14 @@ export const RightPane = () => {
                 },
                 }}
       />
-       
-            <LogInButton/>
+
+        <LogInButton/>
+      </form>
+
 
             
             <div className='NoAccount'>
+            
                 Don't have an account?
               
             </div>

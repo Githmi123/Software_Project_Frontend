@@ -3,19 +3,22 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import login from '../../images/login.png'
+import LoginValidation from '../Validation/LoginValidation';
 
 
 function LogInButton() {
+ 
   return (
     <div> 
       <Stack spacing={2} direction="row">
       <Button  
       variant="text"
+      type='submit'
       style={{
         position: 'absolute',
         left: '45%',
         right: '0%',
-        top: '80%',
+        top: '5%',
         bottom: '0%',
         background: '#7894DB',
         borderRadius: '12px',
