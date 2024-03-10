@@ -1,13 +1,13 @@
 .button{
-    text-align: left;
-    text-transform: none;
-    background-color: red;
-    color: black;
-    width: 200px;
-    display: flex;
+    text-align: left !important;
+    text-transform: none !important;
+    background-color: white !important;
+    color: black !important;
+    width: 200px !important;
+    display: flex !important;
 }
 
 .button:hover {
-    background-color: red;
-    color: white;
+    background-color: #7894DB !important;
+    color: white !important;
 }

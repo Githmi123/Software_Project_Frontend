@@ -7,15 +7,16 @@
 }
 
 .container{
-    max-width: 160vh;
     background-color: white;
-    width: 100%;
+    width: 95%;
     height: 90vh;
     display: flex;
+  
    
     border-radius: 5vh;
     flex-direction: column;
     margin: auto;
+    margin-top: 5vh;
 }
 
 .containerScrollable{
