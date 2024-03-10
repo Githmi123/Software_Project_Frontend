@@ -16,7 +16,7 @@ function SignUpButton() {
         position: 'absolute',
         left: '46%',
         right: '0%',
-        top: '5%',
+        top: '85%',
         bottom: '0%',
         background: '#7894DB',
         borderRadius: '12px',

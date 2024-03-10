@@ -5,12 +5,20 @@ function SignUpValidation(values) {
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const password_pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   
-    if(values.username === ""){
-      error.username = "Username should not be empty"
+    if(values.firstname === ""){
+      error.firstname = "First name should not be empty"
     }
   
     else{
-      error.username = ""
+      error.firstname = ""
+    }
+
+    if(values.lastname === ""){
+      error.lastname = "Last name should not be empty"
+    }
+  
+    else{
+      error.lastname = ""
     }
 
     if(values.email === ""){
@@ -47,6 +55,15 @@ function SignUpValidation(values) {
     
       else{
         error.confirmpassword = ""
+      }
+
+
+      if(values.designation === ""){
+        error.designation = "Designation should not be empty"
+      }
+    
+      else{
+        error.designation = ""
       }
   
     return error;
