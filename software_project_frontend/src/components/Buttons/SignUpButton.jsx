@@ -13,7 +13,7 @@ function SignUpButton() {
       variant="text"
       style={{
         position: 'absolute',
-        left: '43%',
+        left: '46%',
         right: '0%',
         top: '85%',
         bottom: '0%',

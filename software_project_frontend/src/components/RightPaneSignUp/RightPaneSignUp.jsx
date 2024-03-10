@@ -38,18 +38,18 @@ export const RightPaneSignUp = () => {
         <div className="RightPane1">
            
             <div >
-                <img src={ima} id='RS' alt="rs" style={{top:"30px"}}/>
+                <img src={ima} id='RS' alt="rs" style={{top:"10vh"}}/>
             </div>
 
-            <div id="LogText" style={{top: "150px"}}>
+            <div id="LogText" style={{top: "28vh",width:'50vh',left:'-5vh'}}>
                 Create an account 
             </div>
             <TextField id="standard-basic" label="Name" variant="standard" style={{
                 position: 'absolute',
-                width: '489px',
-                height: '55px',
-                left: '188px',
-                top: '229px',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '36vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -58,8 +58,8 @@ export const RightPaneSignUp = () => {
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    borderBottom: '4px solid #5932EA',
-                    borderRadius: '8px',
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
                 
                 }, startAdornment: (
                     <InputAdornment position="start" style={{
@@ -71,7 +71,7 @@ export const RightPaneSignUp = () => {
                     background: '#000000',
                     height: "0%"
                     }}>
-                    <img src={img} alt="rs" style={{ height: "15px", width: "auto" }}/>
+                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
                     </InputAdornment>
                 ),
                 }}
@@ -85,8 +85,8 @@ export const RightPaneSignUp = () => {
                     fontFamily: 'Roboto',
                     fontStyle: 'normal',
                     fontWeight: 800,
-                    fontSize: '20px',
-                    lineHeight: '23px',
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
                     display: 'flex',
                     alignItems: 'center',
                     color: '#000000',
@@ -96,10 +96,10 @@ export const RightPaneSignUp = () => {
 
 <TextField id="standard-basic" label="Email" variant="standard" style={{
                 position: 'absolute',
-                width: '489px',
-                height: '55px',
-                left: '188px',
-                top: '309px',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '46vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -108,8 +108,8 @@ export const RightPaneSignUp = () => {
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    borderBottom: '4px solid #5932EA',
-                    borderRadius: '8px',
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
             
                 }, startAdornment: (
                     <InputAdornment position="start" style={{
@@ -121,7 +121,7 @@ export const RightPaneSignUp = () => {
                     background: '#000000',
                     height: "0%"
                     }}>
-                    <img src={email} alt="rs" style={{ height: "15px", width: "auto" }}/>
+                    <img src={email} alt="rs" style={{ height: "2vh", width: "auto" }}/>
                     </InputAdornment>
                 ),
                 }}
@@ -135,8 +135,8 @@ export const RightPaneSignUp = () => {
                     fontFamily: 'Roboto',
                     fontStyle: 'normal',
                     fontWeight: 800,
-                    fontSize: '20px',
-                    lineHeight: '23px',
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
                     display: 'flex',
                     alignItems: 'center',
                     color: '#000000',
@@ -147,10 +147,10 @@ export const RightPaneSignUp = () => {
 
             <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "password"} variant="standard" style={{
                 position: 'absolute',
-                width: '489px',
-                height: '55px',
-                left: '188px',
-                top: '389px',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '56vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -159,8 +159,8 @@ export const RightPaneSignUp = () => {
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    borderBottom: '4px solid #5932EA',
-                    borderRadius: '8px',
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
            
                 }, startAdornment: (
                     <InputAdornment position="start" style={{
@@ -172,7 +172,7 @@ export const RightPaneSignUp = () => {
                     background: '#000000',
                     height: "0%"
                     }}>
-                    <img src={password} alt="rs" style={{ height: "15px", width: "auto" }}/>
+                    <img src={password} alt="rs" style={{height: "2vh", width: "auto" }}/>
                   
                          <IconButton style={{left: "400px"}}
                             aria-label="toggle password visibility"
@@ -196,8 +196,8 @@ export const RightPaneSignUp = () => {
                     fontFamily: 'Roboto',
                     fontStyle: 'normal',
                     fontWeight: 800,
-                    fontSize: '20px',
-                    lineHeight: '23px',
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
                     display: 'flex',
                     alignItems: 'center',
                     color: '#000000',
@@ -207,10 +207,10 @@ export const RightPaneSignUp = () => {
 
 <TextField id="standard-basic" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" style={{
                 position: 'absolute',
-                width: '489px',
-                height: '55px',
-                left: '188px',
-                top: '469px',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '66vh',
                 color: '#000000',
                 }} InputProps={{ style: {
                     boxSizing: 'border-box',
@@ -219,8 +219,8 @@ export const RightPaneSignUp = () => {
                     right: 0,
                     top: 0,
                     bottom: 0,
-                    borderBottom: '4px solid #5932EA',
-                    borderRadius: '8px',
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
              
                 }, startAdornment: (
                     <InputAdornment position="start" style={{
@@ -232,7 +232,7 @@ export const RightPaneSignUp = () => {
                     background: '#000000',
                     height: "0%"
                     }}>
-                    <img src={password} alt="rs" style={{ height: "15px", width: "auto" }}/>
+                    <img src={password} alt="rs" style={{ height: "2vh", width: "auto" }}/>
                     <IconButton style={{left: "400px"}}
                             aria-label="toggle password visibility"
                             onClick={handleClickShowConfirmPassword}
@@ -254,8 +254,8 @@ export const RightPaneSignUp = () => {
                     fontFamily: 'Roboto',
                     fontStyle: 'normal',
                     fontWeight: 800,
-                    fontSize: '20px',
-                    lineHeight: '23px',
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
                     display: 'flex',
                     alignItems: 'center',
                     color: '#000000',
@@ -265,24 +265,13 @@ export const RightPaneSignUp = () => {
 
               
             <SignUpButton/>
-            <div className='NoAccount'>
+            <div className='no-account-1' style={{position: 'absolute',width:'50vh',height:'10vh',left:'45vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
+                fontWeight: 400, fontSize: '1rem', color: '#242D3F'}}>
                 Already have an account?
             </div>
 
-            <Link to="/" className='NoAccount' style={{ color: "#FF2442", left: "350px", textDecoration: "underline" }}>
-  Login
-  
-  
-        </Link>
-          
-            
-            
-
-            
-
-
-            
-
+            <Link to="/"  style={{position: 'absolute', textDecoration: "underline",width:'50vh',height:'10vh',left:'60vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
+                fontWeight: 400, fontSize: '1rem', color: '#FF2442'}} >Login </Link>          
         </div>
         </div>
     )
