@@ -323,7 +323,7 @@ style={{
 
             
             <div className='no-account-1' style={{position: 'absolute',width:'50vh',height:'10vh',left:'45vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
-
+                fontWeight: 400, fontSize: '1rem', color: '#242D3F'}}>
                 Already have an account?
             </div>
 
