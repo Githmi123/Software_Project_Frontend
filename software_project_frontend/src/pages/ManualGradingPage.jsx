@@ -130,7 +130,7 @@ const ManualGradingPage = () => {
     <div>
       <MainLeftPane />
       <MainRightPane>
-        <Button sx={{ m: 2, width: '100px', height: '50px', color: 'black', fontWeight: 'bold' }} startIcon={<ArrowBackIcon />}>Home</Button>
+        <Button sx={{ m: 2, width: '100px', height: '50px', color: 'black', fontWeight: 'bold' }} startIcon={<ArrowBackIcon />} onClick={() => window.history.back()} >Home</Button>
         <h2 style={{ textAlign: 'center', marginTop: '-5vh' }}>Manual Grading</h2>
         <img id='answer-script-image' src={answerscript1} />
         <div className='content-wrapper'>

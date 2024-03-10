@@ -6,6 +6,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CustomNewButton from '../components/Buttons/CustomNewButton'
 
+import { Link } from 'react-router-dom';
+
 import '../styles/BatchesPage.css'
 
 const batches = ["22th batch", "23rd batch", "24th batch", "25th batch"];
@@ -30,7 +32,7 @@ const BatchesPage = () => {
         <div>
             <MainLeftPane/>
             <MainRightPane>
-                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
+                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
                 <h1 id='heading' >Module</h1>
                 <div>
                     <CustomNewButton text = "New Batch" onClick={handleNewBatch}/>
@@ -38,10 +40,23 @@ const BatchesPage = () => {
 
                 <div className='column'>
                     {batches.map( (batch) => (
-                        <Button key={batch} variant="contained" style={{ margin: '10px', backgroundColor: selectedBatch === batch ? '#7894DB' : '#E3DDE8', color: selectedBatch === batch ? 'white' : 'black', width: '60vh', textTransform: 'capitalize', borderRadius: "2vh",border: '0px solid #7894DB' }} 
-                        onClick={() => handleSelectedBatch(batch)}>
-                            {batch}
-                        </Button>
+                         <Link to="/Assignments" key={batch} style={{ textDecoration: 'none', color: 'inherit' }}>
+                         <Button
+                             variant="contained"
+                             style={{
+                                 margin: '10px',
+                                 backgroundColor: selectedBatch === batch ? '#7894DB' : '#E3DDE8',
+                                 color: selectedBatch === batch ? 'white' : 'black',
+                                 width: '60vh',
+                                 textTransform: 'capitalize',
+                                 borderRadius: '2vh',
+                                 border: '0px solid #7894DB'
+                             }}
+                             onClick={() => handleSelectedBatch(batch)}
+                         >
+                             {batch}
+                         </Button>
+                     </Link>
                     ))}
                 </div>
 

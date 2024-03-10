@@ -9,6 +9,8 @@ import { Edit } from '@mui/icons-material';
 import { TrendingUp } from '@mui/icons-material';
 import CustomNewButton from '../components/Buttons/CustomNewButton'
 
+import { Link } from 'react-router-dom'; 
+
 import '../styles/AssignmentsPage.css'
 import RemoveFileButton from '../components/Buttons/RemoveFileButton'
 import GradingButton from '../components/Buttons/GradingButton'
@@ -67,7 +69,7 @@ const AnswerScriptsPage = () => {
         <div>
             <MainLeftPane/>
             <MainRightPane>
-                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
+                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
                 <h1 id='heading' >Uploaded Answer Scripts</h1>
                 <div>
                     <CustomNewButton text = "Uploaded Answer Script" onClick={handleNewAnswerScript}/>
@@ -151,8 +153,18 @@ const AnswerScriptsPage = () => {
                 <div className='row'>
                     <GradingButton text = "Grade all files" onClick={{handleGradeAllFiles}} icon = {AssignmentTurnedInIcon}/>
                     <GradingButton text = "Grade selected files" onClick={{handleGradeSelectedFiles}} icon = {CheckCircle}/>
-                    <GradingButton text = "Grade manually" onClick={{handleGradeManually}} icon = {Edit }/>
-                    <GradingButton text = "Visualize a graph" onClick={{handleVisualizeAGraph}} icon = {TrendingUp}/>
+                    {/* <GradingButton text = "Grade manually" onClick={{handleGradeManually}} icon = {Edit }/> */}
+                    {/* <GradingButton text = "Visualize a graph" onClick={{handleVisualizeAGraph}} icon = {TrendingUp}/> */}
+
+                    <Link to="/ManualGradingPage" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <GradingButton text="Grade manually" icon={Edit} />
+                    </Link>
+
+                    <Link to="/DataVisualization" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <GradingButton text = "Visualize a graph"  icon = {TrendingUp} />
+                    </Link>
+
+                   
                 </div>
         
             </MainRightPane>
