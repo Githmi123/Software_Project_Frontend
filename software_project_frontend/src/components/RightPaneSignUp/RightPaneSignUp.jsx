@@ -34,8 +34,8 @@ export const RightPaneSignUp = () => {
     const [values, setValues] = useState({
         email: '',
         password: '',
-        firstname:'',
-        lastname:'',
+        firstName:'',
+        lastName:'',
         designation:''
     })
 
