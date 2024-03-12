@@ -75,10 +75,9 @@ const NewAssignmentPage = () => {
                     value={selectedModule}
                     onChange={handleModuleChange}
                     options={[
-                    { value: '', label: 'None' },
-                    { value: 10, label: 'Ten' },
-                    { value: 20, label: 'Twenty' },
-                    { value: 30, label: 'Thirty' },
+                    { value: '', label: 'EE4250 Database Systems' },
+                    { value: 10, label: 'EE5262 Design Patterns' },
+                    { value: 20, label: 'EE3307 GUI Programming' },
                     ]}
                 />
 
@@ -89,10 +88,10 @@ const NewAssignmentPage = () => {
                     value={selectedBatch}
                     onChange={handleBatchChange}
                     options={[
-                    { value: '', label: 'None' },
-                    { value: 10, label: 'Ten' },
-                    { value: 20, label: 'Twenty' },
-                    { value: 30, label: 'Thirty' },
+                    { value: '', label: '22th batch' },
+                    { value: 10, label: '23rd batch' },
+                    { value: 20, label: '24th batch' },
+                    { value: 30, label: '25th batch' },
                     ]}
                 />
 

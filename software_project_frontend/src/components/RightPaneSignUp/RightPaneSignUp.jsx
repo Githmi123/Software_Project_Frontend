@@ -429,7 +429,7 @@ style={{
               
 
               <SignUpButton/>
-              <button type='submit' onClick={handleSubmit} style={{marginTop: "200px"}}>Sign Up</button>
+              {/* <button type='submit' onClick={handleSubmit} style={{marginTop: "200px"}}>Sign Up</button> */}
             </form>
 
             
