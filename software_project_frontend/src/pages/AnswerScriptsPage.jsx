@@ -72,7 +72,7 @@ const AnswerScriptsPage = () => {
                 <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
                 <h1 id='heading' >Uploaded Answer Scripts</h1>
                 <div>
-                    <CustomNewButton text = "Uploaded Answer Script" onClick={handleNewAnswerScript}/>
+                    <CustomNewButton text = "Upload Answer Script" onClick={handleNewAnswerScript}/>
                 </div>
 
                 <div className='columnAnswerScripts'>

@@ -36,9 +36,9 @@ overflow: hidden;
 #LogText{
     position: absolute;
     width: 40vh;
-    font-family: 'Karla';
+    font-family: "Karla";
+    font-size: 2rem;
     font-weight: bold;
-    font-size: 3rem;
     text-align: center;
     color: #212B27;
     margin-left: 55vh;
@@ -157,6 +157,25 @@ transform: rotate(-45deg);
     z-index: 6;
 } 
 
+.text-field-input-box {
+    display: flex;
+    align-items: flex-end;
+}
+
+.text-field-icon {
+    color: blueviolet;
+    margin-right: 1;
+    margin-top: 0.5;
+    margin-bottom: 0.5;
+}
+
+#sign-up-form-div {
+  display: flex; /* Add this line to make it a flex container */
+  flex-direction: column; /* Ensure content is stacked vertically */
+  align-items: center; 
+  margin-top: 3vh;
+  margin-left: -10vh;
+}
 
 
 

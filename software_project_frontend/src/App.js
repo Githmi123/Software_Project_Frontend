@@ -17,6 +17,7 @@ import AssignmentsPage from './pages/AssignmentsPage';
 import AnswerScriptsPage from './pages/AnswerScriptsPage';
 import DataVisualizationPage from './pages/DataVisualizationPage';
 import ManualGradingPage from './pages/ManualGradingPage';
+import NewBatchPage from './pages/NewBatchPage';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/AnswerScripts" element={<AnswerScriptsPage/>}></Route>
         <Route exact path="/DataVisualization" element={<DataVisualizationPage/>}></Route>
         <Route exact path="/ManualGradingPage" element={<ManualGradingPage/>}></Route>
+        <Route exact path="/NewBatchPage" element={<NewBatchPage/>}></Route>
 
         {/* Define other routes as needed */}
       </Routes>

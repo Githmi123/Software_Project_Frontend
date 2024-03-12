@@ -35,7 +35,10 @@ const BatchesPage = () => {
                 <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
                 <h1 id='heading' >Module</h1>
                 <div>
+                    <Link to="/NewBatchPage">
+                    
                     <CustomNewButton text = "New Batch" onClick={handleNewBatch}/>
+                    </Link>
                 </div>
 
                 <div className='column'>
