@@ -53,8 +53,12 @@ export const RightPaneSignUp = () => {
         const validationErrors = SignUpValidation(values);
         setErrors(validationErrors);
 
-        if(errors.firstname === " " && errors.lastname === "" && errors.email === "" && errors.password === "" && errors.designation === ""){
-            axios.post("http://localhost:3500/register", values)
+        if(errors.firstName === " " && errors.lastName === "" && errors.email === "" && errors.password === "" && errors.designation === ""){
+            axios.post("http://localhost:3500/register", values, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+})
             .then(res => {
                 navigate('/');
             })
@@ -71,7 +75,6 @@ export const RightPaneSignUp = () => {
     };
     
 
-
     return(
         <div >
         <div className="RightPane" ></div>
@@ -86,7 +89,7 @@ export const RightPaneSignUp = () => {
             <div id="LogText" style={{top: "20vh",width:'50vh',left:'-5vh'}}>
                 Create an account 
             </div>
-            <form onSubmit={handleSubmit}>
+            <form encType='application/x-www-form-urlencoded' onSubmit={handleSubmit}>
              
             <TextField id="standard-basic" label="First Name" type='text' name='firstname' variant="standard" 
             helperText={errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
@@ -429,7 +432,7 @@ style={{
               
 
               <SignUpButton/>
-              <button type='submit' onClick={handleSubmit} style={{marginTop: "200px"}}>Sign Up</button>
+              <button type='submit'  style={{marginTop: "200px"}}>Sign Up</button>
             </form>
 
             
