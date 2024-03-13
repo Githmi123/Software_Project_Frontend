@@ -4,6 +4,8 @@ import MainRightPane from '../components/MainRightPane/MainRightPane'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
 
+import { Link } from 'react-router-dom';
+
 import SearchAppBar from '../components/Other/SearchBar/SearchBar';
 
 import '../styles/RecentPage.css'
@@ -32,8 +34,8 @@ const RecentPage = () => {
     <div>
       <MainLeftPane/>
       <MainRightPane >
-      <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
-        <SearchAppBar/>
+      <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
+        {/* <SearchAppBar/> */}
         <h1 id='heading' >Recents</h1>
 
         <div className='column'>
@@ -58,10 +60,11 @@ const RecentPage = () => {
                   }}
                   onClick={() => handleSelectedRecentModule(recentdata.Assignment)}
                 >
-                  <td>{recentdata.Assignment}</td>
-                  <td>{recentdata.Batch}</td>
-                  <td>{recentdata.Status}</td>
-                  <td>{recentdata.Graded}</td>
+                <td><Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}>{recentdata.Assignment} </Link></td>
+                <td><Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}> {recentdata.Batch}  </Link></td>
+                <td><Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}>{recentdata.Status}</Link></td>
+                <td><Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}>  {recentdata.Graded} </Link></td>
+
                 </tr>
               ))}
             </tbody>

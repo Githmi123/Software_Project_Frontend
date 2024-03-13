@@ -10,6 +10,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
+import { Link } from 'react-router-dom';
+
 import '../styles/NewAssignmentPage.css'
 import CustomSelect from '../components/Other/CustomSelect';
 import InputFileUploadButton from '../components/Buttons/InputFileUploadButton';
@@ -48,6 +50,10 @@ const NewAssignmentPage = () => {
         
     };
 
+    const handlePrevious = (event) => {
+        window.history.back(); // Navigate to previous page
+    };
+
     const handleSave = (event) => {
         
     };
@@ -61,7 +67,7 @@ const NewAssignmentPage = () => {
     <div>
         <MainLeftPane/>
         <MainRightPane>
-            <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
+            <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
             <div className='align'>
                 <span className='label1'>Module</span>
                 <CustomSelect
@@ -69,10 +75,9 @@ const NewAssignmentPage = () => {
                     value={selectedModule}
                     onChange={handleModuleChange}
                     options={[
-                    { value: '', label: 'None' },
-                    { value: 10, label: 'Ten' },
-                    { value: 20, label: 'Twenty' },
-                    { value: 30, label: 'Thirty' },
+                    { value: '', label: 'EE4250 Database Systems' },
+                    { value: 10, label: 'EE5262 Design Patterns' },
+                    { value: 20, label: 'EE3307 GUI Programming' },
                     ]}
                 />
 
@@ -83,10 +88,10 @@ const NewAssignmentPage = () => {
                     value={selectedBatch}
                     onChange={handleBatchChange}
                     options={[
-                    { value: '', label: 'None' },
-                    { value: 10, label: 'Ten' },
-                    { value: 20, label: 'Twenty' },
-                    { value: 30, label: 'Thirty' },
+                    { value: '', label: '22th batch' },
+                    { value: 10, label: '23rd batch' },
+                    { value: 20, label: '24th batch' },
+                    { value: 30, label: '25th batch' },
                     ]}
                 />
 
@@ -119,7 +124,12 @@ const NewAssignmentPage = () => {
             </div>
 
             <div className='row'>
-                    <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" />
+                    {/* <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" /> */}
+
+                    <Link to="/RecentPage" style={{ textDecoration: 'none' }}> {/* Wrap the button with Link */}
+                        <CustomButton text="Cancel" onClick={handleCancel} backgroundColor="white" textColor="#7894DB" />
+                    </Link>
+
                     <CustomButton text = "Next" onClick = {handleSave} backgroundColor = "#7894DB" textColor = "white" />
 
                     {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}

@@ -21,7 +21,7 @@ const DataVisualizationPage = () => {
         <div>
             <MainLeftPane/>
             <ScrollableMainRightPane>
-                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
+                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
                 <h1 id='heading' >EE5345 Control Systems - Assignment 2</h1>
                 <div className='row'>
                     <div id = "rectangle">

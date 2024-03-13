@@ -4,6 +4,7 @@ import '../RightPane/RightPane.css';
 import LogInButton from '../Buttons/LogInButton';
 import ima from '../../images/rs.png';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import img from '../../images/username.png'
 import email from '../../images/email.png'
@@ -15,9 +16,35 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SignUpValidation from '../Validation/SignUpValidation';
 import axios from 'axios';
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmailIcon from '@mui/icons-material/Email';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import PasswordIcon from '@mui/icons-material/Password';
+import BadgeIcon from '@mui/icons-material/Badge';
+
+import { styled } from '@mui/material/styles';
+
+
+import AccountCircle from '@mui/icons-material/AccountCircle';
+
 
 
 export const RightPaneSignUp = () => {
+
+    const StyledTextField = styled(TextField)({
+        '& .MuiInput-underline:before': {
+          borderBottom: '2px solid #5932EA', 
+          borderRadius: '5px', 
+          fontWeight: 'bold', 
+          width:'45vh'
+        },
+        '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+          borderBottomColor: 'blue', 
+        },
+      });
+      
+
+
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -97,13 +124,15 @@ export const RightPaneSignUp = () => {
                 <img src={ima} id='RS' alt="rs"/>
             </div>
 
-            <div id="LogText" style={{top: "20vh",width:'50vh',left:'-5vh'}}>
-                Create an account 
+            <div id="LogText" style={{top: "19vh",width:'50vh',left:'-5vh'}}>
+                Create An Account 
             </div>
+
             <form encType='application/json' onSubmit={handleSubmit}>
              
             <TextField id="firstName" label="firstName" type='text' name='firstName' variant="standard" 
             helperText={errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
+
             onChange={handleInput}
             style={{
                 position: 'absolute',
@@ -439,7 +468,7 @@ style={{
                     color: '#000000',
                 },
                 }}
-      />
+      /> */}
               
 
               <SignUpButton/>
@@ -454,7 +483,7 @@ style={{
                 Already have an account?
             </div>
 
-            <Link to="/"  style={{position: 'absolute', textDecoration: "underline",width:'50vh',height:'10vh',left:'60vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
+            <Link to="/"  style={{position: 'absolute', textDecoration: "underline",width:'50vh',height:'10vh',left:'65vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
                 fontWeight: 400, fontSize: '1rem', color: '#FF2442'}} >Login </Link>          
         </div>
         </div>

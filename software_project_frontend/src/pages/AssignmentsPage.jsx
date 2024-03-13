@@ -6,6 +6,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CustomNewButton from '../components/Buttons/CustomNewButton'
 
+import { Link } from 'react-router-dom';
+
 import '../styles/AssignmentsPage.css'
 
 const batches = [
@@ -35,10 +37,13 @@ const AssignmentsPage = () => {
         <div>
             <MainLeftPane/>
             <MainRightPane>
-                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
+                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
                 <h1 id='heading' >Module - Batch</h1>
                 <div>
-                    <CustomNewButton text = "New Assignment" onClick={handleNewBatch}/>
+                    {/* <CustomNewButton text = "New Assignment" onClick={handleNewBatch}/> */}
+                    <Link to="/NewAssignment" style={{ textDecoration: 'none' }}> {/* Wrap the button with Link */}
+                        <CustomNewButton text = "New Assignment" onClick={handleNewBatch}/>
+                    </Link>
                 </div>
 
                 <div className='column'>
@@ -53,23 +58,28 @@ const AssignmentsPage = () => {
 
                         <tbody>
                             {batches.map((batchInfo) => (
-                                <tr key={batchInfo.assignmentNo} className='trStyle' style={{ backgroundColor: selectedAssignmentNo === batchInfo.assignmentNo ? '#7894DB' : '#E3DDE8', color: selectedAssignmentNo === batchInfo.assignmentNo ? 'white' : 'black', border: '7px solid white', // Border style
-                                borderRadius: '10px'
-                                    }}
-                                >
-                                    <td onClick={() => handleSelectedAssignmentNo(batchInfo.assignmentNo)}>
+                                <tr key={batchInfo.assignmentNo} className='trStyle' style={{ backgroundColor: selectedAssignmentNo === batchInfo.assignmentNo ? '#7894DB' : '#E3DDE8', color: selectedAssignmentNo === batchInfo.assignmentNo ? 'white' : 'black', border: '7px solid white', borderRadius: '10px' }}>
+                                <td>
+                                    <Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}>
                                         {batchInfo.assignmentNo}
-                                    </td>
-                                    <td onClick={() => handleSelectedAssignmentNo(batchInfo.assignmentNo)}>
+                                    </Link>
+                                </td>
+                                <td>
+                                    <Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}>
                                         {batchInfo.name}
-                                    </td>
-                                    <td onClick={() => handleSelectedAssignmentNo(batchInfo.assignmentNo)}>
+                                    </Link>
+                                </td>
+                                <td>
+                                    <Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}>
                                         {batchInfo.date_created}
-                                    </td>
-                                    <td onClick={() => handleSelectedAssignmentNo(batchInfo.assignmentNo)}>
+                                    </Link>
+                                </td>
+                                <td>
+                                    <Link to="/AnswerScripts" style={{ textDecoration: 'none', color: 'inherit' }}>
                                         {batchInfo.status}
-                                    </td>
-                                </tr>
+                                    </Link>
+                                </td>
+                            </tr>
                             ))}
                         </tbody>
                     </table>

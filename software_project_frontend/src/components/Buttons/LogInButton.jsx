@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import login from '../../images/login.png'
 import LoginValidation from '../Validation/LoginValidation';
+import { Link } from 'react-router-dom';
 
 
 function LogInButton() {
@@ -11,7 +12,8 @@ function LogInButton() {
   return (
     <div> 
       <Stack spacing={2} direction="row">
-      <Button  
+        <Link to='/RecentPage'>
+        <Button  
       variant="text"
       type='submit'
       style={{
@@ -48,6 +50,8 @@ function LogInButton() {
       </div>
       
     </Button>
+        </Link>
+    
       
     </Stack>
     </div>

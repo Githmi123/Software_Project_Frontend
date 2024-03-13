@@ -34,7 +34,7 @@ const MyModulesPage = () => {
     <div>
       <MainLeftPane/>
       <MainRightPane>
-        <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>}>Home</Button>
+        <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
         <h1 id='heading' >My Modules</h1>
         <div>
           <Link to='/NewModule'  style={{ textDecoration: 'none' }}>
@@ -64,9 +64,21 @@ const MyModulesPage = () => {
                   }}
                   onClick={() => handleSelectedModule(moduledata.Module_Code)}
                 >
-                  <td>{moduledata.Module_Code}</td>
-                  <td>{moduledata.Module_Name}</td>
-                  <td>{moduledata.Credits}</td>
+                  <td>
+      <Link to="/Batches" style={{ textDecoration: 'none', color: 'inherit' }}>
+        {moduledata.Module_Code}
+      </Link>
+    </td>
+    <td>
+      <Link to="/Batches" style={{ textDecoration: 'none', color: 'inherit' }}>
+        {moduledata.Module_Name}
+      </Link>
+    </td>
+    <td>
+      <Link to="/Batches" style={{ textDecoration: 'none', color: 'inherit' }}>
+        {moduledata.Credits}
+      </Link>
+    </td>
                 </tr>
               ))}
             </tbody>
