@@ -45,25 +45,36 @@ export const RightPaneSignUp = () => {
 
     const handleInput = (event) => {
         setValues(prev => ({...prev, [event.target.name]: event.target.value}))
+        console.log(values);
     }
     
     const navigate = useNavigate();
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const validationErrors = SignUpValidation(values);
         setErrors(validationErrors);
+        
 
-        if(errors.firstName === " " && errors.lastName === "" && errors.email === "" && errors.password === "" && errors.designation === ""){
-            axios.post("http://localhost:3500/register", values, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-})
-            .then(res => {
+        if (
+            (errors.firstName === "" &&
+            errors.lastName === "" &&
+            errors.email === "" &&
+            errors.password === "" &&
+            errors.designation === "" )
+        ) {
+            try {
+                
+                await axios.post("http://localhost:3500/register", values, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
                 navigate('/');
-            })
-            .catch(err => console.log(err));
+            } catch (err) {
+                console.log(err);
+            }
         }
+        
         // if (Object.keys(validationErrors).length === 0) {
         //     // If there are no errors, proceed with form submission
         //     console.log('Form submitted');
@@ -89,10 +100,10 @@ export const RightPaneSignUp = () => {
             <div id="LogText" style={{top: "20vh",width:'50vh',left:'-5vh'}}>
                 Create an account 
             </div>
-            <form encType='application/x-www-form-urlencoded' onSubmit={handleSubmit}>
+            <form encType='application/json' onSubmit={handleSubmit}>
              
-            <TextField id="standard-basic" label="First Name" type='text' name='firstname' variant="standard" 
-            helperText={errors.firstname && <span className='text-danger'>{errors.firstname}</span>}
+            <TextField id="firstName" label="firstName" type='text' name='firstName' variant="standard" 
+            helperText={errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
             onChange={handleInput}
             style={{
                 position: 'absolute',
@@ -145,8 +156,8 @@ export const RightPaneSignUp = () => {
                 }}
       />
 
-        <TextField id="standard-basic" label="Last Name" type='text' name='lastname' variant="standard" 
-            helperText={errors.lastname && <span className='text-danger'>{errors.lastname}</span>}
+        <TextField id="lastName" label="lastName" type='text' name='lastName' variant="standard" 
+            helperText={errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
             onChange={handleInput}
             style={{
                 position: 'absolute',
@@ -199,7 +210,7 @@ export const RightPaneSignUp = () => {
                 }}
       />
 
-        <TextField id="standard-basic" label="Email" type='email' name='email' variant="standard" 
+        <TextField id="email" label="email" type='email' name='email' variant="standard" 
             helperText={errors.email && <span className='text-danger'>{errors.email}</span>}
             onChange={handleInput}
             style={{
@@ -252,7 +263,7 @@ export const RightPaneSignUp = () => {
                 }}
       />
 
-            <TextField id="standard-basic" label="Password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
+            <TextField id="password" label="password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
             helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
             onChange={handleInput}
             style={{
@@ -375,7 +386,7 @@ style={{
                 }}
       />
 
-<TextField id="standard-basic" label="Designation" type='text' name='designation' variant="standard" 
+<TextField id="designation" label="designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
             onChange={handleInput}
             style={{
@@ -432,7 +443,8 @@ style={{
               
 
               <SignUpButton/>
-              <button type='submit'  style={{marginTop: "200px"}}>Sign Up</button>
+
+              <button type='submit'  style={{marginTop: "50px"}}>Sign Up</button>
             </form>
 
             

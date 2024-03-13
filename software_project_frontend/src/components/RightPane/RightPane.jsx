@@ -58,7 +58,7 @@ export const RightPane = () => {
             <div id="LogText">
                 Log into your account 
             </div>
-            <form  encType='application/x-www-form-urlencoded' onSubmit={handleSubmit}> 
+            <form  encType='application/json' onSubmit={handleSubmit}> 
             {/* <LogInButton/> */}
             <TextField id="standard-basic" label="Username" name='username' variant="standard" onChange={handleInput} 
             helperText={errors.username && <span className='text-danger'>{errors.username}</span>}
