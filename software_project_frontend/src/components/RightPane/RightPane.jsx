@@ -24,9 +24,10 @@ export const RightPane = () => {
     };
 
     const [values, setValues] = useState({
-        username: '',
-        password: ''
+        userName: '',
+        passWord: '',
     })
+    const navigate = useNavigate();
 
     const [errors, setErrors] = useState({
 
@@ -36,18 +37,21 @@ export const RightPane = () => {
         setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
     }
 
-    const handleSubmit = (event) => {
+ 
+        
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const validationErrors = LoginValidation(values);
-        setErrors(validationErrors);
-        if (Object.keys(validationErrors).length === 0) {
-            // If there are no errors, proceed with form submission
-            console.log('Form submitted');
-        } else {
-            // If there are errors, focus on the first erroneous field
-            const firstErrorField = Object.keys(validationErrors)[0];
-            document.getElementsByName(firstErrorField)[0].focus();
-        }
+        try {
+            await axios.post("http://localhost:3500/auth", values);
+            navigate('/Dashboard');
+        } catch (error) {
+            console.error("Login error:", error);
+            setErrors({ message: "Failed to log in. Please try again." });
+
+
+        } 
+    
     };
 
     return(
@@ -59,10 +63,9 @@ export const RightPane = () => {
             <div id="LogText">
                 Log into your account 
             </div>
-            <form  encType='application/json' onSubmit={handleSubmit}> 
+            <form type = "submit" action = "" onSubmit={handleSubmit}> 
             {/* <LogInButton/> */}
             <TextField id="standard-basic" label="userName" name='userName' type='email' variant="standard" onChange={handleInput} 
-            
             style={{
                 position: 'absolute',
                 width: '60vh',
@@ -114,8 +117,8 @@ export const RightPane = () => {
                 }}
       />
 
-            <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "passWord"} name='passWord' onChange={handleInput} variant="standard" 
-           
+<TextField id="standard-basic" label="Password" type={showPassword ? "text" : "passWord"} name='passWord' onChange={handleInput} variant="standard" 
+
             style={{
                 position: 'absolute',
                 width: '60vh',

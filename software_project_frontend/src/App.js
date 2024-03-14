@@ -18,6 +18,7 @@ import AnswerScriptsPage from './pages/AnswerScriptsPage';
 import DataVisualizationPage from './pages/DataVisualizationPage';
 import ManualGradingPage from './pages/ManualGradingPage';
 import NewBatchPage from './pages/NewBatchPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
         <Route exact path="/" element={<Login/>}></Route>
         <Route exact path="/UserProfile" element={<UserProfile/>}></Route>
         <Route exact path="/SignUp" element={<SignUp/>}></Route>
-        <Route exact path="/RecentPage" element={<RecentPage/>}></Route>
+        <Route exact path="/Dashboard" element={<RecentPage/>}></Route>
         <Route exact path="/MyModulePage" element={<MyModulesPage/>}></Route>
         <Route exact path="/NewModule" element={<NewModule/>}></Route> 
         <Route exact path="/NewAssignment" element={<NewAssignmentPage/>}></Route>

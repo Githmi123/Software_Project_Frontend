@@ -12,7 +12,7 @@ function LogInButton() {
   return (
     <div> 
       <Stack spacing={2} direction="row">
-        <Link to='/RecentPage'>
+      
         <Button  
       variant="text"
       type='submit'
@@ -50,7 +50,7 @@ function LogInButton() {
       </div>
       
     </Button>
-        </Link>
+       
     
       
     </Stack>
