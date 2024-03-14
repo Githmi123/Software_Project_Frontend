@@ -4,11 +4,8 @@ import './RightPane.css';
 import LogInButton from '../Buttons/LogInButton';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-
-import { Link, useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
-
 
 import axios from 'axios';
 import  {IconButton}  from "@mui/material";
@@ -19,10 +16,8 @@ import username from '../../images/username.png'
 import password from '../../images/password.png'
 import LoginValidation from '../Validation/LoginValidation';
 
-
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PasswordIcon from '@mui/icons-material/Password';
-
 
 
 export const RightPane = () => {
@@ -34,8 +29,8 @@ export const RightPane = () => {
     };
 
     const [values, setValues] = useState({
-        userName: '',
-        passWord: ''
+        username: '',
+        password: ''
     })
 
     const [errors, setErrors] = useState({
@@ -46,20 +41,19 @@ export const RightPane = () => {
         setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
     }
 
-    const navigate = useNavigate();
-
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-    
-        try {
-            await axios.post("http://localhost:3500/auth", values);
-            navigate('/Dashboard');
-        } catch (error) {
-            console.error("Login error:", error);
-            setErrors({ message: "Failed to log in. Please try again." });
+        const validationErrors = LoginValidation(values);
+        setErrors(validationErrors);
+        if (Object.keys(validationErrors).length === 0) {
+            // If there are no errors, proceed with form submission
+            console.log('Form submitted');
+        } else {
+            // If there are errors, focus on the first erroneous field
+            const firstErrorField = Object.keys(validationErrors)[0];
+            document.getElementsByName(firstErrorField)[0].focus();
         }
     };
-    
 
     return(
         <div >
@@ -70,102 +64,8 @@ export const RightPane = () => {
             <div id="LogText">
                 Log into your account 
             </div>
-            <form type = "submit" action = "" onSubmit={handleSubmit}> 
+            <form  encType='application/json' onSubmit={handleSubmit}> 
             {/* <LogInButton/> */}
-{/*
-//             <TextField id="standard-basic" label="userName" name='userName' type='email' variant="standard" onChange={handleInput} 
-            
-//             style={{
-//                 position: 'absolute',
-//                 width: '60vh',
-//                 height: '7vh',
-//                 left: '45vh',
-//                 top: '48vh',
-//                 color: '#000000',
-//                 }} 
-//                 InputProps={{ style: {
-//                     boxSizing: 'border-box',
-//                     position: 'absolute',
-//                     left: 0,
-//                     right: 0,
-//                     top: 0,
-//                     bottom: 0,
-//                     borderBottom: '0.5vh solid #5932EA',
-//                     borderRadius: '1vh'   }, 
-
-//                 startAdornment: (
-//                     <InputAdornment position="start" style={{
-//                     position: 'absolute',
-//                     left: '4.38%',
-//                     right: '92.9%',
-//                     top: '0.5%',
-//                     bottom: '34.55%',
-//                     background: '#000000',
-//                     height: "0%"
-//                     }}>
-//                     <img src={username} alt="username" style={{ height: "2vh", width: "auto" }}/>
-//                     </InputAdornment>
-//                 ),
-//                 }}
-//                 InputLabelProps={{
-//                 style: {
-//                     position: 'absolute',
-//                     left: '8.23%',
-//                     right: '70.56%',
-//                     top: '5%',
-//                     bottom: '27.27%',
-//                     fontFamily: 'Roboto',
-//                     fontStyle: 'normal',
-//                     fontWeight: 800,
-//                     fontSize: '1.4rem',
-//                     lineHeight: '15vh',
-//                     display: 'flex',
-//                     alignItems: 'center',
-//                     color: '#000000',
-//                 },
-//                 }}
-//       />
-
-//             <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "passWord"} name='passWord' onChange={handleInput} variant="standard" 
-           
-//             style={{
-//                 position: 'absolute',
-//                 width: '60vh',
-//                 height: '7vh',
-//                 left: '45vh',
-//                 top: '58vh',
-//                 color: '#000000',
-//                 }} InputProps={{ style: {
-//                     boxSizing: 'border-box',
-//                     position: 'absolute',
-//                     left: 0,
-//                     right: 0,
-//                     top: 0,
-//                     bottom: 0,
-//                     borderBottom: '0.5vh solid #5932EA',
-//                     borderRadius: '1vh',
-//                     // Add other styles as needed
-//                 }, startAdornment: (
-//                     <InputAdornment position="start" style={{
-//                     position: 'absolute',
-//                     left: '4.38%',
-//                     right: '92.9%',
-//                     top: '0.5%',
-//                     bottom: '34.55%',
-//                     background: '#000000',
-//                     height: "0%"
-//                     }}>
-//                     <img src={password} alt="rs" style={{ height: "15px", width: "auto" }}/>
-//                     <IconButton style={{left: "400px"}}
-//                             aria-label="toggle password visibility"
-//                             onClick={handleClickShowPassword}
-//                             edge="end"
-//                         > 
-//                             {showPassword ? <VisibilityOff /> : <Visibility />}
-//                        </IconButton> 
-//                     </InputAdornment>
-*/}
-
 
             <div style={{display: 'flex', flexDirection: 'column', marginLeft:'55vh', marginTop:'15vh'}}>
             <Box className="text-field-input-box">
@@ -188,7 +88,6 @@ export const RightPane = () => {
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
-
                 ),
               }} />
             </Box>

@@ -78,7 +78,6 @@ export const RightPaneSignUp = () => {
     }
     
     const navigate = useNavigate();
-    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const validationErrors = SignUpValidation(values);
@@ -203,7 +202,7 @@ export const RightPaneSignUp = () => {
             <TextField id="designation" label="designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
 
-/*
+{/*
             onChange={handleInput}
             style={{
                 position: 'absolute',
@@ -256,13 +255,13 @@ export const RightPaneSignUp = () => {
                 },
                 }}
       /> 
-      */
+      */}
 
             onChange={handleInput}/> 
             </Box>
 
             </div>
-
+              
 
               <SignUpButton/>
 
