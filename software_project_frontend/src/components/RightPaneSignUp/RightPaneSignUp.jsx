@@ -76,6 +76,7 @@ export const RightPaneSignUp = () => {
     }
     
     const navigate = useNavigate();
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const validationErrors = SignUpValidation(values);
