@@ -12,7 +12,7 @@ function Login() {
 
 
   return (
-    <div className = "align" style={{backgroundColor: "#7894DB"}}>
+    <div className = "align1" style={{backgroundColor: "#7894DB"}}>
         <LeftPane/>
         <RightPane/>
         

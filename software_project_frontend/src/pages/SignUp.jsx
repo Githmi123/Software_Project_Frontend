@@ -3,19 +3,20 @@
 import React from 'react';
 import { LeftPane } from '../components/LeftPane/LeftPane';
 import { RightPaneSignUp } from '../components/RightPaneSignUp/RightPaneSignUp';
-import "../components/RightPane/RightPane.css"
-
+// import "../components/RightPane/RightPane.css"
+// import "../styles/Login.css"
+import "../styles/Login.css"
 
 function SignUp() {
 
 
   return (
-    <div >
+    <div className = "align1" style={{backgroundColor: "#7894DB"}}>
       
         <LeftPane/>
         <RightPaneSignUp/>
       
-        <div id='rectangle1'>
+        {/* <div id='rectangle1'>
 
         </div>
 
@@ -25,7 +26,7 @@ function SignUp() {
 
         <div id='rectangle3'>
 
-        </div>
+        </div> */}
 
        {/*  <div id='rectangle4'>
 

@@ -114,378 +114,394 @@ export const RightPaneSignUp = () => {
     
 
     return(
-        <div >
-        <div className="RightPane" ></div>
+        // <div >
+        <div className="RightPane" >
+
+        {/* </div> */}
             {/* <MuiTextField/> */}
             
-        <div className="RightPane1">
+        {/* <div className="RightPane1"> */}
            
             <div >
                 <img src={ima} id='RS' alt="rs"/>
             </div>
 
-            <div id="LogText" style={{top: "19vh",width:'50vh',left:'-5vh'}}>
+            <div id="LogText" >
                 Create An Account 
             </div>
 
-            <form encType='application/json' onSubmit={handleSubmit}>
+            <form className='div' encType='application/json' onSubmit={handleSubmit}>
              
-            <TextField id="firstName" label="firstName" type='text' name='firstName' variant="standard" 
+            <TextField id="firstName" label="First Name" type='text' name='firstName' variant="standard" 
             helperText={errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
 
             onChange={handleInput}
             style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '5vh',
-                left: '45vh',
-                top: '30vh',
+                // left: '45vh',
+                // top: '30vh',
                 color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
+                margin: "2%"
+                }} 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh',
                 
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '8.23%',
-                    right: '70.56%',
-                    width:'90%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                // }, startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%"
+                //     }}>
+                //     <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '8.23%',
+                //     right: '70.56%',
+                //     width:'90%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       />
 
-        <TextField id="lastName" label="lastName" type='text' name='lastName' variant="standard" 
+        <TextField id="lastName" label="Last Name" type='text' name='lastName' variant="standard" 
             helperText={errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
             onChange={handleInput}
             style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '5vh',
-                left: '45vh',
-                top: '38vh',
+                // left: '45vh',
+                // top: '38vh',
                 color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
+                margin: "2%"
+                }} 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh',
                 
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '8.23%',
-                    width:'90%',
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                // }, startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%"
+                //     }}
+                //     >
+                //     <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '8.23%',
+                //     width:'90%',
+                //     right: '70.56%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       />
 
-        <TextField id="email" label="email" type='email' name='email' variant="standard" 
+        <TextField id="email" label="Email" type='email' name='email' variant="standard" 
             helperText={errors.email && <span className='text-danger'>{errors.email}</span>}
             onChange={handleInput}
             style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '5vh',
-                left: '45vh',
-                top: '46vh',
+                // left: '45vh',
+                // top: '46vh',
                 color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
+                margin: "2%"
+                }} 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh',
             
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={email} alt="rs" style={{ height: "2vh", width: "auto" }}/>
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '10.23%',
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                // }, startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%"
+                //     }}>
+                //     <img src={email} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '10.23%',
+                //     right: '70.56%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       />
 
-            <TextField id="password" label="password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
+            <TextField id="password" label="Password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
             helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
             onChange={handleInput}
             style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '5vh',
-                left: '45vh',
-                top: '54vh',
+                // left: '45vh',
+                // top: '54vh',
                 color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
+                margin: "2%"
+                }} 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh',
            
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={password} alt="rs" style={{height: "2vh", width: "auto" }}/>
+                // }, startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%"
+                //     }}>
+                //     <img src={password} alt="rs" style={{height: "2vh", width: "auto" }}/>
                   
-                         <IconButton style={{left: "400px"}}
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                        > 
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                       </IconButton> 
+                //          <IconButton style={{left: "400px"}}
+                //             aria-label="toggle password visibility"
+                //             onClick={handleClickShowPassword}
+                //             edge="end"
+                //         > 
+                //             {showPassword ? <VisibilityOff /> : <Visibility />}
+                //        </IconButton> 
         
 
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '10.23%',
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '10.23%',
+                //     right: '70.56%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       />
 
 <TextField id="standard-basic" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
 helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
 style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '5vh',
-                left: '45vh',
-                top: '62vh',
+                // left: '45vh',
+                // top: '62vh',
                 color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
+                margin: "2%"
+                }} 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh',
              
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={password} alt="rs" style={{ height: "2vh", width: "auto" }}/>
-                    <IconButton style={{left: "400px"}}
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowConfirmPassword}
-                            edge="end"
-                        > 
-                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                       </IconButton> 
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '10.23%',
-                    width: "90%",
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                // }, startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%"
+                //     }}>
+                //     <img src={password} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                //     <IconButton style={{left: "400px"}}
+                //             aria-label="toggle password visibility"
+                //             onClick={handleClickShowConfirmPassword}
+                //             edge="end"
+                //         > 
+                //             {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                //        </IconButton> 
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '10.23%',
+                //     width: "90%",
+                //     right: '70.56%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       />
 
-<TextField id="designation" label="designation" type='text' name='designation' variant="standard" 
+<TextField id="designation" label="Designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
             onChange={handleInput}
             style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '5vh',
-                left: '45vh',
-                top: '70vh',
+                // left: '45vh',
+                // top: '70vh',
                 color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
+                margin: "2%"
+                }} 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh',
             
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%",
-                    width:'10%'
-                    }}>
-                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '10.23%',
-                    width:'90%',
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                // }, startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%",
+                //     width:'10%'
+                //     }}>
+                //     <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '10.23%',
+                //     width:'90%',
+                //     right: '70.56%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       /> 
               
-
+              <div style={{ display: 'flex', justifyContent: 'center', margin: "5% " }}>
               <SignUpButton/>
+              </div>
 
-              <button type='submit'  style={{marginTop: "50px"}}>Sign Up</button>
+              {/* <button type='submit'  style={{marginTop: "50px"}}>Sign Up</button> */}
             </form>
 
             
-            <div className='no-account-1' style={{position: 'absolute',width:'50vh',height:'10vh',left:'45vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
- fontWeight: 400, fontSize: '1rem', color: 'black'}}>
+            <div className='NoAccount'>
 
                 Already have an account?
-            </div>
+            
 
-            <Link to="/"  style={{position: 'absolute', textDecoration: "underline",width:'50vh',height:'10vh',left:'65vh',top:'83vh',fontFamily: 'Roboto',fontStyle: 'italic',
-                fontWeight: 400, fontSize: '1rem', color: '#FF2442'}} >Login </Link>          
+            <Link to="/"  style={{position: 'relative', textDecoration: "underline",width:'50vh',height:'10vh',fontFamily: 'Roboto',fontStyle: 'italic',
+                fontWeight: 400, fontSize: '1rem', color: '#FF2442'}} >Login </Link>   
+                </div>       
         </div>
-        </div>
+        // </div>
     )
 }
