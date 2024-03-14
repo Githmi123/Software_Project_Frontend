@@ -6,8 +6,6 @@ import ima from '../../images/rs.png';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
-import Input from '@mui/material/Input';
-
 import img from '../../images/username.png'
 import email from '../../images/email.png'
 import password from '../../images/password.png'
@@ -131,78 +129,294 @@ export const RightPaneSignUp = () => {
             </div>
 
             <form encType='application/json' onSubmit={handleSubmit}>
-
-            <div  style={{display: 'flex', flexDirection: 'column', marginLeft:'55vh', marginTop:'2vh'}}>
-            <Box className="text-field-input-box">
-            <AccountCircleIcon className="text-field-icon" sx={{ color: 'black', mr: 1, my: 0.5 }}  /> 
+             
             <TextField id="firstName" label="firstName" type='text' name='firstName' variant="standard" 
             helperText={errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
-            onChange={handleInput} />
-            </Box>
-            
-            
-            <Box className="text-field-input-box">
-            <AccountCircleIcon className="text-field-icon" sx={{ color: 'black', mr: 1, my: 0.5 }}  />
-            <TextField id="lastName" label="lastName" type='text' name='lastName' variant="standard" 
-                helperText={errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
-                onChange={handleInput} />
-            </Box>
-             
 
-            <Box className="text-field-input-box">
-            <AlternateEmailIcon sx={{ color: 'black', mr: 1, my: 0.5 }} />
-            <TextField id="email" label="email" type='email' name='email' variant="standard" 
+            onChange={handleInput}
+            style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '5vh',
+                left: '45vh',
+                top: '30vh',
+                color: '#000000',
+                }} InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
+                
+                }, startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%"
+                    }}>
+                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                    </InputAdornment>
+                ),
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '8.23%',
+                    right: '70.56%',
+                    width:'90%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      />
+
+        <TextField id="lastName" label="lastName" type='text' name='lastName' variant="standard" 
+            helperText={errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
+            onChange={handleInput}
+            style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '5vh',
+                left: '45vh',
+                top: '38vh',
+                color: '#000000',
+                }} InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
+                
+                }, startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%"
+                    }}>
+                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                    </InputAdornment>
+                ),
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '8.23%',
+                    width:'90%',
+                    right: '70.56%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      />
+
+        <TextField id="email" label="email" type='email' name='email' variant="standard" 
             helperText={errors.email && <span className='text-danger'>{errors.email}</span>}
-            onChange={handleInput}/>
-            </Box>
+            onChange={handleInput}
+            style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '5vh',
+                left: '45vh',
+                top: '46vh',
+                color: '#000000',
+                }} InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
+            
+                }, startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%"
+                    }}>
+                    <img src={email} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                    </InputAdornment>
+                ),
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '10.23%',
+                    right: '70.56%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      />
 
-
-            <Box className="text-field-input-box" >
-            <PasswordIcon sx={{ color: 'black', mr: 1, my: 0.5 }} />
             <TextField id="password" label="password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
             helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
             onChange={handleInput}
+            style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '5vh',
+                left: '45vh',
+                top: '54vh',
+                color: '#000000',
+                }} InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
+           
+                }, startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%"
+                    }}>
+                    <img src={password} alt="rs" style={{height: "2vh", width: "auto" }}/>
+                  
+                         <IconButton style={{left: "400px"}}
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                        > 
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                       </IconButton> 
+        
 
-            InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
+                    </InputAdornment>
                 ),
-              }} />
-           </Box>
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '10.23%',
+                    right: '70.56%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      />
 
-
-           <Box className="text-field-input-box">
-            <PasswordIcon sx={{ color: 'black', mr: 1, my: 0.5 }} />
-            <TextField id="standard-basic" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
-            helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
-
-            InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowConfirmPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
+<TextField id="standard-basic" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
+helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
+style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '5vh',
+                left: '45vh',
+                top: '62vh',
+                color: '#000000',
+                }} InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
+             
+                }, startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%"
+                    }}>
+                    <img src={password} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                    <IconButton style={{left: "400px"}}
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowConfirmPassword}
+                            edge="end"
+                        > 
+                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                       </IconButton> 
+                    </InputAdornment>
                 ),
-              }}  />
-            </Box>
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '10.23%',
+                    width: "90%",
+                    right: '70.56%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      />
 
-            <Box className="text-field-input-box">
-            <BadgeIcon sx={{ color: 'black', mr: 1, my: 0.5 }} />
-            <TextField id="designation" label="designation" type='text' name='designation' variant="standard" 
+<TextField id="designation" label="designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
-
-{/*
             onChange={handleInput}
             style={{
                 position: 'absolute',
@@ -255,12 +469,6 @@ export const RightPaneSignUp = () => {
                 },
                 }}
       /> 
-      */}
-
-            onChange={handleInput}/> 
-            </Box>
-
-            </div>
               
 
               <SignUpButton/>

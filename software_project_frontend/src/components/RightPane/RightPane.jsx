@@ -4,9 +4,7 @@ import './RightPane.css';
 import LogInButton from '../Buttons/LogInButton';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Link } from 'react-router-dom';
-import Box from '@mui/material/Box';
-
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import  {IconButton}  from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -15,9 +13,6 @@ import rapidscore from '../../images/rs.png';
 import username from '../../images/username.png'
 import password from '../../images/password.png'
 import LoginValidation from '../Validation/LoginValidation';
-
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PasswordIcon from '@mui/icons-material/Password';
 
 
 export const RightPane = () => {
@@ -66,35 +61,117 @@ export const RightPane = () => {
             </div>
             <form  encType='application/json' onSubmit={handleSubmit}> 
             {/* <LogInButton/> */}
+            <TextField id="standard-basic" label="userName" name='userName' type='email' variant="standard" onChange={handleInput} 
+            
+            style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '48vh',
+                color: '#000000',
+                }} 
+                InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh'   }, 
 
-            <div style={{display: 'flex', flexDirection: 'column', marginLeft:'55vh', marginTop:'15vh'}}>
-            <Box className="text-field-input-box">
-            <AccountCircleIcon className="text-field-icon" sx={{ color: 'black', mr: 1, my: 0.5 }}  />
-            <TextField id="standard-basic" label="Username" name='username' variant="standard" onChange={handleInput} 
-            helperText={errors.username && <span className='text-danger'>{errors.username}</span>} />
-            </Box>
-
-            <Box className="text-field-input-box" >
-            <PasswordIcon sx={{ color: 'black', mr: 1, my: 0.5 }} />
-            <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "password"} name='password' onChange={handleInput} variant="standard" 
-            helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
-                InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
+                startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%"
+                    }}>
+                    <img src={username} alt="username" style={{ height: "2vh", width: "auto" }}/>
+                    </InputAdornment>
                 ),
-              }} />
-            </Box>
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '8.23%',
+                    right: '70.56%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      />
 
-            </div>
-
+            <TextField id="standard-basic" label="Password" type={showPassword ? "text" : "passWord"} name='passWord' onChange={handleInput} variant="standard" 
            
+            style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '7vh',
+                left: '45vh',
+                top: '58vh',
+                color: '#000000',
+                }} InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
+                    // Add other styles as needed
+                }, startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%"
+                    }}>
+                    <img src={password} alt="rs" style={{ height: "15px", width: "auto" }}/>
+                    <IconButton style={{left: "400px"}}
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                        > 
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                       </IconButton> 
+                    </InputAdornment>
+                ),
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '10.23%',
+                    right: '70.56%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      />
 
         <LogInButton/>
       </form>
@@ -106,7 +183,7 @@ export const RightPane = () => {
                 Don't have an account?
               
             </div>
-            <Link to="/SignUp" className='NoAccount' style={{ color: "#FF2442",marginLeft:'20vh', textDecoration: "underline" }}> Sign Up</Link>
+            <Link to="/SignUp" className='NoAccount' style={{ color: "#FF2442",marginLeft:'15vh', textDecoration: "underline" }}> Sign Up</Link>
            
             
 
