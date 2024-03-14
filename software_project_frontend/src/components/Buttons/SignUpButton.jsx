@@ -13,25 +13,29 @@ function SignUpButton() {
       variant="text"
       type='submit'
       style={{
-        position: 'absolute',
-        left: '46%',
-        right: '0%',
-        top: '85%',
+        position: 'relative',
+        // left: '46%',
+        // right: '0%',
+        // top: '85%',
         bottom: '0%',
         background: '#7894DB',
         borderRadius: '12px',
         height: '6%',
-        width: '12%'
+        display: 'flex',
+        alignItems: 'center',
+          justifyContent: "center",
+          flexDirection: "row",
+                  width: 'auto'
       }}
     >
-      <img src={login} alt="rs" style={{ height: "15px", width: "auto", position: "absolute", left: "15px", top: "10px"}}/>
+      <img src={login} alt="rs" style={{ height: "15px", width: "auto", position: "relative"}}/>
       <div style={{
-          position: 'absolute',
-          left: '35.33%',
-          right: '27.33%',
-          top: '20%',
-          width: "70%",
-          bottom: '29.09%',
+          position: 'relative',
+          // left: '35.33%',
+          // right: '27.33%',
+          // top: '20%',
+          // width: "70%",
+          // bottom: '29.09%',
           fontFamily: 'Roboto',
           fontStyle: 'normal',
           fontWeight: 700,
