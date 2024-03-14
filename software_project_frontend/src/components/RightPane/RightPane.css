@@ -1,23 +1,29 @@
 .RightPane{
-position: absolute;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 width: 145vh;
 height: 90vh;
-margin-left: 75vh;
-top: 44px;
+margin-left: 0vh;
+/* margin-right: 0vh; */
+/* top: 44px; */
 z-index: 2;
 background-color: #F5F5F5;
-mix-blend-mode: overlay;
-box-shadow: 0px 1.2px 3.6px rgba(0, 0, 0, 0.1), 0px 6.4px 14.4px rgba(0, 0, 0, 0.13);
+/* mix-blend-mode: overlay; */
+/* box-shadow: 0px 1.2px 3  .6px rgba(0, 0, 0, 0.1), 0px 6.4px 14.4px rgba(0, 0, 0, 0.13); */
 border-radius: 30px;
 overflow: hidden;
+margin : 2.5%;
 }
 
 .RightPane1{
     position: absolute;
     width: 145vh;
     height: 90vh;
-    margin-left: 75vh;
-    margin-top: -95vh;
+    /* margin-left: 75vh; */
+    margin-top: -3%;
     z-index: 5;
     background-color:transparent;
     border-radius: 30px;
@@ -28,20 +34,21 @@ overflow: hidden;
     }
     
 #RS{
-    margin-top: 2vh;
+    /* margin-top: 2vh; */
+    position: relative;
     width: 60vh;
     height: 20vh;
 }
 
 #LogText{
-    position: absolute;
+    position: relative;
     width: 40vh;
     font-family: "Karla";
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
     color: #212B27;
-    margin-left: 55vh;
+    /* margin-left: 55vh; */
 }
 
 .subtext{
@@ -64,11 +71,12 @@ color: #000000;
 }
 
 .NoAccount{
-position: absolute;
+position: relative;
+flex-direction: row;
 width: 50vh;
 height: 10vh;
-left: 45vh;
-top: 80vh;
+/* left: 45vh;
+top: 80vh; */
 
 font-family: 'Roboto';
 font-style: italic;
@@ -225,3 +233,15 @@ transform: rotate(-45deg);
     margin-top: 20px;
 } */
 
+
+
+.whole{
+    position: relative;
+}
+
+.div{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+}

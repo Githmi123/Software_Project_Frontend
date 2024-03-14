@@ -1,21 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import "../components/RightPane/RightPane.css"
+// import "../components/RightPane/RightPane.css"
 
 import { LeftPane } from '../components/LeftPane/LeftPane';
 import { RightPane } from '../components/RightPane/RightPane';
+import "../styles/Login.css"
 
 
 function Login() {
 
 
   return (
-    <div  style={{backgroundColor: "#7894DB"}}>
+    <div className = "align" style={{backgroundColor: "#7894DB"}}>
         <LeftPane/>
-        <RightPane>
-          
-        </RightPane>
+        <RightPane/>
+        
+{/*         
         <div id='rectangle1'>
         </div>
 
@@ -23,7 +24,7 @@ function Login() {
         </div>
 
         <div id='rectangle3'>
-        </div>
+        </div> */}
 
        {/*  <div id='rectangle4'>
         </div>

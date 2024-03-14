@@ -21,7 +21,6 @@ import NewBatchPage from './pages/NewBatchPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
 function App() {
   return (
     <div id='App' className='background' style={{backgroundColor: "#7894DB"}}>
