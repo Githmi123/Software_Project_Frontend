@@ -55,128 +55,136 @@ export const RightPane = () => {
     };
 
     return(
-        <div >
-        <div className="RightPane"></div>
-        <div className="RightPane1" >
+      
+        // <div className="RightPane">
+      
+        <div className="RightPane" >
             <img src={rapidscore} id='RS' alt="rs"/>
            
             <div id="LogText">
                 Log into your account 
             </div>
-            <form type = "submit" action = "" onSubmit={handleSubmit}> 
+        
+            <form className='div' type = "submit" action = "" onSubmit={handleSubmit}> 
             {/* <LogInButton/> */}
-            <TextField id="standard-basic" label="userName" name='userName' type='email' variant="standard" onChange={handleInput} 
+            <TextField id="userName" label="Username" name='userName' type='email' variant="standard" onChange={handleInput} 
             style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '7vh',
-                left: '45vh',
-                top: '48vh',
+                // left: '45vh',
+                // top: '48vh',
                 color: '#000000',
                 }} 
-                InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh'   }, 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh'   }, 
 
-                startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={username} alt="username" style={{ height: "2vh", width: "auto" }}/>
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '8.23%',
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                // startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%"
+                //     }}>
+                //     <img src={username} alt="username" style={{ height: "2vh", width: "auto" }}/>
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '8.23%',
+                //     right: '70.56%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       />
 
-<TextField id="standard-basic" label="Password" type={showPassword ? "text" : "passWord"} name='passWord' onChange={handleInput} variant="standard" 
+<TextField id="passWord" label="Password" type={showPassword ? "text" : "passWord"} name='passWord' onChange={handleInput} variant="standard" 
 
             style={{
-                position: 'absolute',
+                position: 'relative',
                 width: '60vh',
                 height: '7vh',
-                left: '45vh',
-                top: '58vh',
+                // left: '45vh',
+                // top: '58vh',
                 color: '#000000',
-                }} InputProps={{ style: {
-                    boxSizing: 'border-box',
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderBottom: '0.5vh solid #5932EA',
-                    borderRadius: '1vh',
-                    // Add other styles as needed
-                }, startAdornment: (
-                    <InputAdornment position="start" style={{
-                    position: 'absolute',
-                    left: '4.38%',
-                    right: '92.9%',
-                    top: '0.5%',
-                    bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}>
-                    <img src={password} alt="rs" style={{ height: "15px", width: "auto" }}/>
-                    <IconButton style={{left: "400px"}}
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                        > 
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                       </IconButton> 
-                    </InputAdornment>
-                ),
-                }}
-                InputLabelProps={{
-                style: {
-                    position: 'absolute',
-                    left: '10.23%',
-                    right: '70.56%',
-                    top: '5%',
-                    bottom: '27.27%',
-                    fontFamily: 'Roboto',
-                    fontStyle: 'normal',
-                    fontWeight: 800,
-                    fontSize: '1.4rem',
-                    lineHeight: '15vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: '#000000',
-                },
-                }}
+                }} 
+                // InputProps={{ style: {
+                //     boxSizing: 'border-box',
+                //     position: 'absolute',
+                //     left: 0,
+                //     right: 0,
+                //     top: 0,
+                //     bottom: 0,
+                //     //borderBottom: '0.5vh solid #5932EA',
+                //     borderRadius: '1vh',
+                //     // Add other styles as needed
+                // }, startAdornment: (
+                //     <InputAdornment position="start" style={{
+                //     position: 'absolute',
+                //     left: '4.38%',
+                //     right: '92.9%',
+                //     top: '0.5%',
+                //     bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "0%"
+                //     }}>
+                //     <img src={password} alt="rs" style={{ height: "15px", width: "auto" }}/>
+                //     <IconButton style={{left: "400px"}}
+                //             aria-label="toggle password visibility"
+                //             onClick={handleClickShowPassword}
+                //             edge="end"
+                //         > 
+                //             {showPassword ? <VisibilityOff /> : <Visibility />}
+                //        </IconButton> 
+                //     </InputAdornment>
+                // ),
+                // }}
+                // InputLabelProps={{
+                // style: {
+                //     position: 'absolute',
+                //     left: '10.23%',
+                //     right: '70.56%',
+                //     top: '5%',
+                //     bottom: '27.27%',
+                //     fontFamily: 'Roboto',
+                //     fontStyle: 'normal',
+                //     fontWeight: 800,
+                //     fontSize: '1.4rem',
+                //     lineHeight: '15vh',
+                //     display: 'flex',
+                //     alignItems: 'center',
+                //     color: '#000000',
+                // },
+                // }}
       />
 
-        <LogInButton/>
+
+<div style={{ display: 'flex', justifyContent: 'center', margin: "5% " }}>
+                <LogInButton/>
+            </div>
+
+        
       </form>
 
 
@@ -185,10 +193,10 @@ export const RightPane = () => {
             
                 Don't have an account?
               
-            </div>
-            <Link to="/SignUp" className='NoAccount' style={{ color: "#FF2442",marginLeft:'15vh', textDecoration: "underline" }}> Sign Up</Link>
-           
             
+            <Link to="/SignUp" className='NoAccount' style={{ color: "#FF2442", textDecoration: "underline" }}> Sign Up</Link>
+           
+            </div>
 
             
 
@@ -197,7 +205,7 @@ export const RightPane = () => {
 
         </div>
   
-        </div>
+        // </div>
     )
 }
 
