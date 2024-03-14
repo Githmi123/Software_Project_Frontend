@@ -78,6 +78,7 @@ export const RightPaneSignUp = () => {
     }
     
     const navigate = useNavigate();
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
         const validationErrors = SignUpValidation(values);
@@ -201,11 +202,67 @@ export const RightPaneSignUp = () => {
             <BadgeIcon sx={{ color: 'black', mr: 1, my: 0.5 }} />
             <TextField id="designation" label="designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
+
+{/*
+            onChange={handleInput}
+            style={{
+                position: 'absolute',
+                width: '60vh',
+                height: '5vh',
+                left: '45vh',
+                top: '70vh',
+                color: '#000000',
+                }} InputProps={{ style: {
+                    boxSizing: 'border-box',
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    borderBottom: '0.5vh solid #5932EA',
+                    borderRadius: '1vh',
+            
+                }, startAdornment: (
+                    <InputAdornment position="start" style={{
+                    position: 'absolute',
+                    left: '4.38%',
+                    right: '92.9%',
+                    top: '0.5%',
+                    bottom: '34.55%',
+                    background: '#000000',
+                    height: "0%",
+                    width:'10%'
+                    }}>
+                    <img src={img} alt="rs" style={{ height: "2vh", width: "auto" }}/>
+                    </InputAdornment>
+                ),
+                }}
+                InputLabelProps={{
+                style: {
+                    position: 'absolute',
+                    left: '10.23%',
+                    width:'90%',
+                    right: '70.56%',
+                    top: '5%',
+                    bottom: '27.27%',
+                    fontFamily: 'Roboto',
+                    fontStyle: 'normal',
+                    fontWeight: 800,
+                    fontSize: '1.4rem',
+                    lineHeight: '15vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#000000',
+                },
+                }}
+      /> 
+      */}
+
             onChange={handleInput}/> 
             </Box>
 
             </div>
-              
+
 
               <SignUpButton/>
 

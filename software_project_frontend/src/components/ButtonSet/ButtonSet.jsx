@@ -11,6 +11,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 import  "./ButtonSet.css"
+import LeftPaneButton from '../Buttons/LeftPaneButton';
 //import '../ButtonSet/ButtonSet.css'
 
 const buttonStyle = {
@@ -24,16 +25,51 @@ const buttonStyle = {
 
 const ButtonSet = () => {
 
+  const [selectedButton, setSelectedButton] = useState(false);
+
+    const handleSelectedButton = (button) => {
+        setSelectedButton(button);
+    }
+    const buttonStyle = {
+      backgroundColor: selectedButton === "/Dashboard" ? '#ff0000' : 'white',
+              color: selectedButton === "/Dashboard" ? 'white' : 'black',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      textAlign: 'left',
+      width: '100%',
+  };
 
   return (
     <Stack direction='column' spacing={2} alignItems='center' alignContent='left' >
-        <Button className="button" style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '45px',}}} component={Link} to='/RecentPage'  startIcon={<DashboardIcon/>} endIcon={<ArrowForwardIosIcon/>}>Dashboard</Button>
+        {/* <Button className="button" style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '45px',}}} component={Link} to='/RecentPage'  startIcon={<DashboardIcon/>} endIcon={<ArrowForwardIosIcon/>}>Dashboard</Button>
         <Button className='button'  style={buttonStyle} sx={{textAlign:'left'}} startIcon={<AssignmentIcon/> } component={Link} to="/NewAssignment" endIcon={<ArrowForwardIosIcon/>}>New Assignment</Button>
         <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '39px',}}} component={Link} to='/MyModulePage' startIcon={<BookIcon/>} endIcon={<ArrowForwardIosIcon/>}>My Modules</Button>
         <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '65px',}}} startIcon={<SettingsIcon/>} endIcon={<ArrowForwardIosIcon/>}>Settings</Button>
-        <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '90px',}}} startIcon={<LiveHelpIcon/>} endIcon={<ArrowForwardIosIcon/>}>Help</Button>   
+        <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '90px',}}} startIcon={<LiveHelpIcon/>} endIcon={<ArrowForwardIosIcon/>}>Help</Button>    */}
+        <LeftPaneButton icon={DashboardIcon} name="Dashboard" link = '/Dashboard' />
+        <LeftPaneButton icon={AssignmentIcon} name="New Assignment" link = '/NewAssignment'/>
+        <LeftPaneButton icon={BookIcon} name="My Modules" link = '/MyModulePage'/>
+        <LeftPaneButton icon={SettingsIcon} name="Settings" link = '/Dashboard'/>
+        <LeftPaneButton icon={LiveHelpIcon} name="Help" link = '/Dashboard'/>
+        {/* <Button
+            className="button"
+            component={Link} to='/Dashboard'
+            startIcon={<DashboardIcon />}
+            sx={{
+              ...buttonStyle,
+              backgroundColor: selectedButton === "/Dashboard" ? '#ff0000' : 'white',
+              color: selectedButton === "/Dashboard" ? 'white' : 'black',
+            }}
+            onClick={() => handleSelectedButton('/Dashboard')}
+        >
+            Dashboard
+        </Button> */}
+        
+
 
     </Stack>
+    
+
   )
 }
 
