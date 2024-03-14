@@ -4,18 +4,19 @@ import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 import MainRightPane from '../components/MainRightPane/MainRightPane'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CustomButton from '../components/Buttons/CustomButton';
+import { Link , useNavigate} from 'react-router-dom';
 
 import '../styles/NewAssignmentPage.css'
 import "../styles/NewBatchPage.css"
 
 const NewBatchPage = () => {
+  const [batchNumber, setBatchNumber] = useState(''); 
+  const navigate = useNavigate();
 
-    const [selectNewBatch,setSelectedNewBatch] = useState(null);
-
-    const handleNewBatch= () => {
-
-
-    }
+  const handleNewBatch= () => {
+    console.log("new batch : ",batchNumber);
+    navigate(`/Batches/${batchNumber}`); 
+  }
 
   return (
     <div>
@@ -30,15 +31,21 @@ const NewBatchPage = () => {
                     id="outlined-basic"
                     label="Batch Number"
                     variant="outlined"
+                    onChange={(e) => setBatchNumber(e.target.value)}
                     //value={assignmentName}
                     //onChange={handleAssignmentNameChange}
                     sx={{ m: '2vh', maxWidth: '70vh', padding:"0", position:"relative"}}
                 />
 
                </div>
+
+
+               <Link to="/Batches">
                <Button id='add-button' onClick={handleNewBatch} variant='contained'>
                     Add
                 </Button>
+               </Link>
+               
 
               
                </MainRightPane>

@@ -38,6 +38,7 @@ function App() {
         <Route exact path="/DataVisualization" element={<DataVisualizationPage/>}></Route>
         <Route exact path="/ManualGradingPage" element={<ManualGradingPage/>}></Route>
         <Route exact path="/NewBatchPage" element={<NewBatchPage/>}></Route>
+        <Route path="/Batches/:batchNumber" element={<BatchesPage />} />
 
         {/* Define other routes as needed */}
       </Routes>

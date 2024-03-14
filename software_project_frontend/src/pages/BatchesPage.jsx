@@ -7,24 +7,29 @@ import AddCircleIcon from '@mui/icons-material/AddCircle'
 import CustomNewButton from '../components/Buttons/CustomNewButton'
 
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import '../styles/BatchesPage.css'
 
-const batches = ["22th batch", "23rd batch", "24th batch", "25th batch"];
 
 
 
 const BatchesPage = () => {
+    const { batchNumber } = useParams();
 
     const [selectedBatch, setSelectedBatch] = useState(null);
 
     const handleNewBatch = (event) => {
+        console.log("new bach");
 
     };
 
     const handleSelectedBatch = (batch) =>{
         setSelectedBatch(batch);
     }
+
+    
+const batchesWithNew = ["batch - 22", "batch - 23", "batch - 24", "batch - 25",`batch - ${batchNumber}`];
 
     
 
@@ -42,24 +47,24 @@ const BatchesPage = () => {
                 </div>
 
                 <div className='column'>
-                    {batches.map( (batch) => (
-                         <Link to="/Assignments" key={batch} style={{ textDecoration: 'none', color: 'inherit' }}>
-                         <Button
-                             variant="contained"
-                             style={{
-                                 margin: '10px',
-                                 backgroundColor: selectedBatch === batch ? '#7894DB' : '#E3DDE8',
-                                 color: selectedBatch === batch ? 'white' : 'black',
-                                 width: '60vh',
-                                 textTransform: 'capitalize',
-                                 borderRadius: '2vh',
-                                 border: '0px solid #7894DB'
-                             }}
-                             onClick={() => handleSelectedBatch(batch)}
-                         >
-                             {batch}
-                         </Button>
-                     </Link>
+                {batchesWithNew.map((batch) => (
+                        <Link to="/Assignments" key={batch} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <Button
+                                variant="contained"
+                                style={{
+                                    margin: '10px',
+                                    backgroundColor: selectedBatch === batch ? '#7894DB' : '#E3DDE8',
+                                    color: selectedBatch === batch ? 'white' : 'black',
+                                    width: '60vh',
+                                    textTransform: 'capitalize',
+                                    borderRadius: '2vh',
+                                    border: '0px solid #7894DB'
+                                }}
+                                onClick={() => handleSelectedBatch(batch)}
+                            >
+                                {batch}
+                            </Button>
+                        </Link>
                     ))}
                 </div>
 
