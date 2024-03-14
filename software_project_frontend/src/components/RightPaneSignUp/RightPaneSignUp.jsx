@@ -203,7 +203,7 @@ export const RightPaneSignUp = () => {
             <TextField id="designation" label="designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
 
-{/*
+/*
             onChange={handleInput}
             style={{
                 position: 'absolute',
@@ -256,7 +256,7 @@ export const RightPaneSignUp = () => {
                 },
                 }}
       /> 
-      */}
+      */
 
             onChange={handleInput}/> 
             </Box>
