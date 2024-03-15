@@ -39,7 +39,7 @@ const ButtonSet = () => {
 };
 
   return (
-    <Stack direction='column' spacing={2} alignItems='center' alignContent='left' >
+    <Stack direction='column' spacing={2} alignItems='center' alignContent='center' marginLeft={"3vh"}>
         {/* <Button className="button" style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '45px',}}} component={Link} to='/RecentPage'  startIcon={<DashboardIcon/>} endIcon={<ArrowForwardIosIcon/>}>Dashboard</Button>
         <Button className='button'  style={buttonStyle} sx={{textAlign:'left'}} startIcon={<AssignmentIcon/> } component={Link} to="/NewAssignment" endIcon={<ArrowForwardIosIcon/>}>New Assignment</Button>
         <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '39px',}}} component={Link} to='/MyModulePage' startIcon={<BookIcon/>} endIcon={<ArrowForwardIosIcon/>}>My Modules</Button>
