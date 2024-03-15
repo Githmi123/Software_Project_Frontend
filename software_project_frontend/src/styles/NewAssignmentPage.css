@@ -30,3 +30,13 @@
     /* justify-content: left; */
     /* align-items: flex-start; */
 }
+
+.align1{
+    position: relative;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: 0;
+    
+  }
