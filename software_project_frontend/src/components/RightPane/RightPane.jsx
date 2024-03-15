@@ -13,7 +13,11 @@ import rapidscore from '../../images/rs.png';
 import username from '../../images/username.png'
 import password from '../../images/password.png'
 import LoginValidation from '../Validation/LoginValidation';
+import Cookies from 'js-cookie';
 
+// const getAccessToken = () => {
+//     return document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
+// };
 
 export const RightPane = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -37,22 +41,90 @@ export const RightPane = () => {
         setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
     }
 
- 
+ //     const response = await axios.post("http://localhost:3500/auth", values);
+        // const { accessToken } = response.data;
+        // const response1 = await axios.post("http://localhost:3500/auth", values,{
+        //     headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': 'Bearer '+accessToken
+        //         }, 
+        // });
+        
+    axios.defaults.withCredentials = true;
+    axios.defaults.baseURL = 'http://localhost:3500';
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     try {
+    //         // headers: {
+    //         //     'Content-Type': 'application/json',
+    //         //     'Authorization': 'Bearer '+token
+    //         // }, 
+    //         const response = await axios.post("http://localhost:3500/auth", values, {
+    //             const { accessToken } = response.data;
+    //         })
+    //         .then(res => {
+    //             console.log(res.data)
+    //             navigate('/Dashboard')
+    //         })
+            
+    //     } catch (error) {
+    //         console.error("Login error:", error);
+    //         setErrors({ message: "Failed to log in. Please try again." });
+
+
+    //     } 
+    
+    // };
+
+//     axios.defaults.baseURL = 'http://localhost:3500'; // Set your base URL
+
+// const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     try {
+//         const response = await axios.post("/auth", values);
+//         const { accessToken } = response.data;
+
+//         // Set Authorization header for all subsequent requests
+//         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+//         navigate('/Dashboard');
+//     } catch (error) {
+//         console.error("Login error:", error);
+//         setErrors({ message: "Failed to log in. Please try again." });
+//     }
+// };
+
+// const token = localStorage.getItem('accessToken');
+const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+        
+        const token = Cookies.get('accessToken');
+        
         
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            await axios.post("http://localhost:3500/auth", values);
-            navigate('/Dashboard');
-        } catch (error) {
-            console.error("Login error:", error);
-            setErrors({ message: "Failed to log in. Please try again." });
-
-
-        } 
+await axios.post("http://localhost:3500/auth", values, {
     
-    };
+    // headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer ' + token
+    // },   
+})
+
+.then(res => {
+    
+    console.log(res.data)
+    navigate('/Dashboard')
+})
+    } catch (error) {
+        console.log("you are here")
+        console.error("Login error:", error);
+        setErrors({ message: "Failed to log in. Please try again." });
+    }
+};
+
+
+
 
     return(
       
