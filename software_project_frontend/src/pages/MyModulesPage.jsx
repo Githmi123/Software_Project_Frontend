@@ -31,7 +31,7 @@ const MyModulesPage = () => {
   };
 
   return (
-    <div>
+    <div className = "align1">
       <MainLeftPane/>
       <MainRightPane>
         <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
