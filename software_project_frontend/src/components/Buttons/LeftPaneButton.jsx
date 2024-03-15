@@ -13,14 +13,14 @@ function LeftPaneButton({ icon: Icon, name, link }) {
       setSelectedButton(button);
   }
   
-  
+
         const buttonStyle = {
         backgroundColor: selectedButton ? '#ff0000' : 'initial', // Change to the color you want
         color: selectedButton ? 'white' : 'black', // Change to the color you want
         display: 'flex',
         justifyContent: 'flex-start',
         textAlign: 'left',
-        width: '100%',
+        width: '10%',
     };
 
     
