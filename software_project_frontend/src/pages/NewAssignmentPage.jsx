@@ -114,7 +114,7 @@ const NewAssignmentPage = () => {
                         variant="outlined"
                         value={selectedImage ? selectedImage.name : ''}
                         onChange={handleSelectedImageChange}
-                        sx={{ m: 0.5, maxWidth: 400, padding:"0", position:"relative"}}
+                        sx={{ m: 0.5, width:"46vh", maxWidth: 400, padding:"0", position:"relative"}}
                     />
                     <InputFileUploadButton onFileSelect={setSelectedImage} />
                     {/* <InputFileUploadButton onFileSelect={onFileSelect}/> */}
@@ -123,7 +123,7 @@ const NewAssignmentPage = () => {
                 
             </div>
 
-            <div className='row'>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", justifyContent:"center" }}>
                     {/* <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" /> */}
 
                     <Link to="/RecentPage" style={{ textDecoration: 'none' }}> {/* Wrap the button with Link */}

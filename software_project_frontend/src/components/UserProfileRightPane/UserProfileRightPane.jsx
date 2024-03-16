@@ -28,23 +28,24 @@ export const UserProfileRightPane = () => {
         </button>
         </div>
 
-        <div className='row'>
-            <div>
-                <span className='label1'>First Name</span>
-                <div id='space1'>
-                    <TextField id="outlined-basic" label="First Name" variant="outlined"/>
-                </div>
-            </div>
-
-            <div>
-                <span className='label2'>Last Name</span>
-                <div id='space2'>
-                    <TextField id="outlined-basic" label="Last Name" variant="outlined"/>
-                </div>
-            </div>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div className='label1'>
+        <span className='label1'>First Name</span>
+        <div id='space1'>
+            <TextField id="outlined-basic" label="First Name" variant="outlined"/>
         </div>
+    </div>
 
-        <div>
+    <div className='label1'>
+        <span className='label2'>Last Name</span>
+        <div id='space2'>
+            <TextField id="outlined-basic" label="Last Name" variant="outlined"/>
+        </div>
+    </div>
+</div>
+
+
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
             <span className='label1'>Email</span>
             <div id='space3'>
                 <TextField id="outlined-basic" label="Email" variant="outlined" style={{width: "140vh"}}/>
@@ -59,7 +60,7 @@ export const UserProfileRightPane = () => {
         </div>
 
 
-        <div className='row'>
+        <div style={{ display: 'flex', flexDirection: 'row' }} className='row'>
             <div>
                 <span className='label1'>Contact No.</span>
                 <div id='space1'>
@@ -75,7 +76,7 @@ export const UserProfileRightPane = () => {
             </div>
         </div>
 
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
             <span className='label1'>Educational Background</span>
             <div id='space3' style={{Height: "50vh"}}>
                 {/* <TextField id="outlined-basic" label="Educational Background" variant="outlined" style={{width: "140vh", height: "50vh"}}/> */}
@@ -84,7 +85,7 @@ export const UserProfileRightPane = () => {
                     label="Educational Background"
                     multiline
                     rows={3} // Adjust the number of rows as needed
-                    defaultValue="Educational Background"
+                    
                     variant="outlined"
                     fullWidth
                     style={{width: "140vh"}}
@@ -93,9 +94,9 @@ export const UserProfileRightPane = () => {
             </div>
         </div>
 
-        <div className='row' style={{justifyContent:"center"}}>
-            <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" />
-            <CustomButton text = "Save" onClick = {handleSave} backgroundColor = "#7894DB" textColor = "white" />
+        <div className='row' style={{ display: 'flex', flexDirection: 'row' }}>
+            <CustomButton  className='label1' text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" />
+            <CustomButton className= 'label1' text = "Save" onClick = {handleSave} backgroundColor = "#7894DB" textColor = "white" />
 
             {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
             {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}

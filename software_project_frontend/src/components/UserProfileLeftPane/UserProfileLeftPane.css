@@ -3,9 +3,10 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
+    align-self: flex-start;
     /* position: absolute; */
     width: 23%;
-    height: 100vh;
+    /* height: 100%; */
     /* left: -10px; */
     top: 0px;
 
