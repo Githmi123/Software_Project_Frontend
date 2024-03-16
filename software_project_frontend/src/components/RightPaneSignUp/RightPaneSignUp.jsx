@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import img from '../../images/username.png'
 import email from '../../images/email.png'
-import password from '../../images/password.png'
+//import password from '../../images/password.png'
 import { Link, useNavigate } from 'react-router-dom';
 import SignUpButton from '../Buttons/SignUpButton';
 import  {IconButton}  from "@mui/material";
@@ -51,7 +51,7 @@ export const RightPaneSignUp = () => {
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
-   
+        
     };
 
     const handleClickShowConfirmPassword = () => {
@@ -96,7 +96,7 @@ export const RightPaneSignUp = () => {
                         'Content-Type': 'application/json'
                     }
                 });
-                navigate('/');
+                navigate('/Dashboard');
             } catch (err) {
                 console.log(err);
             }
@@ -313,44 +313,19 @@ export const RightPaneSignUp = () => {
                 color: '#000000',
                 margin: "2%"
                 }} 
-                InputProps={{ 
-                //     style: {
-                //     boxSizing: 'border-box',
-                //     position: 'absolute',
-                //     left: 0,
-                //     right: 0,
-                //     top: 0,
-                //     bottom: 0,
-                //     borderBottom: '0.5vh solid #5932EA',
-                //     borderRadius: '1vh',
-           
-                // }, 
-                startAdornment: (
-                    <InputAdornment position="start" 
-                    style={{
-                    position: 'absolute',
-                    // left: '4.38%',
-                    // right: '92.9%',
-                    // top: '0.5%',
-                    // bottom: '34.55%',
-                    // background: '#000000',
-                    // height: "0%"
-                    }}
-                    >
-                    {/* <img src={password} alt="rs" style={{height: "2vh", width: "auto" }}/> */}
-                  
-                         <IconButton style={{left: "400px"}}
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                        > 
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                       </IconButton> 
-        
-
-               </InputAdornment>
-                ),
-                }}
+                InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 // InputLabelProps={{
                 // style: {
                 //     position: 'absolute',
@@ -370,7 +345,7 @@ export const RightPaneSignUp = () => {
                 // }}
       />
 
-<TextField id="ConfirmPassword" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
+<TextField  id="ConfirmPassword" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
 helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
 style={{
                 position: 'relative',
@@ -381,7 +356,19 @@ style={{
                 color: '#000000',
                 margin: "2%"
                 }} 
-                InputProps={{ 
+                InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 //     style: {
                 //     boxSizing: 'border-box',
                 //     position: 'absolute',
@@ -393,29 +380,29 @@ style={{
                 //     borderRadius: '1vh',
              
                 // }, 
-                startAdornment: (
-                    <InputAdornment position="start" 
-                    style={{
-                    position: 'absolute',
-                    // left: '4.38%',
-                    // right: '92.9%',
-                    // top: '0.5%',
-                    // bottom: '34.55%',
-                    background: '#000000',
-                    height: "0%"
-                    }}
-                    >
-                    {/* <img src={password} alt="rs" style={{ height: "2vh", width: "auto" }}/> */}
-                    <IconButton style={{left: "400px"}}
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowConfirmPassword}
-                            edge="end"
-                        > 
-                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                       </IconButton> 
-                    </InputAdornment>
-                ),
-                }}
+                // startAdornment: (
+                //     <InputAdornment position="start" 
+                //     style={{
+                //     position: 'absolute',
+                //     // left: '4.38%',
+                //     // right: '92.9%',
+                //     // top: '0.5%',
+                //     // bottom: '34.55%',
+                //     background: '#000000',
+                //     height: "2%"
+                //     }}
+                //     >
+                //     {/* <img src={password} alt="rs" style={{ height: "2vh", width: "auto" }}/> */}
+                //     <IconButton style={{left: "400px"}}
+                //             aria-label="toggle password visibility"
+                //             onClick={handleClickShowConfirmPassword}
+                //             edge="end"
+                //         > 
+                //             {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                //        </IconButton> 
+                //     </InputAdornment>
+                // ),
+                
                 // InputLabelProps={{
                 // style: {
                 //     position: 'absolute',

@@ -18,7 +18,7 @@ const NewBatchPage = () => {
     }
 
   return (
-    <div>
+    <div className = "align1">
                <MainLeftPane/>
                <MainRightPane>
                <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
@@ -32,7 +32,7 @@ const NewBatchPage = () => {
                     variant="outlined"
                     //value={assignmentName}
                     //onChange={handleAssignmentNameChange}
-                    sx={{ m: '2vh', maxWidth: '70vh', padding:"0", position:"relative"}}
+                    sx={{ m: '2vh', width:"100vh", maxWidth: '70vh', padding:"0", position:"relative"}}
                 />
 
                </div>

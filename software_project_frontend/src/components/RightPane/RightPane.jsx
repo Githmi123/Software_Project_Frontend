@@ -99,21 +99,19 @@ const handleSubmit = async (event) => {
     event.preventDefault();
     try {
         
-        const token = Cookies.get('accessToken');
+        //const token = Cookies.get('accessToken');
         
         
-
-await axios.post("http://localhost:3500/auth", values, {
-    
-    // headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer ' + token
-    // },   
-})
+       const payload ={"userName": values.userName[0],
+                            "passWord": values.passWord[0]
+    }
+await axios.post("http://localhost:3500/auth", payload
+)
 
 .then(res => {
     
     console.log(res.data)
+    
     navigate('/Dashboard')
 })
     } catch (error) {
@@ -137,7 +135,7 @@ await axios.post("http://localhost:3500/auth", values, {
                 Log into your account 
             </div>
         
-            <form className='div' type = "submit" action = "" onSubmit={handleSubmit}> 
+            <form className='div' encType='application/json' type = "submit" action = "" onSubmit={handleSubmit}> 
             {/* <LogInButton/> */}
             <TextField id="userName" label="Username" name='userName' type='email' variant="standard" onChange={handleInput} 
             style={{

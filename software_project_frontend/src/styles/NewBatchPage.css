@@ -26,3 +26,13 @@
     margin-left: 70vh;
     margin-top: 5vh;
 }
+
+.align1{
+    position: relative;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: 0;
+    
+  }

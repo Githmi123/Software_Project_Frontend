@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import '../styles/AssignmentsPage.css'
 import RemoveFileButton from '../components/Buttons/RemoveFileButton'
 import GradingButton from '../components/Buttons/GradingButton'
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const batches = [
     { regNo:'EG_2024_5671.png', date: "12/12/2023", size: '314.5 kB', status: "Graded" },
@@ -66,7 +67,7 @@ const AnswerScriptsPage = () => {
     
 
     return (
-        <div>
+        <div className = "align1">
             <MainLeftPane/>
             <MainRightPane>
                 <Button  sx={{m:2, width:'100px', height:'50px',color:'black',fontWeight:'bold' }} startIcon={<ArrowBackIcon/>} onClick={() => window.history.back()} >Home</Button>
@@ -150,7 +151,7 @@ const AnswerScriptsPage = () => {
             
                 </div>
 
-                <div className='row'>
+                <div style={{marginTop:'50px',display: 'flex', justifyContent: 'center', position:"relative"}}>
                     <GradingButton text = "Grade all files" onClick={{handleGradeAllFiles}} icon = {AssignmentTurnedInIcon}/>
                     <GradingButton text = "Grade selected files" onClick={{handleGradeSelectedFiles}} icon = {CheckCircle}/>
                     {/* <GradingButton text = "Grade manually" onClick={{handleGradeManually}} icon = {Edit }/> */}
@@ -160,8 +161,12 @@ const AnswerScriptsPage = () => {
                         <GradingButton text="Grade manually" icon={Edit} />
                     </Link>
 
-                    <Link to="/DataVisualization" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/DataVisualization" style={{ textDecoration: 'none', color: 'inherit',}}>
                         <GradingButton text = "Visualize a graph"  icon = {TrendingUp} />
+                    </Link>
+
+                    <Link to="/Dashboard" style={{ textDecoration: 'none', color: 'inherit', }}>
+                        <GradingButton text = "Dashboard"  icon = {DashboardIcon} />
                     </Link>
 
                    
