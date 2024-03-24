@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 import MainRightPane from '../components/MainRightPane/MainRightPane'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -20,6 +20,16 @@ const headers = ['Assignment','Batch', 'Status','Graded'];
 
 const RecentPage = () => {
  const [selectedRecentModule, setSelectedRecentModule]=useState(null);
+ const [data, setData]=useState([{}]);
+
+ useEffect(() => {
+  fetch('http://localhost:5000/members')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
+}, [])
+ 
 
  const handleRecentModule = (event)=>{
 
@@ -70,6 +80,8 @@ const RecentPage = () => {
             </tbody>
           </table>
         </div>
+
+        
       </MainRightPane>
     </div>
   )
