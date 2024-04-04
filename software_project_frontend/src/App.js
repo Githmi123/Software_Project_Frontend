@@ -19,11 +19,11 @@ import DataVisualizationPage from './pages/DataVisualizationPage';
 import ManualGradingPage from './pages/ManualGradingPage';
 import NewBatchPage from './pages/NewBatchPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import React from 'react';
 
 function App() {
   return (
-    <div id='App' className='background' style={{backgroundColor: "#7894DB"}}>
+    <div id='App' className='background'>
       <Router>
       <Routes>
         <Route exact path="/" element={<Login/>}></Route>

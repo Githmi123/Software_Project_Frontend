@@ -8,8 +8,6 @@ body{
   overflow-x: hidden;
   overflow-y: hidden;
   background-color: #7894DB
-  
-  
 }
 
 #root{
@@ -31,5 +29,5 @@ body{
 }
 
 .background{
-  background:  #7894DB;
+  /* background:  #7894DB; */
 }
