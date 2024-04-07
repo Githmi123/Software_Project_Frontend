@@ -29,6 +29,7 @@ const MyModulesPage = () => {
     const fetchModules = async (e) => {
       try {
         const accessToken = Cookies.get("accessToken");
+
         //console.log(accessToken);
         if (!accessToken) {
           console.error("Access token not available");
@@ -52,7 +53,9 @@ const MyModulesPage = () => {
         const moduleCodes = response.data.map(
           (moduledata) => moduledata.modulecode
         );
+
         console.log(moduleCodes);
+
         const uniqueModuleCodes = new Set(moduleCodes);
         if (moduleCodes.length !== uniqueModuleCodes.size) {
           console.error("Duplicate Module_Codes detected!");
@@ -67,13 +70,21 @@ const MyModulesPage = () => {
     fetchModules();
   }, []);
 
-  const handleNewModule = (event) => {
-    // Handle adding a new module
+  const handleNewModule = (event) => {};
+
+  /* const handleSelectedModule = (moduleCode) => {
+    setSelectedModule(moduleCode === selectedModule ? null : moduleCode);
+  }; */
+  /* const handleSelectedModule = (moduleCode) => {
+    setSelectedModule(moduleCode);
+  }; */
+  const handleSelectedModule = (moduleCode) => {
+    setSelectedModule((prevModule) =>
+      prevModule === moduleCode ? null : moduleCode
+    );
   };
 
-  const handleSelectedModule = (moduleCode) => {
-    setSelectedModule(moduleCode === selectedModule ? null : moduleCode);
-  };
+  //console.log("module code", selectedModule);
 
   return (
     <div className="align1">
@@ -128,7 +139,7 @@ const MyModulesPage = () => {
                 >
                   <td>
                     <Link
-                      to="/Batches"
+                      to={`/Batches/${moduledata.modulecode}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       {moduledata.modulecode}
@@ -136,7 +147,7 @@ const MyModulesPage = () => {
                   </td>
                   <td>
                     <Link
-                      to="/Batches"
+                      to={`/Batches/${moduledata.modulecode}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       {moduledata.modulename}
@@ -144,7 +155,7 @@ const MyModulesPage = () => {
                   </td>
                   <td>
                     <Link
-                      to="/Batches"
+                      to={`/Batches/${moduledata.modulecode}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       {moduledata.credits}

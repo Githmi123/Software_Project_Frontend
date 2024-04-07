@@ -30,7 +30,7 @@ const NewModule = () => {
     e.preventDefault();
     try {
       const accessToken = Cookies.get("accessToken");
-      // Make sure accessToken is available before making the request
+
       //console.log(accessToken);
       if (!accessToken) {
         console.error("Access token not available");
@@ -42,13 +42,13 @@ const NewModule = () => {
         },
       };
 
-      // Use the access token in the request headers to create a new module
       await axios.post("http://localhost:3500/modules", moduleData, config);
+
       console.log("Module is created!");
+
       navigate("/MyModulePage");
     } catch (error) {
       console.error("Error creating module:", error);
-      // Handle error, e.g., show error message to user
     }
   };
 
