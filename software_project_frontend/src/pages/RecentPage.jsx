@@ -3,8 +3,9 @@ import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 import MainRightPane from '../components/MainRightPane/MainRightPane'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Button } from '@mui/material';
-
+import refreshAccessToken from '../services/AuthService';
 import { Link } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 import SearchAppBar from '../components/Other/SearchBar/SearchBar';
 
@@ -22,13 +23,34 @@ const RecentPage = () => {
  const [selectedRecentModule, setSelectedRecentModule]=useState(null);
  const [data, setData]=useState([{}]);
 
- useEffect(() => {
-  fetch('http://localhost:5000/members')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
+//  useEffect(() => {
+//   fetch('http://localhost:5000/members')
+//   .then(response => response.json())
+//   .then(data => console.log(data))
+//   .catch(error => console.error(error));
 
-}, [])
+// }, [])
+
+ useEffect(() => {
+  async function fetchData(){
+    try{
+      await refreshAccessToken();
+      const response = await fetch('http://localhost:5000/members', {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('accessToken')}`,
+        }
+      });
+      const data = await response.json();
+      console.log(data);
+
+    }
+    catch (e){
+      console.error(e);
+    }
+  }
+
+  fetchData();
+ }, [])
  
 
  const handleRecentModule = (event)=>{

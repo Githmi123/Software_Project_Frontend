@@ -5,7 +5,7 @@ import { Button, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
-
+import refreshAccessToken from '../services/AuthService';
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -22,23 +22,51 @@ const BatchesPage = () => {
 
   //console.log(selectedModuleCode);
 
+  // useEffect(() => {
+  //   const fetchBatches = async () => {
+  //     try {
+  //       const accessToken = Cookies.get("accessToken");
+  //       if (!accessToken) {
+  //         console.error("Access token not available");
+  //       }
+
+  //       const config = {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       };
+
+  //       const response = await axios.get(
+  //         `http://localhost:3500/batch/${selectedModuleCode}`,
+  //         config
+  //       );
+  //       setBatches(response.data);
+  //       console.log("batches", response.data);
+  //       //console.log(selectedModuleCode);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching batches:", error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   if (selectedModuleCode) {
+  //     fetchBatches();
+  //   }
+  // }, [selectedModuleCode]);
+
+
   useEffect(() => {
-    const fetchBatches = async () => {
-      try {
-        const accessToken = Cookies.get("accessToken");
-        if (!accessToken) {
-          console.error("Access token not available");
-        }
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        };
-
+    async function fetchData(){
+      try{
+        await refreshAccessToken();
         const response = await axios.get(
           `http://localhost:3500/batch/${selectedModuleCode}`,
-          config
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            }
+          }
         );
         setBatches(response.data);
         console.log("batches", response.data);
@@ -50,10 +78,16 @@ const BatchesPage = () => {
       }
     };
 
-    if (selectedModuleCode) {
-      fetchBatches();
-    }
-  }, [selectedModuleCode]);
+    
+  
+    fetchData();
+   }, []);
+
+
+
+
+
+
   const handleNewBatch = (event) => {};
 
   const handleSelectedBatch = (batch) => {
