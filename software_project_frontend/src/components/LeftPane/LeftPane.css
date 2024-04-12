@@ -1,6 +1,5 @@
 .LeftPaneLog{
     display: flex;
-    flex-direction: column;
     height: 150vh;
     background: #FFFFFF;
     flex-direction: column;
@@ -11,7 +10,7 @@
 #Logo{
     width: 20vh;
     height: 30vh;   
-  margin-top: 25vh;
+    margin-top: 25vh;
   
 }
 
