@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 
 import "../styles/MyModulesPage.css";
 import { Link, useNavigate } from "react-router-dom";
+import refreshAccessToken from "../services/AuthService";
 
 const NewModule = () => {
   const [moduleData, setModuleData] = useState({
@@ -29,16 +30,11 @@ const NewModule = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = Cookies.get("accessToken");
-
-      //console.log(accessToken);
-      if (!accessToken) {
-        console.error("Access token not available");
-      }
+      await refreshAccessToken();
 
       const config = {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${Cookies.get('accessToken')}`,
         },
       };
 
