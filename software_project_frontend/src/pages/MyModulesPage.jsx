@@ -5,6 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import refreshAccessToken from '../services/AuthService';
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -28,16 +29,17 @@ const MyModulesPage = () => {
   useEffect(() => {
     const fetchModules = async (e) => {
       try {
-        const accessToken = Cookies.get("accessToken");
+        await refreshAccessToken();
+        // const accessToken = Cookies.get("accessToken");
 
-        //console.log(accessToken);
-        if (!accessToken) {
-          console.error("Access token not available");
-        }
+        // //console.log(accessToken);
+        // if (!accessToken) {
+        //   console.error("Access token not available");
+        // }
 
         const config = {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
           },
         };
 

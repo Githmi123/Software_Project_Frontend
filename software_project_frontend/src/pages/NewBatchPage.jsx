@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 
 import "../styles/NewAssignmentPage.css";
 import "../styles/NewBatchPage.css";
+import refreshAccessToken from "../services/AuthService";
 
 const NewBatchPage = () => {
   const { selectedModuleCode } = useParams();
@@ -30,16 +31,17 @@ const NewBatchPage = () => {
   const handleNewBatch = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = Cookies.get("accessToken");
+      await refreshAccessToken();
+      // const accessToken = Cookies.get("accessToken");
 
-      //console.log(accessToken);
-      if (!accessToken) {
-        console.error("Access token not available");
-      }
+      // //console.log(accessToken);
+      // if (!accessToken) {
+      //   console.error("Access token not available");
+      // }
 
       const config = {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${Cookies.get('accessToken')}`,
         },
       };
 
