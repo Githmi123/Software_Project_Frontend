@@ -26,7 +26,7 @@ function SignUpValidation(values) {
     }
 
     else if(!email_pattern.test(values.email)){
-        error.email = "Email didn't match"
+        error.email = "Please enter a valid email addrsess!"
     }
     
     else{
@@ -38,23 +38,23 @@ function SignUpValidation(values) {
     }
   
     else if(!password_pattern.test(values.password)){
-      error.password = "Password didn't match"
+      error.password = "Password must contain at least one letter, one digit, and be at least 8 characters long."
     }
   
     else{
       error.password = ""
     }
 
-    if(values.confirmpassword === ""){
-        error.confirmpassword = "Password should not be empty"
+    if(values.confirmPassword === ""){
+        error.confirmPassword = "Password should not be empty"
       }
     
-      else if(!password_pattern.test(values.confirmpassword)){
-        error.confirmpassword = "Password didn't match"
+      else if(values.confirmPassword != values.password){
+        error.confirmPassword = "Password didn't match"
       }
     
       else{
-        error.confirmpassword = ""
+        error.confirmPassword = ""
       }
 
 

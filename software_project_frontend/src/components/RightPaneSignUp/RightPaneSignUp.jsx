@@ -61,6 +61,7 @@ export const RightPaneSignUp = () => {
     const [values, setValues] = useState({
         email: '',
         password: '',
+        confirmPassword: '',
         firstName:'',
         lastName:'',
         designation:''
@@ -76,6 +77,7 @@ export const RightPaneSignUp = () => {
     }
     
     const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const validationErrors = SignUpValidation(values);
@@ -87,6 +89,7 @@ export const RightPaneSignUp = () => {
             errors.lastName === "" &&
             errors.email === "" &&
             errors.password === "" &&
+            errors.confirmPassword === "" &&
             errors.designation === "" )
         ) {
             try {
@@ -348,8 +351,9 @@ export const RightPaneSignUp = () => {
                 // }}
       />
 
-<TextField  id="ConfirmPassword" placeholder="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
-helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
+<TextField  id="ConfirmPassword" name='confirmPassword' placeholder="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
+helperText={errors.confirmPassword && <span className='text-danger'>{errors.confirmPassword}</span>}
+onChange={handleInput}
 style={{
                 position: 'relative',
                 width: '60vh',
