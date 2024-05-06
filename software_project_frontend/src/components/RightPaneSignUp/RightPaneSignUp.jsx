@@ -132,7 +132,7 @@ export const RightPaneSignUp = () => {
 
             <form className='div' encType='application/json' onSubmit={handleSubmit}>
              
-            <TextField id="firstName" label="First Name" type='text' name='firstName' variant="standard" 
+            <TextField id="firstName" placeholder="First Name" type='text' name='firstName' variant="standard" 
             helperText={errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
 
             onChange={handleInput}
@@ -189,7 +189,7 @@ export const RightPaneSignUp = () => {
                 // }}
       />
 
-        <TextField id="lastName" label="Last Name" type='text' name='lastName' variant="standard" 
+        <TextField id="lastName" placeholder="Last Name" type='text' name='lastName' variant="standard" 
             helperText={errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
             onChange={handleInput}
             style={{
@@ -246,7 +246,7 @@ export const RightPaneSignUp = () => {
                 // }}
       />
 
-        <TextField id="email" label="Email" type='email' name='email' variant="standard" 
+        <TextField id="email" placeholder="Email" type='email' name='email' variant="standard" 
             helperText={errors.email && <span className='text-danger'>{errors.email}</span>}
             onChange={handleInput}
             style={{
@@ -301,7 +301,10 @@ export const RightPaneSignUp = () => {
                 // }}
       />
 
-            <TextField id="password" label="Password" name='password' type={showPassword ? "text" : "password"} variant="standard" 
+            <TextField id="password" placeholder="Password" 
+            name='password' 
+            type={showPassword ? "text" : "password"} 
+            variant="standard" 
             helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
             onChange={handleInput}
             style={{
@@ -313,19 +316,19 @@ export const RightPaneSignUp = () => {
                 color: '#000000',
                 margin: "2%"
                 }} 
-                InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
+            InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
                 // InputLabelProps={{
                 // style: {
                 //     position: 'absolute',
@@ -345,7 +348,7 @@ export const RightPaneSignUp = () => {
                 // }}
       />
 
-<TextField  id="ConfirmPassword" label="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
+<TextField  id="ConfirmPassword" placeholder="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
 helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
 style={{
                 position: 'relative',
@@ -361,10 +364,10 @@ style={{
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
+                          onClick={handleClickShowConfirmPassword}
                           edge="end"
                         >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
                     ),
@@ -423,7 +426,7 @@ style={{
                 // }}
       />
 
-<TextField id="designation" label="Designation" type='text' name='designation' variant="standard" 
+<TextField id="designation" placeholder="Designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
             onChange={handleInput}
             style={{
