@@ -17,7 +17,7 @@ function LoginValidation(values) {
   }
 
   else if(!password_pattern.test(values.password)){
-    error.password = "Password didn't match"
+    error.password = "Please enter a valid passowrd!"
   }
 
   else{

@@ -28,8 +28,8 @@ export const RightPane = () => {
   };
 
   const [values, setValues] = useState({
-    userName: "",
-    passWord: "",
+    username: "",
+    password: "",
   });
   const navigate = useNavigate();
 
@@ -97,31 +97,43 @@ export const RightPane = () => {
   // const token = localStorage.getItem('accessToken');
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      //const token = Cookies.get('accessToken');
-
-      const payload = {
-        userName: values.userName[0],
-        passWord: values.passWord[0],
-      };
-      await axios
-        .post("http://localhost:3500/auth", payload)
-
-        .then((res) => {
-          console.log(res.data);
-          const { accessToken } = res.data;
-          Cookies.set("accessToken", accessToken);
-          //const cookie = res.data;
-          console.log("2nd token");
-          console.log(accessToken);
-
-          navigate("/Dashboard");
-        });
-    } catch (error) {
-      console.log("you are here");
-      console.error("Login error:", error);
-      setErrors({ message: "Failed to log in. Please try again." });
-    }
+    const errors = LoginValidation(values);
+    setErrors(errors);
+    if(!(errors.email === "" &&
+        errors.password === ""
+      ))
+      {
+        try {
+          //const token = Cookies.get('accessToken');
+          
+          
+            const payload = {
+              userName: values.username[0],
+              passWord: values.password[0],
+            };
+            await axios
+              .post("http://localhost:3500/auth", payload)
+      
+              .then((res) => {
+                console.log(res.data);
+                const { accessToken } = res.data;
+                Cookies.set("accessToken", accessToken);
+                //const cookie = res.data;
+                console.log("2nd token");
+                console.log(accessToken);
+      
+                navigate("/Dashboard");
+              });
+          
+    
+          
+        } catch (error) {
+          console.log("you are here");
+          console.error("Login error:", error);
+          setErrors({ message: "Failed to log in. Please try again." });
+        }
+      }
+    
   };
 
   return (
@@ -142,11 +154,12 @@ export const RightPane = () => {
         {/* <LogInButton/> */}
         <TextField
           id="userName"
-          placeholder="Username"
-          name="userName"
+          placeholder="Email"
+          name="username"
           type="email"
           variant="standard"
           onChange={handleInput}
+          helperText={errors.username && <span className="text-danger">{errors.username}</span>}
           style={{
             position: "relative",
             width: "60vh",
@@ -202,9 +215,10 @@ export const RightPane = () => {
           id="standard-adornment-password"
           placeholder="Password"
           type={showPassword ? "text" : "password"}
-          name="passWord"
+          name="password"
           onChange={handleInput}
           variant="standard"
+          helperText={errors.password && <span className="text-danger">{errors.password}</span>}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
