@@ -6,8 +6,9 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { IconButton } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Icon, IconButton } from "@mui/material";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import rapidscore from "../../images/rs.png";
 import username from "../../images/username.png";
@@ -141,7 +142,7 @@ export const RightPane = () => {
         {/* <LogInButton/> */}
         <TextField
           id="userName"
-          label="Username"
+          placeholder="Username"
           name="userName"
           type="email"
           variant="standard"
@@ -196,14 +197,36 @@ export const RightPane = () => {
           // },
           // }}
         />
-
+        
         <TextField
-          id="passWord"
-          label="Password"
-          type={showPassword ? "text" : "passWord"}
+          id="standard-adornment-password"
+          placeholder="Password"
+          type={showPassword ? "text" : "password"}
           name="passWord"
           onChange={handleInput}
           variant="standard"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibiity"
+                onClick={handleClickShowPassword}
+              >
+                
+                {showPassword ? <VisibilityOff/> : <Visibility/>}
+              </IconButton>
+            </InputAdornment>
+            ),
+            style:{
+              position: "relative",
+              width: "60vh",
+              height: "7vh",
+              // left: '45vh',
+              // top: '58vh',
+              color: "#000000",
+            }
+          }}
+          
           style={{
             position: "relative",
             width: "60vh",
