@@ -44,12 +44,12 @@ function App() {
           ></Route>
           <Route
             exact
-            path="/Assignments"
+            path="/Assignments/:selectedModuleCode/:batch"
             element={<AssignmentsPage />}
           ></Route>
           <Route
             exact
-            path="/Assignments/:selectedModuleCode/:batch"
+            path="/AnswerScripts"
             element={<AnswerScriptsPage />}
           ></Route>
           <Route
