@@ -12,6 +12,8 @@ import axios from "axios";
 import "../styles/MyModulesPage.css";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
 
+//import NewAssignmentPage from "./NewAssignmentPage";
+
 /*const table_data_modules = [
   { Module_Code: "EE5262", Module_Name: "Database Systems", Credits: 2 },
   { Module_Code: "EE5263", Module_Name: "Database Systems 2", Credits: 2 },
@@ -167,6 +169,7 @@ const MyModulesPage = () => {
           </table>
         </div>
       </MainRightPane>
+      {/* <NewAssignmentPage moduleData={tableDataModules} /> */}
     </div>
   );
 };

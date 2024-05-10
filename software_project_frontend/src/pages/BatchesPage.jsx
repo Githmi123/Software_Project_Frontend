@@ -6,21 +6,17 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
 
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 import "../styles/BatchesPage.css";
 
-//const batches = ["22th batch", "23rd batch", "24th batch", "25th batch"];
-
 const BatchesPage = () => {
   const { selectedModuleCode } = useParams();
   const [batches, setBatches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  //console.log(selectedModuleCode);
+  const [moduleData, setModuleData] = useState(null); // State to hold module data
 
   useEffect(() => {
     const fetchBatches = async () => {
@@ -41,8 +37,6 @@ const BatchesPage = () => {
           config
         );
         setBatches(response.data);
-        console.log("batches", response.data);
-        //console.log(selectedModuleCode);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching batches:", error);
@@ -54,11 +48,36 @@ const BatchesPage = () => {
       fetchBatches();
     }
   }, [selectedModuleCode]);
-  const handleNewBatch = (event) => {};
 
-  const handleSelectedBatch = (batch) => {
-    setBatches(batch);
-  };
+  useEffect(() => {
+    const fetchModuleData = async () => {
+      try {
+        const accessToken = Cookies.get("accessToken");
+        if (!accessToken) {
+          console.error("Access token not available");
+        }
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+
+        const response = await axios.get(
+          "http://localhost:3500/modules",
+          config
+        );
+        const module = response.data.find(
+          (module) => module.modulecode === selectedModuleCode
+        );
+        setModuleData(module); // Set the module data
+      } catch (error) {
+        console.error("Error fetching module data:", error);
+      }
+    };
+
+    fetchModuleData();
+  }, [selectedModuleCode]);
 
   return (
     <div className="align1">
@@ -77,11 +96,25 @@ const BatchesPage = () => {
         >
           Home
         </Button>
-        <h1 id="heading">Module</h1>
+        {/* Check if moduleData is available before rendering */}
+        <h1 id="heading">
+          {moduleData ? (
+            <>
+              {moduleData.modulecode} - {moduleData.modulename}
+            </>
+          ) : (
+            "Loading..."
+          )}
+        </h1>
         <div>
           <Link to={`/NewBatchPage/${selectedModuleCode}`}>
-            <CustomNewButton text="New Batch" onClick={handleNewBatch} />
+            <CustomNewButton text="New Batch" />
           </Link>
+          <Link to={`/EditModule/${selectedModuleCode}`}>
+            <CustomNewButton text="Edit Module" />
+          </Link>
+
+          <CustomNewButton text="Delete Module" />
         </div>
 
         <div className="column">
@@ -92,7 +125,7 @@ const BatchesPage = () => {
           ) : (
             batches.map((batch) => (
               <Link
-                to={`/Assignments/${batch.batchId}`}
+                to={`/Assignments/${selectedModuleCode}/${batch.batch}`}
                 key={batch.batchId}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
@@ -114,28 +147,6 @@ const BatchesPage = () => {
             ))
           )}
         </div>
-
-        {/* <div id='module-table'>
-                    <table>
-                        <tr id='module-table-headers' sx={{fontWeight:'bolder'}}>
-                        <th>Module Code</th>
-                        <th>Module Name</th>
-                        </tr>
-                        {table_data_modules.map((val,key)=>{
-                        return(
-                            <tr key={key} style={{backgroundColor:'#E3DDE8', borderRadius:'30px', margin:'0 0 5px 0'}}>
-                            <td>{val.Module_Code}</td>
-                            <td>{val.Module_Name}</td>
-                            </tr>
-                        )
-                        }
-            
-                        )
-            
-                        }
-            
-                    </table>
-                    </div> */}
       </MainRightPane>
     </div>
   );

@@ -18,6 +18,7 @@ import AnswerScriptsPage from "./pages/AnswerScriptsPage";
 import DataVisualizationPage from "./pages/DataVisualizationPage";
 import ManualGradingPage from "./pages/ManualGradingPage";
 import NewBatchPage from "./pages/NewBatchPage";
+import EditModule from "./pages/EditModule";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
           ></Route>
           <Route
             exact
-            path="/Assignments"
+            path="/Assignments/:selectedModuleCode/:batch"
             element={<AssignmentsPage />}
           ></Route>
           <Route
@@ -65,6 +66,11 @@ function App() {
             exact
             path="/NewBatchPage/:selectedModuleCode"
             element={<NewBatchPage />}
+          ></Route>
+          <Route
+            exact
+            path="/EditModule/:selectedModuleCode"
+            element={<EditModule />}
           ></Route>
 
           {/* Define other routes as needed */}
