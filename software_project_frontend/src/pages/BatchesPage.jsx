@@ -18,6 +18,8 @@ const BatchesPage = () => {
   const [batches, setBatches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [moduleData, setModuleData] = useState(null);
+
   //console.log(selectedModuleCode);
 
   // useEffect(() => {
@@ -82,6 +84,32 @@ const BatchesPage = () => {
   const handleSelectedBatch = (batch) => {
     setBatches(batch);
   };
+
+  useEffect(() => {
+    const fetchModuleData = async () => {
+      try {
+        await refreshAccessToken();
+
+        const moduleResponse = await axios.get(
+          "http://localhost:3500/modules",
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        const module = moduleResponse.data.find(
+          (module) => module.modulecode === selectedModuleCode
+        );
+        setModuleData(module); // Set the module data
+      } catch (error) {
+        console.error("Error fetching module data:", error);
+      }
+    };
+
+    fetchModuleData();
+  }, [selectedModuleCode]);
 
   return (
     <div className="align1">
