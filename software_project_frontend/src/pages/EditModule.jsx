@@ -10,6 +10,8 @@ import "../styles/MyModulesPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
+import refreshAccessToken from "../services/AuthService";
+
 const EditModule = () => {
   const { selectedModuleCode } = useParams();
   const [moduleData, setModuleData] = useState({
@@ -21,21 +23,21 @@ const EditModule = () => {
   useEffect(() => {
     const fetchModuleDetails = async () => {
       try {
+        await refreshAccessToken();
         const accessToken = Cookies.get("accessToken");
         if (!accessToken) {
           console.error("Access token not available");
           return;
         }
-        const config = {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        };
 
         console.log("selected module code :", selectedModuleCode);
         const response = await axios.get(
           `http://localhost:3500/modules/view/${selectedModuleCode}`,
-          config
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
         );
         setModuleData(response.data);
       } catch (error) {
