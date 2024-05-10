@@ -56,21 +56,16 @@ const EditModule = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = Cookies.get("accessToken");
-      if (!accessToken) {
-        console.error("Access token not available");
-        return;
-      }
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      };
+      await refreshAccessToken();
 
       await axios.post(
         `http://localhost:3500/modules/edit/${selectedModuleCode}`,
         moduleData,
-        config
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
       );
       navigate("/MyModulePage");
     } catch (error) {
