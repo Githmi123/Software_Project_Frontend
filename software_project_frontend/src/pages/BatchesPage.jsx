@@ -8,8 +8,6 @@ import CustomNewButton from "../components/Buttons/CustomNewButton";
 
 import { Link, useParams } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
