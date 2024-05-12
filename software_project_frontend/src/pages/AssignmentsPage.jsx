@@ -7,6 +7,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
 import { useParams } from "react-router-dom";
 
+import refreshAccessToken from "../services/AuthService";
+
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -52,31 +54,32 @@ const AssignmentsPage = () => {
   useEffect(() => {
     const fetchAssignments = async (e) => {
       try {
-        const accessToken = Cookies.get("accessToken");
-
-        //console.log(accessToken);
-        if (!accessToken) {
-          console.error("Access token not available");
-        }
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        };
+        await refreshAccessToken();
 
         const response = await axios.get(
           `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`,
-          config
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
         );
         if (response.data && Array.isArray(response.data.rows)) {
           // Extract the assignment data from the rows
           const assignmentData = response.data.rows;
 
-          // Set the assignment data to the state
-          setTableDataAssignments(assignmentData);
+          // Separate the assignment data into rows and values
+          const tableDataAssignments = assignmentData.map((assignment) => {
+            // Extract values from each assignment object
+            const rowValues = Object.values(assignment);
+            // Return the row values
+            return rowValues;
+          });
 
-          console.log("Assignment Data:", assignmentData);
+          // Set the separated assignment data to the state
+          setTableDataAssignments(tableDataAssignments);
+
+          console.log("Assignment Data:", tableDataAssignments);
         } else {
           console.error(
             "No assignment data found in the response:",
@@ -86,7 +89,6 @@ const AssignmentsPage = () => {
 
         console.log("the selected module code", selectedModuleCode);
         console.log("the selected batch", batch);
-        console.log("this is selected assignments", response.data);
 
         // console.log("Checking for duplicate Module_Codes:");
         // const moduleCodes = response.data.map(
@@ -114,6 +116,15 @@ const AssignmentsPage = () => {
   const handleSelectedAssignmentNo = (assignmentNo) => {
     setSelectedAssignmentNo(assignmentNo);
   };
+
+  const formattedAssignments = tableDataAssignments.map(
+    (assignment, index) => ({
+      assignmentNo: index + 1,
+      name: assignment[2],
+      dateCreated: new Date(assignment[4]).toLocaleDateString(),
+      assignmentId: assignment[3],
+    })
+  );
 
   return (
     <div className="align1">
@@ -155,17 +166,17 @@ const AssignmentsPage = () => {
             </thead>
 
             <tbody>
-              {tableDataAssignments.map((batchInfo) => (
+              {formattedAssignments.map((assignment) => (
                 <tr
-                  key={batchInfo.assignmentNo}
+                  key={assignment.assignmentNo}
                   className="trStyle"
                   style={{
                     backgroundColor:
-                      selectedAssignmentNo === batchInfo.assignmentNo
+                      selectedAssignmentNo === assignment.assignmentNo
                         ? "#7894DB"
                         : "#E3DDE8",
                     color:
-                      selectedAssignmentNo === batchInfo.assignmentNo
+                      selectedAssignmentNo === assignment.assignmentNo
                         ? "white"
                         : "black",
                     border: "7px solid white",
@@ -174,34 +185,34 @@ const AssignmentsPage = () => {
                 >
                   <td>
                     <Link
-                      to="/AnswerScripts"
+                      to={`/AnswerScripts/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignment.assignmentId}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {batchInfo.assignmentNo}
+                      {assignment.assignmentNo}
                     </Link>
                   </td>
                   <td>
                     <Link
-                      to="/AnswerScripts"
+                      to={`/AnswerScripts/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignment.assignmentId}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {batchInfo.asssignmenttitle}
+                      {assignment.name}
                     </Link>
                   </td>
                   <td>
                     <Link
-                      to="/AnswerScripts"
+                      to={`/AnswerScripts/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignment.assignmentId}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {batchInfo.assignmentdate}
+                      {assignment.dateCreated}
                     </Link>
                   </td>
                   <td>
                     <Link
-                      to="/AnswerScripts"
+                      to={`/AnswerScripts/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignment.assignmentId}`}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {batchInfo.status}
+                      {assignment.assignmentId}
                     </Link>
                   </td>
                 </tr>
@@ -242,6 +253,14 @@ const AssignmentsPage = () => {
             
                     </table>
                     </div> */}
+          {/* <div>
+            <Link>
+              <CustomNewButton text="Edit Batch" />
+            </Link>
+            <Link>
+              <CustomNewButton text="Delete Batch" />
+            </Link>
+          </div> */}
         </div>
       </MainRightPane>
     </div>
