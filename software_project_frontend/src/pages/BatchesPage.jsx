@@ -142,11 +142,6 @@ const BatchesPage = () => {
           <Link to={`/NewBatchPage/${selectedModuleCode}`}>
             <CustomNewButton text="New Batch" />
           </Link>
-          <Link to={`/EditModule/${selectedModuleCode}`}>
-            <CustomNewButton text="Edit Module" />
-          </Link>
-
-          <CustomNewButton text="Delete Module" />
         </div>
 
         <div className="column">
@@ -178,6 +173,16 @@ const BatchesPage = () => {
               </Link>
             ))
           )}
+        </div>
+
+        <div className="buttonContainer">
+          <Link to={`/EditModule/${selectedModuleCode}`}>
+            <CustomNewButton text="Edit Module" />
+          </Link>
+
+          <Link to={`/DeleteModule/${selectedModuleCode}`}>
+            <CustomNewButton text="Delete Module" />
+          </Link>
         </div>
       </MainRightPane>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
 import { Button, Checkbox } from "@mui/material";
@@ -14,25 +14,116 @@ import RemoveFileButton from "../components/Buttons/RemoveFileButton";
 import GradingButton from "../components/Buttons/GradingButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
+import refreshAccessToken from "../services/AuthService";
+
+import { useParams } from "react-router-dom";
+
+import Cookies from "js-cookie";
+import axios from "axios";
+
 const AnswerScriptsPage = () => {
+  const { selectedModuleCode, batch, assignmentid } = useParams();
   const [selectedAssignmentNos, setSelectedAssignmentNos] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [answerScripts, setAnswerScripts] = useState([]);
+
+  console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
+
+  useEffect(() => {
+    const fetchAnswerscripts = async () => {
+      try {
+        await refreshAccessToken();
+
+        const response = await axios.get(
+          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        const answerScriptsData = response.data.rows;
+
+        setAnswerScripts(answerScriptsData);
+      } catch (error) {
+        console.error("Error fetching answer scripts:", error);
+      }
+    };
+
+    fetchAnswerscripts();
+  }, [selectedModuleCode, batch, assignmentid]);
+
+  useEffect(() => {
+    const uploadNewAnswerscripts = async () => {
+      try {
+        await refreshAccessToken();
+
+        const formData = new FormData();
+        selectedFiles.forEach((file) => formData.append("scripts", file));
+
+        const response = await axios.post(
+          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+        );
+
+        console.log("Uploaded Answer Scripts:", response.data);
+      } catch (error) {
+        console.error("Error uploading answer scripts:", error);
+      }
+    };
+
+    if (selectedFiles.length > 0 && assignmentid) {
+      uploadNewAnswerscripts();
+    }
+  }, [selectedFiles, selectedModuleCode, batch, assignmentid]);
 
   const handleNewAnswerScript = (file) => {
     setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, file]);
   };
 
-  const handleToggleAssignmentNo = (regNo) => {
+  const handleToggleAssignmentNo = (scriptId) => {
     setSelectedAssignmentNos((prevSelectedAssignmentNos) => {
-      if (prevSelectedAssignmentNos.includes(regNo)) {
-        return prevSelectedAssignmentNos.filter((no) => no !== regNo);
+      if (prevSelectedAssignmentNos.includes(scriptId)) {
+        return prevSelectedAssignmentNos.filter((id) => id !== scriptId);
       } else {
-        return [...prevSelectedAssignmentNos, regNo];
+        return [...prevSelectedAssignmentNos, scriptId];
       }
     });
   };
 
-  const handleGradeAllFiles = (event) => {};
+  const handleToggleAllScripts = () => {
+    if (selectedAssignmentNos.length === answerScripts.length) {
+      setSelectedAssignmentNos([]);
+    } else {
+      const allScriptIds = answerScripts.map((script) => script.id);
+      setSelectedAssignmentNos(allScriptIds);
+    }
+  };
+
+  const handleGradeAllFiles = async () => {
+    try {
+      await refreshAccessToken();
+
+      const response = await axios.get(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      console.log("Graded all answer scripts", response.data);
+    } catch (error) {
+      console.error("Error grading answer scripts:", error);
+    }
+  };
 
   const handleGradeSelectedFiles = (event) => {};
 
@@ -40,9 +131,9 @@ const AnswerScriptsPage = () => {
 
   const handleVisualizeAGraph = (event) => {};
 
-  const handleRemove = (regNo) => {
+  const handleRemove = (scriptId) => {
     setSelectedFiles((prevSelectedFiles) =>
-      prevSelectedFiles.filter((file) => file.name !== regNo)
+      prevSelectedFiles.filter((file) => file.id !== scriptId)
     );
   };
 
@@ -74,33 +165,34 @@ const AnswerScriptsPage = () => {
         <div className="columnAnswerScripts">
           <table className="tableStyle2">
             <tbody>
-              {selectedFiles.map((file) => (
-                <tr
-                  key={file.name}
-                  className="trStyleAnswerScript"
-                  style={{
-                    backgroundColor: selectedAssignmentNos.includes(file.name)
-                      ? "#F0F0F0"
-                      : "#E3DDE8",
-                  }}
-                >
-                  <td>
-                    <Checkbox
-                      color="primary"
-                      checked={selectedAssignmentNos.includes(file.name)}
-                      onChange={() => handleToggleAssignmentNo(file.name)}
-                    />
-                  </td>
-                  <td onClick={() => handleToggleAssignmentNo(file.name)}>
-                    {file.name}
-                  </td>
-                  <td>{file.lastModified}</td>
-                  <td>{file.size}</td>
-                  <td>
-                    <RemoveFileButton onClick={() => handleRemove(file.name)} />
-                  </td>
-                </tr>
-              ))}
+              {answerScripts &&
+                answerScripts.map((script) => (
+                  <tr
+                    key={script.id}
+                    className="trStyleAnswerScript"
+                    style={{
+                      backgroundColor: selectedAssignmentNos.includes(script.id)
+                        ? "#F0F0F0"
+                        : "#E3DDE8",
+                    }}
+                  >
+                    <td>
+                      <Checkbox
+                        color="primary"
+                        checked={selectedAssignmentNos.includes(script.id)}
+                        onChange={() => handleToggleAssignmentNo(script.id)}
+                      />
+                    </td>
+                    <td onClick={() => handleToggleAssignmentNo(script.id)}>
+                      {script.studentid}
+                    </td>
+                    <td>
+                      <RemoveFileButton
+                        onClick={() => handleRemove(script.id)}
+                      />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

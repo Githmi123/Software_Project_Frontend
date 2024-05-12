@@ -19,6 +19,7 @@ import CustomSelect from "../components/Other/CustomSelect";
 import InputFileUploadButton from "../components/Buttons/InputFileUploadButton";
 import CustomButton from "../components/Buttons/CustomButton";
 import { useParams } from "react-router-dom";
+import refreshAccessToken from "../services/AuthService";
 
 const NewAssignmentPage = () => {
   const [moduleOptions, setModuleOptions] = useState([]);
@@ -41,21 +42,15 @@ const NewAssignmentPage = () => {
   useEffect(() => {
     const fetchModulesAndBatches = async () => {
       try {
-        const accessToken = Cookies.get("accessToken");
-        if (!accessToken) {
-          console.error("Access token not available");
-          return;
-        }
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        };
+        await refreshAccessToken();
 
         const modulesResponse = await axios.get(
           "http://localhost:3500/modules",
-          config
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
         );
         const modules = modulesResponse.data;
         const moduleOptions = modules.map((module) => ({
@@ -81,16 +76,15 @@ const NewAssignmentPage = () => {
         //   );
         //   return;
         // }
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        };
+        await refreshAccessToken();
 
         const batchResponse = await axios.get(
           `http://localhost:3500/batch/${selectedModule}`,
-          config
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
         );
         const batches = batchResponse.data;
 
@@ -187,32 +181,36 @@ const NewAssignmentPage = () => {
     batch: selectedBatch,
     modulecode: selectedModule,
     assignmenttitle: assignmentName,
-    schemepath: schemepath, // Use the file path
+    schemepath: schemepath,
     scheme: selectedFile,
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = Cookies.get("accessToken");
-      if (!accessToken) {
-        console.error("Access token not available");
-        return;
-      }
+      await refreshAccessToken();
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      };
+      const formData = new FormData();
 
+      formData.append("batch", selectedBatch);
+      formData.append("modulecode", selectedModule);
+      formData.append("assignmenttitle", assignmentName);
+      formData.append("schemepath", schemepath);
+      formData.append("scheme", selectedFile);
+
+      // Make the POST request with the FormData object
       await axios.post(
         `http://localhost:3500/assignment/${selectedModule}/${selectedBatch}`,
-        assignmentData,
-        config
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+          },
+        }
       );
 
-      console.log("THis is the data assignment", assignmentData);
+      console.log("Assignment is created!");
 
       console.log("Assignment is created!");
 
