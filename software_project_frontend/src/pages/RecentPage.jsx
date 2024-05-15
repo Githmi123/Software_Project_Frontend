@@ -10,6 +10,7 @@ import axios from "axios";
 import SearchAppBar from "../components/Other/SearchBar/SearchBar";
 import { useParams } from "react-router-dom";
 import "../styles/RecentPage.css";
+import UserProfileBar from "../components/UserProfileBar/UserProfileBar";
 
 const headers = ["Assignment", "Batch", "Assignment ID", "Date Created"];
 
@@ -177,6 +178,7 @@ const RecentPage = () => {
             </tbody>
           </table>
         </div>
+        <UserProfileBar/>
       </MainRightPane>
     </div>
   );
