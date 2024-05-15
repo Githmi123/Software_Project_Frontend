@@ -1,0 +1,3 @@
+// __mocks__/logo.png
+
+module.exports = './placeholder.png';

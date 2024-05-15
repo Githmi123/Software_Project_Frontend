@@ -12,7 +12,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import  "./ButtonSet.css"
 import LeftPaneButton from '../Buttons/LeftPaneButton';
-//import '../ButtonSet/ButtonSet.css'
+import '../ButtonSet/ButtonSet.css'
 
 const buttonStyle = {
   textAlign: 'left',

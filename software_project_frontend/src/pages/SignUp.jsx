@@ -1,11 +1,11 @@
-// import logo from './logo.svg';
+import logo from './logo.svg';
 // import './Login.css';
 import React from 'react';
 import { LeftPane } from '../components/LeftPane/LeftPane';
 import { RightPaneSignUp } from '../components/RightPaneSignUp/RightPaneSignUp';
-// import "../components/RightPane/RightPane.css"
-// import "../styles/Login.css"
+import "../components/RightPane/RightPane.css"
 import "../styles/Login.css"
+// import "../styles/Login.css"
 
 function SignUp() {
 
