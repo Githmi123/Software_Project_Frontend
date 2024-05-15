@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 // import './Login.css';
 import React from 'react';
 import { LeftPane } from '../components/LeftPane/LeftPane';
