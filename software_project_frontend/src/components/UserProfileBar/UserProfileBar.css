@@ -1,3 +1,24 @@
 #profilebar{
-    
+    /* color: aqua; */
+    /* background-color: aqua; */
+    display: flex;
+    width:inherit;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+}
+
+
+#barText{
+    display: flex;
+    /* width:inherit; */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+}
+
+select{
+    border: none;
 }

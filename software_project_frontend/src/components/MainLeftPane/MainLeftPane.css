@@ -25,6 +25,19 @@
     margin-bottom: 5vh;
     /* margin-left: 5vh; */
     height: auto;
+    display: flex;
+    justify-content:center;
+    flex-direction: column;
+    align-items: center;
     
 }
 
+#ProfileBar{
+    display: flex;
+    justify-content: flex-end;
+    height: 100vh;
+    flex-direction: column;
+    /* background-color: aqua; */
+    align-items: center;
+    width:40vh;
+}

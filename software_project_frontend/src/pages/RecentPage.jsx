@@ -111,7 +111,7 @@ const RecentPage = () => {
 
   return (
     <div className="align1">
-      <MainLeftPane />
+      <MainLeftPane/>
       <MainRightPane>
         <Button
           sx={{
@@ -178,7 +178,7 @@ const RecentPage = () => {
             </tbody>
           </table>
         </div>
-        <UserProfileBar/>
+        
       </MainRightPane>
     </div>
   );
