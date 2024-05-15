@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../RightPane/RightPane.css';
+// import '../RightPane/RightPane.css';
 // import { MuiTextField } from './MuiTextField';
 import LogInButton from '../Buttons/LogInButton';
 import ima from '../../images/rs.png';
@@ -10,7 +10,7 @@ import img from '../../images/username.png'
 import email from '../../images/email.png'
 //import password from '../../images/password.png'
 import { Link, useNavigate } from 'react-router-dom';
-import SignUpButton from '../Buttons/SignUpButton';
+// import SignUpButton from '../Buttons/SignUpButton';
 import  {IconButton}  from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SignUpValidation from '../Validation/SignUpValidation';

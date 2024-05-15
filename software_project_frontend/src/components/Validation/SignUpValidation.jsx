@@ -46,7 +46,7 @@ function SignUpValidation(values) {
     }
 
     if(values.confirmPassword === ""){
-        error.confirmPassword = "Password should not be empty"
+        error.confirmPassword = "Confirm Password should not be empty"
       }
     
       else if(values.confirmPassword != values.password){

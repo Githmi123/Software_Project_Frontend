@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
-// import "../components/RightPane/RightPane.css"
+import "../components/RightPane/RightPane.css"
 
 import {LeftPane} from '../components/LeftPane/LeftPane';
 import { RightPane } from '../components/RightPane/RightPane';
@@ -13,8 +13,8 @@ function Login() {
 
   return (
     <div className = "align1" >
-        <LeftPane/>
-        <RightPane/>
+        <LeftPane />
+        <RightPane />
         
 {/*         
         <div id='rectangle1'>

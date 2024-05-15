@@ -139,7 +139,7 @@ export const RightPane = () => {
   return (
     // <div className="RightPane">
 
-    <div className="RightPane">
+    <div data-testid="right-pane" className="RightPane">
       <img src={rapidscore} id="RS" alt="rs" />
 
       <div id="LogText">Log into your account</div>
