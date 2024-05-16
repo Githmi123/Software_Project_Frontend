@@ -33,14 +33,18 @@ const AnswerScriptsPage = () => {
     const fetchAnswerscripts = async () => {
       try {
         await refreshAccessToken();
-
-        const response = await axios.get(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
+        const config = {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('accessToken')}`,
+          },
+        };
+        
+        const url=  `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`;
+        
+        console.log(url)
+        const response = await axios.get(url
+         ,config
+          
         );
 
         const answerScriptsData = response.data.rows;
@@ -109,9 +113,9 @@ const AnswerScriptsPage = () => {
   const handleGradeAllFiles = async () => {
     try {
       await refreshAccessToken();
-
-      const response = await axios.get(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+      
+      const response = await axios.post(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,{},
         {
           headers: {
             Authorization: `Bearer ${Cookies.get("accessToken")}`,
