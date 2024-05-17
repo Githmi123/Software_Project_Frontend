@@ -17,8 +17,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 export default function AccountMenu() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("ABC");
+  const [lastName, setLastName] = useState("Perera");
   const [designation, setDesignation] = useState("");
   const [imageSRC, setImageSRC] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
@@ -91,9 +91,9 @@ export default function AccountMenu() {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'right', textAlign: 'center' }}>
-        <Typography sx={{ minWidth: 100 }}></Typography>
-        <Typography sx={{ minWidth: 100 }}></Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <Typography sx={{ minWidth: 90 }}></Typography>
+        <Typography sx={{ minWidth: 90 }}>{firstName} {lastName}</Typography>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
