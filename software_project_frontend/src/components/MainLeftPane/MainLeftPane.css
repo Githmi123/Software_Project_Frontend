@@ -39,5 +39,5 @@
     flex-direction: column;
     /* background-color: aqua; */
     align-items: center;
-    width:40vh;
+    width:inherit;
 }

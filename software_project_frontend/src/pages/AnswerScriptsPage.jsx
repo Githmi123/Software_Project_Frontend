@@ -107,10 +107,23 @@ const AnswerScriptsPage = () => {
   };
 
   const handleGradeAllFiles = async () => {
+    console.log("STarted Grading");
     try {
-      await refreshAccessToken();
+      
+      // await refreshAccessToken();
+      
 
-      const response = await axios.get(
+      // const response = await axios.post(
+      //   `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      //     },
+      //   }
+      // );
+
+      const response = await axios.post(
+        // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
         `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
         {
           headers: {
@@ -118,6 +131,8 @@ const AnswerScriptsPage = () => {
           },
         }
       );
+
+      console.log("Got Response");
 
       console.log("Graded all answer scripts", response.data);
     } catch (error) {
