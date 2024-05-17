@@ -1,3 +1,48 @@
-#profilebar{
-    
+.profilebar{
+    /* color: aqua; */
+    /* background-color: aqua; */
+    display: flex;
+    width:inherit;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+}
+
+
+#barText{
+    display: flex;
+    /* width:inherit; */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+}
+
+select{
+    border: none;
+    outline: none;
+    /* font-size: smaller; */
+}
+
+label{
+    /* display: flex;
+   
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 8vh; */
+}
+
+
+option{
+    font-size: large;
+    width: 100vw;
+    padding: 10vh;
+    height: 20vh;
+}
+
+option option {
+    padding: 5vh;
+    height: 5vh;
 }

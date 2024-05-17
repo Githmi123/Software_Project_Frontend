@@ -16,7 +16,7 @@ async function refreshAccessToken()
         const data = await response.json();
         console.log(data);
         const { accessToken } = data;
-        Cookies.set("accessToken", accessToken);
+        // Cookies.set("accessToken", accessToken);
         return accessToken;
     }
     catch (error){

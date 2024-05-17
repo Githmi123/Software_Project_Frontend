@@ -62,3 +62,10 @@ table th, table td {
   margin-left: 0;
   
 }
+
+.align{
+  display: flex;
+  /* margin-left: 33%; */
+  justify-content: center;
+  flex-direction: column;
+}
