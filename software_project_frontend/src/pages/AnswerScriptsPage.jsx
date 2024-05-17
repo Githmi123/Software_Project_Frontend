@@ -110,7 +110,7 @@ const AnswerScriptsPage = () => {
     try {
       await refreshAccessToken();
 
-      const response = await axios.get(
+      const response = await axios.post(
         `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
         {
           headers: {
@@ -185,6 +185,9 @@ const AnswerScriptsPage = () => {
                     </td>
                     <td onClick={() => handleToggleAssignmentNo(script.id)}>
                       {script.studentid}
+                    </td>
+                    <td onClick={() => handleToggleAssignmentNo(script.id)}>
+                      {script.marks}
                     </td>
                     <td>
                       <RemoveFileButton
