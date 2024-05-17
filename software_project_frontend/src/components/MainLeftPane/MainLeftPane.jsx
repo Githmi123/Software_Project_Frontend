@@ -10,15 +10,18 @@ const MainLeftPane = () => {
   return (
     
     <div className='maindiv-left'> 
-    <div className='maindiv-left'>
-      <img id='main-left-pane-image' src={projectlogo} style={{width: '50%'}}/>
+
+      <div id = "ProfileBar">
+        <UserProfileBar/>
+      </div>
+
+      <div className='maindiv-left'>
+        <img id='main-left-pane-image' src={projectlogo} style={{width: '50%'}}/>
+            
+          <ButtonSet/>
           
-        <ButtonSet/>
-        
-    </div>  
-    <div id = "ProfileBar">
-      <UserProfileBar/>
-    </div>
+      </div>  
+      
 
         
         

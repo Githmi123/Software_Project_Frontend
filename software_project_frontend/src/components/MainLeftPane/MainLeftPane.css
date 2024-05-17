@@ -35,7 +35,7 @@
 #ProfileBar{
     display: flex;
     justify-content: flex-end;
-    height: 100vh;
+    /* height: 100vh; */
     flex-direction: column;
     /* background-color: aqua; */
     align-items: center;

@@ -4,6 +4,7 @@ import refreshAccessToken from '../../services/AuthService';
 import Cookies from "js-cookie";
 import axios from "axios";
 import "./UserProfileBar.css"
+import Select from 'react-select';
 
 function UserProfileBar() {
 
@@ -16,10 +17,29 @@ function UserProfileBar() {
 
   const navigate = useNavigate();
 
+  const handleProfile = () => {
+    navigate('/UserProfile');
+  }
+
+  const handleLogin = async () => {
+    console.log("Logging out");
+
+    await axios.get("http://localhost:3500/logout", {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      },
+    }
+  );
+
+  Cookies.remove("accessToken");
+  navigate("/");
+
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("You are here");
+        console.log("Fetching data");
         // await refreshAccessToken();
         console.log("after refresh");
         const userResponse = await axios.get(
@@ -53,31 +73,36 @@ function UserProfileBar() {
     fetchData();
   }, []);
 
-  const handleChange = (option) => {
-    setSelectedOption(option);
+  const handleChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+    console.log(selectedValue);
 
-    if(selectedOption == "Option 1")
+    if(selectedValue === "Option 1")
     {
-      navigate('/UserProfile');
+      handleProfile();
     }
 
-    else if(selectedOption == "Option 2")
+    else if(selectedValue === "Option 2")
     {
-
+      handleLogin();
     }
   }
 
   return (
-    <div id = "profilebar">
-      <img src = {imageSRC} style={{height: "8vh"}}/>
+    <div className = "profilebar">
+      <img src = {imageSRC} style={{height: "8vh", marginLeft: "1vw"}}/>
       <div id = "barText" style={{width: "10vw"}}> {firstName} {lastName} </div>
 
       <div>
-        <label htmlFor='option'></label>
-        <select id = "options" value={selectedOption} onChange={handleChange}>
+        <label htmlFor='option'>
+          
+          
+        </label>
+        <select id = "options" value={selectedOption} onChange={handleChange} style={{ alignContent: "center", width: "11vw", height:"11vh", padding:"2vw 1vh"}} menuPlacement = "top">
           <option value="Please Choose an option"></option>
           <option value = "Option 1">My Profile</option>
-          <option value = "Option 2">Log Out</option>
+          <option style={{height: "10vh"}} value = "Option 2">Log Out</option>
 
         </select>
       </div>
