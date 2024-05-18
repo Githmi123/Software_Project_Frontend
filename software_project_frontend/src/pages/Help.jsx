@@ -9,9 +9,9 @@ function Help() {
     <div className = "align1">
         <MainLeftPane/>
         <MainRightPane>
-            <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"row"}}>
+            <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"row", margintop:"10vh"}}>
                 <h1>Support Center</h1>
-                <img src={help}/>
+                <img src={help} id = "helpImage"/>
             </div>
             
         </MainRightPane>

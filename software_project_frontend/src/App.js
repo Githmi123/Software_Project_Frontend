@@ -57,7 +57,7 @@ function App() {
           ></Route>
           <Route
             exact
-            path="/DataVisualization"
+            path="/DataVisualization/batch/:batch/modulecode/:selectedModuleCode/assignmentid/:assignmentid"
             element={<DataVisualizationPage />}
           ></Route>
           <Route
