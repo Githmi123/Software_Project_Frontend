@@ -28,19 +28,19 @@ const CustomNewButton = ({ text, onFileSelect }) => {
   };
 
   return (
-    <div style={{ display: "flex", marginLeft: "auto" }}>
+    <div style={{ display: "flex" }}>
       <Button
         sx={{
-          ml: "auto",
-          mr: "10vh",
+          
           width: "auto",
           padding: "3vh",
-          height: "50px",
+          height: "2vh",
           color: "black",
           fontWeight: "bold",
           textTransform: "none",
           backgroundColor: "#C3D3FB",
           borderRadius: "2vh",
+          fontSize:"1.5vh"
         }}
         startIcon={<AddCircleIcon />}
         className="new-module-button"
