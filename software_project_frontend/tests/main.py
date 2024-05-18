@@ -1,16 +1,13 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+options = Options()
+options.add_experimental_option("detach", True)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
+
+driver.get("http://localhost:3000/")
+driver.maximize_window()
