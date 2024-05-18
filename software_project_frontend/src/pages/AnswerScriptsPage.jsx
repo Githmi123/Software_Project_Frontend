@@ -4,7 +4,7 @@ import MainRightPane from "../components/MainRightPane/MainRightPane";
 import { Button, Checkbox } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import { CheckCircle } from "@mui/icons-material";
+import { CheckCircle, Delete } from "@mui/icons-material";
 import { Edit } from "@mui/icons-material";
 import { TrendingUp } from "@mui/icons-material";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
@@ -241,6 +241,10 @@ const AnswerScriptsPage = () => {
     );
   };
 
+  const handleDeleteFiles = () => {
+
+  };
+
   return (
     <div className="align1">
       <MainLeftPane />
@@ -259,15 +263,39 @@ const AnswerScriptsPage = () => {
           Home
         </Button>
         <h1 id="heading">Uploaded Answer Scripts</h1>
-        <div>
+        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent: "space-between", marginLeft:"5vw", marginRight:"5vw"}}>
           <CustomNewButton
             text="Upload Answer Script"
             onFileSelect={handleNewAnswerScript}
           />
+          <GradingButton
+            text="Grade all files"
+            onClick={handleGradeAllFiles}
+            icon={AssignmentTurnedInIcon}
+          />
+          <GradingButton
+            text="Grade selected files"
+            onClick={handleGradeSelectedFiles}
+            icon={CheckCircle}
+          />
+          
+          <Link
+            to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <GradingButton text="Visualize a graph" icon={TrendingUp} />
+          </Link>
+
+          <GradingButton
+            text="Delete selected files"
+            onClick={handleDeleteFiles}
+            icon={Delete}
+          />
+
         </div>
 
         <div className="columnAnswerScripts">
-          <Box sx={{ height: 400, width: '100%' }}>
+          <Box sx={{ height: '100%', width: '100%' }}>
             <DataGrid
               rows={answerScripts}
               columns={columns}
@@ -328,40 +356,19 @@ const AnswerScriptsPage = () => {
 
         <div
           style={{
-            marginTop: "50px",
+            marginTop: "1vh",
             display: "flex",
             justifyContent: "center",
             position: "relative",
           }}
         >
-          <GradingButton
-            text="Grade all files"
-            onClick={handleGradeAllFiles}
-            icon={AssignmentTurnedInIcon}
-          />
-          <GradingButton
-            text="Grade selected files"
-            onClick={handleGradeSelectedFiles}
-            icon={CheckCircle}
-          />
-          <Link
-            to="/ManualGradingPage"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <GradingButton text="Grade manually" icon={Edit} />
-          </Link>
-          <Link
-            to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <GradingButton text="Visualize a graph" icon={TrendingUp} />
-          </Link>
-          <Link
+          
+          {/* <Link
             to="/Dashboard"
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <GradingButton text="Dashboard" icon={DashboardIcon} />
-          </Link>
+          </Link> */}
         </div>
       </MainRightPane>
     </div>
