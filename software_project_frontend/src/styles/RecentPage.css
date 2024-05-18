@@ -19,6 +19,9 @@
 table {
   border-collapse: collapse; 
   width: 100%; 
+  /* margin-left: 5vw;
+  margin-right: 5vw; */
+
 }
 
 table th, table td {
@@ -34,4 +37,12 @@ table th, table td {
   align-items: flex-start;
   margin-left: 0;
   
+}
+
+.column{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7vw;
+  margin-right: 7vw;
 }

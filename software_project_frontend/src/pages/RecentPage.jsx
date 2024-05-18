@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import "../styles/RecentPage.css";
 import UserProfileBar from "../components/UserProfileBar/UserProfileBar";
 
-const headers = ["Assignment", "Batch", "Assignment ID", "Date Created"];
+const headers = ["Assignment", "Batch", "Date Created"];
 
 const RecentPage = () => {
   const [selectedRecentModule, setSelectedRecentModule] = useState(null);
@@ -166,7 +166,7 @@ const RecentPage = () => {
                       </Link>
                     </td>
                     <td>{assignment.batch}</td>
-                    <td>{assignment.assignmentId}</td>
+                    {/* <td>{assignment.assignmentId}</td> */}
                     <td>{assignment.dateCreated}</td>
                   </tr>
                 ))
