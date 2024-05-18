@@ -106,7 +106,7 @@ const MyModulesPage = () => {
           Home
         </Button>
         <h1 id="heading">My Modules</h1>
-        <div>
+        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"right", marginRight:"2vw"}}>
           <Link to="/NewModule" style={{ textDecoration: "none" }}>
             <CustomNewButton text="New Module" onClick={handleNewModule} />
           </Link>
