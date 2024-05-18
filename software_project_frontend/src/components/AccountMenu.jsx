@@ -70,14 +70,17 @@ export default function AccountMenu() {
         setDesignation(user.designation);
         console.log(user);
 
-        if(user.profilepic && user.profilepic.image && user.profilepic.image.data)
-        {
-          const imageBytes = new Uint8Array(user.profilepic.image.data);
-          const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
-          const imageURL = URL.createObjectURL(blob);
-          setImageSRC(imageURL);
-          console.log(imageURL);
-        }
+        if(user.profilepic)
+          {
+            setImageSRC(user.profilepic);
+          }
+        // {
+        //   const imageBytes = new Uint8Array(user.profilepic.image.data);
+        //   const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
+        //   const imageURL = URL.createObjectURL(blob);
+        
+        //   console.log(imageURL);
+        // }
       } catch (error) {
         console.error("Error fetching data:", error);
       }

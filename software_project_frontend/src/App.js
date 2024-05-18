@@ -21,6 +21,7 @@ import NewBatchPage from "./pages/NewBatchPage";
 import EditModule from "./pages/EditModule";
 import DeleteModule from "./pages/DeleteModule";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Help from "./pages/Help";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/Dashboard" element={<RecentPage />}></Route>
           <Route exact path="/MyModulePage" element={<MyModulesPage />}></Route>
           <Route exact path="/NewModule" element={<NewModule />}></Route>
+          <Route exact path="/Help" element={<Help/>}></Route>
           <Route
             exact
             path="/NewAssignment"
