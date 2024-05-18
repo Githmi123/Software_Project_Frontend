@@ -44,13 +44,13 @@ const CustomNewButton = ({ text, onFileSelect }) => {
         }}
         startIcon={<AddCircleIcon />}
         className="new-module-button"
-        onClick={handleButtonClick} // Call handleButtonClick when the button is clicked
+        onClick={handleButtonClick}
       >
         {text}
       </Button>
       {/* VisuallyHiddenInput is now rendered next to the button */}
       <VisuallyHiddenInput
-        ref={fileInputRef} // Reference to the input element
+        ref={fileInputRef}
         type="file"
         accept=".jpeg, .png, .jpg"
         onChange={handleFileSelect}

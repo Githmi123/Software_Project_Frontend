@@ -109,9 +109,7 @@ const AnswerScriptsPage = () => {
   const handleGradeAllFiles = async () => {
     console.log("STarted Grading");
     try {
-      
       // await refreshAccessToken();
-      
 
       // const response = await axios.post(
       //   `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
@@ -200,6 +198,9 @@ const AnswerScriptsPage = () => {
                     </td>
                     <td onClick={() => handleToggleAssignmentNo(script.id)}>
                       {script.studentid}
+                    </td>
+                    <td onClick={() => handleToggleAssignmentNo(script.id)}>
+                      {script.marks}
                     </td>
                     <td>
                       <RemoveFileButton
