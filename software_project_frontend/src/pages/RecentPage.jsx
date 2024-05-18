@@ -23,7 +23,7 @@ const RecentPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await refreshAccessToken();
+        // await refreshAccessToken();
         const modulesResponse = await axios.get(
           "http://localhost:3500/modules",
           {

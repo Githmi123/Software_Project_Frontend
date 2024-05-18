@@ -64,7 +64,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 5vh;
-    max-height: 50%;
+    max-height: 60vh;
     overflow-y: auto;
     margin-right: 10vh;
     /* overflow-y: scroll; */
@@ -121,3 +121,8 @@
     margin-left: 0;
     
   }
+
+  .boldHeader {
+    font-weight: bold;
+  }
+  
