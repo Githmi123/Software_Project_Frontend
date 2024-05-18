@@ -63,9 +63,11 @@ table th, table td {
   
 }
 
-.align{
+.alignment{
   display: flex;
-  /* margin-left: 33%; */
+  margin-left: 18vw;
+  margin-right: 18vw;
   justify-content: center;
   flex-direction: column;
+  margin-top: 7vh;
 }
