@@ -15,12 +15,13 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 import axios from "axios";
+import image from "../images/image.png";
 
 export default function AccountMenu() {
   const [firstName, setFirstName] = useState("ABC");
   const [lastName, setLastName] = useState("Perera");
-  const [designation, setDesignation] = useState("");
-  const [imageSRC, setImageSRC] = useState("");
+  const [designation, setDesignation] = useState("Lecturer");
+  const [imageSRC, setImageSRC] = useState(image);
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -93,7 +94,7 @@ export default function AccountMenu() {
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Typography sx={{ minWidth: 90 }}></Typography>
-        <Typography sx={{ minWidth: 90 }}>{firstName} {lastName}</Typography>
+        <Typography sx={{ minWidth: 90, color:"black" }}></Typography>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -103,10 +104,13 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}><img src = {imageSRC}/></Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}><img src = {imageSRC} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}/></Avatar>
           </IconButton>
+          
         </Tooltip>
+        
       </Box>
+      
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -120,7 +124,7 @@ export default function AccountMenu() {
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
             '& .MuiAvatar-root': {
-              width: 32,
+              width: 320,
               height: 32,
               ml: -0.5,
               mr: 1,
@@ -130,7 +134,7 @@ export default function AccountMenu() {
               display: 'block',
               position: 'absolute',
               top: 0,
-              right: 14,
+              right: "20vw",
               width: 10,
               height: 10,
               bgcolor: 'background.paper',
@@ -142,8 +146,17 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", height:"10vh"}}>
+          <Typography sx={{color:"black", fontSize:"3vh"}}>{firstName} {lastName}</Typography>
+          <Typography>{designation}</Typography>
+        </div>
+        
+        <Divider />
         <MenuItem onClick={handleProfile}>
-          <Avatar /> Profile
+        
+            <img src={imageSRC} style={{ width: '6%', height: '8%', objectFit: 'cover', borderRadius: '50%' }} alt="Avatar" />
+            <div style={{width:"1vw"}}/>
+          Profile
         </MenuItem>
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> My account
