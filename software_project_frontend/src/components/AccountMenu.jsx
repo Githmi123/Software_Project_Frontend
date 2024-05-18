@@ -123,11 +123,12 @@ export default function AccountMenu() {
         PaperProps={{
           elevation: 0,
           sx: {
+            width:"30vw",
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
             '& .MuiAvatar-root': {
-              width: 320,
+              width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
@@ -157,8 +158,8 @@ export default function AccountMenu() {
         <Divider />
         <MenuItem onClick={handleProfile}>
         
-            <img src={imageSRC} style={{ width: '6%', height: '8%', objectFit: 'cover', borderRadius: '50%' }} alt="Avatar" />
-            <div style={{width:"1vw"}}/>
+            <img src={imageSRC} style={{ width: '25px', height: '25px', objectFit: 'cover', borderRadius: '50%' }} alt="Avatar" />
+            <div style={{width:"10px"}}/>
           Profile
         </MenuItem>
         {/* <MenuItem onClick={handleClose}>

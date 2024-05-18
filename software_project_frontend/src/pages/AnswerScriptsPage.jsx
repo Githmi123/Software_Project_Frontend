@@ -35,7 +35,7 @@ const AnswerScriptsPage = () => {
         await refreshAccessToken();
 
         const response = await axios.get(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,{},
           {
             headers: {
               Authorization: `Bearer ${Cookies.get("accessToken")}`,
@@ -65,11 +65,13 @@ const AnswerScriptsPage = () => {
         const response = await axios.post(
           `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
           formData,
+          
           {
             headers: {
               Authorization: `Bearer ${Cookies.get("accessToken")}`,
             },
-          }
+          },
+          
         );
 
         console.log("Uploaded Answer Scripts:", response.data);
@@ -122,7 +124,7 @@ const AnswerScriptsPage = () => {
 
       const response = await axios.post(
         // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,{},
         {
           headers: {
             Authorization: `Bearer ${Cookies.get("accessToken")}`,
@@ -238,7 +240,7 @@ const AnswerScriptsPage = () => {
             <GradingButton text="Grade manually" icon={Edit} />
           </Link>
           <Link
-            to="/DataVisualization"
+            to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <GradingButton text="Visualize a graph" icon={TrendingUp} />
