@@ -65,8 +65,8 @@ export default function AccountMenu() {
         );
         const user = userResponse.data;
 
-        setFirstName(user.firstname);
-        setLastName(user.lastname);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
         setDesignation(user.designation);
         console.log(user);
 
