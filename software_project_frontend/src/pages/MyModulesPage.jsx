@@ -103,7 +103,7 @@ const MyModulesPage = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         <h1 id="heading">My Modules</h1>
         <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"right", marginRight:"2vw"}}>

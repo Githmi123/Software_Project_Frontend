@@ -124,7 +124,7 @@ const RecentPage = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         <h1 id="heading">Recents</h1>
         <div className="column">
