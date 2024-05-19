@@ -117,8 +117,12 @@ margin : 2.5%;
 }
 
 #rightpane-form {
-  margin-left: 5vh;
-  margin-top: 5vh;
+  display: flex;
+  margin-left: 18vw;
+  margin-right: 18vw;
+  justify-content: center;
+  flex-direction: column;
+  /* margin-top: 7vh; */
 }
 
 .userprofile-buttons {

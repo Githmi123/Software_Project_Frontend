@@ -9,14 +9,18 @@ import { LeftPane } from "../components/LeftPane/LeftPane";
 import { RightPane } from "../components/RightPane/RightPane";
 import { UserProfileLeftPane } from "../components/UserProfileLeftPane/UserProfileLeftPane";
 import { UserProfileRightPane } from "../components/UserProfileRightPane/UserProfileRightPane";
+import MainLeftPane from '../components/MainLeftPane/MainLeftPane'
 
 import refreshAccessToken from "../services/AuthService";
+import { NewUserProfileRightPane } from "../components/NewUserProfileRightPane/NewUserProfileRightPane";
 
 function UserProfile() {
   return (
     <div id="body">
-      <UserProfileLeftPane></UserProfileLeftPane>
-      <UserProfileRightPane />
+      {/* <UserProfileLeftPane></UserProfileLeftPane> */}
+      <MainLeftPane/>
+      {/* <UserProfileRightPane /> */}
+      <NewUserProfileRightPane/>
     </div>
   );
 }

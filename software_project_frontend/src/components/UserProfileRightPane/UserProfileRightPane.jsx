@@ -74,20 +74,211 @@ export const UserProfileRightPane = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Dashboard
+          Home
         </Button>
 
         {/*   <button className="notificationButton">
           <i className="fas fa-bell"></i>
         </button> */}
       </div>
+      
 
-      <h2 id="edit-text">Edit the Profile</h2>
+      <h1 id="heading">My Profile</h1>
 
       <div id="rightpane-form">
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div className="label1-userprofile-left">
-            <span className="label1-userprofile-left">First Name</span>
+        {/* <div > */}
+          {/* <div className="label1-userprofile-left"> */}
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              // marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            First Name
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder={profileData.firstName}
+            name="modulecode"
+            value={profileData.firstName}
+            onChange={handleChange}
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          />
+
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              // marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Last Name
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder={profileData.lastName}
+            name="modulecode"
+            value={profileData.lastName}
+            onChange={handleChange}
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          />
+
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              // marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Email
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder={profileData.email}
+            name="modulecode"
+            value={profileData.email}
+            onChange={handleChange}
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          />
+
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              // marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Designation
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder={profileData.designation}
+            name="modulecode"
+            value={profileData.designation}
+            onChange={handleChange}
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          />
+          
+
+          {/* <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              // marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Password
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder={profileData.password}
+            name="modulecode"
+            type="password"
+            value={profileData.password}
+            onChange={handleChange}
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          />
+
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              // marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Confirm Password
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          type="password"
+          // defaultValue="Module Code"
+          placeholder={profileData.firstName}
+            name="modulecode"
+            value={profileData.firstName}
+            onChange={handleChange}
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          /> */}
+           
+          {/* </TextField> */}
+            {/* <span className="label1-userprofile-left">First Name</span>
             <div id="space1">
               <TextField
                 id="outlined-basic"
@@ -97,10 +288,10 @@ export const UserProfileRightPane = () => {
                 value={profileData.firstName}
                 onChange={handleChange}
               />
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
 
-          <div className="label1-userprofile-left">
+          {/* <div className="label1-userprofile-left">
             <span className="label2">Last Name</span>
             <div id="space2">
               <TextField
@@ -112,10 +303,10 @@ export const UserProfileRightPane = () => {
                 onChange={handleChange}
               />
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
 
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        {/* <div style={{ display: "flex", flexDirection: "row" }}>
           <span className="label1-userprofile-left">Email</span>
           <div id="space3">
             <TextField
@@ -128,7 +319,7 @@ export const UserProfileRightPane = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </div> */}
 
         {/*  <div>
             <span className='label1'>Address</span>
@@ -144,7 +335,7 @@ export const UserProfileRightPane = () => {
                     <TextField id="outlined-basic" label="Contact No." variant="outlined"/>
                 </div>
             </div> */}
-        <div
+        {/* <div
           style={{ display: "flex", flexDirection: "row" }}
           className="label1-userprofile-left"
         >
@@ -158,9 +349,9 @@ export const UserProfileRightPane = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </div> */}
 
-        <div
+        {/* <div
           style={{ display: "flex", flexDirection: "row" }}
           className="label1-userprofile-left"
         >
@@ -175,7 +366,7 @@ export const UserProfileRightPane = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </div> */}
 
         {/* </div> */}
 
@@ -196,6 +387,15 @@ export const UserProfileRightPane = () => {
 
             </div>
         </div> */}
+        <div className="userprofile-buttons">
+          <CustomButton
+            className="label1-userprofile-left"
+            text="Change my password"
+            onClick={handleCancel}
+            backgroundColor="#8968CD"
+            textColor="white"
+          />
+        </div>
 
         <div className="userprofile-buttons">
           <CustomButton
@@ -212,6 +412,7 @@ export const UserProfileRightPane = () => {
             backgroundColor="#7894DB"
             textColor="white"
           />
+          
 
           {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
           {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}

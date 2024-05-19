@@ -64,7 +64,7 @@ const NewModule = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
 
         

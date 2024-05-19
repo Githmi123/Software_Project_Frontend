@@ -235,7 +235,7 @@ const NewAssignmentPage = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         <div className="align">
           <span className="label1">Module</span>
