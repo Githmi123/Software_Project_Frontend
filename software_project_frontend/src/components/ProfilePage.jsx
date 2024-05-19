@@ -113,7 +113,7 @@ export default function ProfilePage() {
         >
           Back
         </Button>
-        <h1 id="heading">Settings</h1>
+        <h1 id="heading">My Profile</h1>
         <h6 id="heading" color='black' fontWeight= "bolder" style={{fontSize:"3vh"}}>Basic Information</h6>
 
         <MDBRow>

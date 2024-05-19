@@ -50,7 +50,7 @@ const ButtonSet = () => {
         <LeftPaneButton icon={DashboardIcon} name="Dashboard" link = '/Dashboard' />
         <LeftPaneButton icon={AssignmentIcon} name="New Assignment" link = '/NewAssignment'/>
         <LeftPaneButton icon={BookIcon} name="My Modules" link = '/MyModulePage'/>
-        <LeftPaneButton icon={SettingsIcon} name="Settings" link = '/Dashboard'/>
+        <LeftPaneButton icon={SettingsIcon} name="Settings" link = '/Settings'/>
         <LeftPaneButton icon={LiveHelpIcon} name="Help" link = '/Help'/>
 
 
