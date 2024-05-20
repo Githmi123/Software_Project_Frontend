@@ -39,7 +39,7 @@ function App() {
           <Route exact path="/Settings" element={<Settings/>}></Route>
           <Route
             exact
-            path="/NewAssignment"
+            path="/NewAssignment/:selectedModuleCode/:batch"
             element={<NewAssignmentPage />}
           ></Route>
           <Route

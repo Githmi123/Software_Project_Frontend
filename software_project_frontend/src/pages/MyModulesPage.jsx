@@ -37,7 +37,7 @@ const MyModulesPage = () => {
 
   const columns = [
     { field: 'modulecode', headerName: 'Module Code', width: 150 },
-    { field: 'modulename', headerName: 'Module Name', width: 150 },
+    { field: 'modulename', headerName: 'Module Name', width: 300 },
     { field: 'credits', headerName: 'Credits', width: 150 },
   ];
 

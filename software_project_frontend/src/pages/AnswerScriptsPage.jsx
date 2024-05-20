@@ -198,8 +198,24 @@ const AnswerScriptsPage = () => {
     );
   };
 
-  const handleDeleteFiles = () => {
+  const handleDeleteFiles = async () => {
+    console.log("Started Deleting Selected Files");
+    console.log(selectedFiles);
+    try {
+      const response = await axios.delete(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${answerScripts.fieid}`,
+        { selectedAssignmentNos },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
 
+      console.log("Graded selected answer scripts", response.data);
+    } catch (error) {
+      console.error("Error grading selected answer scripts:", error);
+    }
   };
 
   return (
