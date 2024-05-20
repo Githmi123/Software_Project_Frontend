@@ -126,7 +126,7 @@ const BatchesPage = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         {/* Check if moduleData is available before rendering */}
         <h1 id="heading">
@@ -138,10 +138,12 @@ const BatchesPage = () => {
             "Loading..."
           )}
         </h1>
-        <div>
+        <div style={{display: "flex", flexDirection:"row", justifyContent:"space-evenly", marginTop:"3vh"}}>
           <Link to={`/NewBatchPage/${selectedModuleCode}`}>
             <CustomNewButton text="New Batch" />
           </Link>
+
+          
         </div>
 
         <div className="column">
@@ -176,13 +178,7 @@ const BatchesPage = () => {
         </div>
 
         <div className="buttonContainer">
-          <Link to={`/EditModule/${selectedModuleCode}`}>
-            <CustomNewButton text="Edit Module" />
-          </Link>
-
-          <Link to={`/DeleteModule/${selectedModuleCode}`}>
-            <CustomNewButton text="Delete Module" />
-          </Link>
+          
         </div>
       </MainRightPane>
     </div>

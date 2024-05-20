@@ -113,6 +113,25 @@ const NewAssignmentPage = () => {
     setSelectedModule(event.target.value);
   };
 
+  const handleAddModule = (event) =>{
+    navigate('/NewModule');
+  };
+
+  const handleAddBatch = (e) => {
+    if(selectedModule === ""){
+      console.log("Please select a module!");
+    }
+    else{
+      navigate(`/NewBatchPage/${selectedModule}`);
+    }
+    
+  };
+
+
+  const handleNewAssignment = (e) => {
+    navigate('/NewAssignment');
+  };
+
   const handleBatchChange = (event) => {
     setSelectedBatch(event.target.value);
   };
@@ -239,30 +258,43 @@ const NewAssignmentPage = () => {
         </Button>
         <div className="align">
           <span className="label1">Module</span>
+          <div className="center">
           <CustomSelect
             label="Module"
             value={selectedModule}
             onChange={handleModuleChange}
             options={moduleOptions}
           />
+          <Button onClick={handleAddModule} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Module</Button>
+          </div>
+          
 
           <span className="label1">Batch</span>
+          <div className="center">
           <CustomSelect
             label="Batch"
             value={selectedBatch} // Use selectedBatch instead of selectedValue
             onChange={handleBatchChange}
             options={batchOptions}
+            sx={{width:400}}
           />
+          <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Batch</Button>
+          </div>
+          
 
           <span className="label1">Assignment Name</span>
+          <div className="center">
           <TextField
             id="outlined-basic"
             label="Assignment Name"
             variant="outlined"
             value={assignmentName}
             onChange={handleAssignmentNameChange}
-            sx={{ m: 0.5, maxWidth: 400, padding: "0", position: "relative" }}
+            sx={{ m: 0.5, maxWidth: 400, width: "46vh", padding: "0", position: "relative" }}
           />
+          {/* <Button onClick={handleNewAssignment} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Assignment</Button> */}
+          </div>
+          
           <span className="label1">Marking Scheme</span>
           <div className="center">
             <TextField
