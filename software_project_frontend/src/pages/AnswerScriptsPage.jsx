@@ -45,30 +45,36 @@ const AnswerScriptsPage = () => {
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
 
-  useEffect(() => {
-    const fetchAnswerscripts = async () => {
-      try {
-        // await refreshAccessToken();
+  const fetchAnswerscripts = async () => {
+    try {
+      // await refreshAccessToken();
+      console.log("fetchinf answer scripts");
 
-        const response = await axios.get(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-
-        const answerScriptsData = response.data.rows;
-
+      const response = await axios.get(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      console.log("after fetching");
+      const answerScriptsData = response.data.rows;
+      console.log(answerScriptsData);
+      if(answerScriptsData)
+      {
+        console.log("no answer scripts uploaded");
         setAnswerScripts(answerScriptsData);
-      } catch (error) {
-        console.error("Error fetching answer scripts:", error);
       }
-    };
+      
+    } catch (error) {
+      console.error("Error fetching answer scripts:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchAnswerscripts();
-  }, [selectedModuleCode, batch, assignmentid]);
+  }, [selectedAssignmentNos]);
 
   useEffect(() => {
     const uploadNewAnswerscripts = async () => {
@@ -91,6 +97,8 @@ const AnswerScriptsPage = () => {
         );
 
         console.log("Uploaded Answer Scripts:", response.data);
+        fetchAnswerscripts();
+        
       } catch (error) {
         console.error("Error uploading answer scripts:", error);
       }
@@ -246,11 +254,11 @@ const AnswerScriptsPage = () => {
             onClick={handleGradeAllFiles}
             icon={AssignmentTurnedInIcon}
           />
-          <GradingButton
+          {/* <GradingButton
             text="Grade selected files"
             onClick={handleGradeSelectedFiles}
             icon={CheckCircle}
-          />
+          /> */}
           
           <Link
             to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
