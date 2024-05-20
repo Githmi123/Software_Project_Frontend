@@ -29,6 +29,7 @@ const NewAssignmentPage = () => {
   const [assignmentName, setAssignmentName] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [schemepath, setSchemePath] = useState("");
+  const {selectedModuleCode, batch} = useParams();
 
   // onchange states
   const [excelFile, setExcelFile] = useState(null);
@@ -55,7 +56,7 @@ const NewAssignmentPage = () => {
         const modules = modulesResponse.data;
         const moduleOptions = modules.map((module) => ({
           value: module.modulecode,
-          label: module.modulename,
+          label: module.modulecode,
         }));
         setModuleOptions(moduleOptions);
       } catch (error) {
@@ -208,26 +209,62 @@ const NewAssignmentPage = () => {
     e.preventDefault();
     try {
       await refreshAccessToken();
-
+      console.log("Started submitting");
       const formData = new FormData();
+      console.log(selectedModuleCode);
+      if(selectedModuleCode === "null"){
+        formData.append("batch", selectedBatch);
+        formData.append("modulecode", selectedModule);
+        formData.append("assignmenttitle", assignmentName);
+        formData.append("schemepath", schemepath);
+        formData.append("scheme", selectedFile);
 
-      formData.append("batch", selectedBatch);
-      formData.append("modulecode", selectedModule);
-      formData.append("assignmenttitle", assignmentName);
-      formData.append("schemepath", schemepath);
-      formData.append("scheme", selectedFile);
+        
+        await axios.post(
+          `http://localhost:3500/assignment/${selectedModule}/${selectedBatch}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+              "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+            },
+          }
+        );
+      }
 
+      else{
+        formData.append("batch", batch);
+        formData.append("modulecode", selectedModuleCode);
+        formData.append("assignmenttitle", assignmentName);
+        formData.append("schemepath", schemepath);
+        formData.append("scheme", selectedFile);
+
+        console.log("not null");
+
+        await axios.post(
+          `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+              "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+            },
+          }
+        );
+      }
+      
+      // console.log(selectedFile);
       // Make the POST request with the FormData object
-      await axios.post(
-        `http://localhost:3500/assignment/${selectedModule}/${selectedBatch}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
-          },
-        }
-      );
+      // await axios.post(
+      //   `http://localhost:3500/assignment/${selectedModule}/${selectedBatch}`,
+      //   formData,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      //       "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+      //     },
+      //   }
+      // );
 
       console.log("Assignment is created!");
 
@@ -259,26 +296,83 @@ const NewAssignmentPage = () => {
         <div className="align">
           <span className="label1">Module</span>
           <div className="center">
-          <CustomSelect
-            label="Module"
-            value={selectedModule}
-            onChange={handleModuleChange}
-            options={moduleOptions}
-          />
-          <Button onClick={handleAddModule} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Module</Button>
+            {selectedModuleCode === "null" ? (
+              <div>
+                <CustomSelect
+                  label="Module"
+                  value={selectedModule}
+                  onChange={handleModuleChange}
+                  options={moduleOptions}
+                />
+                <Button onClick={handleAddModule} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Module</Button>
+              </div>
+            ) : (
+              <div>
+                <TextField
+                  id="outlined-basic"
+                  label={selectedModuleCode}
+                  variant="outlined"
+                  value={selectedModule}
+                  disabled
+                  onChange={handleModuleChange}
+                  sx={{ m: 0.5, maxWidth: 400, width: "46vh", padding: "0", position: "relative" }}
+                />
+                {/* <CustomSelect
+                  label={selectedModuleCode}
+                  value={selectedModule}
+                  onChange={handleModuleChange}
+                  options={moduleOptions}
+                  disabled
+                /> */}
+                <Button onClick={handleAddModule} sx={{color:"white", backgroundColor:"#8080FF"}} disabled>Add Module</Button>
+              </div>
+            )}
+          
           </div>
           
 
           <span className="label1">Batch</span>
           <div className="center">
-          <CustomSelect
+            {batch === "null" ? (
+              <div>
+                <CustomSelect
+                  label="Batch"
+                  value={selectedBatch}
+                  onChange={handleBatchChange}
+                  options={batchOptions}
+                  sx={{width:400}}
+                />
+                <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Batch</Button>
+              </div>
+            ) : (
+              <div>
+                <TextField
+                  id="outlined-basic"
+                  label={batch}
+                  variant="outlined"
+                  value={batch}
+                  disabled
+                  onChange={handleBatchChange}
+                  sx={{ m: 0.5, maxWidth: 400, width: "46vh", padding: "0", position: "relative" }}
+                />
+                {/* <CustomSelect
+                  label={selectedModuleCode}
+                  value={selectedModule}
+                  onChange={handleModuleChange}
+                  options={moduleOptions}
+                  disabled
+                /> */}
+                <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}} disabled>Add Batch</Button>
+              </div>
+            )}
+          {/* <CustomSelect
             label="Batch"
             value={selectedBatch} // Use selectedBatch instead of selectedValue
             onChange={handleBatchChange}
             options={batchOptions}
             sx={{width:400}}
           />
-          <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Batch</Button>
+          <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Batch</Button> */}
           </div>
           
 
