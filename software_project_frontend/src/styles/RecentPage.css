@@ -19,11 +19,18 @@
 table {
   border-collapse: collapse; 
   width: 100%; 
+  align-items: center;
+  justify-content: center;
+  /* margin-left: 5vw;
+  margin-right: 5vw; */
+
 }
 
 table th, table td {
   padding: 15px; 
   text-align: left; 
+  align-items: center;
+  justify-content: center;
 }
 
 .align1{
@@ -34,4 +41,12 @@ table th, table td {
   align-items: flex-start;
   margin-left: 0;
   
+}
+
+.column{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7vw;
+  margin-right: 7vw;
 }

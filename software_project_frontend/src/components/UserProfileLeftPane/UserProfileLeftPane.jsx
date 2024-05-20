@@ -86,12 +86,12 @@ export const UserProfileLeftPane = () => {
           style={{
             display: "flex",
             justifyContent: "center",
-            marginTop: "5vh",
-            marginLeft: "8vh",
+            // marginTop: "5vh",
+            // marginLeft: "8vh",
           }}
         >
           <CustomNewButton
-            text="Add Profile Picture"
+            text="Change Profile Picture"
             onFileSelect={handleNewProfilePicture}
           />
         </div> */}

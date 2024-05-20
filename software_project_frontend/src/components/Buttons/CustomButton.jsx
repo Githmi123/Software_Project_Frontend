@@ -6,7 +6,7 @@ const CustomButton = ({text, onClick, backgroundColor, textColor}) => {
     <div>
         <Button
             variant='contained'
-            style={{margin:"10px", backgroundColor:backgroundColor, color:textColor, width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}
+            style={{margin:"10px", backgroundColor:backgroundColor, color:textColor, width : "auto", paddingLeft:"1vw", paddingRight:"1vw", textTransform: "capitalize", border: "2px solid #7894DB"}}
             onClick={onClick}
         > 
             {text}

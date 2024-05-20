@@ -15,12 +15,13 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 import axios from "axios";
+import image from "../images/image.png";
 
 export default function AccountMenu() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [designation, setDesignation] = useState("");
-  const [imageSRC, setImageSRC] = useState("");
+  const [firstName, setFirstName] = useState("ABC");
+  const [lastName, setLastName] = useState("Perera");
+  const [designation, setDesignation] = useState("Lecturer");
+  const [imageSRC, setImageSRC] = useState(image);
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -64,19 +65,22 @@ export default function AccountMenu() {
         );
         const user = userResponse.data;
 
-        setFirstName(user.firstname);
-        setLastName(user.lastname);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
         setDesignation(user.designation);
         console.log(user);
 
-        if(user.profilepic && user.profilepic.image && user.profilepic.image.data)
-        {
-          const imageBytes = new Uint8Array(user.profilepic.image.data);
-          const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
-          const imageURL = URL.createObjectURL(blob);
-          setImageSRC(imageURL);
-          console.log(imageURL);
-        }
+        if(user.profilepic)
+          {
+            setImageSRC(user.profilepic);
+          }
+        // {
+        //   const imageBytes = new Uint8Array(user.profilepic.image.data);
+        //   const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
+        //   const imageURL = URL.createObjectURL(blob);
+        
+        //   console.log(imageURL);
+        // }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -91,9 +95,9 @@ export default function AccountMenu() {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'right', textAlign: 'center' }}>
-        <Typography sx={{ minWidth: 100 }}></Typography>
-        <Typography sx={{ minWidth: 100 }}></Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <Typography sx={{ minWidth: 90 }}></Typography>
+        <Typography sx={{ minWidth: 90, color:"black" }}></Typography>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -103,10 +107,13 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}><img src = {imageSRC}/></Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}><img src = {imageSRC} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }}/></Avatar>
           </IconButton>
+          
         </Tooltip>
+        
       </Box>
+      
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -116,6 +123,7 @@ export default function AccountMenu() {
         PaperProps={{
           elevation: 0,
           sx: {
+            width:"30vw",
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
@@ -130,7 +138,7 @@ export default function AccountMenu() {
               display: 'block',
               position: 'absolute',
               top: 0,
-              right: 14,
+              right: "20vw",
               width: 10,
               height: 10,
               bgcolor: 'background.paper',
@@ -142,8 +150,17 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", height:"10vh"}}>
+          <Typography sx={{color:"black", fontSize:"3vh"}}>{firstName} {lastName}</Typography>
+          <Typography>{designation}</Typography>
+        </div>
+        
+        <Divider />
         <MenuItem onClick={handleProfile}>
-          <Avatar /> Profile
+        
+            <img src={imageSRC} style={{ width: '25px', height: '25px', objectFit: 'cover', borderRadius: '50%' }} alt="Avatar" />
+            <div style={{width:"10px"}}/>
+          Profile
         </MenuItem>
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> My account

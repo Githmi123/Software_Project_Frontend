@@ -4,7 +4,7 @@ import MainRightPane from "../components/MainRightPane/MainRightPane";
 import { Button, Checkbox } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import { CheckCircle } from "@mui/icons-material";
+import { CheckCircle, Delete } from "@mui/icons-material";
 import { Edit } from "@mui/icons-material";
 import { TrendingUp } from "@mui/icons-material";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
@@ -13,6 +13,9 @@ import "../styles/AssignmentsPage.css";
 import RemoveFileButton from "../components/Buttons/RemoveFileButton";
 import GradingButton from "../components/Buttons/GradingButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
+
 
 import refreshAccessToken from "../services/AuthService";
 
@@ -27,32 +30,51 @@ const AnswerScriptsPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [answerScripts, setAnswerScripts] = useState([]);
 
+
+  const columns = [
+    { field: 'studentid', headerName: 'Student ID', width: 90},
+    { field: 'assignmentid', headerName: 'Assignment ID', width: 150 },
+    { field: 'marks', headerName: 'Marks', width: 150 },
+    { field: 'batch', headerName: 'Batch', width: 150 },
+    { field: 'modulecode', headerName: 'Module Code', width: 150 },
+    { field: 'fileid', headerName: 'File ID', width: 150 },
+    { field: 'graded', headerName: 'Graded', width: 150 },
+  ];
+  
+ 
+
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
 
-  useEffect(() => {
-    const fetchAnswerscripts = async () => {
-      try {
-        await refreshAccessToken();
+  const fetchAnswerscripts = async () => {
+    try {
+      // await refreshAccessToken();
+      console.log("fetchinf answer scripts");
 
-        const response = await axios.get(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-
-        const answerScriptsData = response.data.rows;
-
+      const response = await axios.get(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+      console.log("after fetching");
+      const answerScriptsData = response.data.rows;
+      console.log(answerScriptsData);
+      if(answerScriptsData)
+      {
+        console.log("no answer scripts uploaded");
         setAnswerScripts(answerScriptsData);
-      } catch (error) {
-        console.error("Error fetching answer scripts:", error);
       }
-    };
+      
+    } catch (error) {
+      console.error("Error fetching answer scripts:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchAnswerscripts();
-  }, [selectedModuleCode, batch, assignmentid]);
+  }, [selectedAssignmentNos]);
 
   useEffect(() => {
     const uploadNewAnswerscripts = async () => {
@@ -65,14 +87,18 @@ const AnswerScriptsPage = () => {
         const response = await axios.post(
           `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
           formData,
+          
           {
             headers: {
               Authorization: `Bearer ${Cookies.get("accessToken")}`,
             },
-          }
+          },
+          
         );
 
         console.log("Uploaded Answer Scripts:", response.data);
+        fetchAnswerscripts();
+        
       } catch (error) {
         console.error("Error uploading answer scripts:", error);
       }
@@ -95,7 +121,19 @@ const AnswerScriptsPage = () => {
         return [...prevSelectedAssignmentNos, scriptId];
       }
     });
+
+    const selectedFile = answerScripts.find((script) => script.id === scriptId);
+    if (selectedFile) {
+      setSelectedFiles((prevSelectedFiles) => {
+        if (prevSelectedFiles.some((file) => file.id === scriptId)) {
+          return prevSelectedFiles.filter((file) => file.id !== scriptId);
+        } else {
+          return [...prevSelectedFiles, selectedFile];
+        }
+      });
+    }
   };
+  
 
   const handleToggleAllScripts = () => {
     if (selectedAssignmentNos.length === answerScripts.length) {
@@ -122,7 +160,7 @@ const AnswerScriptsPage = () => {
 
       const response = await axios.post(
         // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,{},
         {
           headers: {
             Authorization: `Bearer ${Cookies.get("accessToken")}`,
@@ -138,7 +176,25 @@ const AnswerScriptsPage = () => {
     }
   };
 
-  const handleGradeSelectedFiles = (event) => {};
+  const handleGradeSelectedFiles = async () => {
+    console.log("Started Grading Selected Files");
+    try {
+      const response = await axios.post(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+        { selectedAssignmentNos },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      console.log("Graded selected answer scripts", response.data);
+    } catch (error) {
+      console.error("Error grading selected answer scripts:", error);
+    }
+  };
+  
 
   const handleGradeManually = (event) => {};
 
@@ -148,6 +204,26 @@ const AnswerScriptsPage = () => {
     setSelectedFiles((prevSelectedFiles) =>
       prevSelectedFiles.filter((file) => file.id !== scriptId)
     );
+  };
+
+  const handleDeleteFiles = async () => {
+    console.log("Started Deleting Selected Files");
+    console.log(selectedFiles);
+    try {
+      const response = await axios.delete(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${answerScripts.fieid}`,
+        { selectedAssignmentNos },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        }
+      );
+
+      console.log("Graded selected answer scripts", response.data);
+    } catch (error) {
+      console.error("Error grading selected answer scripts:", error);
+    }
   };
 
   return (
@@ -168,15 +244,61 @@ const AnswerScriptsPage = () => {
           Home
         </Button>
         <h1 id="heading">Uploaded Answer Scripts</h1>
-        <div>
+        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent: "space-between", marginLeft:"5vw", marginRight:"5vw"}}>
           <CustomNewButton
             text="Upload Answer Script"
             onFileSelect={handleNewAnswerScript}
           />
+          <GradingButton
+            text="Grade all files"
+            onClick={handleGradeAllFiles}
+            icon={AssignmentTurnedInIcon}
+          />
+          {/* <GradingButton
+            text="Grade selected files"
+            onClick={handleGradeSelectedFiles}
+            icon={CheckCircle}
+          /> */}
+          
+          <Link
+            to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <GradingButton text="Visualize a graph" icon={TrendingUp} />
+          </Link>
+
+          <GradingButton
+            text="Delete selected files"
+            onClick={handleDeleteFiles}
+            icon={Delete}
+          />
+
         </div>
 
         <div className="columnAnswerScripts">
-          <table className="tableStyle2">
+          <Box sx={{ height: '100%', width: '100%' }}>
+            <DataGrid
+              rows={answerScripts}
+              columns={columns}
+              getRowId={(row) => row.studentid}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
+              checkboxSelection
+              disableRowSelectionOnClick
+              onRowSelectionModelChange={(newSelection) => {
+                newSelection.forEach((scriptId) => {
+                  handleToggleAssignmentNo(scriptId);
+                });
+              }}
+            />
+          </Box>
+          {/* <table className="tableStyle2">
             <tbody>
               {answerScripts &&
                 answerScripts.map((script) => (
@@ -210,45 +332,24 @@ const AnswerScriptsPage = () => {
                   </tr>
                 ))}
             </tbody>
-          </table>
+          </table> */}
         </div>
 
         <div
           style={{
-            marginTop: "50px",
+            marginTop: "1vh",
             display: "flex",
             justifyContent: "center",
             position: "relative",
           }}
         >
-          <GradingButton
-            text="Grade all files"
-            onClick={handleGradeAllFiles}
-            icon={AssignmentTurnedInIcon}
-          />
-          <GradingButton
-            text="Grade selected files"
-            onClick={handleGradeSelectedFiles}
-            icon={CheckCircle}
-          />
-          <Link
-            to="/ManualGradingPage"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <GradingButton text="Grade manually" icon={Edit} />
-          </Link>
-          <Link
-            to="/DataVisualization"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <GradingButton text="Visualize a graph" icon={TrendingUp} />
-          </Link>
-          <Link
+          
+          {/* <Link
             to="/Dashboard"
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <GradingButton text="Dashboard" icon={DashboardIcon} />
-          </Link>
+          </Link> */}
         </div>
       </MainRightPane>
     </div>

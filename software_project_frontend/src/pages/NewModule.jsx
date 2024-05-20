@@ -42,6 +42,7 @@ const NewModule = () => {
       await axios.post("http://localhost:3500/modules", moduleData, config);
 
       console.log("Module is created!");
+      console.log(moduleData);
 
       navigate("/MyModulePage");
     } catch (error) {
@@ -64,32 +65,37 @@ const NewModule = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
 
         
-        <div className="align">
+        <div className="alignment">
           <h2
             style={{
               fontSize: "19px",
               marginLeft: "35px",
-              marginTop: "5px",
+              marginTop: "5vh",
               color: "black",
             }}
           >
             Module Code
           </h2>
           <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder="Module Code"
             name="modulecode"
             value={moduleData.modulecode}
             onChange={handleChange}
-            style={{width: "70vh"}}
+            style={{width: "max-width"}}
             sx={{
               marginLeft: 5,
-              marginTop: 3,
+              marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.8rem", // Adjust the font size to decrease the size of the text box
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
                 padding: "8px 12px", // Adjust the padding to match the new font size
               },
             }}
@@ -101,23 +107,28 @@ const NewModule = () => {
             style={{
               fontSize: "19px",
               marginLeft: "35px",
-              marginTop: "15px",
+              marginTop: "5vh",
               color: "black",
             }}
           >
             Module Name
           </h2>
           <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder="Module Name"
             name="modulename"
             value={moduleData.modulename}
             onChange={handleChange}
-            style={{width: "70vh"}}
+            style={{width:"max-width"}}
             sx={{
               marginLeft: 5,
-              marginTop: 3,
+              marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.8rem", // Adjust the font size to decrease the size of the text box
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
                 padding: "8px 12px", // Adjust the padding to match the new font size
               },
             }}
@@ -129,23 +140,28 @@ const NewModule = () => {
             style={{
               fontSize: "19px",
               marginLeft: "35px",
-              marginTop: "15px",
+              marginTop: "5vh",
               color: "black",
             }}
           >
             Credits
           </h2>
           <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder="Credits"
             name="credits"
             value={moduleData.credits}
             onChange={handleChange}
-            style={{width: "70vh"}}
+            style={{width: "max-width"}}
             sx={{
               marginLeft: 5,
-              marginTop: 3,
+              marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.8rem", // Adjust the font size to decrease the size of the text box
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
                 padding: "8px 12px", // Adjust the padding to match the new font size
               },
             }}
@@ -165,7 +181,7 @@ const NewModule = () => {
             <Link to="/MyModulePage" style={{ textDecoration: "none" }}>
               <Button
                 sx={{
-                  marginLeft: "15px",
+                  // marginLeft: "15px",
                   color: "#7894DB",
                   backgroundColor: "white",
                   border: "1px solid #7894DB",

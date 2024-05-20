@@ -25,6 +25,13 @@ const DeleteModule = () => {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
 
+
+  const columns = [
+    { field: 'modulecode', headerName: 'Module Code', width: 150 },
+    { field: 'modulename', headerName: 'Module Name', width: 150 },
+    { field: 'credits', headerName: 'Credits', width: 150 },
+  ];
+
   useEffect(() => {
     setOpenDialog(true); // Open the dialog when the component mounts
   }, []);
@@ -49,6 +56,7 @@ const DeleteModule = () => {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
+    navigate("/MyModulePage");
   };
 
   return (

@@ -63,9 +63,27 @@ table th, table td {
   
 }
 
-.align{
+.alignment{
   display: flex;
-  /* margin-left: 33%; */
+  margin-left: 18vw;
+  margin-right: 18vw;
   justify-content: center;
   flex-direction: column;
+  margin-top: 7vh;
+}
+
+.columnModules{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vh;
+  max-height: 60vh;
+  /* overflow-y: auto; */
+  margin-right: 10vh;
+  margin-left: 10vh;
+  /* width: 35vw; */
+  /* overflow-y: scroll; */
+  /* padding-bottom: 10px; */
+
 }

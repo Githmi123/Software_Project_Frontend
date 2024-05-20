@@ -88,89 +88,111 @@ const EditModule = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
-        <h1>Edit Page {selectedModuleCode}</h1>
-        <h2
-          style={{
-            fontSize: "19px",
-            marginLeft: "35px",
-            marginTop: "5px",
-            color: "black",
-          }}
-        >
-          Module Code
-        </h2>
-        <TextField
+        <h1>Edit Module: {selectedModuleCode}</h1>
+        <div className="alignment">
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Module Code
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder="Module Code"
           name="modulecode"
           value={moduleData.modulecode}
           onChange={handleChange}
-          sx={{
-            marginLeft: 5,
-            marginTop: 3,
-            marginRight: 5,
-            "& input": {
-              fontSize: "0.8rem", // Adjust the font size to decrease the size of the text box
-              padding: "8px 12px", // Adjust the padding to match the new font size
-            },
-          }}
-        >
-          Module Code
-        </TextField>
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          >
+            Module Code
+          </TextField>
 
-        <h2
-          style={{
-            fontSize: "19px",
-            marginLeft: "35px",
-            marginTop: "15px",
-            color: "black",
-          }}
-        >
-          Module Name
-        </h2>
-        <TextField
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Module Name
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder="Module Name"
           name="modulename"
           value={moduleData.modulename}
           onChange={handleChange}
-          sx={{
-            marginLeft: 5,
-            marginTop: 3,
-            marginRight: 5,
-            "& input": {
-              fontSize: "0.8rem", // Adjust the font size to decrease the size of the text box
-              padding: "8px 12px", // Adjust the padding to match the new font size
-            },
-          }}
-        >
-          Module Name
-        </TextField>
+            style={{width:"max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          >
+            Module Name
+          </TextField>
 
-        <h2
-          style={{
-            fontSize: "19px",
-            marginLeft: "35px",
-            marginTop: "15px",
-            color: "black",
-          }}
-        >
-          Credits
-        </h2>
-        <TextField
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Credits
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder="Credits"
           name="credits"
           value={moduleData.credits}
           onChange={handleChange}
-          sx={{
-            marginLeft: 5,
-            marginTop: 3,
-            marginRight: 5,
-            "& input": {
-              fontSize: "0.8rem", // Adjust the font size to decrease the size of the text box
-              padding: "8px 12px", // Adjust the padding to match the new font size
-            },
-          }}
-        >
-          Credits
-        </TextField>
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          >
+            Credits
+          </TextField>
+
+        </div>
+      
 
         <div
           style={{

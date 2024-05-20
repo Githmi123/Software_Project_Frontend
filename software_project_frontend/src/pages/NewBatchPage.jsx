@@ -76,7 +76,7 @@ const NewBatchPage = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
 
         <h1 id="heading-new-batch-page">New Batch</h1>

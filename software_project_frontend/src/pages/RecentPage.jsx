@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import "../styles/RecentPage.css";
 import UserProfileBar from "../components/UserProfileBar/UserProfileBar";
 
-const headers = ["Assignment", "Batch", "Assignment ID", "Date Created"];
+const headers = ["Assignment", "Batch", "Date Created"];
 
 const RecentPage = () => {
   const [selectedRecentModule, setSelectedRecentModule] = useState(null);
@@ -23,7 +23,7 @@ const RecentPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await refreshAccessToken();
+        // await refreshAccessToken();
         const modulesResponse = await axios.get(
           "http://localhost:3500/modules",
           {
@@ -124,7 +124,7 @@ const RecentPage = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         <h1 id="heading">Recents</h1>
         <div className="column">
@@ -166,7 +166,7 @@ const RecentPage = () => {
                       </Link>
                     </td>
                     <td>{assignment.batch}</td>
-                    <td>{assignment.assignmentId}</td>
+                    {/* <td>{assignment.assignmentId}</td> */}
                     <td>{assignment.dateCreated}</td>
                   </tr>
                 ))

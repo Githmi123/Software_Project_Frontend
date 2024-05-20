@@ -148,8 +148,8 @@ const AssignmentsPage = () => {
         </h1>
         <div>
           {/* <CustomNewButton text = "New Assignment" onClick={handleNewBatch}/> */}
-          <Link to="/NewAssignment" style={{ textDecoration: "none" }}>
-            {" "}
+          <Link to={`/NewAssignment/${selectedModuleCode}/${batch}`} style={{ textDecoration: "none" }}>
+          
             {/* Wrap the button with Link */}
             <CustomNewButton text="New Assignment" onClick={handleNewBatch} />
           </Link>

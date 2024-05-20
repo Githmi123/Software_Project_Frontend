@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import refreshAccessToken from '../services/AuthService';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -25,6 +27,19 @@ const headers = ["Module_Code", "Module_Name", "Credits"];
 const MyModulesPage = () => {
   const [selectedModule, setSelectedModule] = useState(null);
   const [tableDataModules, setTableDataModules] = useState([]);
+  const [moduleData, setModuleData] = useState({
+    modulecode: "",
+    modulename: "",
+    credits: "",
+  });
+
+  const navigate = useNavigate();
+
+  const columns = [
+    { field: 'modulecode', headerName: 'Module Code', width: 150 },
+    { field: 'modulename', headerName: 'Module Name', width: 300 },
+    { field: 'credits', headerName: 'Credits', width: 150 },
+  ];
 
   useEffect(() => {
     const fetchModules = async (e) => {
@@ -47,6 +62,7 @@ const MyModulesPage = () => {
           "http://localhost:3500/modules",
           config
         );
+        console.log(response.data);
         setTableDataModules(response.data);
 
         console.log(response.data);
@@ -72,6 +88,55 @@ const MyModulesPage = () => {
     fetchModules();
   }, []);
 
+  const handleEditModule = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("handling edit module");
+      console.log(moduleData);
+      await refreshAccessToken();
+
+      await axios.post(
+          `http://localhost:3500/modules/edit/${selectedModule}`,
+          moduleData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+      )
+
+     
+      navigate("/MyModulePage");
+    } catch (error) {
+      console.error("Error editing module:", error);
+    }
+  };
+
+
+  const handleDeleteModule = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("handling delete module");
+      console.log(moduleData);
+      await refreshAccessToken();
+
+      await axios.post(
+          `http://localhost:3500/modules/delete/${selectedModule}`,
+          moduleData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+      )
+
+     
+      navigate("/MyModulePage");
+    } catch (error) {
+      console.error("Error editing module:", error);
+    }
+  };
+
   const handleNewModule = (event) => {};
 
   /* const handleSelectedModule = (moduleCode) => {
@@ -80,12 +145,16 @@ const MyModulesPage = () => {
   /* const handleSelectedModule = (moduleCode) => {
     setSelectedModule(moduleCode);
   }; */
-  const handleSelectedModule = (moduleCode) => {
-    setSelectedModule((prevModule) =>
-      prevModule === moduleCode ? null : moduleCode
-    );
-  };
+  // const handleSelectedModule = (moduleCode) => {
+  //   setSelectedModule((prevModule) =>
+  //     prevModule === moduleCode ? null : moduleCode
+  //   );
+  // };
 
+  const handleSelectedModule = (moduleCode) => {
+    setSelectedModule(moduleCode);
+  };
+// answerScripts
   //console.log("module code", selectedModule);
 
   return (
@@ -103,71 +172,54 @@ const MyModulesPage = () => {
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         <h1 id="heading">My Modules</h1>
-        <div>
+        
+        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent: "space-evenly", marginRight:"2vw"}}>
+          <Link to={`/Batches/${selectedModule}`}>
+            <CustomNewButton text="View Module" />
+          </Link>
+          
           <Link to="/NewModule" style={{ textDecoration: "none" }}>
             <CustomNewButton text="New Module" onClick={handleNewModule} />
           </Link>
+
+          <Link to={`/EditModule/${selectedModule}`}>
+            <CustomNewButton onClick = {handleEditModule} text="Edit Module" />
+          </Link>
+
+          <Link to={`/DeleteModule/${selectedModule}`}>
+            <CustomNewButton onClick = {handleDeleteModule} text="Delete Module" />
+          </Link>
+
         </div>
-        <div className="column">
-          <table className="table">
-            <thead className="tablehead">
-              <tr>
-                {headers.map((header) => (
-                  <th key={header}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {tableDataModules.map((moduledata) => (
-                <tr
-                  className="table-data"
-                  key={moduledata.modulecode}
-                  style={{
-                    backgroundColor:
-                      moduledata.modulecode === selectedModule
-                        ? "#7894DB"
-                        : "#E3DDE8",
-                    color:
-                      moduledata.modulecode === selectedModule
-                        ? "white"
-                        : "black",
-                    border: "7px solid white",
-                    borderRadius: "10px",
-                  }}
-                  onClick={() => handleSelectedModule(moduledata.modulecode)}
-                >
-                  <td>
-                    <Link
-                      to={`/Batches/${moduledata.modulecode}`}
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                      {moduledata.modulecode}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link
-                      to={`/Batches/${moduledata.modulecode}`}
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                      {moduledata.modulename}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link
-                      to={`/Batches/${moduledata.modulecode}`}
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                      {moduledata.credits}
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="columnModules">
+          <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
+            <DataGrid
+              rows={tableDataModules}
+              columns={columns}
+              getRowId={(row) => row.modulecode}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
+              checkboxSelection
+              disableRowSelectionOnClick
+              onRowSelectionModelChange={(newSelection) => {
+                newSelection.forEach((moduleCode) => {
+                  handleSelectedModule(moduleCode);
+                });
+              }}
+              // isRowSelectable={(params) => params.row.moduleCode !== selectedModule}
+            />
+          </Box>
         </div>
+        
       </MainRightPane>
     </div>
   );
