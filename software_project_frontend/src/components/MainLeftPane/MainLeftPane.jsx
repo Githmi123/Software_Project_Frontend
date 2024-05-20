@@ -4,10 +4,8 @@ import projectlogo from "../../images/rs.png";
 import ButtonSet from "../ButtonSet/ButtonSet";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import React from "react";
 import "../MainLeftPane/MainLeftPane.css";
-import projectlogo from "../../images/rs.png";
-import ButtonSet from "../ButtonSet/ButtonSet";
+
 import UserProfileBar from "../UserProfileBar/UserProfileBar";
 import SwipeableEdgeDrawer from "../Drawer";
 import AccountMenu from "../AccountMenu";
