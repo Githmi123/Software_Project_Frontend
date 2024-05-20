@@ -42,6 +42,7 @@ const NewModule = () => {
       await axios.post("http://localhost:3500/modules", moduleData, config);
 
       console.log("Module is created!");
+      console.log(moduleData);
 
       navigate("/MyModulePage");
     } catch (error) {
