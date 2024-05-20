@@ -11,14 +11,23 @@ import SearchAppBar from "../components/Other/SearchBar/SearchBar";
 import { useParams } from "react-router-dom";
 import "../styles/RecentPage.css";
 import UserProfileBar from "../components/UserProfileBar/UserProfileBar";
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
+import CustomNewButton from "../components/Buttons/CustomNewButton";
 
 const headers = ["Assignment", "Batch", "Date Created"];
 
 const RecentPage = () => {
-  const [selectedRecentModule, setSelectedRecentModule] = useState(null);
+  const [selectedRecentModule, setSelectedRecentModule] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [moduleData, setModuleData] = useState([]);
   const [batchData, setBatchData] = useState([]);
+
+  const columns = [
+    { field: 'assignment', headerName: 'Assignment', width: 150 },
+    { field: 'batch', headerName: 'Batch', width: 300 },
+    { field: 'dateCreated', headerName: 'Date Created', width: 150 },
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,6 +118,46 @@ const RecentPage = () => {
     fetchData();
   }, []);
 
+
+  const handleDeleteAssignment = async (e) => {
+    console.log("handling delete assignment");
+    e.preventDefault();
+    try {
+      console.log("handling delete assignment");
+      // console.log(moduleData);
+      await refreshAccessToken();
+      
+      const moduleData = {
+        id : selectedRecentModule.assignmentId,
+        modulecode : selectedRecentModule.moduleCode,
+        batch : selectedRecentModule.batch
+      }
+
+      await axios.put(
+          `http:/localhost:3500/assignment/${selectedRecentModule.moduleCode}/${selectedRecentModule.batch}/${selectedRecentModule.assignmentId}`,
+          moduleData,
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+          }
+      )
+
+      console.log("Deleted Assignment");
+
+     
+      // navigate("/MyModulePage");
+    } catch (error) {
+      console.error("Error editing module:", error);
+    }
+  };
+
+
+  const handleSelection = (assignmentid) => {
+    setSelectedRecentModule(assignmentid);
+  };
+
+  const newLocal = "space";
   return (
     <div className="align1">
       <MainLeftPane/>
@@ -126,18 +175,64 @@ const RecentPage = () => {
         >
           Back
         </Button>
-        <h1 id="heading">Recents</h1>
+        <h1 id="heading">Assignments</h1>
         <div className="column">
-          <table className="table">
-            <thead className="tablehead">
+        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
+               <Link to={`/AnswerScripts/batch/${selectedRecentModule.batch}/modulecode/${selectedRecentModule.moduleCode}/assignmentid/${selectedRecentModule.assignmentId}`}>
+                <CustomNewButton text="View Assignment" />
+              </Link>
+          
+          <div style={{width:"10vw"}}></div>
+          <Link to={`/NewAssignment/${null}/${null}`} style={{ textDecoration: "none" }}>
+            <CustomNewButton text="New Assignment" />
+          </Link>
+          <div style={{width:"10vw"}}></div>
+          {/* <Link to={`/EditModule/${selectedModule}`}>
+            <CustomNewButton onClick = {handleEditModule} text="Edit Assignment" />
+          </Link> */}
+
+          
+          <Link to={`/DeleteAssignment/${selectedRecentModule.moduleCode}/${selectedRecentModule}/${selectedRecentModule.assignmentId}`}>
+            <CustomNewButton onClick = {handleDeleteAssignment} text="Delete Assignment" />
+          </Link>
+
+        </div>
+        <div className="columnModules">
+          <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
+            <DataGrid
+              rows={assignments}
+              columns={columns}
+              getRowId={(row) => row.assignmentId}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
+              checkboxSelection
+              disableRowSelectionOnClick
+              onRowSelectionModelChange={(newSelection) => {
+                const selectedAssignment = assignments.find(
+                  (assignment) => assignment.assignmentId === newSelection[0]
+                );
+                handleSelection(selectedAssignment);
+              }}
+              // isRowSelectable={(params) => params.row.moduleCode !== selectedModule}
+            />
+          </Box>
+        </div>
+          {/* <table className="table"> */}
+            {/* <thead className="tablehead">
               <tr>
                 {headers.map((header) => (
                   <th key={header}>{header}</th>
                 ))}
               </tr>
-            </thead>
+            </thead> */}
 
-            <tbody>
+            {/* <tbody>
               {assignments.length > 0 ? (
                 assignments.map((assignment, index) => (
                   <tr
@@ -166,7 +261,7 @@ const RecentPage = () => {
                       </Link>
                     </td>
                     <td>{assignment.batch}</td>
-                    {/* <td>{assignment.assignmentId}</td> */}
+                   
                     <td>{assignment.dateCreated}</td>
                   </tr>
                 ))
@@ -176,7 +271,7 @@ const RecentPage = () => {
                 </tr>
               )}
             </tbody>
-          </table>
+          </table> */}
         </div>
         
       </MainRightPane>

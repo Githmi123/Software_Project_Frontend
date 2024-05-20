@@ -23,6 +23,8 @@ import DeleteModule from "./pages/DeleteModule";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Help from "./pages/Help";
 import Settings from "./pages/Settings";
+import DeleteAssignment from "./pages/DeleteAssignment";
+import EditAssignment from "./pages/EditAssignment";
 
 function App() {
   return (
@@ -81,6 +83,19 @@ function App() {
             exact
             path="/DeleteModule/:selectedModuleCode"
             element={<DeleteModule />}
+          ></Route>
+
+
+          <Route
+            exact
+            path="/DeleteAssignment/:selectedModuleCode/:batch/:selectedAssignmentId"
+            element={<DeleteAssignment />}
+          ></Route>
+
+          <Route
+            exact
+            path="/EditAssignment/:selectedModuleCode/:batch/:selectedAssignmentId"
+            element={<EditAssignment />}
           ></Route>
 
           {/* Define other routes as needed */}
