@@ -29,7 +29,8 @@
     "react-select": "^5.8.0",
     "recharts": "^2.12.2",
     "styled-components": "^6.1.11",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

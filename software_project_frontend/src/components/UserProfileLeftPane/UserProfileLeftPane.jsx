@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 
 export const UserProfileLeftPane = () => {
   const [profile, setProfile] = useState("");
-  const [profilePicUrl, setProfilePicUrl] = useState(profileimage); // Default profile image
+  const [profileImage, setProfileImage] = useState(profileimage);
 
   useEffect(() => {
     async function getUserProfileData() {
@@ -28,8 +28,8 @@ export const UserProfileLeftPane = () => {
           },
         });
         setProfile(response.data);
-        if (response.data.profilepicUrl) {
-          setProfilePicUrl(response.data.profilepicUrl);
+        if (response.data.profilepic) {
+          setProfileImage(response.data.profilepic);
         }
         console.log(response.data);
       } catch (error) {
@@ -41,30 +41,25 @@ export const UserProfileLeftPane = () => {
 
   const handleNewProfilePicture = async (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("user", profile.email);
-      formData.append("image", file);
 
-      try {
-        await refreshAccessToken();
+    const formData = new FormData();
+    formData.append("user", profile.email);
+    formData.append("image", file);
 
-        const responseProfilepicture = await axios.post(
-          "http://localhost:3500/user/profile",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+    try {
+      await refreshAccessToken();
 
-        setProfilePicUrl(responseProfilepicture.data.profilepicUrl);
-        console.log("Profile picture updated:", responseProfilepicture.data);
-      } catch (error) {
-        console.error("Error uploading profile picture:", error);
-      }
+      await axios.post("http://localhost:3500/user/profile", formData, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      });
+
+      setProfileImage(URL.createObjectURL(file));
+      //setProfilePicUrl(responseProfilepicture.data.profilepicUrl);
+      console.log("Profile picture updated:");
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
     }
   };
 
@@ -73,7 +68,7 @@ export const UserProfileLeftPane = () => {
       <div id="container1">
         <div id="ringcontainer">
           <img src={ring} id="ring"></img>
-          <img src={profilePicUrl} id="user1"></img>
+          <img src={profileImage} id="user1"></img>
           {/* <img src={profile.profilepic} id="user1"></img> */}
         </div>
         <div id="text">

@@ -30,7 +30,7 @@ const CustomNewButton = ({ text, onFileSelect }) => {
   const handleFileSelect = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
-      onFileSelect(file);
+      onFileSelect(event);
     }
   };
 
@@ -38,7 +38,6 @@ const CustomNewButton = ({ text, onFileSelect }) => {
     <div style={{ display: "flex" }}>
       <Button
         sx={{
-          
           width: "auto",
           padding: "3vh",
           height: "2vh",
@@ -47,7 +46,7 @@ const CustomNewButton = ({ text, onFileSelect }) => {
           textTransform: "none",
           backgroundColor: "#C3D3FB",
           borderRadius: "2vh",
-          fontSize:"1.5vh"
+          fontSize: "1.5vh",
         }}
         startIcon={<AddCircleIcon />}
         className="new-module-button"
