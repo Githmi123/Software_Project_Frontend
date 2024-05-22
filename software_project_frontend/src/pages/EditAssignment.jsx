@@ -11,14 +11,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import refreshAccessToken from "../services/AuthService";
+import InputFileUploadButton from "../components/Buttons/InputFileUploadButton";
 
 const EditAssignment = () => {
-  const { selectedModuleCode } = useParams();
-  const [moduleData, setModuleData] = useState({
-    modulecode: "",
-    modulename: "",
-    credits: "",
-  });
+  const { selectedModuleCode, batch, selectedAssignmentId } = useParams();
+  const [moduleData, setModuleData] = useState(
+    null
+
+  );
+  const [selectedFile, setSelectedFile] = useState("");
+  const [schemepath, setSchemePath] = useState("");
 
   useEffect(() => {
     const fetchAssignmentDetails = async () => {
@@ -26,22 +28,27 @@ const EditAssignment = () => {
         await refreshAccessToken();
 
         console.log("selected module code :", selectedModuleCode);
+        console.log(batch, selectedAssignmentId);
         const response = await axios.get(
-          `http://localhost:3500/modules/view/${selectedModuleCode}`,
+          `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`,
           {
             headers: {
               Authorization: `Bearer ${Cookies.get("accessToken")}`,
             },
           }
         );
-        setModuleData(response.data);
+        setModuleData(response.data[0]);
+        
+        setSchemePath(moduleData.schemepath); // Update the schemepath state with the file name
+        console.log("response:", response.data[0]);
+        console.log(moduleData.batch);
       } catch (error) {
         console.error("Error fetching module:", error);
       }
     };
 
     fetchAssignmentDetails();
-  }, [selectedModuleCode]);
+  }, [selectedModuleCode, batch, selectedAssignmentId ]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,6 +80,12 @@ const EditAssignment = () => {
     }
   };
 
+  const handleSelectedFileChange = (file) => {
+    setSelectedFile(file); // Store the selected file
+    setSchemePath(file.name); // Update the schemepath state with the file name
+
+  };
+
   return (
     <div className="align1">
       <MainLeftPane />
@@ -90,11 +103,44 @@ const EditAssignment = () => {
         >
           Back
         </Button>
-        <h1>Edit Module: {selectedModuleCode}</h1>
-        <div className="alignment">
+        <h1>Edit Assignment: {selectedAssignmentId}</h1>
+        <div className="alignment" style={{margin:"5vh", marginTop:"1vh"}}>
           <h2
             style={{
-              fontSize: "19px",
+              fontSize: "2vh",
+              marginLeft: "35px",
+              // marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Assignment Name
+          </h2>
+          <TextField
+          hiddenLabel
+          id="filled-hidden-label-small"
+          variant="filled"
+          // defaultValue="Module Code"
+          placeholder="Assignment Name"
+          name="selectedAssignmentName"
+          value={moduleData ? moduleData.assignmenttitle : ""}
+          onChange={handleChange}
+            style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+          >
+            Assignment Name
+          </TextField>
+
+          <h2
+            style={{
+              fontSize: "2vh",
               marginLeft: "35px",
               marginTop: "5vh",
               color: "black",
@@ -108,16 +154,16 @@ const EditAssignment = () => {
           variant="filled"
           // defaultValue="Module Code"
           placeholder="Module Code"
-          name="modulecode"
-          value={moduleData.modulecode}
+          name="selectedModuleCode"
+          value={selectedModuleCode}
           onChange={handleChange}
-            style={{width: "max-width"}}
+            style={{width:"max-width"}}
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
                 padding: "8px 12px", // Adjust the padding to match the new font size
               },
             }}
@@ -127,46 +173,13 @@ const EditAssignment = () => {
 
           <h2
             style={{
-              fontSize: "19px",
+              fontSize: "2vh",
               marginLeft: "35px",
               marginTop: "5vh",
               color: "black",
             }}
           >
-            Module Name
-          </h2>
-          <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-          // defaultValue="Module Code"
-          placeholder="Module Name"
-          name="modulename"
-          value={moduleData.modulename}
-          onChange={handleChange}
-            style={{width:"max-width"}}
-            sx={{
-              marginLeft: 5,
-              marginTop: 0,
-              marginRight: 5,
-              "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
-              },
-            }}
-          >
-            Module Name
-          </TextField>
-
-          <h2
-            style={{
-              fontSize: "19px",
-              marginLeft: "35px",
-              marginTop: "5vh",
-              color: "black",
-            }}
-          >
-            Credits
+            Batch
           </h2>
           <TextField
           hiddenLabel
@@ -174,8 +187,8 @@ const EditAssignment = () => {
           variant="filled"
           // defaultValue="Module Code"
           placeholder="Credits"
-          name="credits"
-          value={moduleData.credits}
+          name="batch"
+          value={batch}
           onChange={handleChange}
             style={{width: "max-width"}}
             sx={{
@@ -183,14 +196,44 @@ const EditAssignment = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
                 padding: "8px 12px", // Adjust the padding to match the new font size
               },
             }}
           >
-            Credits
+            Batch
           </TextField>
 
+          <h2
+            style={{
+              fontSize: "2vh",
+              marginLeft: "35px",
+              marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Change Marking Scheme
+          </h2>
+          <TextField
+              hiddenLabel
+              id="filled-hidden-label-small"
+              variant="filled"
+              value={moduleData && moduleData.schemepath ? schemepath : ""}
+              // onChange={handleSchemePathChange}
+              style={{width: "max-width"}}
+            sx={{
+              marginLeft: 5,
+              marginBottom: 2,
+              marginRight: 5,
+              "& input": {
+                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
+            }}
+            />
+            <div style={{width:"auto", display:"flex", justifyContent:"right"}}><InputFileUploadButton onFileSelect={handleSelectedFileChange} text = "Change Marking Scheme" />
+</div>
+            
         </div>
       
 

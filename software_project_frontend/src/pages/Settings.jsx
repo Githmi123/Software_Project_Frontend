@@ -18,8 +18,8 @@ import SettingsRightPane from "../components/SettingsRightPane/SettingsRightPane
 function Settings() {
   return (
     <div id="body">
-      <UserProfileLeftPane></UserProfileLeftPane>
-      {/* <MainLeftPane/> */}
+      {/* <UserProfileLeftPane></UserProfileLeftPane> */}
+      <MainLeftPane/>
       <SettingsRightPane/>
       {/* <UserProfileRightPane /> */}
       {/* <NewUserProfileRightPane/> */}

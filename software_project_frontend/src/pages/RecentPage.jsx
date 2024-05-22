@@ -4,7 +4,7 @@ import MainRightPane from "../components/MainRightPane/MainRightPane";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Button } from "@mui/material";
 import refreshAccessToken from "../services/AuthService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import SearchAppBar from "../components/Other/SearchBar/SearchBar";
@@ -14,6 +14,15 @@ import UserProfileBar from "../components/UserProfileBar/UserProfileBar";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import CustomNewButton from "../components/Buttons/CustomNewButton";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import CommentIcon from '@mui/icons-material/Comment';
+import { Delete, Edit } from "@mui/icons-material";
 
 const headers = ["Assignment", "Batch", "Date Created"];
 
@@ -22,6 +31,8 @@ const RecentPage = () => {
   const [assignments, setAssignments] = useState([]);
   const [moduleData, setModuleData] = useState([]);
   const [batchData, setBatchData] = useState([]);
+
+  const navigate = useNavigate();
 
   const columns = [
     { field: 'assignment', headerName: 'Assignment', width: 150 },
@@ -119,29 +130,31 @@ const RecentPage = () => {
   }, []);
 
 
-  const handleDeleteAssignment = async (e) => {
+  const handleDeleteAssignment = async (assignment) => {
     console.log("handling delete assignment");
-    e.preventDefault();
+    // e.preventDefault();
     try {
       console.log("handling delete assignment");
       // console.log(moduleData);
-      await refreshAccessToken();
+      // await refreshAccessToken();
       
-      const moduleData = {
-        id : selectedRecentModule.assignmentId,
-        modulecode : selectedRecentModule.moduleCode,
-        batch : selectedRecentModule.batch
-      }
+      // const moduleData = {
+      //   id : selectedRecentModule.assignmentId,
+      //   modulecode : selectedRecentModule.moduleCode,
+      //   batch : selectedRecentModule.batch
+      // }
 
-      await axios.put(
-          `http:/localhost:3500/assignment/${selectedRecentModule.moduleCode}/${selectedRecentModule.batch}/${selectedRecentModule.assignmentId}`,
-          moduleData,
+      await axios.delete(
+          `http://localhost:3500/assignment/${assignment.moduleCode}/${assignment.batch}/${assignment.assignmentId}`,
+          // moduleData,
           {
             headers: {
               Authorization: `Bearer ${Cookies.get("accessToken")}`,
             },
           }
-      )
+      );
+
+      setAssignments(assignments.filter((a) => a.assignmentId != assignment.assignmentId));
 
       console.log("Deleted Assignment");
 
@@ -153,8 +166,13 @@ const RecentPage = () => {
   };
 
 
-  const handleSelection = (assignmentid) => {
-    setSelectedRecentModule(assignmentid);
+  const handleSelection = (assignment) => {
+    setSelectedRecentModule(assignment);
+    navigate(`/AnswerScripts/batch/${assignment.batch}/modulecode/${assignment.moduleCode}/assignmentid/${assignment.assignmentId}`);
+  };
+
+  const handleEditAssignment = (assignment) => {
+    navigate(`/EditAssignment/${assignment.moduleCode}/${assignment.assignment}/${assignment.batch}/${assignment.assignmentId}`);
   };
 
   const newLocal = "space";
@@ -175,30 +193,62 @@ const RecentPage = () => {
         >
           Back
         </Button>
-        <h1 id="heading">Assignments</h1>
-        <div className="column">
-        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
-               <Link to={`/AnswerScripts/batch/${selectedRecentModule.batch}/modulecode/${selectedRecentModule.moduleCode}/assignmentid/${selectedRecentModule.assignmentId}`}>
+        <h1 id="heading">Recents</h1>
+        <div>
+        <div style={{display:"flex", flexDirection:"row", alignItems:"flex-end", justifyContent:"right"}}>
+               {/* <Link to={`/AnswerScripts/batch/${selectedRecentModule.batch}/modulecode/${selectedRecentModule.moduleCode}/assignmentid/${selectedRecentModule.assignmentId}`}>
                 <CustomNewButton text="View Assignment" />
-              </Link>
+              </Link> */}
           
           <div style={{width:"10vw"}}></div>
           <Link to={`/NewAssignment/${null}/${null}`} style={{ textDecoration: "none" }}>
             <CustomNewButton text="New Assignment" />
           </Link>
-          <div style={{width:"10vw"}}></div>
+          {/* <div style={{width:"10vw"}}></div> */}
           {/* <Link to={`/EditModule/${selectedModule}`}>
             <CustomNewButton onClick = {handleEditModule} text="Edit Assignment" />
           </Link> */}
 
           
-          <Link to={`/DeleteAssignment/${selectedRecentModule.moduleCode}/${selectedRecentModule}/${selectedRecentModule.assignmentId}`}>
+          {/* <Link to={`/DeleteAssignment/${selectedRecentModule.moduleCode}/${selectedRecentModule}/${selectedRecentModule.assignmentId}`}>
             <CustomNewButton onClick = {handleDeleteAssignment} text="Delete Assignment" />
-          </Link>
+          </Link> */}
 
         </div>
-        <div className="columnModules">
-          <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
+        <div className="columnModules" style={{width:"80%"}}>
+        <List sx={{ width: '100%', bgcolor: 'background.paper', overflow:"auto", height:"80%"}}>
+              {assignments.map((assignment, index) => (
+                <ListItem
+                
+                  key={assignment.assignmentId}
+                  secondaryAction={
+                    <div>
+                      <IconButton edge="end" aria-label="edit" onClick={() => handleEditAssignment(assignment)}>
+                        <Edit />
+                      </IconButton>
+                      <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteAssignment(assignment)}>
+                        <Delete />
+                      </IconButton>
+                    </div>
+                  }
+                  disablePadding
+                >
+                  <ListItemButton onClick={() => handleSelection(assignment)}>
+                    <ListItemText primaryTypographyProps={{ style: { fontSize: '2vh' } }}
+    // secondaryTypographyProps={{ style: {  } }}
+                      primary={`${assignment.assignment} - ${assignment.moduleCode}`}
+                      secondary={
+                        <span>
+                          {assignment.batch} - {assignment.dateCreated}
+                        </span>
+                      }
+                      secondaryTypographyProps={{ component: 'span', style: { display: 'inline', fontSize: '1.5vh' } }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          {/* <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
             <DataGrid
               rows={assignments}
               columns={columns}
@@ -221,7 +271,7 @@ const RecentPage = () => {
               }}
               // isRowSelectable={(params) => params.row.moduleCode !== selectedModule}
             />
-          </Box>
+          </Box> */}
         </div>
           {/* <table className="table"> */}
             {/* <thead className="tablehead">

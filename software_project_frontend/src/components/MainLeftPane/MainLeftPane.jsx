@@ -18,13 +18,7 @@ const MainLeftPane = () => {
     
     <div className='maindiv-left'> 
       
-      <div id = "ProfileBar">
-        {/* <UserProfileBar/> */}
-        {/* <SwipeableEdgeDrawer/> */}
-        <AccountMenu/>
-        
-        
-      </div>
+      
       
       
       <div className='maindiv-left'>
@@ -34,6 +28,13 @@ const MainLeftPane = () => {
           <ButtonSet/>
           
       </div>  
+      <div style={{backgroundColor:"#C3D3FB"}} id = "ProfileBar">
+        {/* <UserProfileBar/> */}
+        {/* <SwipeableEdgeDrawer/> */}
+        <AccountMenu/>
+        
+        
+      </div>
       
 
         
