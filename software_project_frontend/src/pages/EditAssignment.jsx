@@ -38,9 +38,9 @@ const EditAssignment = () => {
           }
         );
         setModuleData(response.data[0]);
-        
-        setSchemePath(moduleData.schemepath); // Update the schemepath state with the file name
-        console.log("response:", response.data[0]);
+        console.log(moduleData);
+        setSchemePath(response.data[0].schemepath); // Update the schemepath state with the file name
+        console.log("schemepath:", moduleData.schemepath);
         console.log(moduleData.batch);
       } catch (error) {
         console.error("Error fetching module:", error);
@@ -61,12 +61,14 @@ const EditAssignment = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    console.log("submitting values");
     e.preventDefault();
     try {
       await refreshAccessToken();
+      console.log(moduleData);
 
-      await axios.post(
-        `http://localhost:3500/modules/edit/${selectedModuleCode}`,
+      await axios.put(
+        `http://localhost:3500/assignment/${moduleData.modulecode}/${moduleData.batch}/${moduleData.assignmentid}`,
         moduleData,
         {
           headers: {
@@ -74,7 +76,25 @@ const EditAssignment = () => {
           },
         }
       );
-      navigate("/MyModulePage");
+
+      console.log("assignment title updated");
+
+      const formData = new FormData();
+      formData.append("scheme", selectedFile);
+
+      await axios.put(
+        `http://localhost:3500/assignment/${moduleData.modulecode}/${moduleData.batch}/scheme/${moduleData.assignmentid}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            "Content-Type": "multipart/form-data"
+          },
+        }
+      );
+
+
+      navigate("/Dashboard");
     } catch (error) {
       console.error("Error editing module:", error);
     }
@@ -84,6 +104,10 @@ const EditAssignment = () => {
     setSelectedFile(file); // Store the selected file
     setSchemePath(file.name); // Update the schemepath state with the file name
 
+  };
+
+  const handleSchemePathChange = (event) => {
+    setSchemePath(event.target.value);
   };
 
   return (
@@ -121,7 +145,7 @@ const EditAssignment = () => {
           variant="filled"
           // defaultValue="Module Code"
           placeholder="Assignment Name"
-          name="selectedAssignmentName"
+          name="assignmenttitle"
           value={moduleData ? moduleData.assignmenttitle : ""}
           onChange={handleChange}
             style={{width: "max-width"}}
@@ -155,7 +179,7 @@ const EditAssignment = () => {
           // defaultValue="Module Code"
           placeholder="Module Code"
           name="selectedModuleCode"
-          value={selectedModuleCode}
+          value={moduleData && moduleData.modulecode ? moduleData.modulecode : ""}
           onChange={handleChange}
             style={{width:"max-width"}}
             sx={{
@@ -188,7 +212,7 @@ const EditAssignment = () => {
           // defaultValue="Module Code"
           placeholder="Credits"
           name="batch"
-          value={batch}
+          value={moduleData && moduleData.batch ? moduleData.batch : ""}
           onChange={handleChange}
             style={{width: "max-width"}}
             sx={{
@@ -219,7 +243,7 @@ const EditAssignment = () => {
               id="filled-hidden-label-small"
               variant="filled"
               value={moduleData && moduleData.schemepath ? schemepath : ""}
-              // onChange={handleSchemePathChange}
+              onChange={handleSchemePathChange}
               style={{width: "max-width"}}
             sx={{
               marginLeft: 5,
@@ -239,7 +263,8 @@ const EditAssignment = () => {
 
         <div
           style={{
-            marginTop: "50px",
+            // marginTop: "50px",
+            marginBottom:"1vh",
             display: "flex",
             justifyContent: "center",
           }}
