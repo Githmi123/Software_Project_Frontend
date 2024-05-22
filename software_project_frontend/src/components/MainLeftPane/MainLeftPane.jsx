@@ -13,12 +13,30 @@ import Divider from "@mui/material/Divider";
 
 const MainLeftPane = () => {
   return (
-    <div className="maindiv-left">
-      <div id="ProfileBar">
+
+
+    
+    <div className='maindiv-left'> 
+      
+      
+      
+      
+      <div className='maindiv-left'>
+   
+        <img id='main-left-pane-image' src={projectlogo} style={{width: '50%'}}/>
+            
+          <ButtonSet/>
+          
+      </div>  
+      <div style={{backgroundColor:"#C3D3FB"}} id = "ProfileBar">
         {/* <UserProfileBar/> */}
         {/* <SwipeableEdgeDrawer/> */}
-        <AccountMenu />
+        <AccountMenu/>
+        
+        
       </div>
+      
+
 
       <div className="maindiv-left">
         <img

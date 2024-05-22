@@ -94,7 +94,7 @@ function App() {
 
           <Route
             exact
-            path="/EditAssignment/:selectedModuleCode/:batch/:selectedAssignmentId"
+            path="/EditAssignment/:selectedModuleCode/:selectedAssignmentName/:batch/:selectedAssignmentId"
             element={<EditAssignment />}
           ></Route>
 

@@ -38,6 +38,7 @@
   /* background-color: aqua; */
   align-items: center;
   width: inherit;
+  background-color: "red";
 }
 
 #bottom-profile-set {

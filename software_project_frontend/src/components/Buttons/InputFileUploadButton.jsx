@@ -15,7 +15,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const InputFileUploadButton = ({ onFileSelect }) => {
+const InputFileUploadButton = ({ onFileSelect, text }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileSelect = (event) => {
@@ -33,10 +33,10 @@ const InputFileUploadButton = ({ onFileSelect }) => {
         role={undefined}
         variant="contained"
         tabIndex={-1}
-        style={{ margin: "0", borderRadius: 5 }}
+        style={{ margin: "0", borderRadius: 5, width:"auto", fontSize:"1.5vh" }}
         startIcon={<CloudUploadIcon />}
       >
-        Upload
+        {text ? text : "Upload"}
         <VisuallyHiddenInput
           type="file"
           accept=".xlsx, .xls, .csv"

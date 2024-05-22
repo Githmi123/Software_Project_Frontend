@@ -18,9 +18,9 @@ import axios from "axios";
 import image from "../images/image.png";
 
 export default function AccountMenu() {
-  const [firstName, setFirstName] = useState("ABC");
-  const [lastName, setLastName] = useState("Perera");
-  const [designation, setDesignation] = useState("Lecturer");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [designation, setDesignation] = useState("");
   const [imageSRC, setImageSRC] = useState(image);
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
@@ -123,23 +123,23 @@ export default function AccountMenu() {
         PaperProps={{
           elevation: 0,
           sx: {
-            width:"30vw",
+            width:"10vw",
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
+            mb: 20,
             '& .MuiAvatar-root': {
-              width: 32,
+              width: 40,
               height: 32,
-              ml: -0.5,
+              ml: 0.5,
               mr: 1,
             },
             '&::before': {
               content: '""',
               display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: "20vw",
-              width: 10,
+              position: 'relative',
+              top: 10,
+              // right: "20vw",
+              width: 0,
               height: 10,
               bgcolor: 'background.paper',
               transform: 'translateY(-50%) rotate(45deg)',
@@ -147,7 +147,7 @@ export default function AccountMenu() {
             },
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        transformOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <div style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", height:"10vh"}}>
