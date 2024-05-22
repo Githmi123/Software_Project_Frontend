@@ -38,7 +38,7 @@ const MainLeftPane = () => {
       
 
 
-      <div className="maindiv-left">
+      {/* <div className="maindiv-left">
         <img
           id="main-left-pane-image"
           src={projectlogo}
@@ -46,7 +46,7 @@ const MainLeftPane = () => {
         />
 
         <ButtonSet />
-      </div>
+      </div> */}
     </div>
   );
 };
