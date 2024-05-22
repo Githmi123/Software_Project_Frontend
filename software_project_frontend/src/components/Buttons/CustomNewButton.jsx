@@ -20,10 +20,17 @@ const CustomNewButton = ({ text, onFileSelect }) => {
     fileInputRef.current.click(); // Click the file input element when the button is clicked
   };
 
-  const handleFileSelect = (event) => {
+  /*  const handleFileSelect = (event) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       onFileSelect(file); // Pass the selected file to the parent component
+    }
+  }; */
+
+  const handleFileSelect = (event) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      onFileSelect(event);
     }
   };
 
@@ -31,7 +38,6 @@ const CustomNewButton = ({ text, onFileSelect }) => {
     <div style={{ display: "flex" }}>
       <Button
         sx={{
-          
           width: "auto",
           padding: "3vh",
           height: "2vh",
@@ -40,7 +46,7 @@ const CustomNewButton = ({ text, onFileSelect }) => {
           textTransform: "none",
           backgroundColor: "#C3D3FB",
           borderRadius: "2vh",
-          fontSize:"1.5vh"
+          fontSize: "1.5vh",
         }}
         startIcon={<AddCircleIcon />}
         className="new-module-button"

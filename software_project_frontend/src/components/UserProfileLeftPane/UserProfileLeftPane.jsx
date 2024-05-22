@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 
 export const UserProfileLeftPane = () => {
   const [profile, setProfile] = useState("");
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [profileImage, setProfileImage] = useState(profileimage);
 
   useEffect(() => {
     async function getUserProfileData() {
@@ -28,6 +28,9 @@ export const UserProfileLeftPane = () => {
           },
         });
         setProfile(response.data);
+        if (response.data.profilepic) {
+          setProfileImage(response.data.profilepic);
+        }
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching profile data:", error);
@@ -35,8 +38,29 @@ export const UserProfileLeftPane = () => {
     }
     getUserProfileData();
   }, []);
-  const handleNewProfilePicture = (file) => {
-    setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, file]);
+
+  const handleNewProfilePicture = async (event) => {
+    const file = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append("user", profile.email);
+    formData.append("image", file);
+
+    try {
+      await refreshAccessToken();
+
+      await axios.post("http://localhost:3500/user/profile", formData, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        },
+      });
+
+      setProfileImage(URL.createObjectURL(file));
+      //setProfilePicUrl(responseProfilepicture.data.profilepicUrl);
+      console.log("Profile picture updated:");
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+    }
   };
 
   return (
@@ -44,7 +68,7 @@ export const UserProfileLeftPane = () => {
       <div id="container1">
         <div id="ringcontainer">
           <img src={ring} id="ring"></img>
-          <img src={profileimage} id="user1"></img>
+          <img src={profileImage} id="user1"></img>
           {/* <img src={profile.profilepic} id="user1"></img> */}
         </div>
         <div id="text">
@@ -53,7 +77,7 @@ export const UserProfileLeftPane = () => {
           </h2>
           <p>Driving excellence in education with cutting-edge technology</p>
         </div>
-        <div
+        {/*   <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -65,6 +89,22 @@ export const UserProfileLeftPane = () => {
             text="Change Profile Picture"
             onFileSelect={handleNewProfilePicture}
           />
+        </div> */}
+        <div className="greytext">
+          <label htmlFor="upload-button">
+            <CustomNewButton
+              text="Add Profile Picture"
+              onFileSelect={handleNewProfilePicture}
+              style={{ marginLeft: "12vh" }}
+            />
+          </label>
+          {/*   <input
+            id="upload-button"
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleNewProfilePicture}
+          /> */}
         </div>
       </div>
 
