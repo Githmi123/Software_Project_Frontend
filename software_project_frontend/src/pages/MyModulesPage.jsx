@@ -8,6 +8,14 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import refreshAccessToken from '../services/AuthService';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import { Delete, Edit } from "@mui/icons-material";
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -88,53 +96,62 @@ const MyModulesPage = () => {
     fetchModules();
   }, []);
 
-  const handleEditModule = async (e) => {
-    e.preventDefault();
-    try {
-      console.log("handling edit module");
-      console.log(moduleData);
-      await refreshAccessToken();
+  const handleEditModule = async (modulecode) => {
+    // e.preventDefault();
+    // try {
+    //   console.log("handling edit module");
+    //   console.log(moduleData);
+    //   await refreshAccessToken();
 
-      await axios.post(
-          `http://localhost:3500/modules/edit/${selectedModule}`,
-          moduleData,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-      )
+    //   await axios.post(
+    //       `http://localhost:3500/modules/edit/${selectedModule}`,
+    //       moduleData,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    //         },
+    //       }
+    //   )
 
      
-      navigate("/MyModulePage");
-    } catch (error) {
-      console.error("Error editing module:", error);
-    }
+      navigate(`/EditModule/${modulecode}`);
+    // } catch (error) {
+    //   console.error("Error editing module:", error);
+    // }
   };
 
 
-  const handleDeleteModule = async (e) => {
-    e.preventDefault();
-    try {
-      console.log("handling delete module");
-      console.log(moduleData);
-      await refreshAccessToken();
+  const handleDeleteModule = async (modulecode) => {
+    navigate(`/DeleteModule/${modulecode}`);
+    // e.preventDefault();
+    // try {
+    //   console.log("handling delete module");
+    //   console.log(moduleData);
+    //   await refreshAccessToken();
 
-      await axios.post(
-          `http://localhost:3500/modules/delete/${selectedModule}`,
-          moduleData,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-      )
+    //   await axios.post(
+    //       `http://localhost:3500/modules/delete/${modulecode}`,
+    //       moduleData,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    //         },
+    //       }
+    //   )
 
      
-      navigate("/MyModulePage");
-    } catch (error) {
-      console.error("Error editing module:", error);
-    }
+    //   navigate("/MyModulePage");
+    // } catch (error) {
+    //   console.error("Error editing module:", error);
+    // }
+  };
+
+  const handleEditAssignment = (assignment) => {
+    // navigate(`/EditAssignment/${assignment.moduleCode}/${assignment.assignment}/${assignment.batch}/${assignment.assignmentId}`);
+  };
+
+  const handleDeleteAssignment = (assignment) => {
+    // navigate(`/EditAssignment/${assignment.moduleCode}/${assignment.assignment}/${assignment.batch}/${assignment.assignmentId}`);
   };
 
   const handleNewModule = (event) => {};
@@ -151,9 +168,15 @@ const MyModulesPage = () => {
   //   );
   // };
 
-  const handleSelectedModule = (moduleCode) => {
-    setSelectedModule(moduleCode);
+  const handleSelectedModule = (modulecode) => {
+    console.log("Selected module code:", modulecode);
+    setSelectedModule(modulecode);
+    navigate(`/Batches/${modulecode}`);
   };
+  // const handleSelection = (assignment) => {
+  //   setSelectedRecentModule(assignment);
+  //   navigate(`/AnswerScripts/batch/${assignment.batch}/modulecode/${assignment.moduleCode}/assignmentid/${assignment.assignmentId}`);
+  // };
 // answerScripts
   //console.log("module code", selectedModule);
 
@@ -193,6 +216,41 @@ const MyModulesPage = () => {
             <CustomNewButton onClick = {handleDeleteModule} text="Delete Module" />
           </Link>
 
+        </div>
+        <div className="columnModules" style={{width:"80%"}}>
+        <List sx={{ width: '100%', bgcolor: 'background.paper', overflow:"auto", height:"80%"}}>
+              {tableDataModules.map((module, index) => (
+                <ListItem
+                  
+                  key={module.modulecode}
+                  secondaryAction={
+                    <div>
+                      <IconButton edge="end" aria-label="edit" onClick={() => handleEditModule(module.modulecode)}>
+                        <Edit />
+                      </IconButton>
+                      <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteModule(module.modulecode)}>
+                        <Delete />
+                      </IconButton>
+                    </div>
+                  }
+                  disablePadding
+                >
+                  <ListItemButton onClick={() => handleSelectedModule(module.modulecode)}>
+                    <ListItemText primaryTypographyProps={{ style: { fontSize: '2vh' } }}
+    // secondaryTypographyProps={{ style: {  } }}
+                      primary={`${module.modulecode} - ${module.modulename}`}
+                      secondary={
+                        <span>
+                          Credits: {module.credits}
+                        </span>
+                      }
+                      secondaryTypographyProps={{ component: 'span', style: { display: 'inline', fontSize: '1.5vh' } }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          
         </div>
         <div className="columnModules">
           <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
