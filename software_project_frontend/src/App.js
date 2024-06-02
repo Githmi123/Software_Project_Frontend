@@ -37,8 +37,8 @@ function App() {
           <Route exact path="/Dashboard" element={<RecentPage />}></Route>
           <Route exact path="/MyModulePage" element={<MyModulesPage />}></Route>
           <Route exact path="/NewModule" element={<NewModule />}></Route>
-          <Route exact path="/Help" element={<Help/>}></Route>
-          <Route exact path="/Settings" element={<Settings/>}></Route>
+          <Route exact path="/Help" element={<Help />}></Route>
+          <Route exact path="/Settings" element={<Settings />}></Route>
           <Route
             exact
             path="/NewAssignment/:selectedModuleCode/:batch"
@@ -66,7 +66,7 @@ function App() {
           ></Route>
           <Route
             exact
-            path="/ManualGradingPage"
+            path="/ManualGradingPage/batch/:batch/modulecode/:selectedModuleCode/assignmentid/:assignmentid/studentid/:studentid"
             element={<ManualGradingPage />}
           ></Route>
           <Route
@@ -84,7 +84,6 @@ function App() {
             path="/DeleteModule/:selectedModuleCode"
             element={<DeleteModule />}
           ></Route>
-
 
           <Route
             exact

@@ -13,13 +13,12 @@ import "../styles/AssignmentsPage.css";
 import RemoveFileButton from "../components/Buttons/RemoveFileButton";
 import GradingButton from "../components/Buttons/GradingButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
 
 import refreshAccessToken from "../services/AuthService";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -30,20 +29,19 @@ const AnswerScriptsPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [answerScripts, setAnswerScripts] = useState([]);
 
-
   const columns = [
-    { field: 'studentid', headerName: 'Student ID', width: 90},
-    { field: 'assignmentid', headerName: 'Assignment ID', width: 150 },
-    { field: 'marks', headerName: 'Marks', width: 150 },
-    { field: 'batch', headerName: 'Batch', width: 150 },
-    { field: 'modulecode', headerName: 'Module Code', width: 150 },
-    { field: 'fileid', headerName: 'File ID', width: 150 },
-    { field: 'graded', headerName: 'Graded', width: 150 },
+    { field: "studentid", headerName: "Student ID", width: 90 },
+    { field: "assignmentid", headerName: "Assignment ID", width: 150 },
+    { field: "marks", headerName: "Marks", width: 150 },
+    { field: "batch", headerName: "Batch", width: 150 },
+    { field: "modulecode", headerName: "Module Code", width: 150 },
+    { field: "fileid", headerName: "File ID", width: 150 },
+    { field: "graded", headerName: "Graded", width: 150 },
   ];
-  
- 
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
+
+  const navigate = useNavigate();
 
   const fetchAnswerscripts = async () => {
     try {
@@ -61,12 +59,10 @@ const AnswerScriptsPage = () => {
       console.log("after fetching");
       const answerScriptsData = response.data.rows;
       console.log(answerScriptsData);
-      if(answerScriptsData)
-      {
+      if (answerScriptsData) {
         console.log("no answer scripts uploaded");
         setAnswerScripts(answerScriptsData);
       }
-      
     } catch (error) {
       console.error("Error fetching answer scripts:", error);
     }
@@ -87,18 +83,16 @@ const AnswerScriptsPage = () => {
         const response = await axios.post(
           `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
           formData,
-          
+
           {
             headers: {
               Authorization: `Bearer ${Cookies.get("accessToken")}`,
             },
-          },
-          
+          }
         );
 
         console.log("Uploaded Answer Scripts:", response.data);
         fetchAnswerscripts();
-        
       } catch (error) {
         console.error("Error uploading answer scripts:", error);
       }
@@ -133,7 +127,6 @@ const AnswerScriptsPage = () => {
       });
     }
   };
-  
 
   const handleToggleAllScripts = () => {
     if (selectedAssignmentNos.length === answerScripts.length) {
@@ -160,7 +153,8 @@ const AnswerScriptsPage = () => {
 
       const response = await axios.post(
         // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,{},
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+        {},
         {
           headers: {
             Authorization: `Bearer ${Cookies.get("accessToken")}`,
@@ -194,7 +188,6 @@ const AnswerScriptsPage = () => {
       console.error("Error grading selected answer scripts:", error);
     }
   };
-  
 
   const handleGradeManually = (event) => {};
 
@@ -226,6 +219,15 @@ const AnswerScriptsPage = () => {
     }
   };
 
+  const handleRowClick = (params) => {
+    const studentid = params.row.studentid;
+    console.log("Row clicked for student ID:", studentid);
+    //navigate(`/ManualGradingPage/${studentid}`);
+    navigate(
+      `/ManualGradingPage/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
+    );
+  };
+
   return (
     <div className="align1">
       <MainLeftPane />
@@ -244,7 +246,16 @@ const AnswerScriptsPage = () => {
           Home
         </Button>
         <h1 id="heading">Uploaded Answer Scripts</h1>
-        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent: "space-between", marginLeft:"5vw", marginRight:"5vw"}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginLeft: "5vw",
+            marginRight: "5vw",
+          }}
+        >
           <CustomNewButton
             text="Upload Answer Script"
             onFileSelect={handleNewAnswerScript}
@@ -259,7 +270,7 @@ const AnswerScriptsPage = () => {
             onClick={handleGradeSelectedFiles}
             icon={CheckCircle}
           /> */}
-          
+
           <Link
             to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
             style={{ textDecoration: "none", color: "inherit" }}
@@ -272,11 +283,10 @@ const AnswerScriptsPage = () => {
             onClick={handleDeleteFiles}
             icon={Delete}
           />
-
         </div>
 
         <div className="columnAnswerScripts">
-          <Box sx={{ height: '100%', width: '100%' }}>
+          <Box sx={{ height: "100%", width: "100%" }}>
             <DataGrid
               rows={answerScripts}
               columns={columns}
@@ -291,6 +301,7 @@ const AnswerScriptsPage = () => {
               pageSizeOptions={[5]}
               checkboxSelection
               disableRowSelectionOnClick
+              onRowClick={handleRowClick}
               onRowSelectionModelChange={(newSelection) => {
                 newSelection.forEach((scriptId) => {
                   handleToggleAssignmentNo(scriptId);
@@ -343,7 +354,6 @@ const AnswerScriptsPage = () => {
             position: "relative",
           }}
         >
-          
           {/* <Link
             to="/Dashboard"
             style={{ textDecoration: "none", color: "inherit" }}

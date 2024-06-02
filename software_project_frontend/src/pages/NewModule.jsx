@@ -35,7 +35,7 @@ const NewModule = () => {
 
       const config = {
         headers: {
-          Authorization: `Bearer ${Cookies.get('accessToken')}`,
+          Authorization: `Bearer ${Cookies.get("accessToken")}`,
         },
       };
 
@@ -68,7 +68,6 @@ const NewModule = () => {
           Back
         </Button>
 
-        
         <div className="alignment">
           <h2
             style={{
@@ -81,15 +80,15 @@ const NewModule = () => {
             Module Code
           </h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-          // defaultValue="Module Code"
-          placeholder="Module Code"
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            // defaultValue="Module Code"
+            placeholder="Module Code"
             name="modulecode"
             value={moduleData.modulecode}
             onChange={handleChange}
-            style={{width: "max-width"}}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
@@ -114,15 +113,15 @@ const NewModule = () => {
             Module Name
           </h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-          // defaultValue="Module Code"
-          placeholder="Module Name"
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            // defaultValue="Module Code"
+            placeholder="Module Name"
             name="modulename"
             value={moduleData.modulename}
             onChange={handleChange}
-            style={{width:"max-width"}}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
@@ -147,15 +146,15 @@ const NewModule = () => {
             Credits
           </h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-          // defaultValue="Module Code"
-          placeholder="Credits"
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            // defaultValue="Module Code"
+            placeholder="Credits"
             name="credits"
             value={moduleData.credits}
             onChange={handleChange}
-            style={{width: "max-width"}}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
@@ -193,6 +192,7 @@ const NewModule = () => {
             </Link>
 
             <Button
+              data-testid="save-button"
               onClick={handleSubmit}
               sx={{
                 marginLeft: "15px",
@@ -204,8 +204,7 @@ const NewModule = () => {
             >
               Save
             </Button>
-        </div>
-        
+          </div>
         </div>
       </MainRightPane>
     </div>
