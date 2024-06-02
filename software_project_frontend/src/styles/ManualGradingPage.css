@@ -1,36 +1,45 @@
 #answer-script-image {
-    width: 60vh;
-    height: 30vh;
-    margin: auto;
-    display: block;
-    margin-bottom: 0vh;
-    margin-top: 2vh;
+  width: 60vh;
+  height: 30vh;
+  margin: auto;
+  display: block;
+  margin-bottom: 0vh;
+  margin-top: 2vh;
 }
 
 .checking-side-left {
-    width: 60%;
-    float: left;
-  }
-  
-  .marking-scheme-right {
-    width: 40%;
-    float: right;
-  }
+  width: 60%;
+  float: left;
+}
 
-  h5 {
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-  }
+.marking-scheme-right {
+  width: 40%;
+  float: right;
+}
 
-  
+h5 {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 .marking-scheme-table {
-    border-collapse: collapse; /* Ensure borders are collapsed */
-    width: 100%; 
-    
-  }
-  
-  .marking-scheme-tabledata {
-    border: 1px solid black; /* Add black border to table cells */
-    text-align: center  !important;
-    padding: 0.1vh; 
-  }
+  border-collapse: collapse; /* Ensure borders are collapsed */
+  width: 100%;
+}
+
+.marking-scheme-tabledata {
+  border: 1px solid black; /* Add black border to table cells */
+  text-align: center !important;
+  padding: 0.1vh;
+}
+
+#graded-answerscript {
+  display: flex;
+  justify-content: center;
+  align-items: row;
+}
+
+#table-marks tr,
+th {
+  text-align: center;
+}
