@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
-import { Button, Checkbox } from "@mui/material";
+import { Button, Checkbox, CircularProgress } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import { CheckCircle, Delete } from "@mui/icons-material";
@@ -29,6 +29,7 @@ const AnswerScriptsPage = () => {
   const [selectedAssignmentNos, setSelectedAssignmentNos] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [answerScripts, setAnswerScripts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
 
   const columns = [
@@ -45,30 +46,45 @@ const AnswerScriptsPage = () => {
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
 
-  const fetchAnswerscripts = async () => {
-    try {
-      // await refreshAccessToken();
-      console.log("fetchinf answer scripts");
+  const fetchData = async () => {
+    setLoading(true);
+    console.log("fetching answer scripts");
 
       const response = await axios.get(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
       );
       console.log("after fetching");
       const answerScriptsData = response.data.rows;
-      console.log(answerScriptsData);
+      console.log(response.data);
       if(answerScriptsData)
       {
         console.log("no answer scripts uploaded");
         setAnswerScripts(answerScriptsData);
       }
+      setLoading(false);
+  }
+  const fetchAnswerscripts = async () => {
+    try {
+      // await refreshAccessToken();
+      await fetchData();
       
     } catch (error) {
-      console.error("Error fetching answer scripts:", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await fetchData();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -76,31 +92,49 @@ const AnswerScriptsPage = () => {
     fetchAnswerscripts();
   }, [selectedAssignmentNos]);
 
+  const upload = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    selectedFiles.forEach((file) => formData.append("scripts", file));
+    console.log("Form Data: ", formData);
+    const response = await axios.post(
+      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+      
+    );
+
+    console.log("Uploaded Answer Scripts:", response.data);
+    fetchAnswerscripts();
+    setLoading(false);
+  }
   useEffect(() => {
     const uploadNewAnswerscripts = async () => {
       try {
-        await refreshAccessToken();
-
-        const formData = new FormData();
-        selectedFiles.forEach((file) => formData.append("scripts", file));
-
-        const response = await axios.post(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-          formData,
-          
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          },
-          
-        );
-
-        console.log("Uploaded Answer Scripts:", response.data);
-        fetchAnswerscripts();
+        // await refreshAccessToken();
+        await upload();
+        
         
       } catch (error) {
-        console.error("Error uploading answer scripts:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+  
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await upload();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
@@ -109,8 +143,10 @@ const AnswerScriptsPage = () => {
     }
   }, [selectedFiles, selectedModuleCode, batch, assignmentid]);
 
-  const handleNewAnswerScript = (file) => {
-    setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, file]);
+  const handleNewAnswerScript = (event) => {
+    const files = Array.from(event.target.files);
+    setSelectedFiles(files);
+    
   };
 
   const handleToggleAssignmentNo = (scriptId) => {
@@ -144,35 +180,41 @@ const AnswerScriptsPage = () => {
     }
   };
 
+  const grade = async () => {
+    setLoading(true);
+    const response = await axios.post(
+      // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,{}
+    );
+
+    console.log("Got Response");
+
+    console.log("Graded all answer scripts", response.data);
+
+    setLoading(false);
+  }
   const handleGradeAllFiles = async () => {
-    console.log("STarted Grading");
+    console.log("Started Grading");
     try {
-      // await refreshAccessToken();
-
-      // const response = await axios.post(
-      //   `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      //     },
-      //   }
-      // );
-
-      const response = await axios.post(
-        // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,{},
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
-      );
-
-      console.log("Got Response");
-
-      console.log("Graded all answer scripts", response.data);
+      await grade();
+      
     } catch (error) {
-      console.error("Error grading answer scripts:", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await grade();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -181,12 +223,7 @@ const AnswerScriptsPage = () => {
     try {
       const response = await axios.post(
         `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
-        { selectedAssignmentNos },
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
+        { selectedAssignmentNos }
       );
 
       console.log("Graded selected answer scripts", response.data);
@@ -206,23 +243,40 @@ const AnswerScriptsPage = () => {
     );
   };
 
+  const deleteFiles = async () => {
+    setLoading(true);
+    const response = await axios.delete(
+      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${answerScripts.fieid}`,
+      { selectedAssignmentNos }
+    );
+
+    console.log("Graded selected answer scripts", response.data);
+
+    setLoading(false);
+  }
+
   const handleDeleteFiles = async () => {
     console.log("Started Deleting Selected Files");
     console.log(selectedFiles);
     try {
-      const response = await axios.delete(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${answerScripts.fieid}`,
-        { selectedAssignmentNos },
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
-      );
-
-      console.log("Graded selected answer scripts", response.data);
+      await deleteFiles();
     } catch (error) {
-      console.error("Error grading selected answer scripts:", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await deleteFiles();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -277,7 +331,9 @@ const AnswerScriptsPage = () => {
 
         <div className="columnAnswerScripts">
           <Box sx={{ height: '100%', width: '100%' }}>
+          {loading ? (<div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>) :
             <DataGrid
+            
               rows={answerScripts}
               columns={columns}
               getRowId={(row) => row.studentid}
@@ -296,7 +352,9 @@ const AnswerScriptsPage = () => {
                   handleToggleAssignmentNo(scriptId);
                 });
               }}
+            
             />
+          }
           </Box>
           {/* <table className="tableStyle2">
             <tbody>

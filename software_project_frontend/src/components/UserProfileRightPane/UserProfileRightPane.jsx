@@ -22,21 +22,40 @@ export const UserProfileRightPane = () => {
     
     }
   );
+  const [loading, setLoading] = useState(false);
+
+  const getData = async () => {
+    setLoading(true);
+    const response = await axios.get("http://localhost:3500/user");
+        setProfileData(response.data);
+        console.log("profile data : ", response.data);
+    setLoading(false);
+  }
 
   useEffect(() => {
     async function getProfileData() {
       try {
         // await refreshAccessToken();
+        await getData();
 
-        const response = await axios.get("http://localhost:3500/user", {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        });
-        setProfileData(response.data);
-        console.log("profile data : ", response.data);
+        
       } catch (error) {
-        console.log("error fetching data : ", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     }
     getProfileData();
@@ -54,25 +73,43 @@ export const UserProfileRightPane = () => {
     navigate('')
   };
 
+  const save = async () => {
+    setLoading(true);
+    const body = {
+      newmail : profileData.email
+    }
+    const response = await axios.put("http://localhost:3500/user", body);
+      console.log("Finished sending request");
+      // navigate("/Dashboard");
+      console.log("new profile data :", profileData);
+      setLoading(false);
+  }
+
   const handleChangeEmail = async (e) => {
     try {
       console.log("Started requesting to change email");
       // const newmail;
-      const body = {
-        newmail : profileData.email
-      }
+      await save();
       // await refreshAccessToken();
       console.log("Trying to save email");
-      const response = await axios.put("http://localhost:3500/user", body, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
-      console.log("Finished sending request");
-      // navigate("/Dashboard");
-      console.log("new profile data :", profileData);
+      
     } catch (error) {
-      console.log("error editing the profile : ", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await save();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -80,21 +117,39 @@ export const UserProfileRightPane = () => {
 
   const navigate = useNavigate();
 
-  const handleSave = async (e) => {
-    try {
-      // await refreshAccessToken();
-      console.log("Trying to save details");
-      const response = await axios.post("http://localhost:3500/user", profileData, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
+  const save2 = async () => {
+    setLoading(true);
+    const response = await axios.post("http://localhost:3500/user", profileData);
       console.log("Finished sending request");
       handleChangeEmail();
       navigate("/Dashboard");
       console.log("new profile data :", profileData);
+      setLoading(false);
+  }
+  
+  const handleSave = async (e) => {
+    try {
+      // await refreshAccessToken();
+      console.log("Trying to save details");
+      await save2();
+      
     } catch (error) {
-      console.log("error editing the profile : ", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await save2();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 

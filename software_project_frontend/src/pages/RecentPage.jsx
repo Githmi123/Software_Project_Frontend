@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import refreshAccessToken from "../services/AuthService";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -31,6 +31,7 @@ const RecentPage = () => {
   const [assignments, setAssignments] = useState([]);
   const [moduleData, setModuleData] = useState([]);
   const [batchData, setBatchData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -40,17 +41,11 @@ const RecentPage = () => {
     { field: 'dateCreated', headerName: 'Date Created', width: 150 },
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // await refreshAccessToken();
+  const getData = async () => {
+    setLoading(true);
+        console.log("No need to refresh");
         const modulesResponse = await axios.get(
-          "http://localhost:3500/modules",
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
+          "http://localhost:3500/modules"
         );
         const modules = modulesResponse.data;
         const formattedModules = modules.map((module) => ({
@@ -65,12 +60,7 @@ const RecentPage = () => {
         const allBatches = [];
         for (const module of modules) {
           const batchResponse = await axios.get(
-            `http://localhost:3500/batch/${module.modulecode}`,
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get("accessToken")}`,
-              },
-            }
+            `http://localhost:3500/batch/${module.modulecode}`
           );
           const batches = batchResponse.data.map((batch) => ({
             moduleCode: module.modulecode,
@@ -86,12 +76,7 @@ const RecentPage = () => {
         const allAssignments = [];
         for (const batch of allBatches) {
           const assignmentResponse = await axios.get(
-            `http://localhost:3500/assignment/${batch.moduleCode}/${batch.batch}`,
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get("accessToken")}`,
-              },
-            }
+            `http://localhost:3500/assignment/${batch.moduleCode}/${batch.batch}`
           );
           const assignmentsData = assignmentResponse.data;
 
@@ -119,10 +104,34 @@ const RecentPage = () => {
           }
         }
         setAssignments(allAssignments);
+        setLoading(false);
 
         console.log("Assignments Data", allAssignments);
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // await refreshAccessToken();
+        await getData();
+        
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
+        
       }
     };
 
@@ -211,6 +220,10 @@ const RecentPage = () => {
 
         </div>
         <div className="columnModules" style={{width:"80%"}}>
+          {loading ? (
+            <div style={{display:"flex", justifyContent: "center"}}><CircularProgress/></div>
+          ):
+          
         <List sx={{ width: '100%', bgcolor: 'background.paper', overflow:"auto", height:"80%"}}>
               {assignments.map((assignment, index) => (
                 <ListItem
@@ -243,6 +256,7 @@ const RecentPage = () => {
                 </ListItem>
               ))}
             </List>
+}
           
         </div>
           

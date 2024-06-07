@@ -24,6 +24,7 @@ const DeleteAssignment = () => {
   const { selectedModuleCode, batch, selectedAssignmentId } = useParams();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const columns = [
@@ -36,22 +37,37 @@ const DeleteAssignment = () => {
     setOpenDialog(true); // Open the dialog when the component mounts
   }, []);
 
+  const deleteAssignment = async () => {
+    setLoading(true);
+    const response = await axios.delete(
+      `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
+    );
+    console.log("Module is deleted !");
+    navigate("/Dashboard");
+    setLoading(false);
+  }
+
   const handleDeleteConfirmation = async () => {
     console.log("Trying to delete assignment");
     try {
-      await refreshAccessToken();
-      const response = await axios.delete(
-        `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
-      );
-      console.log("Module is deleted !");
-      navigate("/Dashboard");
+      await deleteAssignment();
     } catch (error) {
-      console.error("Error deleting module:", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await deleteAssignment();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 

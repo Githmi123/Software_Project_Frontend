@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
-import { Button, TextField, colors } from "@mui/material";
+import { Button, CircularProgress, TextField, colors } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -17,6 +17,7 @@ const NewModule = () => {
     modulename: "",
     credits: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,25 +29,38 @@ const NewModule = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await refreshAccessToken();
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${Cookies.get('accessToken')}`,
-        },
-      };
-
-      await axios.post("http://localhost:3500/modules", moduleData, config);
+  const submit = async () => {
+    setLoading(true);
+    await axios.post("http://localhost:3500/modules", moduleData);
 
       console.log("Module is created!");
       console.log(moduleData);
 
       navigate("/MyModulePage");
+      setLoading(false);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await submit();
     } catch (error) {
-      console.error("Error creating module:", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await submit();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -204,7 +218,11 @@ const NewModule = () => {
             >
               Save
             </Button>
+
         </div>
+        {loading && (
+        <div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>
+      )}
         
         </div>
       </MainRightPane>

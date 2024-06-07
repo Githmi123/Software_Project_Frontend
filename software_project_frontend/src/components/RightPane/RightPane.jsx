@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Icon, IconButton } from "@mui/material";
+import { Icon, IconButton, CircularProgress } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -15,6 +15,7 @@ import username from "../../images/username.png";
 import password from "../../images/password.png";
 import LoginValidation from "../Validation/LoginValidation";
 import Cookies from "js-cookie";
+import refreshAccessToken from "../../services/AuthService";
 
 // const getAccessToken = () => {
 //     return document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
@@ -22,6 +23,7 @@ import Cookies from "js-cookie";
 
 export const RightPane = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -95,17 +97,9 @@ export const RightPane = () => {
   // };
 
   // const token = localStorage.getItem('accessToken');
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const errors = LoginValidation(values);
-    setErrors(errors);
-    if(!(errors.email === "" &&
-        errors.password === ""
-      ))
-      {
-        try {
-          //const token = Cookies.get('accessToken');
-          
+
+  const submit = async () => {
+    setLoading(true);
           
             const payload = {
               userName: values.username[0],
@@ -117,13 +111,28 @@ export const RightPane = () => {
               .then((res) => {
                 console.log(res.data);
                 const { accessToken } = res.data;
-                Cookies.set("accessToken", accessToken);
-                //const cookie = res.data;
-                console.log("2nd token");
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                // Cookies.set("accessToken", accessToken);
+         
+                // console.log("2nd token");
                 console.log(accessToken);
       
                 navigate("/Dashboard");
               });
+            setLoading(false);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const errors = LoginValidation(values);
+    setErrors(errors);
+    if(!(errors.email === "" &&
+        errors.password === ""
+      ))
+      {
+        try {
+          //const token = Cookies.get('accessToken');
+          await submit();
           
     
           
@@ -131,6 +140,25 @@ export const RightPane = () => {
           console.log("you are here");
           console.error("Login error:", error);
           setErrors({ message: "Failed to log in. Please try again." });
+          if(error.response && error.response.status === 401){
+            const newAccessToken = await refreshAccessToken(); 
+            console.log("New access token: ", newAccessToken);
+  
+            if(newAccessToken){
+              try {
+                // await refreshAccessToken();
+                await submit();
+              } catch (error) {
+                console.error("Error fetching data:", error);
+              }
+            }
+          }
+          else{
+            console.error("Error fetching data:", error);
+          }
+        }
+        finally{
+          setLoading(false);
         }
       }
     
@@ -317,6 +345,10 @@ export const RightPane = () => {
           Sign Up
         </Link>
       </div>
+
+      {loading && (
+        <div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>
+      )}
     </div>
 
     // </div>

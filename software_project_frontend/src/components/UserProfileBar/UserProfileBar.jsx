@@ -12,6 +12,7 @@ function UserProfileBar() {
   const [designation, setDesignation] = useState("");
   const [imageSRC, setImageSRC] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const [loading, setLoading] = useState(false);
   const space = "    ";
 
   const navigate = useNavigate();
@@ -20,30 +21,51 @@ function UserProfileBar() {
     navigate("/UserProfile");
   };
 
-  const handleLogin = async () => {
-    console.log("Logging out");
+  const logout = async () => {
+    setLoading(true);
+    console.log("Loggings out");
 
-    await axios.get("http://localhost:3500/logout", {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      },
-    });
+    await axios.get("http://localhost:3500/logout", { withCredentials: true });
 
-    Cookies.remove("accessToken");
+    console.log("Deleting access token");
+    delete axios.defaults.headers.common['Authorization'];
+    console.log("Deleted access token");
     navigate("/");
+    setLoading(false);
+  }
+
+  const handleLogin = async () => {
+    try {
+      // await refreshAccessToken();
+      await logout();
+      
+    } catch (error) {
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await logout();
+          } catch (error) {
+            console.error("Error logging out:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error logging out:", error);
+      }
+      
+    }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log("Fetching data");
+  const getData = async () => {
+    setLoading(true);
+    console.log("Fetching data");
         // await refreshAccessToken();
         console.log("after refresh");
-        const userResponse = await axios.get("http://localhost:3500/user", {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        });
+        const userResponse = await axios.get("http://localhost:3500/user");
         const user = userResponse.data;
 
         setFirstName(user.firstname);
@@ -62,8 +84,31 @@ function UserProfileBar() {
           setImageSRC(imageURL);
           console.log(imageURL);
         }
+
+        setLoading(false);
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getData();
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+  
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await logout();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
