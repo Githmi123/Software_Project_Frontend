@@ -29,7 +29,7 @@ const NewAssignmentPage = () => {
   const [assignmentName, setAssignmentName] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [schemepath, setSchemePath] = useState("");
-  const {selectedModuleCode, batch} = useParams();
+  const { selectedModuleCode, batch } = useParams();
 
   // onchange states
   const [excelFile, setExcelFile] = useState(null);
@@ -110,31 +110,46 @@ const NewAssignmentPage = () => {
   console.log("batches : ", batchOptions);
   console.log("Selected Batch:", selectedBatch);
 
+  // const handleModuleChange = (event) => {
+  //   setSelectedModule(event.target.value);
+  // };
+
   const handleModuleChange = (event) => {
-    setSelectedModule(event.target.value);
+    const value = event.target.value;
+    if (value === "new-module") {
+      console.log("New Module selected");
+      navigate("/NewModule");
+    } else {
+      setSelectedModule(value);
+    }
   };
 
-  const handleAddModule = (event) =>{
-    navigate('/NewModule');
+  const handleAddModule = (event) => {
+    navigate("/NewModule");
   };
 
   const handleAddBatch = (e) => {
-    if(selectedModule === ""){
+    if (selectedModule === "") {
       console.log("Please select a module!");
-    }
-    else{
+    } else if (selectedBatch === "new-batch") {
+      navigate(`/NewBatchPage/${selectedModule}`);
+    } else {
       navigate(`/NewBatchPage/${selectedModule}`);
     }
-    
   };
 
-
   const handleNewAssignment = (e) => {
-    navigate('/NewAssignment');
+    navigate("/NewAssignment");
   };
 
   const handleBatchChange = (event) => {
-    setSelectedBatch(event.target.value);
+    const value = event.target.value;
+    if (value === "new-batch") {
+      navigate(`/NewBatchPage/${selectedModule}`);
+    } else {
+      setSelectedBatch(value);
+    }
+    //setSelectedBatch(event.target.value);
   };
 
   const handleAssignmentNameChange = (event) => {
@@ -212,14 +227,13 @@ const NewAssignmentPage = () => {
       console.log("Started submitting");
       const formData = new FormData();
       console.log(selectedModuleCode);
-      if(selectedModuleCode === "null"){
+      if (selectedModuleCode === "null") {
         formData.append("batch", selectedBatch);
         formData.append("modulecode", selectedModule);
         formData.append("assignmenttitle", assignmentName);
         formData.append("schemepath", schemepath);
         formData.append("scheme", selectedFile);
 
-        
         await axios.post(
           `http://localhost:3500/assignment/${selectedModule}/${selectedBatch}`,
           formData,
@@ -230,9 +244,7 @@ const NewAssignmentPage = () => {
             },
           }
         );
-      }
-
-      else{
+      } else {
         formData.append("batch", batch);
         formData.append("modulecode", selectedModuleCode);
         formData.append("assignmenttitle", assignmentName);
@@ -252,7 +264,7 @@ const NewAssignmentPage = () => {
           }
         );
       }
-      
+
       // console.log(selectedFile);
       // Make the POST request with the FormData object
       // await axios.post(
@@ -304,7 +316,12 @@ const NewAssignmentPage = () => {
                   onChange={handleModuleChange}
                   options={moduleOptions}
                 />
-                <Button onClick={handleAddModule} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Module</Button>
+                {/* <Button
+                  onClick={handleAddModule}
+                  sx={{ color: "white", backgroundColor: "#8080FF" }}
+                >
+                  Add Module
+                </Button> */}
               </div>
             ) : (
               <div>
@@ -315,7 +332,13 @@ const NewAssignmentPage = () => {
                   value={selectedModule}
                   disabled
                   onChange={handleModuleChange}
-                  sx={{ m: 0.5, maxWidth: 400, width: "46vh", padding: "0", position: "relative" }}
+                  sx={{
+                    m: 0.5,
+                    maxWidth: 400,
+                    width: "46vh",
+                    padding: "0",
+                    position: "relative",
+                  }}
                 />
                 {/* <CustomSelect
                   label={selectedModuleCode}
@@ -324,12 +347,16 @@ const NewAssignmentPage = () => {
                   options={moduleOptions}
                   disabled
                 /> */}
-                <Button onClick={handleAddModule} sx={{color:"white", backgroundColor:"#8080FF"}} disabled>Add Module</Button>
+                <Button
+                  onClick={handleAddModule}
+                  sx={{ color: "white", backgroundColor: "#8080FF" }}
+                  disabled
+                >
+                  Add Module
+                </Button>
               </div>
             )}
-          
           </div>
-          
 
           <span className="label1">Batch</span>
           <div className="center">
@@ -340,9 +367,14 @@ const NewAssignmentPage = () => {
                   value={selectedBatch}
                   onChange={handleBatchChange}
                   options={batchOptions}
-                  sx={{width:400}}
+                  sx={{ width: 400 }}
                 />
-                <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Batch</Button>
+                {/* <Button
+                  onClick={handleAddBatch}
+                  sx={{ color: "white", backgroundColor: "#8080FF" }}
+                >
+                  Add Batch
+                </Button> */}
               </div>
             ) : (
               <div>
@@ -353,7 +385,13 @@ const NewAssignmentPage = () => {
                   value={batch}
                   disabled
                   onChange={handleBatchChange}
-                  sx={{ m: 0.5, maxWidth: 400, width: "46vh", padding: "0", position: "relative" }}
+                  sx={{
+                    m: 0.5,
+                    maxWidth: 400,
+                    width: "46vh",
+                    padding: "0",
+                    position: "relative",
+                  }}
                 />
                 {/* <CustomSelect
                   label={selectedModuleCode}
@@ -362,10 +400,16 @@ const NewAssignmentPage = () => {
                   options={moduleOptions}
                   disabled
                 /> */}
-                <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}} disabled>Add Batch</Button>
+                <Button
+                  onClick={handleAddBatch}
+                  sx={{ color: "white", backgroundColor: "#8080FF" }}
+                  disabled
+                >
+                  Add Batch
+                </Button>
               </div>
             )}
-          {/* <CustomSelect
+            {/* <CustomSelect
             label="Batch"
             value={selectedBatch} // Use selectedBatch instead of selectedValue
             onChange={handleBatchChange}
@@ -374,21 +418,26 @@ const NewAssignmentPage = () => {
           />
           <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Batch</Button> */}
           </div>
-          
 
           <span className="label1">Assignment Name</span>
           <div className="center">
-          <TextField
-            id="outlined-basic"
-            label="Assignment Name"
-            variant="outlined"
-            value={assignmentName}
-            onChange={handleAssignmentNameChange}
-            sx={{ m: 0.5, maxWidth: 400, width: "46vh", padding: "0", position: "relative" }}
-          />
-          {/* <Button onClick={handleNewAssignment} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Assignment</Button> */}
+            <TextField
+              id="outlined-basic"
+              label="Assignment Name"
+              variant="outlined"
+              value={assignmentName}
+              onChange={handleAssignmentNameChange}
+              sx={{
+                m: 0.5,
+                maxWidth: 400,
+                width: "46vh",
+                padding: "0",
+                position: "relative",
+              }}
+            />
+            {/* <Button onClick={handleNewAssignment} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Assignment</Button> */}
           </div>
-          
+
           <span className="label1">Marking Scheme</span>
           <div className="center">
             <TextField
