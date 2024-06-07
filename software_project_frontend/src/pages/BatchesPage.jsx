@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
-import { Button, Typography } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
@@ -17,8 +17,20 @@ const BatchesPage = () => {
   const { selectedModuleCode } = useParams();
   const [batches, setBatches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [moduleData, setModuleData] = useState(null);
+
+  const getData = async () =>{
+    setIsLoading(true);
+    const response = await axios.get(
+      `http://localhost:3500/batch/${selectedModuleCode}`
+    );
+    setBatches(response.data);
+    console.log("batches", response.data);
+    //console.log(selectedModuleCode);
+    setIsLoading(false);
+  }
 
   //console.log(selectedModuleCode);
 
@@ -58,21 +70,25 @@ const BatchesPage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        await refreshAccessToken();
-        const response = await axios.get(
-          `http://localhost:3500/batch/${selectedModuleCode}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-        setBatches(response.data);
-        console.log("batches", response.data);
-        //console.log(selectedModuleCode);
-        setIsLoading(false);
+        await getData();
+        
       } catch (error) {
-        console.error("Error fetching module data:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     }
 
@@ -85,26 +101,42 @@ const BatchesPage = () => {
     setBatches(batch);
   };
 
+  const getModuleData = async () => {
+    setLoading(true);
+    const moduleResponse = await axios.get(
+      "http://localhost:3500/modules"
+    );
+
+    const module = moduleResponse.data.find(
+      (module) => module.modulecode === selectedModuleCode
+    );
+    setModuleData(module); // Set the module data
+    setLoading(false);
+  }
+
   useEffect(() => {
     const fetchModuleData = async () => {
       try {
-        await refreshAccessToken();
+        await getModuleData();
 
-        const moduleResponse = await axios.get(
-          "http://localhost:3500/modules",
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-
-        const module = moduleResponse.data.find(
-          (module) => module.modulecode === selectedModuleCode
-        );
-        setModuleData(module); // Set the module data
+        
       } catch (error) {
-        console.error("Error fetching module data:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getModuleData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
@@ -148,7 +180,7 @@ const BatchesPage = () => {
 
         <div className="column">
           {isLoading ? (
-            <Typography>Loading...</Typography>
+            <div style={{display:"flex", justifyContent: "center"}}><CircularProgress/></div>
           ) : batches.length === 0 ? (
             <Typography>No batches available.</Typography>
           ) : (

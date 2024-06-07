@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 import axios from "axios";
 import image from "../images/image.png";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -35,52 +35,72 @@ export default function ProfilePage() {
   const [designation, setDesignation] = useState("Lecturer");
   const [imageSRC, setImageSRC] = useState(image);
   const [profileData, setProfileData] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const getData = async () => {
+    setLoading(true);
+    const response = await axios.get("http://localhost:3500/user");
+    setProfileData(response.data);
+    console.log("profile data : ", response.data);
+    setLoading(false);
+  }
 
   useEffect(() => {
     async function getProfileData() {
       try {
-        await refreshAccessToken();
-
-        const response = await axios.get("http://localhost:3500/user", {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        });
-        setProfileData(response.data);
-        console.log("profile data : ", response.data);
+        // await refreshAccessToken();
+        await getData();
+        
       } catch (error) {
-        console.log("error fetching data : ", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+  
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     }
     getProfileData();
   }, []);
 
 
+  const getData2 = async () => {
+    setLoading(true);
+    console.log("Fetching data");
+    // await refreshAccessToken();
+    console.log("after refresh");
+    const userResponse = await axios.get(
+      "http://localhost:3500/user"
+    );
+    const user = userResponse.data;
+
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    setDesignation(user.designation);
+    console.log(user);
+
+    if(user.profilepic)
+      {
+        setImageSRC(user.profilepic);
+      }
+
+    setLoading(false);
+  }
+
     useEffect(() => {
         const fetchData = async () => {
           try {
-            console.log("Fetching data");
-            // await refreshAccessToken();
-            console.log("after refresh");
-            const userResponse = await axios.get(
-              "http://localhost:3500/user",
-              {
-                headers: {
-                  Authorization: `Bearer ${Cookies.get("accessToken")}`,
-                },
-              }
-            );
-            const user = userResponse.data;
-    
-            setFirstName(user.firstname);
-            setLastName(user.lastname);
-            setDesignation(user.designation);
-            console.log(user);
-    
-            if(user.profilepic)
-              {
-                setImageSRC(user.profilepic);
-              }
+            await getData2();
             // {
             //   const imageBytes = new Uint8Array(user.profilepic.image.data);
             //   const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
@@ -89,7 +109,22 @@ export default function ProfilePage() {
             //   console.log(imageURL);
             // }
           } catch (error) {
-            console.error("Error fetching data:", error);
+            if(error.response && error.response.status === 401){
+              const newAccessToken = await refreshAccessToken();
+              console.log("New access token: ", newAccessToken);
+      
+              if(newAccessToken){
+                try {
+                  // await refreshAccessToken();
+                  await getData2();
+                } catch (error) {
+                  console.error("Error fetching data:", error);
+                }
+              }
+            }
+            else{
+              console.error("Error fetching data:", error);
+            }
           }
         };
     
@@ -126,8 +161,13 @@ export default function ProfilePage() {
                   className="rounded-circle"
                   style={{ width: '150px' }}
                   fluid />
+                  {loading ? (
+            <div style={{display:"flex", justifyContent: "center"}}><CircularProgress/></div>
+          ):
                 <p className="text-muted mb-1">{firstName} {lastName}</p>
+        }
                 <p className="text-muted mb-4">{designation}</p>
+        
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn>Change Profile Picture</MDBBtn>
                   {/* <MDBBtn outline className="ms-1">Message</MDBBtn> */}

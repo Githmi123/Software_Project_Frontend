@@ -17,13 +17,9 @@ export const NewUserProfileRightPane = () => {
   useEffect(() => {
     async function getProfileData() {
       try {
-        await refreshAccessToken();
+      
 
-        const response = await axios.get("http://localhost:3500/user", {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        });
+        const response = await axios.get("http://localhost:3500/user");
         setProfileData(response.data);
         console.log("profile data : ", response.data);
       } catch (error) {
@@ -48,11 +44,7 @@ export const NewUserProfileRightPane = () => {
   const handleSave = async (e) => {
     try {
       await refreshAccessToken();
-      await axios.post("http://localhost:3500/user", profileData, {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-      });
+      await axios.post("http://localhost:3500/user", profileData);
       navigate("/Dashboard");
       console.log("new profile data :", profileData);
     } catch (error) {

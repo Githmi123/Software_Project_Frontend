@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
-import { Button, Checkbox } from "@mui/material";
+import { Button, Checkbox, CircularProgress } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { LineChart } from "@mui/x-charts/LineChart";
 import refreshAccessToken from "../services/AuthService";
@@ -34,6 +34,7 @@ const DataVisualizationPage = () => {
 
   const [selectedAssignmentNo, setSelectedAssignmentNo] = useState([]);
   const [tableDataAssignments, setTableDataAssignments] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   function groupData(array) {
     let newData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -89,115 +90,159 @@ const DataVisualizationPage = () => {
     return [min, max, mean, mode, median, variance, standardDeviation];
   }
 
+  const fetch = async () =>
+    {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`
+      );
+      if (response.data && typeof response.data.rows === "object") {
+        const assignmentData = response.data.rows;
+        //console.log("Assigment id 1 : ", assignmentid);
+        console.log("Assignment data fine : ", typeof assignmentData);
+        console.log("Assignment data fine : ", assignmentData);
+
+        const currentAssignment = assignmentData.find(
+          (assignment) => assignment.assignmentid == assignmentid
+        );
+
+        if (currentAssignment) {
+          setAssignmentName(currentAssignment.assignmenttitle);
+        } else {
+          console.error("Assignment not found");
+        }
+      } else {
+        console.error(
+          "No assignment data found in the response:",
+          response.data
+        );
+      }
+      setLoading(false);
+    }
+
   useEffect(() => {
     const fetchAssignments = async (e) => {
       try {
-        await refreshAccessToken();
-
-        const response = await axios.get(
-          `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-        if (response.data && typeof response.data.rows === "object") {
-          const assignmentData = response.data.rows;
-          //console.log("Assigment id 1 : ", assignmentid);
-          console.log("Assignment data fine : ", typeof assignmentData);
-          console.log("Assignment data fine : ", assignmentData);
-
-          const currentAssignment = assignmentData.find(
-            (assignment) => assignment.assignmentid == assignmentid
-          );
-
-          if (currentAssignment) {
-            setAssignmentName(currentAssignment.assignmenttitle);
-          } else {
-            console.error("Assignment not found");
-          }
-        } else {
-          console.error(
-            "No assignment data found in the response:",
-            response.data
-          );
-        }
+        await fetch();
+        
       } catch (error) {
-        console.error("Error fetching modules:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await fetch();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
     fetchAssignments();
   }, [selectedModuleCode, batch, assignmentid]);
 
+
+
+  const getData = async () => {
+    setLoading(true);
+    const response = await axios.get(
+      `http://localhost:3500/report/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
+    );
+
+    console.log("Response : ", response.data);
+
+    const { marks } = response.data;
+    if (marks && Array.isArray(marks)) {
+      const marksArray = marks.map((marksObject) => marksObject.marks);
+      // setMarksArray(marksArray);
+
+      console.log("Array of marks : ", marksArray);
+      const data = groupData(marksArray);
+      const parameters = calculate(marksArray);
+      setData(data);
+      console.log(data);
+      console.log(parameters);
+      setParameters(parameters);
+    } else {
+      console.error(
+        "The response does not contain 'marks' or 'marks' is not an array"
+      );
+    }
+    setLoading(false);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await refreshAccessToken();
-        const response = await axios.get(
-          `http://localhost:3500/report/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-
-        console.log("Response : ", response.data);
-
-        const { marks } = response.data;
-        if (marks && Array.isArray(marks)) {
-          const marksArray = marks.map((marksObject) => marksObject.marks);
-          // setMarksArray(marksArray);
-
-          console.log("Array of marks : ", marksArray);
-          const data = groupData(marksArray);
-          const parameters = calculate(marksArray);
-          setData(data);
-          console.log(data);
-          console.log(parameters);
-          setParameters(parameters);
-        } else {
-          console.error(
-            "The response does not contain 'marks' or 'marks' is not an array"
-          );
-        }
+        await getData();
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
     fetchData();
   }, []);
 
+
+    const getAnswerScripts = async () => {
+      setLoading(true);
+      const answerScriptData = await axios.get(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
+      );
+
+      setReportData(answerScriptData.data.rows);
+      //console.log("repto data", typeof reportData);
+      console.log("report data Json", JSON.stringify(reportData));
+
+      const answerScriptsData = answerScriptData.data.rows;
+      console.log("Answer scripts data : ", answerScriptsData);
+      setLoading(false);
+    }
+
   useEffect(() => {
     const fetchAnswerScriptData = async () => {
       try {
-        await refreshAccessToken();
-
-        const answerScriptData = await axios.get(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-
-        setReportData(answerScriptData.data.rows);
-        //console.log("repto data", typeof reportData);
-        console.log("report data Json", JSON.stringify(reportData));
-
-        const answerScriptsData = answerScriptData.data.rows;
-        console.log("Answer scripts data : ", answerScriptsData);
-        // answerScriptsData.forEach((item) => {
-        //   const studentId = item.studentid;
-        //   const studentMark = item.marks;
-        //   console.log("Student and Marks", studentId, studentMark);
-        // });
+        await getAnswerScripts();
+        
       } catch (error) {
-        console.log("error occured", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getAnswerScripts();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
     fetchAnswerScriptData();
@@ -239,7 +284,7 @@ const DataVisualizationPage = () => {
         <h2 id="heading">
           Distribution curve for {selectedModuleCode} : {assignmentName}
         </h2>
-
+        {loading ? (<div style={{display:"flex", justifyContent: "center"}}><CircularProgress/></div>) :
         <div
           style={{
             display: "flex",
@@ -314,6 +359,7 @@ const DataVisualizationPage = () => {
             id="folder-list"
           />
         </div>
+}
       </MainRightPane>
     </div>
   );

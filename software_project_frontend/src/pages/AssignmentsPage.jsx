@@ -50,61 +50,64 @@ const AssignmentsPage = () => {
 
   const [selectedAssignmentNo, setSelectedAssignmentNo] = useState([]);
   const [tableDataAssignments, setTableDataAssignments] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetch = async () => {
+    setLoading(true);
+    const response = await axios.get(
+      `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`
+    );
+    if (response.data && Array.isArray(response.data.rows)) {
+      // Extract the assignment data from the rows
+      const assignmentData = response.data.rows;
+
+      // Separate the assignment data into rows and values
+      const tableDataAssignments = assignmentData.map((assignment) => {
+        // Extract values from each assignment object
+        const rowValues = Object.values(assignment);
+        // Return the row values
+        return rowValues;
+      });
+
+      // Set the separated assignment data to the state
+      setTableDataAssignments(tableDataAssignments);
+
+      console.log("Assignment Data:", tableDataAssignments);
+    } else {
+      console.error(
+        "No assignment data found in the response:",
+        response.data
+      );
+    }
+
+    console.log("the selected module code", selectedModuleCode);
+    console.log("the selected batch", batch);
+
+   setLoading(false);
+  }
 
   useEffect(() => {
     const fetchAssignments = async (e) => {
       try {
-        await refreshAccessToken();
-
-        const response = await axios.get(
-          `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-        if (response.data && Array.isArray(response.data.rows)) {
-          // Extract the assignment data from the rows
-          const assignmentData = response.data.rows;
-
-          // Separate the assignment data into rows and values
-          const tableDataAssignments = assignmentData.map((assignment) => {
-            // Extract values from each assignment object
-            const rowValues = Object.values(assignment);
-            // Return the row values
-            return rowValues;
-          });
-
-          // Set the separated assignment data to the state
-          setTableDataAssignments(tableDataAssignments);
-
-          console.log("Assignment Data:", tableDataAssignments);
-        } else {
-          console.error(
-            "No assignment data found in the response:",
-            response.data
-          );
-        }
-
-        console.log("the selected module code", selectedModuleCode);
-        console.log("the selected batch", batch);
-
-        // console.log("Checking for duplicate Module_Codes:");
-        // const moduleCodes = response.data.map(
-        //   (moduledata) => moduledata.modulecode
-        // );
-
-        // console.log(moduleCodes);
-
-        // const uniqueModuleCodes = new Set(moduleCodes);
-        // if (moduleCodes.length !== uniqueModuleCodes.size) {
-        //   console.error("Duplicate Module_Codes detected!");
-        // } else {
-        //   console.log("No duplicate Module_Codes found.");
-        // }
+        await fetch();
+        
       } catch (error) {
-        console.error("Error fetching modules:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await fetch();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 

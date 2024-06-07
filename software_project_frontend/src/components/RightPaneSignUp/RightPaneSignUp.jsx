@@ -11,7 +11,7 @@ import email from '../../images/email.png'
 //import password from '../../images/password.png'
 import { Link, useNavigate } from 'react-router-dom';
 import SignUpButton from '../Buttons/SignUpButton';
-import  {IconButton}  from "@mui/material";
+import  {CircularProgress, IconButton}  from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SignUpValidation from '../Validation/SignUpValidation';
 import axios from 'axios';
@@ -48,6 +48,7 @@ export const RightPaneSignUp = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -93,13 +94,14 @@ export const RightPaneSignUp = () => {
             errors.designation === "" )
         ) {
             try {
-                
+                setLoading(true);
                 await axios.post("http://localhost:3500/register", values, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
                 navigate('/Dashboard');
+                setLoading(false);
             } catch (err) {
                 console.log(err);
             }
@@ -502,7 +504,10 @@ style={{
 
             <Link to="/"  style={{position: 'relative', textDecoration: "underline",width:'50vh',height:'10vh',fontFamily: 'Roboto',fontStyle: 'italic',
                 fontWeight: 400, fontSize: '1rem', color: '#FF2442'}} >Login </Link>   
-                </div>       
+                </div>  
+                {loading && (
+        <div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>
+      )}     
         </div>
         // </div>
     )
