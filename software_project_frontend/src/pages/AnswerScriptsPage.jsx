@@ -42,7 +42,7 @@ const AnswerScriptsPage = () => {
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
 
-
+  const navigate = useNavigate();
   const fetchData = async () => {
     setLoading(true);
     console.log("fetching answer scripts");
@@ -90,7 +90,7 @@ const AnswerScriptsPage = () => {
 
   useEffect(() => {
     fetchAnswerscripts();
-  }, [selectedAssignmentNos]);
+  }, []);
 
   const upload = async () => {
     setLoading(true);
