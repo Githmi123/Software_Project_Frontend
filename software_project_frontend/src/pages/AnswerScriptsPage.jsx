@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
-import { Button, Checkbox, CircularProgress } from "@mui/material";
+import { Alert, Button, Checkbox, CircularProgress, Snackbar } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import { CheckCircle, Delete } from "@mui/icons-material";
@@ -15,6 +15,7 @@ import GradingButton from "../components/Buttons/GradingButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+// import SnackBar from "../components/SnackBar";
 
 import refreshAccessToken from "../services/AuthService";
 
@@ -22,6 +23,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import axios from "axios";
+// import SnackBar from "../components/SnackBar";
 
 const AnswerScriptsPage = () => {
   const { selectedModuleCode, batch, assignmentid } = useParams();
@@ -29,6 +31,7 @@ const AnswerScriptsPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [answerScripts, setAnswerScripts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -39,6 +42,15 @@ const AnswerScriptsPage = () => {
     { field: "fileid", headerName: "File ID", width: 150 },
     { field: "graded", headerName: "Graded", width: 150 },
   ];
+
+ 
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
 
@@ -183,6 +195,7 @@ const AnswerScriptsPage = () => {
 
   const grade = async () => {
     setLoading(true);
+    // setSnackbarOpen(true);
     const response = await axios.post(
       // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,{}
@@ -193,10 +206,11 @@ const AnswerScriptsPage = () => {
 
     console.log("Graded all answer scripts", response.data);
 
-
+    setSnackbarOpen(true);
     setLoading(false);
   }
   const handleGradeAllFiles = async () => {
+    // setSnackbarOpen(true);
     console.log("Started Grading");
     try {
       await grade();
@@ -430,7 +444,14 @@ const AnswerScriptsPage = () => {
             <GradingButton text="Dashboard" icon={DashboardIcon} />
           </Link> */}
         </div>
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+          <Alert onClose={handleCloseSnackbar} severity="success" variant="filled" sx={{ width: '100%' }}>
+            Grading completed successfully!
+          </Alert>
+        </Snackbar>
       </MainRightPane>
+
+      
     </div>
   );
 };
