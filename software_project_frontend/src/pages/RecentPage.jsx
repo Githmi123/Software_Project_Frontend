@@ -117,6 +117,27 @@ const RecentPage = () => {
 
     console.log("Assignments Data", allAssignments);
   };
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        console.log("Fetching data");
+        // await refreshAccessToken();
+        console.log("after refresh");
+        const userResponse = await axios.get("http://localhost:3500/user");
+        const user = userResponse.data;
+
+        setFirstName(user.firstname);
+        console.log("First name:", user.firstname); // Log the first name here
+        setLastName(user.lastname);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -450,7 +471,7 @@ const RecentPage = () => {
               </div>
             </div>
           </div>
-          <Button
+          {/* <Button
             sx={{
               m: 2,
               width: "100px",
@@ -543,7 +564,7 @@ const RecentPage = () => {
                 </List>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       </MainRightPane>
     </div>
