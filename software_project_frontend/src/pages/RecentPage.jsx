@@ -11,18 +11,28 @@ import SearchAppBar from "../components/Other/SearchBar/SearchBar";
 import { useParams } from "react-router-dom";
 import "../styles/RecentPage.css";
 import UserProfileBar from "../components/UserProfileBar/UserProfileBar";
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid } from "@mui/x-data-grid";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import CommentIcon from "@mui/icons-material/Comment";
 import { Delete, Edit } from "@mui/icons-material";
+
+import PropTypes from "prop-types";
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
+import dayjs from "dayjs";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
 const headers = ["Assignment", "Batch", "Date Created"];
 
@@ -31,14 +41,42 @@ const RecentPage = () => {
   const [assignments, setAssignments] = useState([]);
   const [moduleData, setModuleData] = useState([]);
   const [batchData, setBatchData] = useState([]);
+  const [profileData, setProfileData] = useState("");
+  const [firstName, setFirstName] = useState("ABC");
+  const [lastName, setLastName] = useState("Perera");
+  const [value, setValue] = React.useState(dayjs());
+  const [progress, setProgress] = React.useState(10);
 
   const navigate = useNavigate();
 
   const columns = [
-    { field: 'assignment', headerName: 'Assignment', width: 150 },
-    { field: 'batch', headerName: 'Batch', width: 300 },
-    { field: 'dateCreated', headerName: 'Date Created', width: 150 },
+    { field: "assignment", headerName: "Assignment", width: 150 },
+    { field: "batch", headerName: "Batch", width: 300 },
+    { field: "dateCreated", headerName: "Date Created", width: 150 },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Fetching data");
+        // await refreshAccessToken();
+        console.log("after refresh");
+        const userResponse = await axios.get("http://localhost:3500/user", {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+          },
+        });
+        const user = userResponse.data;
+
+        setFirstName(user.firstname);
+        setLastName(user.lastname);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,7 +167,6 @@ const RecentPage = () => {
     fetchData();
   }, []);
 
-
   // const handleDeleteAssignment = async (assignment) => {
   //   console.log("handling delete assignment");
   //   // e.preventDefault();
@@ -137,7 +174,7 @@ const RecentPage = () => {
   //     console.log("handling delete assignment");
   //     // console.log(moduleData);
   //     // await refreshAccessToken();
-      
+
   //     // const moduleData = {
   //     //   id : selectedRecentModule.assignmentId,
   //     //   modulecode : selectedRecentModule.moduleCode,
@@ -158,98 +195,285 @@ const RecentPage = () => {
 
   //     console.log("Deleted Assignment");
 
-     
   //     // navigate("/MyModulePage");
   //   } catch (error) {
   //     console.error("Error editing module:", error);
   //   }
   // };
 
+  const targetProgress = (2 / 3) * 100;
+  useEffect(() => {
+    const increment = targetProgress / 100;
+    const interval = 5;
+
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => {
+        const newProgress = prevProgress + increment;
+        if (newProgress >= targetProgress) {
+          clearInterval(timer);
+          return targetProgress;
+        }
+        return newProgress;
+      });
+    }, interval);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [targetProgress]);
 
   const handleSelection = (assignment) => {
     setSelectedRecentModule(assignment);
-    navigate(`/AnswerScripts/batch/${assignment.batch}/modulecode/${assignment.moduleCode}/assignmentid/${assignment.assignmentId}`);
+    navigate(
+      `/AnswerScripts/batch/${assignment.batch}/modulecode/${assignment.moduleCode}/assignmentid/${assignment.assignmentId}`
+    );
   };
 
   const handleEditAssignment = (assignment) => {
-    navigate(`/EditAssignment/${assignment.moduleCode}/${assignment.assignment}/${assignment.batch}/${assignment.assignmentId}`);
+    navigate(
+      `/EditAssignment/${assignment.moduleCode}/${assignment.assignment}/${assignment.batch}/${assignment.assignmentId}`
+    );
   };
 
   const handleDeleteAssignment = (assignment) => {
-    navigate(`/DeleteAssignment/${assignment.moduleCode}/${assignment.batch}/${assignment.assignmentId}`);
+    navigate(
+      `/DeleteAssignment/${assignment.moduleCode}/${assignment.batch}/${assignment.assignmentId}`
+    );
   };
 
+  function CircularProgressWithLabel(props) {
+    return (
+      <Box sx={{ position: "relative", display: "inline-flex" }}>
+        <CircularProgress variant="determinate" {...props} />
+        <Box
+          sx={{
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Typography variant="caption" component="div" color="white">
+            {`${Math.round(props.value)}%`}
+          </Typography>
+        </Box>
+      </Box>
+    );
+  }
+
+  CircularProgressWithLabel.propTypes = {
+    /**
+     * The value of the progress indicator for the determinate variant.
+     * Value between 0 and 100.
+     * @default 0
+     */
+    value: PropTypes.number.isRequired,
+  };
+
+  var day = new Date();
+  var hr = day.getHours();
 
   const newLocal = "space";
+
   return (
     <div className="align1">
-      <MainLeftPane/>
+      <MainLeftPane />
       <MainRightPane>
-        <Button
-          sx={{
-            m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-          }}
-          startIcon={<ArrowBackIcon />}
-          onClick={() => window.history.back()}
-        >
-          Back
-        </Button>
-        <h1 id="heading">Recents</h1>
-        <div>
-        <div style={{display:"flex", flexDirection:"row", alignItems:"flex-end", justifyContent:"right"}}>
-               
-          
-          <div style={{width:"10vw"}}></div>
-          <Link to={`/NewAssignment/${null}/${null}`} style={{ textDecoration: "none" }}>
-            <CustomNewButton text="New Assignment" />
-          </Link>
-          
-
-        </div>
-        <div className="columnModules" style={{width:"80%"}}>
-        <List sx={{ width: '100%', bgcolor: 'background.paper', overflow:"auto", height:"80%"}}>
-              {assignments.map((assignment, index) => (
-                <ListItem
-                
-                  key={assignment.assignmentId}
-                  secondaryAction={
-                    <div>
-                      <IconButton edge="end" aria-label="edit" onClick={() => handleEditAssignment(assignment)}>
-                        <Edit />
-                      </IconButton>
-                      <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteAssignment(assignment)}>
-                        <Delete />
-                      </IconButton>
-                    </div>
-                  }
-                  disablePadding
-                >
-                  <ListItemButton onClick={() => handleSelection(assignment)}>
-                    <ListItemText primaryTypographyProps={{ style: { fontSize: '2vh' } }}
-    // secondaryTypographyProps={{ style: {  } }}
-                      primary={`${assignment.assignment} - ${assignment.moduleCode}`}
-                      secondary={
-                        <span>
-                          {assignment.batch} - {assignment.dateCreated}
-                        </span>
-                      }
-                      secondaryTypographyProps={{ component: 'span', style: { display: 'inline', fontSize: '1.5vh' } }}
+        {/* <Button
+            sx={{
+              m: 2,
+              width: "100px",
+              height: "50px",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            startIcon={<ArrowBackIcon />}
+            onClick={() => window.history.back()}
+          >
+            Back  
+          </Button> */}
+        <div id="dashboard">
+          <h3 id="heading-dashboard">Dashboard</h3>
+          <div style={{ width: "100%" }}>
+            <div
+              id="summary-and-calendar-raw"
+              style={{
+                width: "80%",
+                display: "flex",
+                // alignItems: "center",
+                // justifyContent: "center",
+              }}
+            >
+              <div>
+                <div id="hi-container">
+                  <p id="name-hi">
+                    Hi, {firstName} {lastName}
+                  </p>
+                  <p id="good-time">
+                    {"Good " +
+                      (hr < 12 ? "Morning" : hr < 18 ? "Afternoon" : "Evening")}
+                  </p>
+                </div>
+                <div id="summary-graph">
+                  <Box
+                    display="flex"
+                    // marginLeft="1vw"
+                    // marginTop="1vh"
+                    // paddingTop="3vh"
+                  >
+                    <CircularProgressWithLabel
+                      value={progress}
+                      sx={{ marginLeft: "auto", marginRight: "auto" }}
                     />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          
-        </div>
-          
+                  </Box>
+                  <div>
+                    <p>You have 60% to be marked</p>
+                    <p
+                      style={{
+                        marginBottom: "1vh",
+                        marginTop: "-3vh",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      5
+                    </p>
+                    <p style={{ marginBottom: "1vh", marginTop: "-2vh" }}>5</p>
+                  </div>
+                </div>
+              </div>
 
-           
+              <div id="dashboard-details">
+                <p id="summary-detail">Summary Report</p>
+                <p>Modules : {moduleData.length}</p>
+                <p>Assignments : {assignments.length}</p>
+                <p>To be marked : 2</p>
+                <p>Marked : 5 </p>
+              </div>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateCalendar
+                  value={value}
+                  onChange={(newValue) => setValue(newValue)}
+                  sx={{
+                    "& .MuiPickersDay-root": {
+                      color: "white",
+                    },
+                    "& .MuiPickersDay-root.Mui-selected": {
+                      backgroundColor: "white",
+                      color: "black",
+                    },
+                    "& .MuiPickersDay-root:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    },
+                    "& .MuiPickersCalendarHeader-root": {
+                      color: "white",
+                    },
+                    "& .MuiPickersCalendarHeader-switchViewButton": {
+                      color: "white",
+                    },
+                    "& .MuiPickersCalendarHeader-label": {
+                      color: "white",
+                    },
+                    "& .MuiPickersCalendarHeader-iconButton": {
+                      color: "white",
+                    },
+                    "& .MuiPickersYear-root": {
+                      color: "white",
+                    },
+                    "& .MuiPickersMonth-root": {
+                      color: "white",
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </div>
+            <div id="recent-assignments">
+              <div id="recent-assignment-title-and-button-raw">
+                <p>Recent Assignments</p>
+                <Link
+                  to={`/NewAssignment/${null}/${null}`}
+                  style={{
+                    textDecoration: "none",
+                    marginRight: "5vw",
+                    marginTop: "2vh",
+                  }}
+                >
+                  <CustomNewButton text="New Assignment" />
+                </Link>
+              </div>
+
+              <div
+                id="dashbord-recent-assignment-table"
+                style={
+                  {
+                    // width: "90%",
+                    // display: "flex",
+                    // alignItems: "center",
+                    // justifyContent: "center",
+                  }
+                }
+              >
+                <List
+                  sx={{
+                    width: "100%",
+                    bgcolor: "background.paper",
+                    overflow: "auto",
+                    height: "80%",
+                  }}
+                >
+                  {assignments.map((assignment, index) => (
+                    <ListItem
+                      key={assignment.assignmentId}
+                      secondaryAction={
+                        <div>
+                          <IconButton
+                            edge="end"
+                            aria-label="edit"
+                            onClick={() => handleEditAssignment(assignment)}
+                          >
+                            <Edit />
+                          </IconButton>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={() => handleDeleteAssignment(assignment)}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </div>
+                      }
+                      disablePadding
+                    >
+                      <ListItemButton
+                        onClick={() => handleSelection(assignment)}
+                      >
+                        <ListItemText
+                          primaryTypographyProps={{
+                            style: { fontSize: "2vh" },
+                          }}
+                          // secondaryTypographyProps={{ style: {  } }}
+                          primary={`${assignment.assignment} - ${assignment.moduleCode}`}
+                          secondary={
+                            <span>
+                              {assignment.batch} - {assignment.dateCreated}
+                            </span>
+                          }
+                          secondaryTypographyProps={{
+                            component: "span",
+                            style: { display: "inline", fontSize: "1.5vh" },
+                          }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            </div>
+          </div>
         </div>
-        
       </MainRightPane>
     </div>
   );

@@ -1,38 +1,37 @@
 #heading-new-batch-page {
-    font-weight: bold;
-    font-size: 4.5vh;
-    margin-left: 7vh;
+  font-weight: bold;
+  font-size: 4.5vh;
+  margin-left: 7vh;
 }
 
 #textfield-set {
-    margin-left: 40vh;
-    margin-top: 4vh;
+  margin-left: 40vh;
+  margin-top: 4vh;
 }
 
 #label1-new-batch-page {
-    display: flex;
-    font-weight: bold;
-    margin-top: 1vh;
-    margin-bottom: 1.5vh;
-    margin-left: 2vh;
+  display: flex;
+  font-weight: bold;
+  margin-top: 1vh;
+  margin-bottom: 1.5vh;
+  margin-left: 2vh;
 }
 
 #add-button {
-    background-color: #7894DB;
-    color: white;
-    width: 20vh;
-    text-transform: 'capitalize';
-    border: "2px solid #7894DB";
-    margin-left: 70vh;
-    margin-top: 5vh;
+  background-color: #7894db;
+  color: white;
+  width: 20vh;
+  text-transform: "capitalize";
+  border: "2px solid #7894DB";
+  margin-left: 70vh;
+  margin-top: 5vh;
 }
 
-.align1{
-    position: relative;
-    display: flex;
-    /* justify-content: center; */
-    flex-direction: row;
-    align-items: flex-start;
-    margin-left: 0;
-    
-  }
+.align1 {
+  position: relative;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: 0;
+}

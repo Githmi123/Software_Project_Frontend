@@ -75,7 +75,9 @@ export const UserProfileLeftPane = () => {
           <h2>
             Hello {profile.firstname} {profile.lastname} !
           </h2>
-          <p>Driving excellence in education with cutting-edge technology</p>
+          <p id="userprofile-para">
+            Driving excellence in education with cutting-edge technology
+          </p>
         </div>
         {/*   <div
           style={{
