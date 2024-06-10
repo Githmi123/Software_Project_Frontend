@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
@@ -40,6 +40,7 @@ const MyModulesPage = () => {
     modulename: "",
     credits: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -49,47 +50,58 @@ const MyModulesPage = () => {
     { field: 'credits', headerName: 'Credits', width: 150 },
   ];
 
+  const getData = async () => {
+    console.log("Fetching modules data");
+    setLoading(true);
+   
+
+    const response = await axios.get(
+      "http://localhost:3500/modules"
+    );
+    console.log(response.data);
+    setTableDataModules(response.data);
+
+    console.log(response.data);
+
+    console.log("Checking for duplicate Module_Codes:");
+    const moduleCodes = response.data.map(
+      (moduledata) => moduledata.modulecode
+    );
+
+    console.log(moduleCodes);
+
+    const uniqueModuleCodes = new Set(moduleCodes);
+    if (moduleCodes.length !== uniqueModuleCodes.size) {
+      console.error("Duplicate Module_Codes detected!");
+    } else {
+      console.log("No duplicate Module_Codes found.");
+    }
+
+    setLoading(false);
+
+  }
+
   useEffect(() => {
     const fetchModules = async (e) => {
       try {
-        await refreshAccessToken();
-        // const accessToken = Cookies.get("accessToken");
-
-        // //console.log(accessToken);
-        // if (!accessToken) {
-        //   console.error("Access token not available");
-        // }
-
-        const config = {
-          headers: {
-            Authorization: `Bearer ${Cookies.get('accessToken')}`,
-          },
-        };
-
-        const response = await axios.get(
-          "http://localhost:3500/modules",
-          config
-        );
-        console.log(response.data);
-        setTableDataModules(response.data);
-
-        console.log(response.data);
-
-        console.log("Checking for duplicate Module_Codes:");
-        const moduleCodes = response.data.map(
-          (moduledata) => moduledata.modulecode
-        );
-
-        console.log(moduleCodes);
-
-        const uniqueModuleCodes = new Set(moduleCodes);
-        if (moduleCodes.length !== uniqueModuleCodes.size) {
-          console.error("Duplicate Module_Codes detected!");
-        } else {
-          console.log("No duplicate Module_Codes found.");
-        }
+        await getData();
       } catch (error) {
-        console.error("Error fetching modules:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try {
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
@@ -218,6 +230,9 @@ const MyModulesPage = () => {
 
         </div>
         <div className="columnModules" style={{width:"80%"}}>
+        {loading ? (
+            <div style={{display:"flex", justifyContent: "center"}}><CircularProgress/></div>
+          ):
         <List sx={{ width: '100%', bgcolor: 'background.paper', overflow:"auto", height:"80%"}}>
               {tableDataModules.map((module, index) => (
                 <ListItem
@@ -250,6 +265,7 @@ const MyModulesPage = () => {
                 </ListItem>
               ))}
             </List>
+}
           
         </div>
         <div className="columnModules">

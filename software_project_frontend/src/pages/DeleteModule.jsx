@@ -24,6 +24,7 @@ const DeleteModule = () => {
   const { selectedModuleCode } = useParams();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const columns = [
@@ -36,19 +37,19 @@ const DeleteModule = () => {
     setOpenDialog(true); // Open the dialog when the component mounts
   }, []);
 
+  const deleteModule = async () => {
+    setLoading(true);
+    const response = await axios.delete(
+      `http://localhost:3500/modules/delete/${selectedModuleCode}`
+    );
+    console.log("Module is deleted !");
+    navigate("/MyModulePage");
+    setLoading(false);
+  }
+
   const handleDeleteConfirmation = async () => {
     try {
-      await refreshAccessToken();
-      const response = await axios.delete(
-        `http://localhost:3500/modules/delete/${selectedModuleCode}`,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
-      );
-      console.log("Module is deleted !");
-      navigate("/MyModulePage");
+      await deleteModule();
     } catch (error) {
       console.error("Error deleting module:", error);
     }

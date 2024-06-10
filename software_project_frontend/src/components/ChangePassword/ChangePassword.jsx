@@ -9,11 +9,13 @@ import refreshAccessToken from "../../services/AuthService";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 // import { Password } from "@mui/icons-material";
 
 export const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -25,32 +27,49 @@ export const ChangePassword = () => {
     setConfirmPassword(event.target.value);
   };
 
+  const save = async() => {
+    setLoading(true);
+    if(password === confirmPassword){
+      console.log("Trying to save password");
+      const response = await axios.put("http://localhost:3500/user/password", 
+      {
+          password : password
+      });
+      console.log("Finished sending request");
+      
+      // navigate("/Dashboard");
+      // console.log("new profile data :", profileData);
+    }
+
+    else{
+      console.log("Please re-enter password correctly");
+    }
+
+    setLoading(false);
+  }
+
 
   const handleSave = async () => {
     try {
-      // await refreshAccessToken();
-      if(password === confirmPassword){
-        console.log("Trying to save password");
-        const response = await axios.put("http://localhost:3500/user/password", 
-        {
-            password : password
-        }, {
-            headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-        });
-        console.log("Finished sending request");
-        
-        // navigate("/Dashboard");
-        // console.log("new profile data :", profileData);
-      }
-
-      else{
-        console.log("Please re-enter password correctly");
-      }
+      await save();
       
     } catch (error) {
-      console.log("error editing the profile : ", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await save();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -142,11 +161,15 @@ export const ChangePassword = () => {
             backgroundColor="#7894DB"
             textColor="white"
           />
+
           
 
           {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
           {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}
         </div>
+        {loading && (
+        <div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>
+      )}
       </div>
     </div>
   );

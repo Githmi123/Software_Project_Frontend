@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import image from "../images/image.png";
+import refreshAccessToken from '../services/AuthService';
 
 export default function AccountMenu() {
   const [firstName, setFirstName] = useState("");
@@ -25,6 +26,7 @@ export default function AccountMenu() {
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [loading, setLoading] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,41 +36,76 @@ export default function AccountMenu() {
     navigate("/UserProfile");
   };
 
-  const handleLogout = async () => {
+  const logout = async () => {
+    setLoading(true);
     console.log("Logging out");
 
-    await axios.get("http://localhost:3500/logout", {
-      headers: {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      },
-    });
 
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
-    navigate("/");
-  };
+    await axios.get("http://localhost:3500/logout", { withCredentials: true });
+
+    console.log("Deleting access token");
+    delete axios.defaults.headers.common['Authorization'];
+    console.log("Deleted access token");
+
+
+  // Cookies.remove("accessToken");
+  navigate("/");
+  setLoading(false);
+  }
+
+  const handleLogout = async () => {
+    try{
+      await logout();
+    } catch(error){
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await logout();
+          } catch (error) {
+            console.error("Error logging out:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error logging out:", error);
+      }
+    }
+    
+
+  }
+
+  const getData = async () => {
+    setLoading(true);
+    const userResponse = await axios.get(
+      "http://localhost:3500/user"
+    );
+    const user = userResponse.data;
+
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    setDesignation(user.designation);
+    console.log(user);
+
+    if(user.profilepic)
+      {
+        setImageSRC(user.profilepic);
+      }
+    setLoading(false);
+  }
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log("Fetching data");
-        // await refreshAccessToken();
-        console.log("after refresh");
-        const userResponse = await axios.get("http://localhost:3500/user", {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        });
-        const user = userResponse.data;
 
-        setFirstName(user.firstName);
-        setLastName(user.lastName);
-        setDesignation(user.designation);
-        console.log(user);
 
-        if (user.profilepic) {
-          setImageSRC(user.profilepic);
-        }
+        await getData();
+
         // {
         //   const imageBytes = new Uint8Array(user.profilepic.image.data);
         //   const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
@@ -77,7 +114,22 @@ export default function AccountMenu() {
         //   console.log(imageURL);
         // }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if(error.response && error.response.status === 401){
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if(newAccessToken){
+            try { 
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        }
+        else{
+          console.error("Error fetching data:", error);
+        }
       }
     };
 

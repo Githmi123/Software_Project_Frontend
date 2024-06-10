@@ -46,6 +46,7 @@ const RecentPage = () => {
   const [lastName, setLastName] = useState("Perera");
   const [value, setValue] = React.useState(dayjs());
   const [progress, setProgress] = React.useState(10);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -55,112 +56,88 @@ const RecentPage = () => {
     { field: "dateCreated", headerName: "Date Created", width: 150 },
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log("Fetching data");
-        // await refreshAccessToken();
-        console.log("after refresh");
-        const userResponse = await axios.get("http://localhost:3500/user", {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        });
-        const user = userResponse.data;
+  const getData = async () => {
+    setLoading(true);
+    console.log("No need to refresh");
+    const modulesResponse = await axios.get("http://localhost:3500/modules");
+    const modules = modulesResponse.data;
+    const formattedModules = modules.map((module) => ({
+      moduleCode: module.modulecode,
+      moduleName: module.modulename,
+      moduleCredits: module.credits,
+    }));
+    setModuleData(formattedModules);
 
-        setFirstName(user.firstname);
-        setLastName(user.lastname);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    console.log("Module Data", formattedModules);
 
-    fetchData();
-  }, []);
+    const allBatches = [];
+    for (const module of modules) {
+      const batchResponse = await axios.get(
+        `http://localhost:3500/batch/${module.modulecode}`
+      );
+      const batches = batchResponse.data.map((batch) => ({
+        moduleCode: module.modulecode,
+        batch: batch.batch,
+        moduleName: module.modulename,
+      }));
+      allBatches.push(...batches);
+    }
+    setBatchData(allBatches);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // await refreshAccessToken();
-        const modulesResponse = await axios.get(
-          "http://localhost:3500/modules",
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
-        );
-        const modules = modulesResponse.data;
-        const formattedModules = modules.map((module) => ({
-          moduleCode: module.modulecode,
-          moduleName: module.modulename,
-          moduleCredits: module.credits,
+    console.log("Batch Data", allBatches);
+
+    const allAssignments = [];
+    for (const batch of allBatches) {
+      const assignmentResponse = await axios.get(
+        `http://localhost:3500/assignment/${batch.moduleCode}/${batch.batch}`
+      );
+      const assignmentsData = assignmentResponse.data;
+
+      if (
+        typeof assignmentsData === "object" &&
+        assignmentsData !== null &&
+        Array.isArray(assignmentsData.rows)
+      ) {
+        const formattedAssignments = assignmentsData.rows.map((assignment) => ({
+          assignment: assignment.assignmenttitle,
+          moduleName: batch.moduleName,
+          moduleCode: batch.moduleCode,
+          batch: batch.batch,
+          assignmentId: assignment.assignmentid,
+          dateCreated: new Date(assignment.assignmentdate).toLocaleDateString(),
         }));
-        setModuleData(formattedModules);
 
-        console.log("Module Data", formattedModules);
+        allAssignments.push(...formattedAssignments);
+      } else {
+        console.error("Invalid assignmentsData:", assignmentsData);
+      }
+    }
+    setAssignments(allAssignments);
+    setLoading(false);
 
-        const allBatches = [];
-        for (const module of modules) {
-          const batchResponse = await axios.get(
-            `http://localhost:3500/batch/${module.modulecode}`,
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get("accessToken")}`,
-              },
-            }
-          );
-          const batches = batchResponse.data.map((batch) => ({
-            moduleCode: module.modulecode,
-            batch: batch.batch,
-            moduleName: module.modulename,
-          }));
-          allBatches.push(...batches);
-        }
-        setBatchData(allBatches);
-
-        console.log("Batch Data", allBatches);
-
-        const allAssignments = [];
-        for (const batch of allBatches) {
-          const assignmentResponse = await axios.get(
-            `http://localhost:3500/assignment/${batch.moduleCode}/${batch.batch}`,
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get("accessToken")}`,
-              },
-            }
-          );
-          const assignmentsData = assignmentResponse.data;
-
-          if (
-            typeof assignmentsData === "object" &&
-            assignmentsData !== null &&
-            Array.isArray(assignmentsData.rows)
-          ) {
-            const formattedAssignments = assignmentsData.rows.map(
-              (assignment) => ({
-                assignment: assignment.assignmenttitle,
-                moduleName: batch.moduleName,
-                moduleCode: batch.moduleCode,
-                batch: batch.batch,
-                assignmentId: assignment.assignmentid,
-                dateCreated: new Date(
-                  assignment.assignmentdate
-                ).toLocaleDateString(),
-              })
-            );
-
-            allAssignments.push(...formattedAssignments);
-          } else {
-            console.error("Invalid assignmentsData:", assignmentsData);
-          }
-        }
-        setAssignments(allAssignments);
-
-        console.log("Assignments Data", allAssignments);
+    console.log("Assignments Data", allAssignments);
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // await refreshAccessToken();
+        await getData();
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+
+          if (newAccessToken) {
+            try {
+              // await refreshAccessToken();
+              await getData();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
+          }
+        } else {
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
@@ -471,6 +448,100 @@ const RecentPage = () => {
                   ))}
                 </List>
               </div>
+            </div>
+          </div>
+          <Button
+            sx={{
+              m: 2,
+              width: "100px",
+              height: "50px",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            startIcon={<ArrowBackIcon />}
+            onClick={() => window.history.back()}
+          >
+            Back
+          </Button>
+          <h1 id="heading">Recents</h1>
+          <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
+                justifyContent: "right",
+              }}
+            >
+              <div style={{ width: "10vw" }}></div>
+              <Link
+                to={`/NewAssignment/${null}/${null}`}
+                style={{ textDecoration: "none" }}
+              >
+                <CustomNewButton text="New Assignment" />
+              </Link>
+            </div>
+            <div className="columnModules" style={{ width: "80%" }}>
+              {loading ? (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <CircularProgress />
+                </div>
+              ) : (
+                <List
+                  sx={{
+                    width: "100%",
+                    bgcolor: "background.paper",
+                    overflow: "auto",
+                    height: "80%",
+                  }}
+                >
+                  {assignments.map((assignment, index) => (
+                    <ListItem
+                      key={assignment.assignmentId}
+                      secondaryAction={
+                        <div>
+                          <IconButton
+                            edge="end"
+                            aria-label="edit"
+                            onClick={() => handleEditAssignment(assignment)}
+                          >
+                            <Edit />
+                          </IconButton>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={() => handleDeleteAssignment(assignment)}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </div>
+                      }
+                      disablePadding
+                    >
+                      <ListItemButton
+                        onClick={() => handleSelection(assignment)}
+                      >
+                        <ListItemText
+                          primaryTypographyProps={{
+                            style: { fontSize: "2vh" },
+                          }}
+                          // secondaryTypographyProps={{ style: {  } }}
+                          primary={`${assignment.assignment} - ${assignment.moduleCode}`}
+                          secondary={
+                            <span>
+                              {assignment.batch} - {assignment.dateCreated}
+                            </span>
+                          }
+                          secondaryTypographyProps={{
+                            component: "span",
+                            style: { display: "inline", fontSize: "1.5vh" },
+                          }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              )}
             </div>
           </div>
         </div>
