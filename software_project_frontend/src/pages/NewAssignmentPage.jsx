@@ -297,7 +297,7 @@ const NewAssignmentPage = () => {
             m: 2,
             width: "100px",
             height: "50px",
-            color: "black",
+            color: "white",
             fontWeight: "bold",
           }}
           startIcon={<ArrowBackIcon />}
@@ -305,111 +305,112 @@ const NewAssignmentPage = () => {
         >
           Back
         </Button>
-        <div className="align">
-          <span className="label1">Module</span>
-          <div className="center">
-            {selectedModuleCode === "null" ? (
-              <div>
-                <CustomSelect
-                  label="Module"
-                  value={selectedModule}
-                  onChange={handleModuleChange}
-                  options={moduleOptions}
-                />
-                {/* <Button
+        <div style={{ backgroundColor: "white", width: "100%" }}>
+          <div className="align">
+            <span className="label1">Module</span>
+            <div className="center">
+              {selectedModuleCode === "null" ? (
+                <div>
+                  <CustomSelect
+                    label="Module"
+                    value={selectedModule}
+                    onChange={handleModuleChange}
+                    options={moduleOptions}
+                  />
+                  {/* <Button
                   onClick={handleAddModule}
                   sx={{ color: "white", backgroundColor: "#8080FF" }}
                 >
                   Add Module
                 </Button> */}
-              </div>
-            ) : (
-              <div>
-                <TextField
-                  id="outlined-basic"
-                  label={selectedModuleCode}
-                  variant="outlined"
-                  value={selectedModule}
-                  disabled
-                  onChange={handleModuleChange}
-                  sx={{
-                    m: 0.5,
-                    maxWidth: 400,
-                    width: "46vh",
-                    padding: "0",
-                    position: "relative",
-                  }}
-                />
-                {/* <CustomSelect
+                </div>
+              ) : (
+                <div>
+                  <TextField
+                    id="outlined-basic"
+                    label={selectedModuleCode}
+                    variant="outlined"
+                    value={selectedModule}
+                    disabled
+                    onChange={handleModuleChange}
+                    sx={{
+                      m: 0.5,
+                      maxWidth: 400,
+                      width: "46vh",
+                      padding: "0",
+                      position: "relative",
+                    }}
+                  />
+                  {/* <CustomSelect
                   label={selectedModuleCode}
                   value={selectedModule}
                   onChange={handleModuleChange}
                   options={moduleOptions}
                   disabled
                 /> */}
-                <Button
-                  onClick={handleAddModule}
-                  sx={{ color: "white", backgroundColor: "#8080FF" }}
-                  disabled
-                >
-                  Add Module
-                </Button>
-              </div>
-            )}
-          </div>
+                  <Button
+                    onClick={handleAddModule}
+                    sx={{ color: "white", backgroundColor: "#8080FF" }}
+                    disabled
+                  >
+                    Add Module
+                  </Button>
+                </div>
+              )}
+            </div>
 
-          <span className="label1">Batch</span>
-          <div className="center">
-            {batch === "null" ? (
-              <div>
-                <CustomSelect
-                  label="Batch"
-                  value={selectedBatch}
-                  onChange={handleBatchChange}
-                  options={batchOptions}
-                  sx={{ width: 400 }}
-                />
-                {/* <Button
+            <span className="label1">Batch</span>
+            <div className="center">
+              {batch === "null" ? (
+                <div>
+                  <CustomSelect
+                    label="Batch"
+                    value={selectedBatch}
+                    onChange={handleBatchChange}
+                    options={batchOptions}
+                    sx={{ width: 400 }}
+                  />
+                  {/* <Button
                   onClick={handleAddBatch}
                   sx={{ color: "white", backgroundColor: "#8080FF" }}
                 >
                   Add Batch
                 </Button> */}
-              </div>
-            ) : (
-              <div>
-                <TextField
-                  id="outlined-basic"
-                  label={batch}
-                  variant="outlined"
-                  value={batch}
-                  disabled
-                  onChange={handleBatchChange}
-                  sx={{
-                    m: 0.5,
-                    maxWidth: 400,
-                    width: "46vh",
-                    padding: "0",
-                    position: "relative",
-                  }}
-                />
-                {/* <CustomSelect
+                </div>
+              ) : (
+                <div>
+                  <TextField
+                    id="outlined-basic"
+                    label={batch}
+                    variant="outlined"
+                    value={batch}
+                    disabled
+                    onChange={handleBatchChange}
+                    sx={{
+                      m: 0.5,
+                      maxWidth: 400,
+                      width: "46vh",
+                      padding: "0",
+                      position: "relative",
+                    }}
+                  />
+                  {/* <CustomSelect
                   label={selectedModuleCode}
                   value={selectedModule}
                   onChange={handleModuleChange}
                   options={moduleOptions}
                   disabled
                 /> */}
-                <Button
-                  onClick={handleAddBatch}
-                  sx={{ color: "white", backgroundColor: "#8080FF" }}
-                  disabled
-                >
-                  Add Batch
-                </Button>
-              </div>
-            )}
-            {/* <CustomSelect
+                  <Button
+                    onClick={handleAddBatch}
+                    sx={{ color: "white", backgroundColor: "#8080FF" }}
+                    disabled
+                  >
+                    Add Batch
+                  </Button>
+                </div>
+              )}
+              {/* <CustomSelect
             label="Batch"
             value={selectedBatch} // Use selectedBatch instead of selectedValue
             onChange={handleBatchChange}
@@ -417,78 +418,79 @@ const NewAssignmentPage = () => {
             sx={{width:400}}
           />
           <Button onClick={handleAddBatch} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Batch</Button> */}
+            </div>
+
+            <span className="label1">Assignment Name</span>
+            <div className="center">
+              <TextField
+                id="outlined-basic"
+                label="Assignment Name"
+                variant="outlined"
+                value={assignmentName}
+                onChange={handleAssignmentNameChange}
+                sx={{
+                  m: 0.5,
+                  maxWidth: 400,
+                  width: "46vh",
+                  padding: "0",
+                  position: "relative",
+                }}
+              />
+              {/* <Button onClick={handleNewAssignment} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Assignment</Button> */}
+            </div>
+
+            <span className="label1">Marking Scheme</span>
+            <div className="center">
+              <TextField
+                id="outlined-basic"
+                label="Marking Scheme"
+                variant="outlined"
+                value={schemepath}
+                onChange={handleSchemePathChange}
+                sx={{
+                  m: 0.5,
+                  width: "46vh",
+                  maxWidth: 400,
+                  padding: "0",
+                  position: "relative",
+                }}
+              />
+              <InputFileUploadButton onFileSelect={handleSelectedFileChange} />
+              {/* <InputFileUploadButton onFileSelect={onFileSelect}/> */}
+            </div>
           </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              // alignItems: "center",
+              // justifyContent: "center",
+              marginLeft: "40%",
+            }}
+          >
+            {/* <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" /> */}
 
-          <span className="label1">Assignment Name</span>
-          <div className="center">
-            <TextField
-              id="outlined-basic"
-              label="Assignment Name"
-              variant="outlined"
-              value={assignmentName}
-              onChange={handleAssignmentNameChange}
-              sx={{
-                m: 0.5,
-                maxWidth: 400,
-                width: "46vh",
-                padding: "0",
-                position: "relative",
-              }}
-            />
-            {/* <Button onClick={handleNewAssignment} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Assignment</Button> */}
-          </div>
+            <Link to="/RecentPage" style={{ textDecoration: "none" }}>
+              {" "}
+              {/* Wrap the button with Link */}
+              <CustomButton
+                text="Cancel"
+                onClick={handleCancel}
+                backgroundColor="white"
+                textColor="#7894DB"
+              />
+            </Link>
 
-          <span className="label1">Marking Scheme</span>
-          <div className="center">
-            <TextField
-              id="outlined-basic"
-              label="Marking Scheme"
-              variant="outlined"
-              value={schemepath}
-              onChange={handleSchemePathChange}
-              sx={{
-                m: 0.5,
-                width: "46vh",
-                maxWidth: 400,
-                padding: "0",
-                position: "relative",
-              }}
-            />
-            <InputFileUploadButton onFileSelect={handleSelectedFileChange} />
-            {/* <InputFileUploadButton onFileSelect={onFileSelect}/> */}
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {/* <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" /> */}
-
-          <Link to="/RecentPage" style={{ textDecoration: "none" }}>
-            {" "}
-            {/* Wrap the button with Link */}
             <CustomButton
-              text="Cancel"
-              onClick={handleCancel}
-              backgroundColor="white"
-              textColor="#7894DB"
+              text="Next"
+              onClick={handleSubmit}
+              backgroundColor="#7894DB"
+              textColor="white"
             />
-          </Link>
 
-          <CustomButton
-            text="Next"
-            onClick={handleSubmit}
-            backgroundColor="#7894DB"
-            textColor="white"
-          />
-
-          {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
-          {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}
+            {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
+            {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}
+          </div>
         </div>
       </MainRightPane>
     </div>

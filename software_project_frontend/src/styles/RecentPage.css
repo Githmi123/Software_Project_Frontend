@@ -1,49 +1,166 @@
-#heading{
-  margin-left: 20px;
+#dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#heading-dashboard {
+  color: white;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+#summary-and-calendar-raw {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 auto;
+  /* align-items: center; */
+  width: 80%;
+}
+
+#hi-container {
+  background-color: white;
+  width: 20vw;
+  height: 15vh;
+  border-radius: 2vh;
+  margin-bottom: 2vh;
+  align-items: center;
+}
+
+#name-hi {
+  /* margin-top: 5vh; */
+  text-align: center;
+  font-size: 1rem;
   font-weight: bold;
+  padding-top: 3vh;
+  margin-bottom: -1rem !important;
+  color: black;
 }
 
-#recent-table-headers{
-    color: #B5B7C0;
-    font-size: 14px;
-    font-weight: medium; 
-    align-items: center;  
+#good-time {
+  text-align: center;
+  font-size: 0.9rem;
+  /* font-weight: bold; */
+  padding-top: 3vh;
+  margin-bottom: -1rem !important;
+  color: black;
 }
 
+#summary-graph {
+  background-color: #31326f;
+  border-radius: 2vh;
+  width: 20vw;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+#summary-graph p {
+  color: white;
+  font-family: "Poppins";
+  font-size: 0.8rem;
+}
+
+#summary-detail {
+  text-align: center !important;
+  margin-left: 2vw;
+  font-size: 1.2rem !important;
+  font-weight: bold;
+  font-family: "Poppins";
+  padding-top: 3vh;
+}
+
+#dashboard-details {
+  background-color: aqua;
+  margin-left: 2vw;
+  height: 50vh;
+  border-radius: 2vh;
+  width: 20vw;
+}
+
+#dashboard-details p {
+  text-align: left;
+  margin-left: 2vw;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Poppins";
+  padding-top: 3vh;
+}
+
+#recent-table-headers {
+  color: #b5b7c0;
+  font-size: 14px;
+  font-weight: medium;
+  align-items: center;
+}
 
 #recent-table {
-  margin: 10px; 
-  padding: 0 20px; 
+  margin: 10px;
+  padding: 0 20px;
+}
+
+#recent-assignment-title-and-button-raw {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#recent-assignments {
+  background-color: #ffdd95;
+  align-items: center !important;
+  width: 100%;
+}
+
+#recent-assignments p {
+  font-family: "Poppins";
+  font-size: 1rem;
+  margin-top: 2vh;
+  margin-left: 3vw;
+  padding-top: 2vh;
+}
+
+#dashbord-recent-assignment-table {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 60vh;
+  overflow-y: auto;
+  width: 90%;
+  margin-left: 5%;
 }
 
 table {
-  border-collapse: collapse; 
-  width: 100%; 
+  border-collapse: collapse;
+  width: 100%;
   align-items: center;
   justify-content: center;
   /* margin-left: 5vw;
   margin-right: 5vw; */
-
 }
 
-table th, table td {
-  padding: 15px; 
-  text-align: left; 
+table th,
+table td {
+  padding: 15px;
+  text-align: left;
   align-items: center;
   justify-content: center;
 }
 
-.align1{
+.align1 {
   position: relative;
   display: flex;
   /* justify-content: center; */
   flex-direction: row;
   align-items: flex-start;
   margin-left: 0;
-  
 }
 
-.column{
+.column {
   display: flex;
   justify-content: right;
   align-items: flex-end;
