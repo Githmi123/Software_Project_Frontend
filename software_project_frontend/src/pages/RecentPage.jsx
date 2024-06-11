@@ -192,7 +192,7 @@ const RecentPage = () => {
   const newLocal = "space";
   return (
     <div className="align1">
-      <MainLeftPane/>
+      {/* <MainLeftPane/> */}
       <MainRightPane>
         <Button
           sx={{

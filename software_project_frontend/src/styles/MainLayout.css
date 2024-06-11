@@ -1,0 +1,15 @@
+.main-layout {
+    display: flex;
+    height: 100vh; /* Ensures the layout takes full height */
+  }
+  
+  .left-pane {
+    width: 200px; /* Adjust width as needed */
+  }
+  
+  .content {
+    flex: 1;
+    /* display: flex; */
+    /* padding: 20px; */
+  }
+  
