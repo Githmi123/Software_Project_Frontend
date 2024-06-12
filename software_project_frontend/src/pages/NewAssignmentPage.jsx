@@ -46,12 +46,7 @@ const NewAssignmentPage = () => {
         await refreshAccessToken();
 
         const modulesResponse = await axios.get(
-          "http://localhost:3500/modules",
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
+          "http://localhost:3500/modules"
         );
         const modules = modulesResponse.data;
         const moduleOptions = modules.map((module) => ({
@@ -80,12 +75,7 @@ const NewAssignmentPage = () => {
         await refreshAccessToken();
 
         const batchResponse = await axios.get(
-          `http://localhost:3500/batch/${selectedModule}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
+          `http://localhost:3500/batch/${selectedModule}`
         );
         const batches = batchResponse.data;
 
@@ -239,7 +229,7 @@ const NewAssignmentPage = () => {
           formData,
           {
             headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+        
               "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
             },
           }
@@ -258,7 +248,7 @@ const NewAssignmentPage = () => {
           formData,
           {
             headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+             
               "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
             },
           }

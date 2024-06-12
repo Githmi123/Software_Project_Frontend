@@ -14,14 +14,14 @@ const CustomSelect = ({ label, value, onChange, options }) => {
         label={label}
         onChange={onChange}
       >
-        <MenuItem value={`new-${label.toLowerCase()}`}>
-          {newOptionLabel}
-        </MenuItem>
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
+        <MenuItem value={`new-${label.toLowerCase()}`}>
+          {newOptionLabel}
+        </MenuItem>
       </Select>
     </FormControl>
   );
