@@ -299,7 +299,7 @@ const NewAssignmentPage = () => {
           <div className="align">
             <span className="label1">Module</span>
             <div className="center">
-              {selectedModuleCode === "null" ? (
+             
                 <div>
                   <CustomSelect
                     label="Module"
@@ -314,44 +314,12 @@ const NewAssignmentPage = () => {
                   Add Module
                 </Button> */}
                 </div>
-              ) : (
-                <div>
-                  <TextField
-                    id="outlined-basic"
-                    label={selectedModuleCode}
-                    variant="outlined"
-                    value={selectedModule}
-                    disabled
-                    onChange={handleModuleChange}
-                    sx={{
-                      m: 0.5,
-                      maxWidth: 400,
-                      width: "46vh",
-                      padding: "0",
-                      position: "relative",
-                    }}
-                  />
-                  {/* <CustomSelect
-                  label={selectedModuleCode}
-                  value={selectedModule}
-                  onChange={handleModuleChange}
-                  options={moduleOptions}
-                  disabled
-                /> */}
-                  <Button
-                    onClick={handleAddModule}
-                    sx={{ color: "white", backgroundColor: "#8080FF" }}
-                    disabled
-                  >
-                    Add Module
-                  </Button>
-                </div>
-              )}
+             
             </div>
 
             <span className="label1">Batch</span>
             <div className="center">
-              {batch === "null" ? (
+             
                 <div>
                   <CustomSelect
                     label="Batch"
@@ -367,39 +335,7 @@ const NewAssignmentPage = () => {
                   Add Batch
                 </Button> */}
                 </div>
-              ) : (
-                <div>
-                  <TextField
-                    id="outlined-basic"
-                    label={batch}
-                    variant="outlined"
-                    value={batch}
-                    disabled
-                    onChange={handleBatchChange}
-                    sx={{
-                      m: 0.5,
-                      maxWidth: 400,
-                      width: "46vh",
-                      padding: "0",
-                      position: "relative",
-                    }}
-                  />
-                  {/* <CustomSelect
-                  label={selectedModuleCode}
-                  value={selectedModule}
-                  onChange={handleModuleChange}
-                  options={moduleOptions}
-                  disabled
-                /> */}
-                  <Button
-                    onClick={handleAddBatch}
-                    sx={{ color: "white", backgroundColor: "#8080FF" }}
-                    disabled
-                  >
-                    Add Batch
-                  </Button>
-                </div>
-              )}
+             
               {/* <CustomSelect
             label="Batch"
             value={selectedBatch} // Use selectedBatch instead of selectedValue

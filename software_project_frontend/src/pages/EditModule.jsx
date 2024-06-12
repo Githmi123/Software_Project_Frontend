@@ -27,12 +27,7 @@ const EditModule = () => {
 
         console.log("selected module code :", selectedModuleCode);
         const response = await axios.get(
-          `http://localhost:3500/modules/view/${selectedModuleCode}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
+          `http://localhost:3500/modules/view/${selectedModuleCode}`
         );
         setModuleData(response.data);
       } catch (error) {
@@ -60,12 +55,7 @@ const EditModule = () => {
 
       await axios.post(
         `http://localhost:3500/modules/edit/${selectedModuleCode}`,
-        moduleData,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
+        moduleData
       );
       navigate("/MyModulePage");
     } catch (error) {
