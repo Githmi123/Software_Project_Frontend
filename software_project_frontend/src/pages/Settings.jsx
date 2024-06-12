@@ -19,7 +19,7 @@ function Settings() {
   return (
     <div id="body">
       {/* <UserProfileLeftPane></UserProfileLeftPane> */}
-      <MainLeftPane/>
+   
       <SettingsRightPane/>
       {/* <UserProfileRightPane /> */}
       {/* <NewUserProfileRightPane/> */}

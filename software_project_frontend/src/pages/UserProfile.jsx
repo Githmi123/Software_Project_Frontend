@@ -18,7 +18,7 @@ function UserProfile() {
   return (
     <div id="body">
       {/* <UserProfileLeftPane></UserProfileLeftPane> */}
-      <MainLeftPane/>
+   
       {/* <UserProfileRightPane /> */}
       <NewUserProfileRightPane/>
     </div>

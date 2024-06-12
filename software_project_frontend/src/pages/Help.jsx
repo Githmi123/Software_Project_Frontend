@@ -25,7 +25,7 @@ function Help() {
 
   return (
     <div className="align1">
-      <MainLeftPane />
+
       <MainRightPane>
         {/* <div style={{display:"flex", justifyContent: "space-evenly", alignItems:"center", flexDirection:"row", margintop:"10vh", height: "100%"}}>
                 <div style={{display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center", width:"40%"}}>
