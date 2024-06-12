@@ -307,7 +307,7 @@ const AnswerScriptsPage = () => {
 
   return (
     <div className="align1">
-      <MainLeftPane />
+     
       <MainRightPane>
         <Button
           sx={{
