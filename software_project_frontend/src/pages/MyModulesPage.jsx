@@ -212,21 +212,21 @@ const MyModulesPage = () => {
         <h1 id="heading">My Modules</h1>
         
         <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent: "space-evenly", marginRight:"2vw"}}>
-          <Link to={`/Batches/${selectedModule}`}>
+          {/* <Link to={`/Batches/${selectedModule}`}>
             <CustomNewButton text="View Module" />
-          </Link>
+          </Link> */}
           
           <Link to="/NewModule" style={{ textDecoration: "none" }}>
             <CustomNewButton text="New Module" onClick={handleNewModule} />
           </Link>
 
-          <Link to={`/EditModule/${selectedModule}`}>
+          {/* <Link to={`/EditModule/${selectedModule}`}>
             <CustomNewButton onClick = {handleEditModule} text="Edit Module" />
-          </Link>
+          </Link> */}
 
-          <Link to={`/DeleteModule/${selectedModule}`}>
+          {/* <Link to={`/DeleteModule/${selectedModule}`}>
             <CustomNewButton onClick = {handleDeleteModule} text="Delete Module" />
-          </Link>
+          </Link> */}
 
         </div>
         <div className="columnModules" style={{width:"80%"}}>
@@ -268,7 +268,7 @@ const MyModulesPage = () => {
 }
           
         </div>
-        <div className="columnModules">
+        {/* <div className="columnModules">
           <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
             <DataGrid
               rows={tableDataModules}
@@ -292,7 +292,7 @@ const MyModulesPage = () => {
               // isRowSelectable={(params) => params.row.moduleCode !== selectedModule}
             />
           </Box>
-        </div>
+        </div> */}
         
       </MainRightPane>
     </div>
