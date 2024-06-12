@@ -1,5 +1,5 @@
 import { Button, Stack } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -8,8 +8,8 @@ import BookIcon from '@mui/icons-material/Book';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
-
+import axios from "axios";
+import refreshAccessToken from '../../services/AuthService';
 import  "./ButtonSet.css"
 import LeftPaneButton from '../Buttons/LeftPaneButton';
 import '../ButtonSet/ButtonSet.css'
@@ -25,6 +25,7 @@ const buttonStyle = {
 
 const ButtonSet = () => {
   const [selectedButton, setSelectedButton] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSelectedButton = (button) => {
       setSelectedButton(button);
@@ -37,6 +38,66 @@ const ButtonSet = () => {
     textAlign: 'left',
     width: '100%',
 };
+
+
+const getData = async () => {
+  console.log("Fetching modules data");
+  setLoading(true);
+ 
+
+  const response = await axios.get(
+    "http://localhost:3500/modules"
+  );
+  console.log(response.data);
+  // setTableDataModules(response.data);
+
+  console.log(response.data);
+
+  console.log("Checking for duplicate Module_Codes:");
+  const moduleCodes = response.data.map(
+    (moduledata) => moduledata.modulecode
+  );
+
+  console.log(moduleCodes);
+
+  const uniqueModuleCodes = new Set(moduleCodes);
+  if (moduleCodes.length !== uniqueModuleCodes.size) {
+    console.error("Duplicate Module_Codes detected!");
+  } else {
+    console.log("No duplicate Module_Codes found.");
+  }
+
+  setLoading(false);
+
+}
+
+useEffect(() => {
+  const fetchModules = async (e) => {
+    try {
+      await getData();
+    } catch (error) {
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await getData();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      }
+      else{
+        console.error("Error fetching data:", error);
+      }
+    }
+  };
+
+  fetchModules();
+}, []);
+
 
   return (
     <Stack direction='column' spacing={2} alignItems='center' alignContent='center' marginLeft={"3vh"}>
