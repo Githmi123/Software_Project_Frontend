@@ -24,7 +24,7 @@ const MainLeftPane = () => {
         <ButtonSet />
       </div>
       {/* <div style={{backgroundColor:"#C3D3FB"}} id = "ProfileBar"> */}
-      <div style={{ backgroundColor: "#C3D3FB" }} id="ProfileBar">
+      <div style={{ backgroundColor: "#5C469C" }} id="ProfileBar">
         {/* <UserProfileBar/> */}
         {/* <SwipeableEdgeDrawer/> */}
         <AccountMenu />

@@ -361,11 +361,11 @@ const AnswerScriptsPage = () => {
             icon={Delete}
           />
         </div>
-
+        {loading ? (<div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>) :
         <div className="columnAnswerScripts">
-
+        
           <Box sx={{ height: '100%', width: '100%' }}>
-          {loading ? (<div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>) :
+          
 
             <DataGrid
             
@@ -390,8 +390,9 @@ const AnswerScriptsPage = () => {
               }}
             
             />
-          }
+          
           </Box>
+
           {/* <table className="tableStyle2">
             <tbody>
               {answerScripts &&
@@ -428,7 +429,7 @@ const AnswerScriptsPage = () => {
             </tbody>
           </table> */}
         </div>
-
+}
         <div
           style={{
             marginTop: "1vh",

@@ -6,18 +6,14 @@ import { Height } from '@mui/icons-material';
 
 
 
-function LeftPaneButton({ icon: Icon, name, link }) {
+function LeftPaneButton({ icon: Icon, name, link, isSelected, onClick }) {
 
-    const [selectedButton, setSelectedButton] = useState(false);
-
-  const handleSelectedButton = (button) => {
-      setSelectedButton(button);
-  }
+    
   
 
         const buttonStyle = {
-        backgroundColor: selectedButton ? '#ff0000' : 'initial', // Change to the color you want
-        color: selectedButton ? 'white' : 'black', // Change to the color you want
+        backgroundColor: isSelected ? '#7894DB' : 'inherit', // Change to the color you want
+        color: isSelected ? 'white' : 'black', // Change to the color you want
         display: 'flex',
         justifyContent: 'flex-start',
         textAlign: 'left',
@@ -34,7 +30,7 @@ function LeftPaneButton({ icon: Icon, name, link }) {
             component={Link} to={link}
             startIcon={<Icon />}
             sx={buttonStyle}
-            onClick={handleSelectedButton}
+            onClick={onClick}
         >
             {name}
         </Button>
