@@ -1,6 +1,19 @@
-#heading {
+/* #heading {
   margin-left: 20px;
   font-weight: bold;
+} */
+
+#heading-mymodules {
+  color: white;
+  margin-top: 5vh;
+}
+
+#mymodules-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 #new-module-button {

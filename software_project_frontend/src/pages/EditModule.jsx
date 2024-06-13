@@ -60,12 +60,7 @@ const EditModule = () => {
 
       await axios.post(
         `http://localhost:3500/modules/edit/${selectedModuleCode}`,
-        moduleData,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
+        moduleData
       );
       navigate("/MyModulePage");
     } catch (error) {
@@ -103,15 +98,15 @@ const EditModule = () => {
             Module Code
           </h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-          // defaultValue="Module Code"
-          placeholder="Module Code"
-          name="modulecode"
-          value={moduleData.modulecode}
-          onChange={handleChange}
-            style={{width: "max-width"}}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            // defaultValue="Module Code"
+            placeholder="Module Code"
+            name="modulecode"
+            value={moduleData.modulecode}
+            onChange={handleChange}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
@@ -136,15 +131,15 @@ const EditModule = () => {
             Module Name
           </h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-          // defaultValue="Module Code"
-          placeholder="Module Name"
-          name="modulename"
-          value={moduleData.modulename}
-          onChange={handleChange}
-            style={{width:"max-width"}}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            // defaultValue="Module Code"
+            placeholder="Module Name"
+            name="modulename"
+            value={moduleData.modulename}
+            onChange={handleChange}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
@@ -169,15 +164,15 @@ const EditModule = () => {
             Credits
           </h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-          // defaultValue="Module Code"
-          placeholder="Credits"
-          name="credits"
-          value={moduleData.credits}
-          onChange={handleChange}
-            style={{width: "max-width"}}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            // defaultValue="Module Code"
+            placeholder="Credits"
+            name="credits"
+            value={moduleData.credits}
+            onChange={handleChange}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
@@ -190,9 +185,7 @@ const EditModule = () => {
           >
             Credits
           </TextField>
-
         </div>
-      
 
         <div
           style={{

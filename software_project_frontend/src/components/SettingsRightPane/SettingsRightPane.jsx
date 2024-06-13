@@ -1,31 +1,40 @@
-import React from 'react'
-import BasicTabs from '../BasicTabs'
+import React from "react";
+import BasicTabs from "../BasicTabs";
 import Button from "@mui/material/Button";
 import CustomButton from "../Buttons/CustomButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function SettingsRightPane() {
   return (
-    <div id="rightpane">
-        <Button
-          sx={{
-            m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginLeft: "10vh",
-          }}
-          startIcon={<ArrowBackIcon />}
-          onClick={() => window.history.back()}
-        >
-          Back
-        </Button>
+    <div>
+      <Button
+        sx={{
+          m: 2,
+          width: "100px",
+          height: "50px",
+          color: "white",
+          fontWeight: "bold",
+          marginLeft: "10vh",
+        }}
+        startIcon={<ArrowBackIcon />}
+        onClick={() => window.history.back()}
+      >
+        Back
+      </Button>
+      <div style={{ backgroundColor: "white", width: "100%" }}>
         <h1 id="heading">Settings</h1>
-      <h6 id="heading" color='black' fontWeight= "bolder" style={{fontSize:"3vh"}}>Manage My Account</h6>
-      <BasicTabs/>
+        <h6
+          id="heading"
+          color="black"
+          fontWeight="bolder"
+          style={{ fontSize: "3vh" }}
+        >
+          Manage My Account
+        </h6>
+        <BasicTabs />
+      </div>
     </div>
-  )
+  );
 }
 
-export default SettingsRightPane
+export default SettingsRightPane;

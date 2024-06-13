@@ -61,15 +61,10 @@ const ManualGradingPage = () => {
   useEffect(() => {
     const handleGrades = async () => {
       try {
-        await refreshAccessToken();
+        // await refreshAccessToken();
 
         const response = await axios.get(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
+          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
         );
 
         console.log("Details of the answer scripts :", response.data);
@@ -255,8 +250,9 @@ const ManualGradingPage = () => {
               height: "80vh",
               // width: "30vh",
               // height: "40vh",
-              marginLeft: "5vh",
-              marginTop: "0vh",
+              // marginLeft: "5vh",
+              // marginTop: "0vh",
+              marginRight: "5vh",
             }}
           />
           <div>{renderTable(gradeData.jsonAnswers)}</div>
