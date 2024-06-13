@@ -1,0 +1,38 @@
+#setting-title {
+  align-items: center;
+}
+
+#setting-title-container {
+  height: 40vh;
+  background-color: #5783cf;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#setting-image {
+  width: 15rem;
+  height: 15rem;
+  /* margin-right: auto;
+  margin-top: 5vh;
+  margin-bottom: 5vh; */
+  /* margin: 5vh auto; */
+}
+
+#setting-titles {
+  margin-left: 5vh;
+}
+
+#settings-title {
+  color: white;
+}
+
+#settings-sub-title {
+  color: white;
+}
+
+#setting-para {
+  color: white;
+  margin-top: 5vh;
+}

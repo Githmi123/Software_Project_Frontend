@@ -27,15 +27,26 @@
   height: 15vh;
   border-radius: 2vh;
   margin-bottom: 2vh;
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+}
+
+#hi-paragraphs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 1vw;
 }
 
 #name-hi {
   /* margin-top: 5vh; */
-  text-align: center;
+  text-align: left;
   font-size: 1rem;
   font-weight: bold;
-  padding-top: 3vh;
+  /* padding-top: 3vh; */
   margin-bottom: -1rem !important;
   color: black;
 }
