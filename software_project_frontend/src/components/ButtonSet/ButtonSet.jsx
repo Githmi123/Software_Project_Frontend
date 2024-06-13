@@ -24,11 +24,11 @@ const buttonStyle = {
 };
 
 const ButtonSet = () => {
-  const [selectedButton, setSelectedButton] = useState(false);
+  const [selectedButton, setSelectedButton] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSelectedButton = (button) => {
-      setSelectedButton(button);
+  const handleSelectedButton = (name) => {
+      setSelectedButton(name);
   }
   const buttonStyle = {
     backgroundColor: selectedButton === "/Dashboard" ? '#ff0000' : 'white',
@@ -108,11 +108,11 @@ useEffect(() => {
         <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '90px',}}} startIcon={<LiveHelpIcon/>} endIcon={<ArrowForwardIosIcon/>}>Help</Button>    */}
 
 
-        <LeftPaneButton icon={DashboardIcon} name="Dashboard" link = '/Dashboard' />
-        <LeftPaneButton icon={AssignmentIcon} name="New Assignment" link = '/NewAssignment'/>
-        <LeftPaneButton icon={BookIcon} name="My Modules" link = '/MyModulePage'/>
-        <LeftPaneButton icon={SettingsIcon} name="Settings" link = '/Settings'/>
-        <LeftPaneButton icon={LiveHelpIcon} name="Help" link = '/Help'/>
+        <LeftPaneButton icon={DashboardIcon} name="Dashboard" link = '/Dashboard' isSelected={selectedButton === "Dashboard"} onClick={() => handleSelectedButton('Dashboard')}/>
+        <LeftPaneButton icon={AssignmentIcon} name="New Assignment" link = '/NewAssignment' isSelected={selectedButton === "New Assignment"} onClick={() => handleSelectedButton("New Assignment")}/>
+        <LeftPaneButton icon={BookIcon} name="My Modules" link = '/MyModulePage' isSelected={selectedButton === "My Modules"} onClick={() => handleSelectedButton("My Modules")}/>
+        <LeftPaneButton icon={SettingsIcon} name="Settings" link = '/Settings' isSelected={selectedButton === "Settings"} onClick={() => handleSelectedButton("Settings")}/>
+        <LeftPaneButton icon={LiveHelpIcon} name="Help" link = '/Help' isSelected={selectedButton === "Help"} onClick={() => handleSelectedButton("Help")}/>
 
 
     </Stack>
