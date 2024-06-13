@@ -31,7 +31,8 @@ const AnswerScriptsPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [answerScripts, setAnswerScripts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [gradingSnackbarOpen, setGradingSnackbarOpen] = useState(false);
+  const [uploadingSnackbarOpen, setUploadingSnackbarOpen] = useState(false);
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -45,11 +46,18 @@ const AnswerScriptsPage = () => {
 
  
 
-  const handleCloseSnackbar = (event, reason) => {
+  const handleCloseGradingSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    setSnackbarOpen(false);
+    setGradingSnackbarOpen(false);
+  };
+
+  const handleCloseUploadingSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setUploadingSnackbarOpen(false);
   };
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
@@ -122,6 +130,7 @@ const AnswerScriptsPage = () => {
     console.log("Uploaded Answer Scripts:", response.data);
     fetchAnswerscripts();
     setLoading(false);
+    setUploadingSnackbarOpen(true);
   }
   useEffect(() => {
     const uploadNewAnswerscripts = async () => {
@@ -164,6 +173,7 @@ const AnswerScriptsPage = () => {
   };
 
   const handleToggleAssignmentNo = (scriptId) => {
+    console.log(scriptId);
     setSelectedAssignmentNos((prevSelectedAssignmentNos) => {
       if (prevSelectedAssignmentNos.includes(scriptId)) {
         return prevSelectedAssignmentNos.filter((id) => id !== scriptId);
@@ -206,7 +216,7 @@ const AnswerScriptsPage = () => {
 
     console.log("Graded all answer scripts", response.data);
 
-    setSnackbarOpen(true);
+    setGradingSnackbarOpen(true);
     setLoading(false);
   }
   const handleGradeAllFiles = async () => {
@@ -266,7 +276,10 @@ const AnswerScriptsPage = () => {
       { selectedAssignmentNos }
     );
 
-    console.log("Graded selected answer scripts", response.data);
+    console.log(selectedAssignmentNos);
+
+    console.log("Deleted selected answer scripts", response.data);
+    await fetchData();
 
     setLoading(false);
   }
@@ -362,7 +375,7 @@ const AnswerScriptsPage = () => {
             icon={Delete}
           />
         </div>
-        {loading ? (<div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>) :
+        {loading ? (<div style={{display: "flex", justifyContent:"center", alignItems: "center", marginTop:"8vh"}}><CircularProgress/></div>) :
         <div className="columnAnswerScripts">
         
           <Box sx={{ height: '100%', width: '100%' }}>
@@ -446,9 +459,15 @@ const AnswerScriptsPage = () => {
             <GradingButton text="Dashboard" icon={DashboardIcon} />
           </Link> */}
         </div>
-        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity="success" variant="filled" sx={{ width: '100%' }}>
+        <Snackbar open={gradingSnackbarOpen} autoHideDuration={6000} onClose={handleCloseGradingSnackbar}>
+          <Alert onClose={handleCloseGradingSnackbar} severity="success" variant="filled" sx={{ width: '100%' }}>
             Grading completed successfully!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={uploadingSnackbarOpen} autoHideDuration={6000} onClose={handleCloseUploadingSnackbar}>
+          <Alert onClose={handleCloseUploadingSnackbar} severity="success" variant="filled" sx={{ width: '100%' }}>
+            Answer script uploaded successfully!
           </Alert>
         </Snackbar>
       </MainRightPane>
