@@ -1,5 +1,8 @@
 import React from "react";
 import "../Footer/Footer.css";
+import { Facebook, FacebookRounded, Instagram, Twitter } from "@mui/icons-material";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   return (
@@ -18,13 +21,13 @@ const Footer = () => {
           <h4>Follow Us</h4>
           <div className="social-icons">
             <a href="#" className="social-icon">
-              FB
+            <FacebookRounded/>
             </a>
             <a href="#" className="social-icon">
-              TW
+            <Twitter/>
             </a>
             <a href="#" className="social-icon">
-              IN
+            <Instagram/>
             </a>
           </div>
         </div>

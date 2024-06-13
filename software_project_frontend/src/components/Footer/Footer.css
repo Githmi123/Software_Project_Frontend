@@ -1,8 +1,9 @@
 #footer {
   background-color: #31326f;
   color: white;
-  padding: 2rem 0;
+  /* padding: 2rem 0; */
   text-align: center;
+  /* height: content; */
   
 }
 
@@ -34,10 +35,10 @@
 }
 
 .social-icon {
-  background-color: white;
-  color: #333;
+  /* background-color: white; */
+  color: white;
   border-radius: 50%;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   margin: 0 0.5rem;
   text-decoration: none;
   display: inline-block;
@@ -48,6 +49,14 @@
 }
 
 .social-icon:hover {
-  background-color: #555;
-  color: white;
+  color: black;
 }
+
+h4{
+  font-size:larger;
+}
+
+p{
+  font-size: small
+}
+
