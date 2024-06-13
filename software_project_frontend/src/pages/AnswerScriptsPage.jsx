@@ -311,16 +311,17 @@ const AnswerScriptsPage = () => {
       <MainRightPane>
         <Button
           sx={{
-            m: 2,
+            // m: 2,
             width: "100px",
             height: "50px",
             color: "black",
             fontWeight: "bold",
+            marginBottom: "2vh",
           }}
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         <h1 id="heading">Uploaded Answer Scripts</h1>
         <div

@@ -394,7 +394,7 @@ const RecentPage = () => {
               <div id="recent-assignment-title-and-button-raw">
                 <p>Recent Assignments</p>
                 <Link
-                  to={`/NewAssignment/${null}/${null}`}
+                  to={'/NewAssignment'}
                   style={{
                     textDecoration: "none",
                     marginRight: "5vw",

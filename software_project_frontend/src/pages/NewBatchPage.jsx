@@ -28,20 +28,8 @@ const NewBatchPage = () => {
 
   //console.log(batchNumber);
 
-  const handleNewBatch = async (e) => {
-    e.preventDefault();
-    try {
-      await refreshAccessToken();
-      // const accessToken = Cookies.get("accessToken");
-
-      // //console.log(accessToken);
-      // if (!accessToken) {
-      //   console.error("Access token not available");
-      // }
-
-     
-
-      console.log("batch no value saves", batch);
+  const sendData = async () => {
+    console.log("batch no value saves", batch);
 
       await axios.post(
         `http://localhost:3500/batch/${selectedModuleCode}`,
@@ -51,8 +39,38 @@ const NewBatchPage = () => {
       console.log("Batch is created!");
 
       navigate(`/Batches/${selectedModuleCode}`);
+  }
+
+  const handleNewBatch = async (e) => {
+    e.preventDefault();
+    try {
+      await sendData();
+      // const accessToken = Cookies.get("accessToken");
+
+      // //console.log(accessToken);
+      // if (!accessToken) {
+      //   console.error("Access token not available");
+      // }
+
+     
+
+      
     } catch (error) {
-      console.error("Error creating module:", error);
+      if (error.response && error.response.status === 401) {
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if (newAccessToken) {
+          try {
+            // await refreshAccessToken();
+            await sendData();
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }
+      } else {
+        console.error("Error fetching data:", error);
+      }
     }
   };
 
@@ -62,14 +80,15 @@ const NewBatchPage = () => {
       <MainRightPane>
         <Button
           sx={{
-            m: 2,
+            // m: 2,
             width: "100px",
             height: "50px",
             color: "black",
             fontWeight: "bold",
+            marginBottom: "2vh"
           }}
           startIcon={<ArrowBackIcon />}
-          onClick={() => window.history.back()}
+          onClick={() => navigate(-1)}
         >
           Back
         </Button>
