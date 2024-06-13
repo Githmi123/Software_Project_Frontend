@@ -196,7 +196,7 @@ const MyModulesPage = () => {
     <div className="align1">
      
       <MainRightPane>
-        <Button
+        {/* <Button
           sx={{
             m: 2,
             width: "100px",
@@ -208,7 +208,7 @@ const MyModulesPage = () => {
           onClick={() => window.history.back()}
         >
           Back
-        </Button>
+        </Button> */}
         <h1 id="heading">My Modules</h1>
         
         <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent: "space-evenly", marginRight:"2vw"}}>

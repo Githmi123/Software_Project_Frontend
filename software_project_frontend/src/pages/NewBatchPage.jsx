@@ -39,18 +39,13 @@ const NewBatchPage = () => {
       //   console.error("Access token not available");
       // }
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${Cookies.get('accessToken')}`,
-        },
-      };
+     
 
       console.log("batch no value saves", batch);
 
       await axios.post(
         `http://localhost:3500/batch/${selectedModuleCode}`,
-        { batch: batch },
-        config
+        { batch: batch }
       );
 
       console.log("Batch is created!");
