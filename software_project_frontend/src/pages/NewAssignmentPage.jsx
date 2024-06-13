@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Button, InputAdornment, TextField } from "@mui/material";
+import { Alert, Button, InputAdornment, TextField, Snackbar } from "@mui/material";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -30,6 +30,7 @@ const NewAssignmentPage = () => {
   const [selectedFile, setSelectedFile] = useState("");
   const [schemepath, setSchemePath] = useState("");
   const { selectedModuleCode, batch } = useParams();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // onchange states
   const [excelFile, setExcelFile] = useState(null);
@@ -39,6 +40,14 @@ const NewAssignmentPage = () => {
   const [excelData, setExcelData] = useState(null);
 
   const navigate = useNavigate();
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
 
   useEffect(() => {
     const fetchModulesAndBatches = async () => {
@@ -135,7 +144,14 @@ const NewAssignmentPage = () => {
   const handleBatchChange = (event) => {
     const value = event.target.value;
     if (value === "new-batch") {
-      navigate(`/NewBatchPage/${selectedModule}`);
+      if(selectedModule === ""){
+        setSnackbarOpen(true);
+      }
+      else{
+        navigate(`/NewBatchPage/${selectedModule}`);
+        
+      }
+      
     } else {
       setSelectedBatch(value);
     }
@@ -418,6 +434,11 @@ const NewAssignmentPage = () => {
             {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}
           </div>
         </div>
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+          <Alert onClose={handleCloseSnackbar} severity="warning" variant="filled" sx={{ width: '100%' }}>
+            Please select a module first!
+          </Alert>
+        </Snackbar>
       </MainRightPane>
     </div>
   );
