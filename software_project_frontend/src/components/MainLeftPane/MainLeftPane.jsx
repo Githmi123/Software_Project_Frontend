@@ -14,7 +14,7 @@ import Divider from "@mui/material/Divider";
 const MainLeftPane = () => {
   return (
     <div className="maindiv-left">
-      <div className="maindiv-left">
+      <div className="main-left">
         <img
           id="main-left-pane-image"
           src={projectlogo}

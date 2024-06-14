@@ -22,7 +22,7 @@
     }
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 768px), (max-height: 600px) {
     .button-set {
       flex-direction: column !important;
       align-items:center !important;
@@ -64,4 +64,17 @@
     .button .button-text {
         display: none !important;
     }
+  }
+
+  @media (max-height: 50px){
+    .button-set {
+        display: none;
+
+        height: 0;
+      }
+
+      .button {
+        height: 0;
+        display: none;
+      }
   }
