@@ -11,3 +11,57 @@
     background-color: #7894DB !important;
     /* color: white !important; */
 }
+
+.button-set {
+    /* width: 100%; */
+  }
+  
+  @media (max-width: 1200px) {
+    .button {
+      width: 180px !important;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .button-set {
+      flex-direction: column !important;
+      align-items:center !important;
+      justify-content:space-evenly !important;
+      display: flex;
+      width: auto !important;
+      font-size: 0;
+      /* margin-block-start: 0; */
+      padding-left: 0;
+      height: auto;
+    }
+  
+    .button {
+      /* width: 100% !important; */
+      display: flex;
+      justify-content: center !important;
+      flex-direction: row;
+      align-items: center;
+      align-self: center;
+      /* padding: 0 !important; */
+      /* text-align: center !important; */
+      font-size: 0;
+      /* margin: 0;
+      padding-left: 0; */
+      padding-inline-start: 0;
+     
+        display: flex;
+        justify-content: flex-start;
+        text-align: left;
+        width: 10%;
+    }
+  
+    .button .MuiButton-startIcon {
+      /* margin: 0 !important; */
+      
+    }
+  
+
+    .button .button-text {
+        display: none !important;
+    }
+  }

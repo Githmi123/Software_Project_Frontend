@@ -18,7 +18,7 @@ const MainLeftPane = () => {
         <img
           id="main-left-pane-image"
           src={projectlogo}
-          style={{ width: "50%" }}
+          // style={{ width: "50%" }}
         />
 
         <ButtonSet />

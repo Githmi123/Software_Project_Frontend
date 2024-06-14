@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Height } from '@mui/icons-material';
+import '../ButtonSet/ButtonSet.css'
 
 
 
@@ -30,9 +31,9 @@ function LeftPaneButton({ icon: Icon, name, link, isSelected, onClick }) {
             component={Link} to={link}
             startIcon={<Icon />}
             sx={buttonStyle}
-            onClick={onClick}
+            onClick={onClick} 
         >
-            {name}
+            <span className='button-text'>{name}</span>
         </Button>
     )
 }
