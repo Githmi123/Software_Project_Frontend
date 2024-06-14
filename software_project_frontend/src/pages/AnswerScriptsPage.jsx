@@ -330,6 +330,7 @@ const AnswerScriptsPage = () => {
             color: "black",
             fontWeight: "bold",
             marginBottom: "2vh",
+            
           }}
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
@@ -345,6 +346,7 @@ const AnswerScriptsPage = () => {
             justifyContent: "space-between",
             marginLeft: "5vw",
             marginRight: "5vw",
+            marginTop: "2vh"
           }}
         >
           <CustomNewButton
