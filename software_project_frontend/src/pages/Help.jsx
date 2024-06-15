@@ -25,7 +25,6 @@ function Help() {
 
   return (
     <div className="align1">
-
       <MainRightPane>
         {/* <div style={{display:"flex", justifyContent: "space-evenly", alignItems:"center", flexDirection:"row", margintop:"10vh", height: "100%"}}>
                 <div style={{display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center", width:"40%"}}>
@@ -36,8 +35,18 @@ function Help() {
                 <img src={help} id = "helpImage"/>
             </div> */}
         <div id="help-backgroud">
-          <h3>Contact Us</h3>
-          <h5>Get in touch and let us know how we can help</h5>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <h3>Contact Us</h3>
+            <h5>Get in touch and let us know how we can help</h5>
+          </div>
+
           <div id="help-support-options">
             <div className="help-support-options-container">
               <div className="help-support-options-circles">
@@ -79,13 +88,14 @@ function Help() {
           <div style={{ backgroundColor: "#ffdd95", marginTop: "10vh" }}>
             <div id="faq-image-container">
               <div
-                style={{
-                  width: "80%",
-                  alignItems: "center",
-                  display: "flex",
-                  flexDirection: "row",
-                  marginBottom: "5vh",
-                }}
+                id="help-image-container-2"
+                // style={{
+                //   width: "80%",
+                //   alignItems: "center",
+                //   display: "flex",
+                //   flexDirection: "row",
+                //   marginBottom: "5vh",
+                // }}
               >
                 <div id="faq-image-para">
                   <p id="faq-title">FAQ</p>
@@ -98,53 +108,50 @@ function Help() {
                 <img src={help} id="helpImage" alt="Help" />
               </div>
             </div>
-            <div style={{ width: "80%", margin: "0 auto" }}>
-              <Accordion
-                expanded={expanded}
-                onChange={handleExpansion}
-                slots={{ transition: Fade }}
-                slotProps={{ transition: { timeout: 400 } }}
-                sx={{
-                  "& .MuiAccordion-region": { height: expanded ? "auto" : 0 },
-                  "& .MuiAccordionDetails-root": {
-                    display: expanded ? "block" : "none",
-                  },
-                }}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1-content"
-                  id="panel1-header"
-                >
-                  <Typography>Custom transition using Fade</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2-content"
-                  id="panel2-header"
-                >
-                  <Typography>Default transition using Collapse</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            </div>
           </div>
-          <div></div>
+          <Accordion
+            expanded={expanded}
+            onChange={handleExpansion}
+            // slots={{ transition: Fade }}
+            slotProps={{ transition: { timeout: 400 } }}
+            // sx={{
+            //   "& .MuiAccordion-region": { height: expanded ? "auto" : 0 },
+            //   "& .MuiAccordionDetails-root": {
+            //     display: expanded ? "block" : "none",
+            //   },
+            // }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              <Typography>Custom transition using Fade</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2-content"
+              id="panel2-header"
+            >
+              <Typography>Default transition using Collapse</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </div>
       </MainRightPane>
     </div>

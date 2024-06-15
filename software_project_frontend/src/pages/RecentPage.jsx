@@ -320,7 +320,6 @@ const RecentPage = () => {
 
   return (
     <div className="align1">
-
       {/* <MainLeftPane/> */}
 
       <MainRightPane>
@@ -343,13 +342,22 @@ const RecentPage = () => {
             <div
               id="summary-and-calendar-raw"
               style={{
-                width: "80%",
+                width: "90%",
                 display: "flex",
-                // alignItems: "center",
-                // justifyContent: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#F7EFE5",
               }}
             >
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  // marginLeft: "5vh",
+                }}
+              >
                 <div id="hi-container">
                   <Avatar sx={{ width: 55, height: 55 }}>
                     <img
@@ -415,36 +423,36 @@ const RecentPage = () => {
                 <DateCalendar
                   value={value}
                   onChange={(newValue) => setValue(newValue)}
-                  sx={{
-                    "& .MuiPickersDay-root": {
-                      color: "white",
-                    },
-                    "& .MuiPickersDay-root.Mui-selected": {
-                      backgroundColor: "white",
-                      color: "black",
-                    },
-                    "& .MuiPickersDay-root:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    },
-                    "& .MuiPickersCalendarHeader-root": {
-                      color: "white",
-                    },
-                    "& .MuiPickersCalendarHeader-switchViewButton": {
-                      color: "white",
-                    },
-                    "& .MuiPickersCalendarHeader-label": {
-                      color: "white",
-                    },
-                    "& .MuiPickersCalendarHeader-iconButton": {
-                      color: "white",
-                    },
-                    "& .MuiPickersYear-root": {
-                      color: "white",
-                    },
-                    "& .MuiPickersMonth-root": {
-                      color: "white",
-                    },
-                  }}
+                  // sx={{
+                  //   "& .MuiPickersDay-root": {
+                  //     color: "white",
+                  //   },
+                  //   "& .MuiPickersDay-root.Mui-selected": {
+                  //     backgroundColor: "white",
+                  //     color: "black",
+                  //   },
+                  //   "& .MuiPickersDay-root:hover": {
+                  //     backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  //   },
+                  //   "& .MuiPickersCalendarHeader-root": {
+                  //     color: "white",
+                  //   },
+                  //   "& .MuiPickersCalendarHeader-switchViewButton": {
+                  //     color: "white",
+                  //   },
+                  //   "& .MuiPickersCalendarHeader-label": {
+                  //     color: "white",
+                  //   },
+                  //   "& .MuiPickersCalendarHeader-iconButton": {
+                  //     color: "white",
+                  //   },
+                  //   "& .MuiPickersYear-root": {
+                  //     color: "white",
+                  //   },
+                  //   "& .MuiPickersMonth-root": {
+                  //     color: "white",
+                  //   },
+                  // }}
                 />
               </LocalizationProvider>
             </div>
