@@ -40,6 +40,8 @@ const AnswerScriptsPage = () => {
   const [gradingSnackbarOpen, setGradingSnackbarOpen] = useState(false);
   const [uploadingSnackbarOpen, setUploadingSnackbarOpen] = useState(false);
   const [markingSnackbarOpen, setMarkingSnackbarOpen] = useState(false);
+  const [failedGradingSnackbarOpen, setFailedGradingSnackbarOpen] = useState(false);
+  const [noSelectionSnackbarOpen, setNoSelectionSnackbarOpen] = useState(false);
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -61,6 +63,14 @@ const AnswerScriptsPage = () => {
     setGradingSnackbarOpen(false);
   };
 
+  const handleCloseFailedGradingSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+
+      return;
+    }
+    setFailedGradingSnackbarOpen(false);
+  };
+
   const handleCloseUploadingSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -74,6 +84,14 @@ const AnswerScriptsPage = () => {
     }
     setMarkingSnackbarOpen(false);
   };
+
+  const handleNoSelectionSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setNoSelectionSnackbarOpen(false);
+  };
+
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
 
@@ -174,13 +192,36 @@ const AnswerScriptsPage = () => {
     }
   }, [selectedFiles, selectedModuleCode, batch, assignmentid]);
 
+
   const handleNewAnswerScript = (event) => {
     const files = Array.from(event.target.files);
     setSelectedFiles(files);
   };
 
+  // const handleToggleAssignmentNo = (scriptId) => {
+  //   console.log(scriptId);
+  //   setSelectedAssignmentNos((prevSelectedAssignmentNos) => {
+  //     if (prevSelectedAssignmentNos.includes(scriptId)) {
+  //       return prevSelectedAssignmentNos.filter((id) => id !== scriptId);
+  //     } else {
+  //       return [...prevSelectedAssignmentNos, scriptId];
+  //     }
+  //   });
+
+  //   const selectedFile = answerScripts.find((script) => script.id === scriptId);
+
+  //   if (selectedFile) {
+  //     setSelectedFiles((prevSelectedFiles) => {
+  //       if (prevSelectedFiles.some((file) => file.id === scriptId)) {
+  //         return prevSelectedFiles.filter((file) => file.id !== scriptId);
+  //       } else {
+  //         return [...prevSelectedFiles, selectedFile];
+  //       }
+  //     });
+  //   }
+  // };
+
   const handleToggleAssignmentNo = (scriptId) => {
-    console.log(scriptId);
     setSelectedAssignmentNos((prevSelectedAssignmentNos) => {
       if (prevSelectedAssignmentNos.includes(scriptId)) {
         return prevSelectedAssignmentNos.filter((id) => id !== scriptId);
@@ -188,18 +229,8 @@ const AnswerScriptsPage = () => {
         return [...prevSelectedAssignmentNos, scriptId];
       }
     });
-
-    const selectedFile = answerScripts.find((script) => script.id === scriptId);
-    if (selectedFile) {
-      setSelectedFiles((prevSelectedFiles) => {
-        if (prevSelectedFiles.some((file) => file.id === scriptId)) {
-          return prevSelectedFiles.filter((file) => file.id !== scriptId);
-        } else {
-          return [...prevSelectedFiles, selectedFile];
-        }
-      });
-    }
   };
+  
 
   const handleToggleAllScripts = () => {
     if (selectedAssignmentNos.length === answerScripts.length) {
@@ -243,10 +274,12 @@ const AnswerScriptsPage = () => {
             await grade();
           } catch (error) {
             console.error("Error fetching data:", error);
+            setFailedGradingSnackbarOpen(true);
           }
         }
       } else {
         console.error("Error fetching data:", error);
+        setFailedGradingSnackbarOpen(true);
       }
     }
   };
@@ -277,15 +310,21 @@ const AnswerScriptsPage = () => {
 
   const deleteFiles = async () => {
     setLoading(true);
+    console.log("These are selected", selectedAssignmentNos);
+    
+
+    
     const response = await axios.delete(
       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${answerScripts.fieid}`,
       { selectedAssignmentNos }
     );
 
-    console.log(selectedAssignmentNos);
+    console.log("These are selected", selectedAssignmentNos);
 
     console.log("Deleted selected answer scripts", response.data);
     await fetchData();
+    
+    
 
     setLoading(false);
   };
@@ -293,23 +332,28 @@ const AnswerScriptsPage = () => {
   const handleDeleteFiles = async () => {
     console.log("Started Deleting Selected Files");
     console.log(selectedFiles);
-    try {
-      await deleteFiles();
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        const newAccessToken = await refreshAccessToken();
-        console.log("New access token: ", newAccessToken);
-
-        if (newAccessToken) {
-          try {
-            // await refreshAccessToken();
-            await deleteFiles();
-          } catch (error) {
-            console.error("Error fetching data:", error);
+    if(selectedAssignmentNos.length === null){
+      // setNoSelectionSnackbarOpen(true);
+    }
+    else{
+      try {
+        await deleteFiles();
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+  
+          if (newAccessToken) {
+            try {
+              // await refreshAccessToken();
+              await deleteFiles();
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
           }
+        } else {
+          console.error("Error fetching data:", error);
         }
-      } else {
-        console.error("Error fetching data:", error);
       }
     }
   };
@@ -362,11 +406,11 @@ const AnswerScriptsPage = () => {
             onClick={handleGradeAllFiles}
             icon={AssignmentTurnedInIcon}
           />
-          {/* <GradingButton
+          <GradingButton
             text="Grade selected files"
             onClick={handleGradeSelectedFiles}
             icon={CheckCircle}
-          /> */}
+          />
 
           <Link
             to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
@@ -385,32 +429,43 @@ const AnswerScriptsPage = () => {
         {loading ? (<div style={{display: "flex", justifyContent:"center", alignItems: "center", marginTop:"8vh"}}><CircularProgress/></div>) :
         <div className="columnAnswerScripts">
         
-          <Box sx={{ height: '100%', width: '100%' }}>
+          <Box sx={{ height: '100%', width: '100%', }}>
           
 
-            <DataGrid
-            
-              rows={answerScripts}
-              columns={columns}
-              getRowId={(row) => row.studentid}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 5,
-                  },
-                },
-              }}
-              pageSizeOptions={[5]}
-              checkboxSelection
-              disableRowSelectionOnClick
-              onRowClick={handleRowClick}
-              onRowSelectionModelChange={(newSelection) => {
-                newSelection.forEach((scriptId) => {
-                  handleToggleAssignmentNo(scriptId);
-                });
-              }}
-            
-            />
+          <DataGrid
+    
+      rows={answerScripts}
+      columns={columns}
+      getRowId={(row) => row.studentid}
+      initialState={{
+        pagination: {
+          paginationModel: {
+            pageSize: 5,
+          },
+        },
+      }}
+      pageSizeOptions={[5]}
+      checkboxSelection
+      disableRowSelectionOnClick
+      onRowClick={handleRowClick}
+      // onRowSelectionModelChange={(newSelection) => {
+      //   newSelection.forEach((scriptId) => {
+      //     handleToggleAssignmentNo(scriptId);
+      //   });
+      // }}
+      onRowSelectionModelChange={(newSelection) => {
+        setSelectedAssignmentNos(newSelection);
+      }}
+    
+    />
+
+
+
+
+
+
+
+
           
           </Box>
 
@@ -484,6 +539,18 @@ const AnswerScriptsPage = () => {
         <Snackbar open={markingSnackbarOpen} autoHideDuration={6000} onClose={handleCloseMarkingSnackbar}>
           <Alert onClose={handleCloseMarkingSnackbar} severity="info" variant="filled" sx={{ width: '100%' }}>
             Answer scripts are being graded. This may take a few minutes. Please wait!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={failedGradingSnackbarOpen} autoHideDuration={6000} onClose={handleCloseFailedGradingSnackbar}>
+          <Alert onClose={handleCloseFailedGradingSnackbar} severity="error" variant="filled" sx={{ width: '100%' }}>
+            Error: Grading failed!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={noSelectionSnackbarOpen} autoHideDuration={6000} onClose={handleNoSelectionSnackbar}>
+          <Alert onClose={handleNoSelectionSnackbar} severity="error" variant="filled" sx={{ width: '100%' }}>
+            Please select files to delete!
           </Alert>
         </Snackbar>
       </MainRightPane>
