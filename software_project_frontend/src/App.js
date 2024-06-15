@@ -26,9 +26,11 @@ import Settings from "./pages/Settings";
 import DeleteAssignment from "./pages/DeleteAssignment";
 import EditAssignment from "./pages/EditAssignment";
 import MainLayout from "./pages/MainLayout";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
+    <SnackbarProvider>
     <div id="App" className="background" style={{ backgroundColor: "#7894DB" }}>
       <Router>
         <Routes>
@@ -108,6 +110,7 @@ function App() {
       {/* <Login/> */}
       {/* <SignUp/> */}
     </div>
+    </SnackbarProvider>
   );
 }
 
