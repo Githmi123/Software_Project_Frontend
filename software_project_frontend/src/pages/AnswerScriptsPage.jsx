@@ -22,6 +22,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 // import SnackBar from "../components/SnackBar";
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import refreshAccessToken from "../services/AuthService";
 
@@ -52,6 +53,13 @@ const AnswerScriptsPage = () => {
     { field: "fileid", headerName: "File ID", width: 150 },
     { field: "graded", headerName: "Graded", width: 150 },
   ];
+
+
+  const handleClick = () => {
+    enqueueSnackbar('I love snacks.');
+  };
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleCloseGradingSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -125,11 +133,16 @@ const AnswerScriptsPage = () => {
             // await refreshAccessToken();
             await fetchData();
           } catch (error) {
+            setLoading(false);
             console.error("Error fetching data:", error);
+            
+            enqueueSnackbar('Connection Error!', { variant: 'error' });
           }
         }
       } else {
         console.error("Error fetching data:", error);
+        setLoading(false);
+        enqueueSnackbar('Connection Error!', { variant: 'error' });
       }
     }
   };
@@ -157,7 +170,7 @@ const AnswerScriptsPage = () => {
     fetchAnswerscripts();
     setLoading(false);
 
-    setUploadingSnackbarOpen(true);
+    
   };
 
   useEffect(() => {
@@ -165,6 +178,7 @@ const AnswerScriptsPage = () => {
       try {
         // await refreshAccessToken();
         await upload();
+        enqueueSnackbar('Answer script uploaded successfully!', { variant: 'success' });
       } catch (error) {
         if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
@@ -174,12 +188,19 @@ const AnswerScriptsPage = () => {
             try {
               // await refreshAccessToken();
               await upload();
+              enqueueSnackbar('Answer script uploaded successfully!', { variant: 'success' });
             } catch (error) {
+              setLoading(false);
               console.error("Error fetching data:", error);
+              enqueueSnackbar('Failed to upload answer script!', { variant: 'error' });
+              
             }
           }
         } else {
+          setLoading(false);
           console.error("Error fetching data:", error);
+          enqueueSnackbar('Failed to upload answer script!', { variant: 'error' });
+          
         }
       }
     };
@@ -240,7 +261,7 @@ const AnswerScriptsPage = () => {
 
   const grade = async () => {
     setLoading(true);
-    setMarkingSnackbarOpen(true);
+    enqueueSnackbar('Grading is starting. This may take a few minutes. Please wait!', { variant: 'info' });
     const response = await axios.post(
       // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
@@ -248,17 +269,17 @@ const AnswerScriptsPage = () => {
     );
 
     console.log("Got Response");
-
-    console.log("Graded all answer scripts", response.data);
-
-    setGradingSnackbarOpen(true);
     setLoading(false);
+    console.log("Graded all answer scripts", response.data);
+    
+    enqueueSnackbar('Grading completed successfully!', { variant: 'success' });
+    
   };
   const handleGradeAllFiles = async () => {
     
     console.log("Started Grading");
     try {
-      setMarkingSnackbarOpen(true);
+      // setMarkingSnackbarOpen(true);
       await grade();
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -270,29 +291,69 @@ const AnswerScriptsPage = () => {
             // await refreshAccessToken();
             await grade();
           } catch (error) {
+            setLoading(false);
             console.error("Error fetching data:", error);
-            setFailedGradingSnackbarOpen(true);
+            enqueueSnackbar('Error: Grading failed!', { variant: 'error' });
+            
           }
         }
       } else {
+        setLoading(false);
         console.error("Error fetching data:", error);
-        setFailedGradingSnackbarOpen(true);
+        // setFailedGradingSnackbarOpen(true);
+        enqueueSnackbar('Error: Grading failed!', { variant: 'error' });
+        
       }
     }
   };
 
+  const gradeSelected = async () => {
+    setLoading(true);
+    enqueueSnackbar('Answer scripts are being graded. This may take a few minutes. Please wait!', { variant: 'info' });
+        const response = await axios.post(
+          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+          { selectedAssignmentNos }
+        );
+  
+        console.log("Graded selected answer scripts", response.data);
+        setLoading(false);
+        enqueueSnackbar('Grading completed successfully!', { variant: 'success' });
+        
+  }
+
   const handleGradeSelectedFiles = async () => {
     console.log("Started Grading Selected Files");
-    try {
-      const response = await axios.post(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
-        { selectedAssignmentNos }
-      );
-
-      console.log("Graded selected answer scripts", response.data);
-    } catch (error) {
-      console.error("Error grading selected answer scripts:", error);
+    if(selectedAssignmentNos.length === 0){
+      enqueueSnackbar('Please select files to delete!', { variant: 'error' });
     }
+    else{
+      try {
+        await gradeSelected();
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+  
+          if (newAccessToken) {
+            try {
+              // await refreshAccessToken();
+              await grade();
+            } catch (error) {
+              setLoading(false);
+              console.error("Error fetching data:", error);
+              enqueueSnackbar('Error: Grading failed!', { variant: 'error' });
+            }
+          }
+        } else {
+          setLoading(false);
+          console.error("Error fetching data:", error);
+          // setFailedGradingSnackbarOpen(true);
+          enqueueSnackbar('Error: Grading failed!', { variant: 'error' });
+          
+        }
+      }
+    }
+    
   };
 
   const handleGradeManually = (event) => {};
@@ -329,8 +390,8 @@ const AnswerScriptsPage = () => {
   const handleDeleteFiles = async () => {
     console.log("Started Deleting Selected Files");
     console.log(selectedFiles);
-    if(selectedAssignmentNos.length === null){
-      // setNoSelectionSnackbarOpen(true);
+    if(selectedAssignmentNos.length === 0){
+      enqueueSnackbar('Please select files to delete!', { variant: 'error' });
     }
     else{
       try {
@@ -345,11 +406,17 @@ const AnswerScriptsPage = () => {
               // await refreshAccessToken();
               await deleteFiles();
             } catch (error) {
+              setLoading(false);
               console.error("Error fetching data:", error);
+              enqueueSnackbar('Failed to delete answer scripts!', { variant: 'error' });
+              
             }
           }
         } else {
+          setLoading(false);
           console.error("Error fetching data:", error);
+          enqueueSnackbar('Failed to delete answer scripts!', { variant: 'error' });
+          
         }
       }
     }
@@ -365,6 +432,7 @@ const AnswerScriptsPage = () => {
   };
 
   return (
+    
     <div className="align1">
       <MainRightPane>
         <Button id = "back-button"
