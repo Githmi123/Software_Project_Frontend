@@ -1,38 +1,145 @@
-#setting-title {
+#body {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f0f2f5;
 }
 
 #setting-title-container {
-  height: 40vh;
   background-color: #5783cf;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  text-align: center;
 }
 
 #setting-image {
-  width: 15rem;
-  height: 15rem;
-  /* margin-right: auto;
-  margin-top: 5vh;
-  margin-bottom: 5vh; */
-  /* margin: 5vh auto; */
+  width: 10rem;
+  height: 10rem;
 }
 
 #setting-titles {
-  margin-left: 5vh;
+  margin-top: 2rem;
+  text-align: left;
 }
 
-#settings-title {
+#settings-title,
+#settings-sub-title,
+#setting-para {
   color: white;
-}
-
-#settings-sub-title {
-  color: white;
+  text-align: center;
 }
 
 #setting-para {
-  color: white;
-  margin-top: 5vh;
+  margin-top: 1rem;
+}
+
+.content-container {
+  background-color: white;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  #setting-title-container {
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: left;
+    height: auto;
+    padding: 40px;
+  }
+
+  #setting-image {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  #setting-titles {
+    margin-left: 2rem;
+    max-width: 600px;
+    text-align: left;
+  }
+
+  #settings-title {
+    font-size: 2rem;
+  }
+
+  #settings-sub-title {
+    font-size: 1.2rem;
+  }
+
+  #setting-para {
+    font-size: 1rem;
+  }
+
+  .content-container {
+    width: 70%;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  #setting-image {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  #setting-title-container {
+    padding: 20px;
+  }
+
+  #setting-titles {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  #settings-title {
+    font-size: 1.5rem;
+  }
+
+  #settings-sub-title {
+    font-size: 1rem;
+  }
+
+  #setting-para {
+    font-size: 0.9rem;
+  }
+
+  .content-container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #setting-image {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  #setting-titles {
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  #settings-title {
+    font-size: 1.2rem;
+  }
+
+  #settings-sub-title {
+    font-size: 0.8rem;
+  }
+
+  #setting-para {
+    font-size: 0.8rem;
+  }
 }
