@@ -143,10 +143,20 @@
     font-size: 0;
     height: auto;
   }
+
+  #heading {
+    font-weight: bold;
+    font-size: 4vw;
+    margin-left: 7vh;
+  }
 }
 
 @media (max-height: 300px){
   #back-button{
+    display: none;
+  }
+
+  #heading {
     display: none;
   }
 }
