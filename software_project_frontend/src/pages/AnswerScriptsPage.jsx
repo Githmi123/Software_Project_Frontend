@@ -53,11 +53,8 @@ const AnswerScriptsPage = () => {
     { field: "graded", headerName: "Graded", width: 150 },
   ];
 
-
-
   const handleCloseGradingSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
-
+    if (reason === "clickaway") {
       return;
     }
     setGradingSnackbarOpen(false);
@@ -72,7 +69,7 @@ const AnswerScriptsPage = () => {
   };
 
   const handleCloseUploadingSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setUploadingSnackbarOpen(false);
@@ -161,7 +158,7 @@ const AnswerScriptsPage = () => {
     setLoading(false);
 
     setUploadingSnackbarOpen(true);
-  }
+  };
 
   useEffect(() => {
     const uploadNewAnswerscripts = async () => {
@@ -373,12 +370,14 @@ const AnswerScriptsPage = () => {
         <Button id = "back-button"
           sx={{
             // m: 2,
+
             // width: "100px",
             // height: "50px",
             // color: "black",
             // fontWeight: "bold",
             // marginBottom: "2vh",
             
+
           }}
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
@@ -394,7 +393,7 @@ const AnswerScriptsPage = () => {
             justifyContent: "space-between",
             marginLeft: "5vw",
             marginRight: "5vw",
-            marginTop: "2vh"
+            marginTop: "2vh",
           }}
         >
           <CustomNewButton
@@ -469,7 +468,7 @@ const AnswerScriptsPage = () => {
           
           </Box>
 
-          {/* <table className="tableStyle2">
+            {/* <table className="tableStyle2">
 
             <tbody>
               {answerScripts &&
@@ -506,7 +505,9 @@ const AnswerScriptsPage = () => {
             </tbody>
           </table> */}
           </div>
+
         }
+
         <div
           style={{
             marginTop: "1vh",
@@ -523,15 +524,32 @@ const AnswerScriptsPage = () => {
           </Link> */}
         </div>
 
-        <Snackbar open={gradingSnackbarOpen} autoHideDuration={6000} onClose={handleCloseGradingSnackbar}>
-          <Alert onClose={handleCloseGradingSnackbar} severity="success" variant="filled" sx={{ width: '100%' }}>
-
+        <Snackbar
+          open={gradingSnackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleCloseGradingSnackbar}
+        >
+          <Alert
+            onClose={handleCloseGradingSnackbar}
+            severity="success"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
             Grading completed successfully!
           </Alert>
         </Snackbar>
 
-        <Snackbar open={uploadingSnackbarOpen} autoHideDuration={6000} onClose={handleCloseUploadingSnackbar}>
-          <Alert onClose={handleCloseUploadingSnackbar} severity="success" variant="filled" sx={{ width: '100%' }}>
+        <Snackbar
+          open={uploadingSnackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleCloseUploadingSnackbar}
+        >
+          <Alert
+            onClose={handleCloseUploadingSnackbar}
+            severity="success"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
             Answer script uploaded successfully!
           </Alert>
         </Snackbar>
