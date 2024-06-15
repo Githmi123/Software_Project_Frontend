@@ -129,15 +129,11 @@ const RecentPage = () => {
         const { moduleCode, batch, assignmentId } = assignment;
 
         try {
-          await refreshAccessToken();
+          // await refreshAccessToken();
 
           const response = await axios.get(
-            `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${studentid}`,
-            {
-              headers: {
-                Authorization: `Bearer ${Cookies.get("accessToken")}`,
-              },
-            }
+            `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${''}`,
+            
           );
 
           console.log("Details of the answer scripts:", response.data);

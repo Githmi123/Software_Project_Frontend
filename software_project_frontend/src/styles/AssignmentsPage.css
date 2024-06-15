@@ -128,3 +128,25 @@
 #export-custom-button {
   background-color: aqua;
 }
+
+#back-button{
+  width: 100px;
+  color: black;
+  height: 50px;
+  font-weight: bold;
+  margin-bottom: 2vh;
+}
+
+
+@media (max-width: 768px){
+  #back-button{
+    font-size: 0;
+    height: auto;
+  }
+}
+
+@media (max-height: 300px){
+  #back-button{
+    display: none;
+  }
+}

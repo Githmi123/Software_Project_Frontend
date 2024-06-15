@@ -317,14 +317,14 @@ const AnswerScriptsPage = () => {
   return (
     <div className="align1">
       <MainRightPane>
-        <Button
+        <Button id = "back-button"
           sx={{
             // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh",
+            // width: "100px",
+            // height: "50px",
+            // color: "black",
+            // fontWeight: "bold",
+            // marginBottom: "2vh",
             
           }}
           startIcon={<ArrowBackIcon />}
@@ -442,7 +442,7 @@ const AnswerScriptsPage = () => {
             </tbody>
           </table> */}
           </div>
-        )}
+        }
         <div
           style={{
             marginTop: "1vh",
