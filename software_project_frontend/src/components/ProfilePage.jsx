@@ -134,7 +134,7 @@ export default function ProfilePage() {
       
   return (
     <section style={{ backgroundColor: 'transparent'}}>
-      <MDBContainer className="py-5" style={{ justifyContent:"center", display:"flex", height:"100%" }}>
+      <MDBContainer style={{ justifyContent:"center", display:"flex", height:"100%", alignContent:"flex-start", margin:"0" }}>
       <Button
           sx={{
             // m: 2,
@@ -142,6 +142,7 @@ export default function ProfilePage() {
             height: "50px",
             color: "black",
             fontWeight: "bold",
+            marginBottom: "2vh"
           }}
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}

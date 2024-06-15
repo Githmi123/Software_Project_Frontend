@@ -1,8 +1,9 @@
-import { Button } from '@mui/material'
+import { Button, Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Height } from '@mui/icons-material';
+import '../ButtonSet/ButtonSet.css'
 
 
 
@@ -25,15 +26,19 @@ function LeftPaneButton({ icon: Icon, name, link, isSelected, onClick }) {
     
 
     return (
-        <Button
+        <Tooltip title = {name} arrow>
+            <Button
             className="button"
             component={Link} to={link}
             startIcon={<Icon />}
             sx={buttonStyle}
-            onClick={onClick}
+            onClick={onClick} 
+            
         >
-            {name}
+            <span className='button-text'>{name}</span>
         </Button>
+        </Tooltip>
+        
     )
 }
 

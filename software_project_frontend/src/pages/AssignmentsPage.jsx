@@ -135,23 +135,24 @@ const AssignmentsPage = () => {
       <MainRightPane>
         <Button
           sx={{
-            m: 2,
+            // m: 2,
             width: "100px",
             height: "50px",
             color: "black",
             fontWeight: "bold",
+            marginBottom: "2vh"
           }}
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
-          Home
+          Back
         </Button>
         <h1 id="heading">
           {selectedModuleCode} - {batch} batch
         </h1>
         <div>
           {/* <CustomNewButton text = "New Assignment" onClick={handleNewBatch}/> */}
-          <Link to={`/NewAssignment/${selectedModuleCode}/${batch}`} style={{ textDecoration: "none" }}>
+          <Link to={'/NewAssignment'} style={{ textDecoration: "none" }}>
           
             {/* Wrap the button with Link */}
             <CustomNewButton text="New Assignment" onClick={handleNewBatch} />

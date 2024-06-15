@@ -10,6 +10,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ProfilePage from "../ProfilePage";
+import MainRightPane from "../MainRightPane/MainRightPane";
 
 export const NewUserProfileRightPane = () => {
   const [profileData, setProfileData] = useState("");
@@ -53,8 +54,8 @@ export const NewUserProfileRightPane = () => {
   };
 
   return (
-    <div id="rightpane">
+    <MainRightPane>
       <ProfilePage/>
-    </div>
+    </MainRightPane>
   );
 };
