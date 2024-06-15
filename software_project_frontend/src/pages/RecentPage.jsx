@@ -22,6 +22,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Delete, Edit } from "@mui/icons-material";
+import Avatar from "@mui/material/Avatar";
 
 import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -33,6 +34,7 @@ import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import image from "../images/image.png";
 
 const headers = ["Assignment", "Batch", "Date Created"];
 
@@ -47,6 +49,8 @@ const RecentPage = () => {
   const [value, setValue] = React.useState(dayjs());
   const [progress, setProgress] = React.useState(10);
   const [loading, setLoading] = useState(false);
+  const [imageSRC, setImageSRC] = useState(image);
+  const [marked, setMarked] = useState("");
 
   const navigate = useNavigate();
 
@@ -55,67 +59,101 @@ const RecentPage = () => {
     { field: "batch", headerName: "Batch", width: 300 },
     { field: "dateCreated", headerName: "Date Created", width: 150 },
   ];
-
   const getData = async () => {
     setLoading(true);
     console.log("No need to refresh");
-    const modulesResponse = await axios.get("http://localhost:3500/modules");
-    const modules = modulesResponse.data;
-    const formattedModules = modules.map((module) => ({
-      moduleCode: module.modulecode,
-      moduleName: module.modulename,
-      moduleCredits: module.credits,
-    }));
-    setModuleData(formattedModules);
 
-    console.log("Module Data", formattedModules);
-
-    const allBatches = [];
-    for (const module of modules) {
-      const batchResponse = await axios.get(
-        `http://localhost:3500/batch/${module.modulecode}`
-      );
-      const batches = batchResponse.data.map((batch) => ({
+    try {
+      const modulesResponse = await axios.get("http://localhost:3500/modules");
+      const modules = modulesResponse.data;
+      const formattedModules = modules.map((module) => ({
         moduleCode: module.modulecode,
-        batch: batch.batch,
         moduleName: module.modulename,
+        moduleCredits: module.credits,
       }));
-      allBatches.push(...batches);
-    }
-    setBatchData(allBatches);
+      setModuleData(formattedModules);
 
-    console.log("Batch Data", allBatches);
+      console.log("Module Data", formattedModules);
 
-    const allAssignments = [];
-    for (const batch of allBatches) {
-      const assignmentResponse = await axios.get(
-        `http://localhost:3500/assignment/${batch.moduleCode}/${batch.batch}`
-      );
-      const assignmentsData = assignmentResponse.data;
-
-      if (
-        typeof assignmentsData === "object" &&
-        assignmentsData !== null &&
-        Array.isArray(assignmentsData.rows)
-      ) {
-        const formattedAssignments = assignmentsData.rows.map((assignment) => ({
-          assignment: assignment.assignmenttitle,
-          moduleName: batch.moduleName,
-          moduleCode: batch.moduleCode,
+      const allBatches = [];
+      for (const module of modules) {
+        const batchResponse = await axios.get(
+          `http://localhost:3500/batch/${module.modulecode}`
+        );
+        const batches = batchResponse.data.map((batch) => ({
+          moduleCode: module.modulecode,
           batch: batch.batch,
-          assignmentId: assignment.assignmentid,
-          dateCreated: new Date(assignment.assignmentdate).toLocaleDateString(),
+          moduleName: module.modulename,
         }));
-
-        allAssignments.push(...formattedAssignments);
-      } else {
-        console.error("Invalid assignmentsData:", assignmentsData);
+        allBatches.push(...batches);
       }
-    }
-    setAssignments(allAssignments);
-    setLoading(false);
+      setBatchData(allBatches);
 
-    console.log("Assignments Data", allAssignments);
+      console.log("Batch Data", allBatches);
+
+      const allAssignments = [];
+      for (const batch of allBatches) {
+        const assignmentResponse = await axios.get(
+          `http://localhost:3500/assignment/${batch.moduleCode}/${batch.batch}`
+        );
+        const assignmentsData = assignmentResponse.data;
+
+        if (
+          typeof assignmentsData === "object" &&
+          assignmentsData !== null &&
+          Array.isArray(assignmentsData.rows)
+        ) {
+          const formattedAssignments = assignmentsData.rows.map(
+            (assignment) => ({
+              assignment: assignment.assignmenttitle,
+              moduleName: batch.moduleName,
+              moduleCode: batch.moduleCode,
+              batch: batch.batch,
+              assignmentId: assignment.assignmentid,
+              dateCreated: new Date(
+                assignment.assignmentdate
+              ).toLocaleDateString(),
+            })
+          );
+
+          allAssignments.push(...formattedAssignments);
+        } else {
+          console.error("Invalid assignmentsData:", assignmentsData);
+        }
+      }
+      setAssignments(allAssignments);
+      console.log("Assignments Data", allAssignments);
+
+      const allGrades = [];
+      for (const assignment of allAssignments) {
+        const { moduleCode, batch, assignmentId } = assignment;
+
+        try {
+          await refreshAccessToken();
+
+          const response = await axios.get(
+            `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${studentid}`,
+            {
+              headers: {
+                Authorization: `Bearer ${Cookies.get("accessToken")}`,
+              },
+            }
+          );
+
+          console.log("Details of the answer scripts:", response.data);
+          console.log(typeof response.data);
+
+          allGrades.push(response.data);
+        } catch (error) {
+          console.error("Error displaying answer scripts:", error);
+        }
+      }
+      setMarked(allGrades);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -129,6 +167,9 @@ const RecentPage = () => {
 
         setFirstName(user.firstname);
         console.log("First name:", user.firstname); // Log the first name here
+        if (user.profilepic) {
+          setImageSRC(user.profilepic);
+        }
         setLastName(user.lastname);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -310,13 +351,30 @@ const RecentPage = () => {
             >
               <div>
                 <div id="hi-container">
-                  <p id="name-hi">
-                    Hi, {firstName} {lastName}
-                  </p>
-                  <p id="good-time">
-                    {"Good " +
-                      (hr < 12 ? "Morning" : hr < 18 ? "Afternoon" : "Evening")}
-                  </p>
+                  <Avatar sx={{ width: 55, height: 55 }}>
+                    <img
+                      src={imageSRC}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </Avatar>
+                  <div id="hi-paragraphs">
+                    <p id="name-hi">
+                      Hi, {firstName} {lastName}
+                    </p>
+                    <p id="good-time">
+                      {"Good " +
+                        (hr < 12
+                          ? "Morning"
+                          : hr < 18
+                          ? "Afternoon"
+                          : "Evening")}
+                    </p>
+                  </div>
                 </div>
                 <div id="summary-graph">
                   <Box

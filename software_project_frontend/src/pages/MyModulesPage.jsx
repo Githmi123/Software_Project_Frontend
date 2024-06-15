@@ -5,16 +5,16 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MainLeftPane from "../components/MainLeftPane/MainLeftPane";
 import MainRightPane from "../components/MainRightPane/MainRightPane";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import refreshAccessToken from '../services/AuthService';
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
+import refreshAccessToken from "../services/AuthService";
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
 import { Delete, Edit } from "@mui/icons-material";
 
 import Cookies from "js-cookie";
@@ -45,19 +45,16 @@ const MyModulesPage = () => {
   const navigate = useNavigate();
 
   const columns = [
-    { field: 'modulecode', headerName: 'Module Code', width: 150 },
-    { field: 'modulename', headerName: 'Module Name', width: 300 },
-    { field: 'credits', headerName: 'Credits', width: 150 },
+    { field: "modulecode", headerName: "Module Code", width: 150 },
+    { field: "modulename", headerName: "Module Name", width: 300 },
+    { field: "credits", headerName: "Credits", width: 150 },
   ];
 
   const getData = async () => {
     console.log("Fetching modules data");
     setLoading(true);
-   
 
-    const response = await axios.get(
-      "http://localhost:3500/modules"
-    );
+    const response = await axios.get("http://localhost:3500/modules");
     console.log(response.data);
     setTableDataModules(response.data);
 
@@ -78,19 +75,18 @@ const MyModulesPage = () => {
     }
 
     setLoading(false);
-
-  }
+  };
 
   useEffect(() => {
     const fetchModules = async (e) => {
       try {
         await getData();
       } catch (error) {
-        if(error.response && error.response.status === 401){
+        if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
           console.log("New access token: ", newAccessToken);
 
-          if(newAccessToken){
+          if (newAccessToken) {
             try {
               // await refreshAccessToken();
               await getData();
@@ -98,8 +94,7 @@ const MyModulesPage = () => {
               console.error("Error fetching data:", error);
             }
           }
-        }
-        else{
+        } else {
           console.error("Error fetching data:", error);
         }
       }
@@ -125,13 +120,11 @@ const MyModulesPage = () => {
     //       }
     //   )
 
-     
-      navigate(`/EditModule/${modulecode}`);
+    navigate(`/EditModule/${modulecode}`);
     // } catch (error) {
     //   console.error("Error editing module:", error);
     // }
   };
-
 
   const handleDeleteModule = async (modulecode) => {
     navigate(`/DeleteModule/${modulecode}`);
@@ -151,7 +144,6 @@ const MyModulesPage = () => {
     //       }
     //   )
 
-     
     //   navigate("/MyModulePage");
     // } catch (error) {
     //   console.error("Error editing module:", error);
@@ -189,13 +181,13 @@ const MyModulesPage = () => {
   //   setSelectedRecentModule(assignment);
   //   navigate(`/AnswerScripts/batch/${assignment.batch}/modulecode/${assignment.moduleCode}/assignmentid/${assignment.assignmentId}`);
   // };
-// answerScripts
+  // answerScripts
   //console.log("module code", selectedModule);
 
   return (
     <div className="align1">
-     
       <MainRightPane>
+        {/* <Button
         {/* <Button
           sx={{
             m: 2,
@@ -210,12 +202,20 @@ const MyModulesPage = () => {
           Back
         </Button> */}
         <h1 id="heading">My Modules</h1>
-        
-        <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent: "space-evenly", marginRight:"2vw"}}>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            marginRight: "2vw",
+          }}
+        >
           {/* <Link to={`/Batches/${selectedModule}`}>
             <CustomNewButton text="View Module" />
           </Link> */}
-          
+
           <Link to="/NewModule" style={{ textDecoration: "none" }}>
             <CustomNewButton text="New Module" onClick={handleNewModule} />
           </Link>
@@ -227,46 +227,62 @@ const MyModulesPage = () => {
           {/* <Link to={`/DeleteModule/${selectedModule}`}>
             <CustomNewButton onClick = {handleDeleteModule} text="Delete Module" />
           </Link> */}
-
         </div>
-        <div className="columnModules" style={{width:"80%"}}>
-        {loading ? (
-            <div style={{display:"flex", justifyContent: "center"}}><CircularProgress/></div>
-          ):
-        <List sx={{ width: '100%', bgcolor: 'background.paper', overflow:"auto", height:"80%"}}>
+        <div className="columnModules" style={{ width: "80%" }}>
+          {loading ? (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <List
+              sx={{
+                width: "100%",
+                bgcolor: "background.paper",
+                overflow: "auto",
+                height: "80%",
+              }}
+            >
               {tableDataModules.map((module, index) => (
                 <ListItem
-                  
                   key={module.modulecode}
                   secondaryAction={
                     <div>
-                      <IconButton edge="end" aria-label="edit" onClick={() => handleEditModule(module.modulecode)}>
+                      <IconButton
+                        edge="end"
+                        aria-label="edit"
+                        onClick={() => handleEditModule(module.modulecode)}
+                      >
                         <Edit />
                       </IconButton>
-                      <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteModule(module.modulecode)}>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => handleDeleteModule(module.modulecode)}
+                      >
                         <Delete />
                       </IconButton>
                     </div>
                   }
                   disablePadding
                 >
-                  <ListItemButton onClick={() => handleSelectedModule(module.modulecode)}>
-                    <ListItemText primaryTypographyProps={{ style: { fontSize: '2vh' } }}
-    // secondaryTypographyProps={{ style: {  } }}
+                  <ListItemButton
+                    onClick={() => handleSelectedModule(module.modulecode)}
+                  >
+                    <ListItemText
+                      primaryTypographyProps={{ style: { fontSize: "2vh" } }}
+                      // secondaryTypographyProps={{ style: {  } }}
                       primary={`${module.modulecode} - ${module.modulename}`}
-                      secondary={
-                        <span>
-                          Credits: {module.credits}
-                        </span>
-                      }
-                      secondaryTypographyProps={{ component: 'span', style: { display: 'inline', fontSize: '1.5vh' } }}
+                      secondary={<span>Credits: {module.credits}</span>}
+                      secondaryTypographyProps={{
+                        component: "span",
+                        style: { display: "inline", fontSize: "1.5vh" },
+                      }}
                     />
                   </ListItemButton>
                 </ListItem>
               ))}
             </List>
-}
-          
+          )}
         </div>
         {/* <div className="columnModules">
           <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
@@ -293,7 +309,6 @@ const MyModulesPage = () => {
             />
           </Box>
         </div> */}
-        
       </MainRightPane>
     </div>
   );
