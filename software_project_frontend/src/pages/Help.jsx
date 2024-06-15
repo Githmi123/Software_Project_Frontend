@@ -44,7 +44,7 @@ function Help() {
             }}
           >
             <h3>Contact Us</h3>
-            <h5>Get in touch and let us know how we can help</h5>
+            <h5>We're here to assist you</h5>
           </div>
 
           <div id="help-support-options">
@@ -53,8 +53,8 @@ function Help() {
                 <ContactMailIcon fontSize="large" color="primary" />
               </div>
               <div className="help-container-paragraph">
-                <p className="container-title">Chat to Support</p>
-                <p>We’re here to help.</p>
+                <p className="container-title">Chat</p>
+                <p>We’re here.</p>
                 <div className="help-contact-detail">
                   <p>rapidscore123@gmail.com</p>
                 </div>
@@ -66,7 +66,7 @@ function Help() {
               </div>
               <div className="help-container-paragraph">
                 <p className="container-title">Our Tutorials</p>
-                <p>Helpful tutorials available</p>
+                <p>Helpful tutorials</p>
                 <div className="help-contact-detail">
                   <p>view on youtube</p>
                 </div>
@@ -85,7 +85,7 @@ function Help() {
               </div>
             </div>
           </div>
-          <div style={{ backgroundColor: "#ffdd95", marginTop: "10vh" }}>
+          <div style={{ backgroundColor: "#ffdd95", marginTop: "5   vh" }}>
             <div id="faq-image-container">
               <div
                 id="help-image-container-2"

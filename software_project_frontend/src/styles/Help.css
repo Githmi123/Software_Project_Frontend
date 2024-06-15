@@ -175,6 +175,11 @@ html {
 }
 
 @media (min-width: 768px) {
+  #help-backgroud h5 {
+    color: black;
+    margin-bottom: 5vh;
+  }
+
   #help-support-options {
     flex-direction: row;
     flex-wrap: wrap;
@@ -210,6 +215,10 @@ html {
 }
 
 @media (max-width: 480px) {
+  #help-backgroud h5 {
+    color: black;
+    margin-bottom: 5vh;
+  }
   #help-support-options {
     flex-direction: column;
     align-items: center;
@@ -217,7 +226,7 @@ html {
 
   .help-support-options-container {
     margin: 5vh 0;
-    width: 90%;
+    width: 100%;
   }
 
   #faq-image-container {
