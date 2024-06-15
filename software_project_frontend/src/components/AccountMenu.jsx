@@ -17,6 +17,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import image from "../images/image.png";
 import refreshAccessToken from '../services/AuthService';
+import './AccountMenu.css';
 
 export default function AccountMenu() {
   const [firstName, setFirstName] = useState("");
@@ -171,19 +172,22 @@ export default function AccountMenu() {
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
+        
         open={open}
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
-            width: "10vw",
+            width: "auto",
+            // paddingLeft:"10px",
+            // paddingRight:"10px",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mb: 20,
             "& .MuiAvatar-root": {
               width: 40,
-              height: 32,
+              height: "auto",
               ml: 0.5,
               mr: 1,
             },
@@ -191,10 +195,10 @@ export default function AccountMenu() {
               content: '""',
               display: "block",
               position: "relative",
-              top: 10,
+              // top: 10,
               // right: "20vw",
               width: 0,
-              height: 10,
+              height: "auto",
               bgcolor: "background.paper",
               transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
@@ -205,22 +209,19 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "10vh",
-          }}
+          className="account-menu"
+          
         >
-          <Typography sx={{ color: "black", fontSize: "3vh" }}>
+          
+          <Typography id = "account-name">
             {firstName} {lastName}
           </Typography>
-          <Typography>{designation}</Typography>
+          <Typography id = "designation-in-menu">{designation}</Typography>
         </div>
 
         <Divider />
         <MenuItem onClick={handleProfile}>
+        <Tooltip title = "Profile" arrow>
           <img
             src={imageSRC}
             style={{
@@ -231,8 +232,13 @@ export default function AccountMenu() {
             }}
             alt="Avatar"
           />
+          </Tooltip>
           <div style={{ width: "10px" }} />
-          Profile
+          
+          <div className="profile-text">Profile</div>
+
+          
+          
         </MenuItem>
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> My account
@@ -251,10 +257,13 @@ export default function AccountMenu() {
           Settings
         </MenuItem> */}
         <MenuItem onClick={handleLogout}>
+        <Tooltip title = "Log Out" arrow>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          </Tooltip>
+          <div className="profile-text">Log Out</div>
+          
         </MenuItem>
       </Menu>
     </React.Fragment>

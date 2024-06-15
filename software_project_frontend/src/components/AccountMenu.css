@@ -1,0 +1,41 @@
+.profile-text{
+    display: flex;
+}
+
+#account-name{
+    color: black;
+    font-size: 19px;
+    text-align: center;
+}
+
+.account-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+
+@media (max-width: 768px), (max-height: 600px){
+    .profile-text{
+        display: none;
+    }
+
+
+    #account-name{
+        display: none;
+    }
+
+    #designation-in-menu{
+        display: none;
+    }
+
+    .account-menu{
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
