@@ -39,6 +39,7 @@ const AnswerScriptsPage = () => {
   const [loading, setLoading] = useState(false);
   const [gradingSnackbarOpen, setGradingSnackbarOpen] = useState(false);
   const [uploadingSnackbarOpen, setUploadingSnackbarOpen] = useState(false);
+  const [markingSnackbarOpen, setMarkingSnackbarOpen] = useState(false);
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -62,6 +63,13 @@ const AnswerScriptsPage = () => {
       return;
     }
     setUploadingSnackbarOpen(false);
+  };
+
+  const handleCloseMarkingSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setMarkingSnackbarOpen(false);
   };
 
   console.log("the required data  : ", selectedModuleCode, batch, assignmentid);
@@ -201,7 +209,7 @@ const AnswerScriptsPage = () => {
 
   const grade = async () => {
     setLoading(true);
-    // setSnackbarOpen(true);
+    setMarkingSnackbarOpen(true);
     const response = await axios.post(
       // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
@@ -216,9 +224,10 @@ const AnswerScriptsPage = () => {
     setLoading(false);
   };
   const handleGradeAllFiles = async () => {
-    // setSnackbarOpen(true);
+    
     console.log("Started Grading");
     try {
+      setMarkingSnackbarOpen(true);
       await grade();
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -314,14 +323,17 @@ const AnswerScriptsPage = () => {
   return (
     <div className="align1">
       <MainRightPane>
-        <Button
+        <Button id = "back-button"
           sx={{
             // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh",
+
+            // width: "100px",
+            // height: "50px",
+            // color: "black",
+            // fontWeight: "bold",
+            // marginBottom: "2vh",
+            
+
           }}
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
@@ -443,7 +455,8 @@ const AnswerScriptsPage = () => {
             </tbody>
           </table> */}
           </div>
-        )}
+
+        }
 
         <div
           style={{
@@ -488,6 +501,12 @@ const AnswerScriptsPage = () => {
             sx={{ width: "100%" }}
           >
             Answer script uploaded successfully!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={markingSnackbarOpen} autoHideDuration={6000} onClose={handleCloseMarkingSnackbar}>
+          <Alert onClose={handleCloseMarkingSnackbar} severity="info" variant="filled" sx={{ width: '100%' }}>
+            Answer scripts are being graded. This may take a few minutes. Please wait!
           </Alert>
         </Snackbar>
       </MainRightPane>
