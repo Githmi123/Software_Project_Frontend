@@ -87,12 +87,14 @@ const ManualGradingPage = () => {
 
     return (
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          overflowY: "auto",
-          gap: "8vh",
-        }}
+        id="column-div"
+        // style={{
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   justifyContent: "space-between",
+        //   overflowY: "auto",
+        //   gap: "8vh",
+        // }}
       >
         {/* <table
           border="1"
@@ -212,7 +214,6 @@ const ManualGradingPage = () => {
 
   return (
     <div className="align1">
- 
       <MainRightPane>
         <Button
           sx={{
@@ -244,19 +245,20 @@ const ManualGradingPage = () => {
         {/* <p>{JSON.stringify(gradeData)}</p> */}
         <div id="graded-answerscript">
           <img
+            id="paper-image"
             src={gradeData.scriptUrl}
             alt="Answer Script"
-            style={{
-              width: "60vh",
-              height: "80vh",
-              // width: "30vh",
-              // height: "40vh",
-              // marginLeft: "5vh",
-              // marginTop: "0vh",
-              marginRight: "5vh",
-            }}
+            // style={{
+            //   width: "60vh",
+            //   height: "80vh",
+            //   // width: "30vh",
+            //   // height: "40vh",
+            //   // marginLeft: "5vh",
+            //   // marginTop: "0vh",
+            //   marginRight: "5vh",
+            // }}
           />
-          <div>{renderTable(gradeData.jsonAnswers)}</div>
+          <div id="marks-columns-div">{renderTable(gradeData.jsonAnswers)}</div>
         </div>
       </MainRightPane>
     </div>

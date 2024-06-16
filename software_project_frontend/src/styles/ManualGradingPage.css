@@ -22,6 +22,12 @@ h5 {
   margin-bottom: 2vh;
 }
 
+#paper-image {
+  width: 25vw;
+  height: 60vh;
+  /* margin-right: 3vw; */
+}
+
 .marking-scheme-table {
   border-collapse: collapse; /* Ensure borders are collapsed */
   width: 100%;
@@ -31,6 +37,14 @@ h5 {
   border: 1px solid black; /* Add black border to table cells */
   text-align: center !important;
   padding: 0.1vh;
+}
+
+#column-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: auto;
+  gap: 4vw;
 }
 
 #graded-answerscript {
@@ -43,4 +57,110 @@ h5 {
 #table-marks tr,
 th {
   text-align: center;
+}
+
+#marks-columns-div {
+  margin-bottom: 2vh;
+}
+
+@media (min-width: 1120px) {
+  #graded-answerscript {
+    flex-direction: row;
+  }
+
+  #answer-script-image {
+    width: 80%;
+    height: auto;
+    margin-bottom: 2vh;
+  }
+
+  #paper-image {
+    width: 25vw;
+    height: 70vh;
+    /* margin-right: 3vw; */
+  }
+
+  .table-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  #graded-answerscript {
+    flex-direction: column;
+  }
+
+  #answer-script-image {
+    width: 80%;
+    height: auto;
+    margin-bottom: 2vh;
+  }
+
+  #paper-image {
+    width: 33vw;
+    height: 55vh;
+    /* margin-right: 3vw; */
+  }
+
+  .table-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  #graded-answerscript {
+    flex-direction: column;
+  }
+
+  #answer-script-image {
+    width: 80%;
+    height: auto;
+    margin-bottom: 2vh;
+  }
+  #column-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: auto;
+    gap: 4vw;
+  }
+
+  #paper-image {
+    width: 50vw;
+    height: 80vh;
+    /* margin-right: 3vw; */
+  }
+
+  .table-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  #graded-answerscript {
+    flex-direction: column;
+  }
+
+  #answer-script-image {
+    width: 80%;
+    height: auto;
+    margin-bottom: 2vh;
+  }
+  #column-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+    gap: 4vw;
+  }
+
+  #paper-image {
+    width: 60vw;
+    height: 70vh;
+    /* margin-right: 3vw; */
+  }
+
+  .table-container {
+    width: 100%;
+  }
 }

@@ -45,8 +45,8 @@ const RecentPage = () => {
   const [moduleData, setModuleData] = useState([]);
   const [batchData, setBatchData] = useState([]);
   const [profileData, setProfileData] = useState("");
-  const [firstName, setFirstName] = useState("ABC");
-  const [lastName, setLastName] = useState("Perera");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [value, setValue] = React.useState(dayjs());
   const [progress, setProgress] = React.useState(10);
   const [loading, setLoading] = useState(false);
@@ -125,27 +125,27 @@ const RecentPage = () => {
       setAssignments(allAssignments);
       console.log("Assignments Data", allAssignments);
 
-      const allGrades = [];
-      for (const assignment of allAssignments) {
-        const { moduleCode, batch, assignmentId } = assignment;
+      // const allGrades = [];
+      // for (const assignment of allAssignments) {
+      //   const { moduleCode, batch, assignmentId } = assignment;
 
-        try {
-          // await refreshAccessToken();
+      //   try {
+      //     // await refreshAccessToken();
 
-          const response = await axios.get(
-            `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${''}`,
-            
-          );
+      //     const response = await axios.get(
+      //       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${''}`,
 
-          console.log("Details of the answer scripts:", response.data);
-          console.log(typeof response.data);
+      //     );
 
-          allGrades.push(response.data);
-        } catch (error) {
-          console.error("Error displaying answer scripts:", error);
-        }
-      }
-      setMarked(allGrades);
+      //     console.log("Details of the answer scripts:", response.data);
+      //     console.log(typeof response.data);
+
+      //     allGrades.push(response.data);
+      //   } catch (error) {
+      //     console.error("Error displaying answer scripts:", error);
+      //   }
+      // }
+      // setMarked(allGrades);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -153,34 +153,27 @@ const RecentPage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        console.log("Fetching data");
-        // await refreshAccessToken();
-        console.log("after refresh");
-        const userResponse = await axios.get("http://localhost:3500/user");
-        const user = userResponse.data;
+  const getProfileData = async () => {
+    setLoading(true);
+    const userResponse = await axios.get("http://localhost:3500/user");
+    const user = userResponse.data;
 
-        setFirstName(user.firstname);
-        console.log("First name:", user.firstname); // Log the first name here
-        if (user.profilepic) {
-          setImageSRC(user.profilepic);
-        }
-        setLastName(user.lastname);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    console.log(user);
 
-    fetchProfileData();
-  }, []);
+    if (user.profilepic) {
+      setImageSRC(user.profilepic);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // await refreshAccessToken();
         await getData();
+        await getProfileData();
       } catch (error) {
         if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
@@ -190,6 +183,7 @@ const RecentPage = () => {
             try {
               // await refreshAccessToken();
               await getData();
+              await getProfileData();
             } catch (error) {
               console.error("Error fetching data:", error);
             }
@@ -240,7 +234,7 @@ const RecentPage = () => {
   const targetProgress = (2 / 3) * 100;
   useEffect(() => {
     const increment = targetProgress / 100;
-    const interval = 5;
+    const interval = 50;
 
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
@@ -280,7 +274,19 @@ const RecentPage = () => {
   function CircularProgressWithLabel(props) {
     return (
       <Box sx={{ position: "relative", display: "inline-flex" }}>
-        <CircularProgress variant="determinate" {...props} />
+        <CircularProgress
+          variant="determinate"
+          {...props}
+          sx={{
+            color: "white", // color of the progress indicator
+            "& .MuiCircularProgress-circle": {
+              strokeLinecap: "round",
+            },
+            "& .MuiCircularProgress-track": {
+              stroke: "rgba(255, 255, 255, 0.3)", // background track color
+            },
+          }}
+        />
         <Box
           sx={{
             top: 0,
@@ -474,11 +480,12 @@ const RecentPage = () => {
                 <p>Recent Assignments</p>
                 <Link
                   to={"/NewAssignment"}
-                  style={{
-                    textDecoration: "none",
-                    marginRight: "5vw",
-                    marginTop: "2vh",
-                  }}
+                  id="add-new-assignment-button"
+                  // style={{
+                  //   textDecoration: "none",
+                  //   marginRight: "5vw",
+                  //   marginTop: "2vh",
+                  // }}
                 >
                   <CustomNewButton text="New Assignment" />
                 </Link>
