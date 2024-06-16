@@ -78,43 +78,46 @@ const NewBatchPage = () => {
     <div className="align1">
   
       <MainRightPane>
-        <Button
-          sx={{
-            // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh"
-          }}
+        <Button id = "back-button"
           startIcon={<ArrowBackIcon />}
           onClick={() => navigate(-1)}
         >
           Back
         </Button>
 
-        <h1 id="heading-new-batch-page">New Batch</h1>
-        <div id="textfield-set">
+        <h1 id="heading">New Batch</h1>
+        <div className="alignment">
           <span id="label1-new-batch-page">Batch Number</span>
           <TextField
-            id="outlined-basic"
+            id="filled-hidden-label-small"
             label="Batch Number"
             variant="outlined"
             onChange={handleBatchNumberChange}
             //value={assignmentName}
             //onChange={handleAssignmentNameChange}
             sx={{
-              m: "2vh",
-              width: "100vh",
-              maxWidth: "70vh",
-              padding: "0",
-              position: "relative",
+              marginLeft: 5,
+              marginTop: 0,
+              marginRight: 5,
+              "& input": {
+                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+                padding: "8px 12px", // Adjust the padding to match the new font size
+              },
             }}
           />
         </div>
-        <Button id="add-button" onClick={handleNewBatch} variant="contained">
+        <div
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+        <Button id="add-button" 
+            onClick={handleNewBatch} variant="contained">
           Add
         </Button>
+        </div>
       </MainRightPane>
     </div>
   );

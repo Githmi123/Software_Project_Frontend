@@ -20,10 +20,10 @@
 #add-button {
   background-color: #7894db;
   color: white;
-  width: 20vh;
+  width: 50px;
   text-transform: "capitalize";
   border: "2px solid #7894DB";
-  margin-left: 70vh;
+  /* margin-left:  70vh; */
   margin-top: 5vh;
 }
 
