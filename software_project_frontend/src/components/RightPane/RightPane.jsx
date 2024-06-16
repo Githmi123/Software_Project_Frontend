@@ -16,6 +16,7 @@ import password from "../../images/password.png";
 import LoginValidation from "../Validation/LoginValidation";
 import Cookies from "js-cookie";
 import refreshAccessToken from "../../services/AuthService";
+import { useSnackbar } from "notistack";
 
 // const getAccessToken = () => {
 //     return document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
@@ -24,6 +25,8 @@ import refreshAccessToken from "../../services/AuthService";
 export const RightPane = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const {enqueueSnackbar} = useSnackbar();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -137,6 +140,7 @@ export const RightPane = () => {
     
           
         } catch (error) {
+          
           console.log("you are here");
           console.error("Login error:", error);
           setErrors({ message: "Failed to log in. Please try again." });
@@ -150,6 +154,9 @@ export const RightPane = () => {
                 await submit();
               } catch (error) {
                 console.error("Error fetching data:", error);
+                if (error.response && error.response.status === 401) {
+                  enqueueSnackbar('Unauthorized access. Please log in again.', { variant: 'error' });
+                }
               }
             }
           }
