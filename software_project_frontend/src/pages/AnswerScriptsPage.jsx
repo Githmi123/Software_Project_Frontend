@@ -324,7 +324,7 @@ const AnswerScriptsPage = () => {
   const handleGradeSelectedFiles = async () => {
     console.log("Started Grading Selected Files");
     if(selectedAssignmentNos.length === 0){
-      enqueueSnackbar('Please select files to delete!', { variant: 'error' });
+      enqueueSnackbar('Please select files to grade!', { variant: 'error' });
     }
     else{
       try {

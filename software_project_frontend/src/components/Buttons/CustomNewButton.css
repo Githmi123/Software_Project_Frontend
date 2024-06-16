@@ -44,15 +44,6 @@
 
 
   @media (max-height: 400px) {
-    .custom-button {
-      /* font-size: 0 !important; */
-      /* width: 0px !important; */
-      /* padding: 0 !important; */
-      
-      /* font-size: 0 !important; */
-      /* width: 2px !important; */
-      /* padding: 0 !important; */
-    }
 
     .custom-button-container{
         display: none !important;

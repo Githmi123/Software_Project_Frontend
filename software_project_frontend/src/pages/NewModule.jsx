@@ -10,6 +10,7 @@ import "../styles/MyModulesPage.css";
 // import "../styles/NewAssignmentPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
+import { useSnackbar } from "notistack";
 
 const NewModule = () => {
   const [moduleData, setModuleData] = useState({
@@ -18,6 +19,7 @@ const NewModule = () => {
     credits: "",
   });
   const [loading, setLoading] = useState(false);
+  const {enqueueSnackbar} = useSnackbar();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,13 +39,19 @@ const NewModule = () => {
 
       console.log("Module is created!");
       console.log(moduleData);
-
-      navigate("/MyModulePage");
       setLoading(false);
+      navigate("/MyModulePage");
+      enqueueSnackbar('Module created successfully!', { variant: 'success' });
+      
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if(moduleData.modulecode === '' || moduleData.modulename === '' || moduleData.credits === ''){
+      enqueueSnackbar('Please enter all the details.', { variant: 'error' });
+    }
+
+    else{
+      e.preventDefault();
     try {
       await submit();
     } catch (error) {
@@ -56,14 +64,36 @@ const NewModule = () => {
             // await refreshAccessToken();
             await submit();
           } catch (error) {
-            console.error("Error fetching data:", error);
+            // if (error.response && error.response.status === 400) {
+            //   setLoading(false);
+            //   // enqueueSnackbar('Please enter all the details.', { variant: 'error' });
+            // }
+      
+            if (error.response && error.response.status === 409) {
+              setLoading(false);
+              enqueueSnackbar('Module already exists.', { variant: 'error' });
+            } else {
+              setLoading(false);
+              console.error("Error fetching data:", error);
+              enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
+            }
           }
         }
       }
-      else{
+      
+
+      else if (error.response && error.response.status === 409) {
+        setLoading(false);
+        enqueueSnackbar('Module already exists.', { variant: 'error' });
+      } else {
+        setLoading(false);
         console.error("Error fetching data:", error);
+        enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
       }
+     
     }
+    }
+    
   };
 
   return (

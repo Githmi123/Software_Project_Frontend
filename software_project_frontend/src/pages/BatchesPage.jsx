@@ -147,15 +147,8 @@ const BatchesPage = () => {
     <div className="align1">
      
       <MainRightPane>
-        <Button
-          sx={{
-            // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh"
-          }}
+        <Button id = "back-button"
+        
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
