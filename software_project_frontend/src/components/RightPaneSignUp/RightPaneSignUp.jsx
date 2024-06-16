@@ -131,7 +131,7 @@ export const RightPaneSignUp = () => {
                 <img src={ima} id='RS' alt="rs"/>
             </div>
 
-            <div id="LogText" >
+            <div className="LogText">
                 Create An Account 
             </div>
 

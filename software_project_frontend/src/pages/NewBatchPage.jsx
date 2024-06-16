@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import "../styles/NewAssignmentPage.css";
 import "../styles/NewBatchPage.css";
 import refreshAccessToken from "../services/AuthService";
+import { useSnackbar } from "notistack";
 
 const NewBatchPage = () => {
   const { selectedModuleCode } = useParams();
@@ -19,6 +20,8 @@ const NewBatchPage = () => {
   const [batch, setBatch] = useState("");
 
   const navigate = useNavigate();
+
+  const {enqueueSnackbar} = useSnackbar();
 
   const handleBatchNumberChange = (e) => {
     const value = e.target.value;
@@ -37,6 +40,7 @@ const NewBatchPage = () => {
       );
 
       console.log("Batch is created!");
+      enqueueSnackbar('Batch added successfully!', { variant: 'success' });
 
       navigate(`/Batches/${selectedModuleCode}`);
   }
@@ -44,7 +48,13 @@ const NewBatchPage = () => {
   const handleNewBatch = async (e) => {
     e.preventDefault();
     try {
-      await sendData();
+      if(batch === ''){
+        enqueueSnackbar('Please enter a batch', { variant: 'error' });
+      }
+      else{
+        await sendData();
+      }
+      
       // const accessToken = Cookies.get("accessToken");
 
       // //console.log(accessToken);
@@ -56,7 +66,10 @@ const NewBatchPage = () => {
 
       
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if(batch === ''){
+        enqueueSnackbar('Please enter a batch', { variant: 'error' });
+      }
+      else if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
@@ -65,11 +78,23 @@ const NewBatchPage = () => {
             // await refreshAccessToken();
             await sendData();
           } catch (error) {
-            console.error("Error fetching data:", error);
+            if (error.response && error.response.status === 409) {
+              // setLoading(false);
+              enqueueSnackbar('Module already exists.', { variant: 'error' });
+            } else {
+              // setLoading(false);
+              console.error("Error fetching data:", error);
+              enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
+            }
           }
         }
+      } if (error.response && error.response.status === 409) {
+        // setLoading(false);
+        enqueueSnackbar('Module already exists.', { variant: 'error' });
       } else {
+        // setLoading(false);
         console.error("Error fetching data:", error);
+        enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
       }
     }
   };
