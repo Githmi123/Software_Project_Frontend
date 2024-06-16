@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
-import { Button, InputAdornment, TextField } from "@mui/material";
+import { Button, InputAdornment, TextField, Tooltip } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import './CustomNewButton.css';
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -28,12 +29,13 @@ const InputFileUploadButton = ({ onFileSelect, text }) => {
 
   return (
     <>
+    <Tooltip title = {text} arrow>
       <Button
         component="label"
         role={undefined}
         variant="contained"
         tabIndex={-1}
-        style={{ margin: "0", borderRadius: 5, width:"auto", fontSize:"1.5vh" }}
+        className="custom-upload-button"
         startIcon={<CloudUploadIcon />}
       >
         {text ? text : "Upload"}
@@ -43,6 +45,7 @@ const InputFileUploadButton = ({ onFileSelect, text }) => {
           onChange={handleFileSelect}
         />
       </Button>
+      </Tooltip>
     </>
   );
 };
