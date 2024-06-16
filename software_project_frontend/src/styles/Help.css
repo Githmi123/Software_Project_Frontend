@@ -90,7 +90,7 @@ html {
   justify-content: center;
   height: 100%;
   width: 100%;
-  background-color: #f7efe5;
+  background-color: #7894db;
 }
 
 .container-title {
@@ -99,7 +99,7 @@ html {
 }
 
 .help-contact-detail {
-  background-color: aqua;
+  background-color: #3eb5a6;
   align-self: flex-end;
   /* margin-top: 0; */
   /* margin-bottom: auto; */
@@ -123,7 +123,7 @@ html {
   margin-top: 10vh;
   height: 80%;
   width: 100%;
-  background-color: #ffdd95;
+  background-color: #f2d388;
   display: flex;
   flex-direction: row;
   justify-content: center;

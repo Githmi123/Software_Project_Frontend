@@ -85,7 +85,7 @@ function Help() {
               </div>
             </div>
           </div>
-          <div style={{ backgroundColor: "#ffdd95", marginTop: "5   vh" }}>
+          <div style={{ backgroundColor: "#F2D388", marginTop: "5   vh" }}>
             <div id="faq-image-container">
               <div
                 id="help-image-container-2"
