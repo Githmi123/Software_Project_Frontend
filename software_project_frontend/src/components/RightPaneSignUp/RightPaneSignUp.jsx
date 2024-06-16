@@ -15,6 +15,7 @@ import  {CircularProgress, IconButton}  from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SignUpValidation from '../Validation/SignUpValidation';
 import axios from 'axios';
+import '../RightPane/RightPane.css';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
@@ -26,6 +27,7 @@ import { styled } from '@mui/material/styles';
 
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useSnackbar } from 'notistack';
 
 
 
@@ -49,6 +51,8 @@ export const RightPaneSignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const {enqueueSnackbar} = useSnackbar();
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -100,10 +104,18 @@ export const RightPaneSignUp = () => {
                         'Content-Type': 'application/json'
                     }
                 });
+                enqueueSnackbar('New account created', { variant: 'success' });
                 navigate('/Dashboard');
                 setLoading(false);
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+              if (error.response && error.response.status === 409) {
+                setLoading(false);
+                enqueueSnackbar('An account with this email already exists!', { variant: 'error' });
+              } else {
+                setLoading(false);
+                console.error("Error fetching data:", error);
+                enqueueSnackbar('An error occurred while registering', { variant: 'error' });
+              }
             }
         }
         
@@ -141,15 +153,7 @@ export const RightPaneSignUp = () => {
             helperText={errors.firstName && <span className='text-danger'>{errors.firstName}</span>}
 
             onChange={handleInput}
-            style={{
-                position: 'relative',
-                width: '60vh',
-                height: '5vh',
-                // left: '45vh',
-                // top: '30vh',
-                color: '#000000',
-                margin: "2%"
-                }} 
+            className='sign-up-fields'
                 // InputProps={{ style: {
                 //     boxSizing: 'border-box',
                 //     position: 'absolute',
@@ -197,15 +201,7 @@ export const RightPaneSignUp = () => {
         <TextField id="lastName" placeholder="Last Name" type='text' name='lastName' variant="standard" 
             helperText={errors.lastName && <span className='text-danger'>{errors.lastName}</span>}
             onChange={handleInput}
-            style={{
-                position: 'relative',
-                width: '60vh',
-                height: '5vh',
-                // left: '45vh',
-                // top: '38vh',
-                color: '#000000',
-                margin: "2%"
-                }} 
+            className='sign-up-fields'
                 // InputProps={{ style: {
                 //     boxSizing: 'border-box',
                 //     position: 'absolute',
@@ -254,15 +250,7 @@ export const RightPaneSignUp = () => {
         <TextField id="email" placeholder="Email" type='email' name='email' variant="standard" 
             helperText={errors.email && <span className='text-danger'>{errors.email}</span>}
             onChange={handleInput}
-            style={{
-                position: 'relative',
-                width: '60vh',
-                height: '5vh',
-                // left: '45vh',
-                // top: '46vh',
-                color: '#000000',
-                margin: "2%"
-                }} 
+            className='sign-up-fields'
                 // InputProps={{ style: {
                 //     boxSizing: 'border-box',
                 //     position: 'absolute',
@@ -312,15 +300,7 @@ export const RightPaneSignUp = () => {
             variant="standard" 
             helperText={errors.password && <span className='text-danger'>{errors.password}</span>}
             onChange={handleInput}
-            style={{
-                position: 'relative',
-                width: '60vh',
-                height: '5vh',
-                // left: '45vh',
-                // top: '54vh',
-                color: '#000000',
-                margin: "2%"
-                }} 
+            className='sign-up-fields'
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -356,15 +336,7 @@ export const RightPaneSignUp = () => {
 <TextField  id="ConfirmPassword" name='confirmPassword' placeholder="Confirm Password" type={showConfirmPassword ? "text" : "password"}  variant="standard" 
 helperText={errors.confirmPassword && <span className='text-danger'>{errors.confirmPassword}</span>}
 onChange={handleInput}
-style={{
-                position: 'relative',
-                width: '60vh',
-                height: '5vh',
-                // left: '45vh',
-                // top: '62vh',
-                color: '#000000',
-                margin: "2%"
-                }} 
+className='sign-up-fields'
                 InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -435,15 +407,7 @@ style={{
 <TextField id="designation" placeholder="Designation" type='text' name='designation' variant="standard" 
             helperText={errors.designation && <span className='text-danger'>{errors.designation}</span>}
             onChange={handleInput}
-            style={{
-                position: 'relative',
-                width: '60vh',
-                height: '5vh',
-                // left: '45vh',
-                // top: '70vh',
-                color: '#000000',
-                margin: "2%"
-                }} 
+            className='sign-up-fields' 
                 // InputProps={{ style: {
                 //     boxSizing: 'border-box',
                 //     position: 'absolute',
