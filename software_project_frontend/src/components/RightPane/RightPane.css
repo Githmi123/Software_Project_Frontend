@@ -4,7 +4,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-width: 145vh;
+width: 70vw;
 height: 90vh;
 margin-left: 0vh;
 /* margin-right: 0vh; */
@@ -34,15 +34,17 @@ margin : 2.5%;
     }
     
 #RS{
-    /* margin-top: 2vh; */
+    
     position: relative;
-    width: 60vh;
-    height: 20vh;
+    width: auto;
+    height: 120px;
 }
 
-#LogText{
+.LogText{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     position: relative;
-    width: 40vh;
+    width: 600px;
     font-family: "Karla";
     font-size: 2rem;
     font-weight: bold;
@@ -50,6 +52,16 @@ margin : 2.5%;
     color: #212B27;
     /* margin-left: 55vh; */
 }
+
+.textfield-login {
+    margin-top: 60px;
+    position: relative !important;
+    width: 440px !important;
+    height: 60px !important;
+    color: #000000 !important;
+    
+  }
+  
 
 .subtext{
 position: absolute;
@@ -84,6 +96,7 @@ font-weight: 400;
 font-size: 1rem;
 text-align: center;
 color: #242D3F;
+
 }
 
 #rectangle1{
@@ -244,4 +257,60 @@ transform: rotate(-45deg);
     position: relative;
     justify-content: center;
     flex-direction: column;
+}
+
+
+@media (max-width: 768px){
+    .RightPane{
+        
+        width: 100vw;
+        
+        }
+
+        .LogText{
+           
+            width: 600px;
+           
+        }
+}
+
+
+@media (max-height: 600px){
+    .RightPane{
+        
+        height: 90vh;
+        
+        }
+
+        #RS{
+            /* margin-top: 2vh; */
+            /* position: relative; */
+            width: auto;
+            height: 60px;
+            margin-top: 10px;
+        }
+
+        
+          .textfield-login {
+            margin-top: 60px;
+            height: 60px !important;
+            
+          }
+
+          #LogText{
+            margin-top: 10px;
+        }
+          
+}
+
+
+
+@media (max-height: 400px){
+    #RS{
+        display: none;
+    }
+
+    #LogText{
+        margin-top: 50px;
+    }
 }
