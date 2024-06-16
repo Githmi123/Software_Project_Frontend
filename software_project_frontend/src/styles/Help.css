@@ -158,7 +158,7 @@ html {
   margin-top: 10vh;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   #helpImage {
     width: 8rem;
     height: 8rem;
@@ -166,15 +166,29 @@ html {
 
   #faq-image-container {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   #faq-image-para {
     width: 50%;
   }
+
+  #help-support-options > * {
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    /* width: 50vw; */
+  }
+  #help-image-container-2 {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 5vh;
+  }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   #help-backgroud h5 {
     color: black;
     margin-bottom: 5vh;
@@ -184,6 +198,8 @@ html {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+
+    /* height: 30vh; */
   }
 
   .help-support-options-container {
@@ -211,6 +227,16 @@ html {
     justify-content: center;
     font-family: "Poppins";
     font-size: 0.7rem;
+  }
+
+  .help-container-paragraph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: #7894db;
   }
 }
 
