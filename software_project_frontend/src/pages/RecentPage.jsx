@@ -28,6 +28,7 @@ import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { styled } from "@mui/system";
 
 import dayjs from "dayjs";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
@@ -314,6 +315,18 @@ const RecentPage = () => {
 
   const newLocal = "space";
 
+  // Create a custom-styled DateCalendar component
+  const CustomDateCalendar = styled(DateCalendar)({
+    margin: 0,
+    // Override any other margins explicitly
+    "&.MuiDateCalendar-root": {
+      margin: 0,
+    },
+    "&.css-1rtg91x-MuiDateCalendar-root": {
+      margin: 0,
+    },
+  });
+
   return (
     <div className="align1">
       {/* <MainLeftPane/> */}
@@ -334,15 +347,16 @@ const RecentPage = () => {
           </Button> */}
         <div id="dashboard">
           <h3 id="heading-dashboard">Dashboard</h3>
+
           <div style={{ width: "100%" }}>
             <div
               id="summary-and-calendar-raw"
               style={{
-                width: "90%",
+                width: "100%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#F7EFE5",
+                // backgroundColor: "#FFF0CE",
               }}
             >
               <div
@@ -380,6 +394,7 @@ const RecentPage = () => {
                     </p>
                   </div>
                 </div>
+
                 <div id="summary-graph">
                   <Box
                     display="flex"
@@ -406,49 +421,51 @@ const RecentPage = () => {
                     <p style={{ marginBottom: "1vh", marginTop: "-2vh" }}>5</p>
                   </div>
                 </div>
+
+                <div id="dashboard-details">
+                  {/* <p id="summary-detail">Summary Report</p> */}
+                  <p>Modules : {moduleData.length}</p>
+                  <p>Assignments : {assignments.length}</p>
+                </div>
               </div>
 
-              <div id="dashboard-details">
-                <p id="summary-detail">Summary Report</p>
-                <p>Modules : {moduleData.length}</p>
-                <p>Assignments : {assignments.length}</p>
-                <p>To be marked : 2</p>
-                <p>Marked : 5 </p>
-              </div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateCalendar
+                <CustomDateCalendar
                   value={value}
                   onChange={(newValue) => setValue(newValue)}
-                  // sx={{
-                  //   "& .MuiPickersDay-root": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersDay-root.Mui-selected": {
-                  //     backgroundColor: "white",
-                  //     color: "black",
-                  //   },
-                  //   "& .MuiPickersDay-root:hover": {
-                  //     backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-root": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-switchViewButton": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-label": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-iconButton": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersYear-root": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersMonth-root": {
-                  //     color: "white",
-                  //   },
-                  // }}
+                  sx={
+                    {
+                      // Your existing custom styles can be added here if needed
+                      // "& .MuiPickersDay-root": {
+                      //   color: "white",
+                      // },
+                      // "& .MuiPickersDay-root.Mui-selected": {
+                      //   backgroundColor: "white",
+                      //   color: "black",
+                      // },
+                      // "& .MuiPickersDay-root:hover": {
+                      //   backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      // },
+                      // "& .MuiPickersCalendarHeader-root": {
+                      //   color: "white",
+                      // },
+                      // "& .MuiPickersCalendarHeader-switchViewButton": {
+                      //   color: "white",
+                      // },
+                      // "& .MuiPickersCalendarHeader-label": {
+                      //   color: "white",
+                      // },
+                      // "& .MuiPickersCalendarHeader-iconButton": {
+                      //   color: "white",
+                      // },
+                      // "& .MuiPickersYear-root": {
+                      //   color: "white",
+                      // },
+                      // "& .MuiPickersMonth-root": {
+                      //   color: "white",
+                      // },
+                    }
+                  }
                 />
               </LocalizationProvider>
             </div>
@@ -456,7 +473,7 @@ const RecentPage = () => {
               <div id="recent-assignment-title-and-button-raw">
                 <p>Recent Assignments</p>
                 <Link
-                  to={'/NewAssignment'}
+                  to={"/NewAssignment"}
                   style={{
                     textDecoration: "none",
                     marginRight: "5vw",

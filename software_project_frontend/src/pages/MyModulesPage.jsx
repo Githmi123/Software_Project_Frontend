@@ -207,7 +207,7 @@ const MyModulesPage = () => {
         >
           Back
         </Button> */}
-        <h1 id="heading">My Modules</h1>
+        <h3 id="heading-mymodules">My Modules</h3>
 
         <div
           style={{
