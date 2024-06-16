@@ -170,7 +170,7 @@ export const RightPane = () => {
     <div data-testid="right-pane" className="RightPane">
       <img src={rapidscore} id="RS" alt="rs" />
 
-      <div id="LogText">Log into your account</div>
+      <div className="LogText">Log into your account</div>
 
       <form
         className="div"
@@ -188,14 +188,7 @@ export const RightPane = () => {
           variant="standard"
           onChange={handleInput}
           helperText={errors.username && <span className="text-danger">{errors.username}</span>}
-          style={{
-            position: "relative",
-            width: "60vh",
-            height: "7vh",
-            // left: '45vh',
-            // top: '48vh',
-            color: "#000000",
-          }}
+          className="textfield-login"
           // InputProps={{ style: {
           //     boxSizing: 'border-box',
           //     position: 'absolute',
@@ -259,24 +252,10 @@ export const RightPane = () => {
               </IconButton>
             </InputAdornment>
             ),
-            style:{
-              position: "relative",
-              width: "60vh",
-              height: "7vh",
-              // left: '45vh',
-              // top: '58vh',
-              color: "#000000",
-            }
+            // className="textfield-login"
           }}
           
-          style={{
-            position: "relative",
-            width: "60vh",
-            height: "7vh",
-            // left: '45vh',
-            // top: '58vh',
-            color: "#000000",
-          }}
+          className="textfield-login"
           // InputProps={{ style: {
           //     boxSizing: 'border-box',
           //     position: 'absolute',
