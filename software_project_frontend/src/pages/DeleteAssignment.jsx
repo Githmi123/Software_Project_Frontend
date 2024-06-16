@@ -19,12 +19,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import refreshAccessToken from "../services/AuthService";
+import { useSnackbar } from "notistack";
 
 const DeleteAssignment = () => {
   const { selectedModuleCode, batch, selectedAssignmentId } = useParams();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const {enqueueSnackbar} = useSnackbar();
 
 
   const columns = [
@@ -42,7 +45,8 @@ const DeleteAssignment = () => {
     const response = await axios.delete(
       `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
     );
-    console.log("Module is deleted !");
+    console.log("Assignment is deleted !");
+    enqueueSnackbar('Assignment deleted successfully!', { variant: 'success' });
     navigate("/Dashboard");
     setLoading(false);
   }
@@ -62,11 +66,13 @@ const DeleteAssignment = () => {
             await deleteAssignment();
           } catch (error) {
             console.error("Error fetching data:", error);
+            enqueueSnackbar('Failed to delete assignment.', { variant: 'error' });
           }
         }
       }
       else{
         console.error("Error fetching data:", error);
+        enqueueSnackbar('Failed to delete assignment.', { variant: 'error' });
       }
     }
   };

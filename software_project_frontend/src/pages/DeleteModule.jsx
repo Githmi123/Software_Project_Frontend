@@ -19,6 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import refreshAccessToken from "../services/AuthService";
+import { useSnackbar } from "notistack";
 
 const DeleteModule = () => {
   const { selectedModuleCode } = useParams();
@@ -33,6 +34,8 @@ const DeleteModule = () => {
     { field: 'credits', headerName: 'Credits', width: 150 },
   ];
 
+  const {enqueueSnackbar} = useSnackbar();
+
   useEffect(() => {
     setOpenDialog(true); // Open the dialog when the component mounts
   }, []);
@@ -43,6 +46,7 @@ const DeleteModule = () => {
       `http://localhost:3500/modules/delete/${selectedModuleCode}`
     );
     console.log("Module is deleted !");
+    enqueueSnackbar('Module deleted successfully.', { variant: 'success' });
     navigate("/MyModulePage");
     setLoading(false);
   }
@@ -51,7 +55,24 @@ const DeleteModule = () => {
     try {
       await deleteModule();
     } catch (error) {
-      console.error("Error deleting module:", error);
+      if(error.response && error.response.status === 401){
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if(newAccessToken){
+          try {
+            // await refreshAccessToken();
+            await deleteModule();
+          } catch (error) {
+            console.error("Error deleting module:", error);
+            enqueueSnackbar('Failed to delete module.', { variant: 'error' });
+          }
+        }
+      }
+      else{
+        console.error("Error deleting module:", error);
+        enqueueSnackbar('Failed to delete module.', { variant: 'error' });
+      }
     }
   };
 
