@@ -260,6 +260,16 @@ transform: rotate(-45deg);
 }
 
 
+.sign-up-fields {
+    position: relative !important;
+    width: 60vh !important;
+    height: 5vh !important;
+    color: #000000 !important;
+    margin: 2% !important;
+  }
+  
+
+
 @media (max-width: 768px){
     .RightPane{
         
@@ -313,4 +323,23 @@ transform: rotate(-45deg);
     #LogText{
         margin-top: 50px;
     }
+
+    .div{
+        /* display: flex;
+        position: relative; */
+        justify-content: center;
+        flex-direction: row;
+        width: 500px;
+        flex-wrap: wrap;
+    }
+
+    .sign-up-fields {
+        /* position: relative !important; */
+        width: 180px !important;
+        height: 5vh !important;
+        color: #000000 !important;
+        margin: 2% !important;
+      }
+
+    
 }
