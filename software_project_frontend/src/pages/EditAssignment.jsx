@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 
 import refreshAccessToken from "../services/AuthService";
 import InputFileUploadButton from "../components/Buttons/InputFileUploadButton";
+import { useSnackbar } from "notistack";
 
 const EditAssignment = () => {
   const { selectedModuleCode, batch, selectedAssignmentId } = useParams();
@@ -22,6 +23,8 @@ const EditAssignment = () => {
   const [selectedFile, setSelectedFile] = useState("");
   const [schemepath, setSchemePath] = useState("");
 
+  const {enqueueSnackbar} = useSnackbar();
+
   useEffect(() => {
     const fetchAssignmentDetails = async () => {
       try {
@@ -30,12 +33,7 @@ const EditAssignment = () => {
         console.log("selected module code :", selectedModuleCode);
         console.log(batch, selectedAssignmentId);
         const response = await axios.get(
-          `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${Cookies.get("accessToken")}`,
-            },
-          }
+          `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
         );
         setModuleData(response.data[0]);
         console.log(moduleData);
@@ -60,26 +58,20 @@ const EditAssignment = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    console.log("submitting values");
-    e.preventDefault();
-    try {
-      await refreshAccessToken();
-      console.log(moduleData);
+  const submit = async () => {
+    console.log(moduleData);
 
       await axios.put(
         `http://localhost:3500/assignment/${moduleData.modulecode}/${moduleData.batch}/${moduleData.assignmentid}`,
-        moduleData,
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
-          },
-        }
+        
+          moduleData
+        
       );
 
       console.log("assignment title updated");
 
-      const formData = new FormData();
+      if(selectedFile != ""){
+        const formData = new FormData();
       formData.append("scheme", selectedFile);
 
       await axios.put(
@@ -87,16 +79,51 @@ const EditAssignment = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            
             "Content-Type": "multipart/form-data"
           },
         }
       );
+      }
+      
 
-
+      enqueueSnackbar(`Edited assignment successfully`, { variant: 'success' });
       navigate("/Dashboard");
+  }
+
+  const handleSubmit = async (e) => {
+    console.log("submitting values");
+    e.preventDefault();
+    try {
+      await submit();
+      
     } catch (error) {
-      console.error("Error editing module:", error);
+      
+      if (error.response && error.response.status === 401) {
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if (newAccessToken) {
+          try {
+            // await refreshAccessToken();
+            await submit();
+          } catch (error) {
+            if (error.response && error.response.status === 400) {
+              enqueueSnackbar('No changes made', { variant: 'info' });
+            } 
+            else {
+              enqueueSnackbar(`Error editing assignment`, { variant: 'error' });
+            }
+            
+          }
+        }
+      } 
+      else if (error.response && error.response.status === 400) {
+        enqueueSnackbar('No changes made', { variant: 'info' });
+      } 
+      else {
+        enqueueSnackbar(`Error editing assignment`, { variant: 'error' });
+      }
     }
   };
 
@@ -115,28 +142,16 @@ const EditAssignment = () => {
     
       <MainRightPane>
         <Button
-          sx={{
-            // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh"
-          }}
+          id = "back-button"
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
           Back
         </Button>
-        <h1>Edit Assignment: {selectedAssignmentId}</h1>
+        <h1 id="heading">Edit Assignment: {selectedAssignmentId}</h1>
         <div className="alignment" style={{margin:"5vh", marginTop:"1vh"}}>
-          <h2
-            style={{
-              fontSize: "2vh",
-              marginLeft: "35px",
-              // marginTop: "5vh",
-              color: "black",
-            }}
+          <h2 className="heading-style-input1"
+           
           >
             Assignment Name
           </h2>
@@ -164,12 +179,7 @@ const EditAssignment = () => {
           </TextField>
 
           <h2
-            style={{
-              fontSize: "2vh",
-              marginLeft: "35px",
-              marginTop: "5vh",
-              color: "black",
-            }}
+            className="heading-style-input"
           >
             Module Code
           </h2>
@@ -197,12 +207,7 @@ const EditAssignment = () => {
           </TextField>
 
           <h2
-            style={{
-              fontSize: "2vh",
-              marginLeft: "35px",
-              marginTop: "5vh",
-              color: "black",
-            }}
+            className="heading-style-input"
           >
             Batch
           </h2>
@@ -230,12 +235,7 @@ const EditAssignment = () => {
           </TextField>
 
           <h2
-            style={{
-              fontSize: "2vh",
-              marginLeft: "35px",
-              marginTop: "5vh",
-              color: "black",
-            }}
+            className="heading-style-input"
           >
             Change Marking Scheme
           </h2>
@@ -272,9 +272,11 @@ const EditAssignment = () => {
         >
           {/* <Button sx={{marginLeft:'15px',color:'#7894DB',backgroundColor:'white', border: '1px solid #7894DB','&:hover': { backgroundColor: '#7894DB', color: 'white' }}}>Cancel</Button> */}
 
-          <Link to="/MyModulePage" style={{ textDecoration: "none" }}>
+          <Link to="/Dashboard" style={{ textDecoration: "none" }}>
             <Button
               sx={{
+                paddingRight:"20px",
+                paddingLeft: "20px",
                 marginLeft: "15px",
                 color: "#7894DB",
                 backgroundColor: "white",
@@ -289,6 +291,8 @@ const EditAssignment = () => {
           <Button
             onClick={handleSubmit}
             sx={{
+              paddingRight:"20px",
+              paddingLeft: "20px",
               marginLeft: "15px",
               color: "#7894DB",
               backgroundColor: "white",

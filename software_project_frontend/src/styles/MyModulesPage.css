@@ -97,3 +97,20 @@ table td {
   /* overflow-y: scroll; */
   /* padding-bottom: 10px; */
 }
+
+/* styles.css */
+.heading-style-input1 {
+  font-size: 15px;
+  margin-left: 35px;
+  color: black;
+  /* margin-bottom: 5px; */
+  /* margin-top: 5px; */
+}
+
+.heading-style-input {
+  font-size: 15px;
+  margin-left: 35px;
+  color: black;
+  /* margin-bottom: 5px; */
+  margin-top: 20px;
+}

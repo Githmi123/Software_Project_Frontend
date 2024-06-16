@@ -17,6 +17,15 @@
     margin-right: 2px !important;
     /* height: 20px !important; */
   }
+
+  /* styles.css */
+.custom-upload-button {
+  margin: 0 !important;
+  border-radius: 5px !important;
+  width: auto !important;
+  font-size: 10px !important;
+}
+
   
   @media (max-width: 868px) {
     .custom-button {
@@ -38,6 +47,13 @@
         /* margin-right: 10 !important; */
         padding: 0 !important;
         
+      }
+
+      .custom-upload-button {
+        margin: 0 !important;
+        border-radius: 5px !important;
+        width: auto !important;
+        font-size: 0 !important;
       }
       
   }
