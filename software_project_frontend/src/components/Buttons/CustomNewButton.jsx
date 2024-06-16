@@ -2,7 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import React, { useState, useRef } from "react";
 import { styled } from "@mui/material/styles";
 import { Button, InputAdornment, TextField, Tooltip } from "@mui/material";
-import './CustomNewButton.css';
+import "./CustomNewButton.css";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -37,23 +37,26 @@ const CustomNewButton = ({ text, onFileSelect }) => {
 
   return (
     <div className="custom-button-container">
-      <Tooltip title = {text} arrow>
-      <Button className="custom-button"
-        // sx={{
-        //   width: "auto",
-        //   padding: "3vh",
-        //   height: "2vh",
-        //   color: "black",
-        //   fontWeight: "bold",
-        //   textTransform: "none",
-        //   backgroundColor: "#C3D3FB",
-        //   borderRadius: "2vh",
-        //   fontSize: "1.5vh",
-        // }}
-        startIcon={<AddCircleIcon />}
-        // className="new-module-button"
-        onClick={handleButtonClick}
-      >{text}</Button>
+      <Tooltip title={text} arrow>
+        <Button
+          className="custom-button"
+          // sx={{
+          //   width: "auto",
+          //   padding: "3vh",
+          //   height: "2vh",
+          //   color: "black",
+          //   fontWeight: "bold",
+          //   textTransform: "none",
+          //   backgroundColor: "#C3D3FB",
+          //   borderRadius: "2vh",
+          //   fontSize: "1.5vh",
+          // }}
+          startIcon={<AddCircleIcon />}
+          // className="new-module-button"
+          onClick={handleButtonClick}
+        >
+          {text}
+        </Button>
       </Tooltip>
       {/* VisuallyHiddenInput is now rendered next to the button */}
       <VisuallyHiddenInput

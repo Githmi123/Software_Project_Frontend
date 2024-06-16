@@ -22,7 +22,7 @@
 }
 
 #hi-container {
-  background-color: #3eb5a6;
+  background-color: #7894db;
   width: 30vw;
   height: 15vh;
   border-radius: 2vh;
@@ -61,7 +61,7 @@
 }
 
 #summary-graph {
-  background-color: #3eb5a6;
+  background-color: #e14177;
   border-radius: 2vh;
   width: 30vw;
   height: 15vh;
@@ -87,7 +87,7 @@
 }
 
 #dashboard-details {
-  background-color: #3eb5a6;
+  background-color: #7894db;
   /* margin-left: 2vw; */
   /* height: 20vh; */
   border-radius: 2vh;
@@ -131,9 +131,10 @@
 }
 
 #recent-assignments {
-  background-color: #f2d388;
+  background-color: #afafaf;
   align-items: center !important;
   width: 100%;
+  padding-bottom: 3vh;
 }
 
 #recent-assignments p {
@@ -152,6 +153,12 @@
   overflow-y: auto;
   width: 90%;
   margin-left: 5%;
+}
+
+#add-new-assignment-button {
+  text-decoration: none;
+  margin-right: 5vw;
+  margin-top: 2vh;
 }
 
 table {
@@ -188,7 +195,7 @@ table td {
   margin-right: 7vw;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 980px) {
   #summary-and-calendar-raw {
     flex-direction: column;
     align-items: center;
@@ -206,6 +213,13 @@ table td {
     flex-direction: column;
     align-items: center;
     width: 100%;
+  }
+
+  #add-new-assignment-button {
+    text-decoration: none;
+    /* margin-right: 5vw; */
+    /* margin-top: 2vh; */
+    margin-bottom: 2vh;
   }
 
   #recent-assignments p {
@@ -241,6 +255,12 @@ table td {
     margin: 0;
     padding: 10px 0;
     width: 90%;
+  }
+  #add-new-assignment-button {
+    text-decoration: none;
+    /* margin-right: 5vw; */
+    /* margin-top: 2vh; */
+    margin-bottom: 2vh;
   }
 }
 

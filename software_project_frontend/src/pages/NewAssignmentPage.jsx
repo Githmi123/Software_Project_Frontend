@@ -250,9 +250,7 @@ const NewAssignmentPage = () => {
       formData.append("scheme", selectedFile);
 
       const response = await axios.post(
-        `http://localhost:3500/assignment/${
-          selectedModuleCode === "null" ? selectedModule : selectedModuleCode
-        }/${selectedModuleCode === "null" ? selectedBatch : batch}`,
+        `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`,
         formData,
         {
           headers: {

@@ -6,6 +6,11 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { UserProfileRightPane } from "./UserProfileRightPane/UserProfileRightPane";
 import { ChangePassword } from "./ChangePassword/ChangePassword";
+import Grid from "@mui/material/Grid";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LockIcon from "@mui/icons-material/Lock";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,9 +48,18 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const tabStyles = {
+    minWidth: "120px", // Minimum width for the tabs
+    width: "100%", // Full width within the container
+    display: "flex", // Flex display to align items
+    justifyContent: "center", // Center content
   };
 
   return (
@@ -55,9 +69,40 @@ export default function BasicTabs() {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          variant="fullWidth"
+          // scrollButtons="auto",
+          width="5vw"
         >
-          <Tab label="Manage Account Info" {...a11yProps(0)} />
-          <Tab label="Manage My Password" {...a11yProps(1)} />
+          {/* <Tab label="Manage Account Info" {...a11yProps(0)} /> */}
+          <Tab
+            sx={tabStyles}
+            label={
+              isSmallScreen ? (
+                <AccountCircleIcon />
+              ) : (
+                <Grid container alignItems="center">
+                  {/* <AccountCircleIcon sx={{ mr: 1 }} /> */}
+                  <Typography variant="body1">Manage my Account</Typography>
+                </Grid>
+              )
+            }
+            {...a11yProps(0)}
+          />
+          {/* <Tab label="Manage My Password" {...a11yProps(1)} /> */}
+          <Tab
+            sx={tabStyles}
+            label={
+              isSmallScreen ? (
+                <LockIcon />
+              ) : (
+                <Grid container alignItems="center">
+                  {/* <LockIcon sx={{ mr: 1 }} /> */}
+                  <Typography variant="body1">Change password</Typography>
+                </Grid>
+              )
+            }
+            {...a11yProps(1)}
+          />
           {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
