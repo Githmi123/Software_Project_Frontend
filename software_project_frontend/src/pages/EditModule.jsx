@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import refreshAccessToken from "../services/AuthService";
+import { useSnackbar } from "notistack";
 
 const EditModule = () => {
   const { selectedModuleCode } = useParams();
@@ -20,10 +21,13 @@ const EditModule = () => {
     credits: "",
   });
 
+
+  const {enqueueSnackbar} = useSnackbar();
+
   useEffect(() => {
     const fetchModuleDetails = async () => {
       try {
-        await refreshAccessToken();
+        // await refreshAccessToken();
 
         console.log("selected module code :", selectedModuleCode);
         const response = await axios.get(
@@ -48,18 +52,47 @@ const EditModule = () => {
 
   const navigate = useNavigate();
 
+  const submit = async () => {
+    await axios.post(
+      `http://localhost:3500/modules/edit/${selectedModuleCode}`,
+      moduleData
+    );
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await refreshAccessToken();
-
-      await axios.post(
-        `http://localhost:3500/modules/edit/${selectedModuleCode}`,
-        moduleData
-      );
+      // await refreshAccessToken();
+      await submit();
+      
+      enqueueSnackbar(`Edited module successfully`, { variant: 'success' });
       navigate("/MyModulePage");
     } catch (error) {
-      console.error("Error editing module:", error);
+      if (error.response && error.response.status === 401) {
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
+
+        if (newAccessToken) {
+          try {
+            // await refreshAccessToken();
+            await submit();
+          } catch (error) {
+            if (error.response && error.response.status === 400) {
+              enqueueSnackbar('No changes made', { variant: 'info' });
+            } 
+            else {
+              enqueueSnackbar(`Error editing module`, { variant: 'error' });
+            }
+            
+          }
+        }
+      } 
+      else if (error.response && error.response.status === 400) {
+        enqueueSnackbar('No changes made', { variant: 'info' });
+      } 
+      else {
+        enqueueSnackbar(`Error editing module`, { variant: 'error' });
+      }
     }
   };
 
@@ -67,21 +100,13 @@ const EditModule = () => {
     <div className="align1">
     
       <MainRightPane>
-        <Button
-          sx={{
-            // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh"
-          }}
+        <Button id = "back-button"
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
           Back
         </Button>
-        <h1>Edit Module: {selectedModuleCode}</h1>
+        <h1 id="heading">Edit Module: {selectedModuleCode}</h1>
         <div className="alignment">
           <h2
             style={{
