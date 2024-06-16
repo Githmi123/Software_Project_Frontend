@@ -16,6 +16,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import { Delete, Edit } from "@mui/icons-material";
+import { useSnackbar } from 'notistack';
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -43,6 +44,7 @@ const MyModulesPage = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
     { field: "modulecode", headerName: "Module Code", width: 150 },
@@ -82,7 +84,10 @@ const MyModulesPage = () => {
       try {
         await getData();
       } catch (error) {
-        if (error.response && error.response.status === 401) {
+        if (error.message.includes('ERR_CONNECTION_REFUSED')) {
+          enqueueSnackbar('Failed to load resource: net::ERR_CONNECTION_REFUSED', { variant: 'error' });
+        } 
+        else if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
           console.log("New access token: ", newAccessToken);
 
@@ -91,6 +96,7 @@ const MyModulesPage = () => {
               // await refreshAccessToken();
               await getData();
             } catch (error) {
+              
               console.error("Error fetching data:", error);
             }
           }
@@ -101,7 +107,7 @@ const MyModulesPage = () => {
     };
 
     fetchModules();
-  }, []);
+  }, [enqueueSnackbar]);
 
   const handleEditModule = async (modulecode) => {
     // e.preventDefault();

@@ -20,6 +20,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { BarChart } from "@mui/x-charts/BarChart";
 import FolderList from "../components/FolderList";
+import '../styles/DataVisualizationPage.css'
 
 //import XLSX from "xlsx";
 import * as XLSX from "xlsx";
@@ -268,15 +269,8 @@ const DataVisualizationPage = () => {
     <div className="align1">
     
       <MainRightPane>
-        <Button
-          sx={{
-            // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh"
-          }}
+        <Button id = "back-button"
+          
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
@@ -295,7 +289,7 @@ const DataVisualizationPage = () => {
           }}
         >
           <div>
-            <BarChart
+            <BarChart className="bar-chart"
               xAxis={[
                 {
                   scaleType: "band",
@@ -328,19 +322,19 @@ const DataVisualizationPage = () => {
               // yAxisLabel="No.of students"
             />
             {/* <button onClick={handleOnExport}>Export as excel file</button> */}
-            <Button
-              sx={{
-                width: "auto",
-                padding: "3vh",
-                height: "2vh",
-                color: "black",
-                fontWeight: "bold",
-                textTransform: "none",
-                backgroundColor: "#C3D3FB",
-                borderRadius: "2vh",
-                fontSize: "1.5vh",
-                marginLeft: "5vh",
-              }}
+            <Button className='export-button'
+              // sx={{
+              //   width: "auto",
+              //   padding: "3vh",
+              //   height: "2vh",
+              //   color: "black",
+              //   fontWeight: "bold",
+              //   textTransform: "none",
+              //   backgroundColor: "#C3D3FB",
+              //   borderRadius: "2vh",
+              //   fontSize: "1.5vh",
+              //   marginLeft: "5vh",
+              // }}
               // startIcon={<AddCircleIcon />}
               startIcon={<DownloadIcon />}
               onClick={handleOnExport}
@@ -348,7 +342,7 @@ const DataVisualizationPage = () => {
               Export as excel file
             </Button>
           </div>
-
+          <div className = "folders-list">
           <FolderList
             min={parameters[0]}
             max={parameters[1]}
@@ -357,8 +351,10 @@ const DataVisualizationPage = () => {
             median={parameters[4]}
             variance={parameters[5]}
             standardDeviation={parameters[6]}
-            id="folder-list"
+            // id="folder-list"
+            
           />
+          </div>
         </div>
 }
       </MainRightPane>
