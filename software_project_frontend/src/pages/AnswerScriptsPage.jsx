@@ -436,7 +436,7 @@ const AnswerScriptsPage = () => {
     <div className="align1">
       <MainRightPane>
         <Button id = "back-button"
-          sx={{
+          // sx={{
             // m: 2,
 
             // width: "100px",
@@ -446,7 +446,7 @@ const AnswerScriptsPage = () => {
             // marginBottom: "2vh",
             
 
-          }}
+          // }}
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
