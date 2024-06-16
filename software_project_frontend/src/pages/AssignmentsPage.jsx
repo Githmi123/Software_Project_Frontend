@@ -133,15 +133,8 @@ const AssignmentsPage = () => {
     <div className="align1">
    
       <MainRightPane>
-        <Button
-          sx={{
-            // m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginBottom: "2vh"
-          }}
+        <Button id = "back-button"
+          
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
@@ -155,7 +148,8 @@ const AssignmentsPage = () => {
           <Link to={'/NewAssignment'} style={{ textDecoration: "none" }}>
           
             {/* Wrap the button with Link */}
-            <CustomNewButton text="New Assignment" onClick={handleNewBatch} />
+            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}><CustomNewButton text="New Assignment" onClick={handleNewBatch} /></div>
+            
           </Link>
         </div>
 
@@ -171,6 +165,7 @@ const AssignmentsPage = () => {
 
             <tbody>
               {formattedAssignments.map((assignment) => (
+                
                 <tr
                   key={assignment.assignmentNo}
                   className="trStyle"
@@ -223,6 +218,8 @@ const AssignmentsPage = () => {
               ))}
             </tbody>
           </table>
+
+          
 
           {/* {batches.map( (batchInfo) => (
                         <Button key={batchInfo.assignmentNo} variant="contained" style={{ margin: '10px', backgroundColor: selectedAssignmentNo === batchInfo.assignmentNo ? '#7894DB' : '#E3DDE8', color: selectedAssignmentNo === batchInfo.assignmentNo ? 'white' : 'black', width: '60vh', textTransform: 'capitalize', borderRadius: "2vh",border: '0px solid #7894DB' }} 
