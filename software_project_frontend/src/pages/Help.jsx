@@ -38,6 +38,7 @@ function Help() {
                 
                 <img src={help} id = "helpImage"/>
             </div> */}
+        <h3 id="heading">Contact Us</h3>
         <div id="help-backgroud">
           <div
             style={{
@@ -47,8 +48,9 @@ function Help() {
               justifyContent: "center",
             }}
           >
-            <h3>Contact Us</h3>
-            <h5>We're here to assist you</h5>
+            {/* <h3>Contact Us</h3> */}
+
+            {/* <h5>We're here to assist you</h5> */}
           </div>
 
           <div id="help-support-options">

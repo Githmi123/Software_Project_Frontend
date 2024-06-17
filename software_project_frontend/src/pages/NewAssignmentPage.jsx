@@ -362,7 +362,7 @@ const NewAssignmentPage = () => {
   return (
     <div className="align1">
       <MainRightPane>
-        <Button
+        {/* <Button
           sx={{
             m: 2,
             width: "100px",
@@ -374,7 +374,8 @@ const NewAssignmentPage = () => {
           onClick={() => window.history.back()}
         >
           Back
-        </Button>
+        </Button> */}
+        <h3 id="heading">New Assignment</h3>
         <div style={{ backgroundColor: "white", width: "100%" }}>
           <div className="align">
             <span className="label1">Module</span>

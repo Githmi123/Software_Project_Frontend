@@ -6,10 +6,13 @@
   width: 100%;
 }
 
-#heading-dashboard {
+#heading {
   /* color: black; */
   margin-top: 5vh;
-  margin-bottom: 5vh;
+  /* margin-bottom: 5vh; */
+  font-weight: bold;
+  font-size: 30px;
+  margin-left: 7vh;
 }
 
 #summary-and-calendar-raw {
@@ -131,7 +134,7 @@
 }
 
 #recent-assignments {
-  background-color: #afafaf;
+  background-color: white;
   align-items: center !important;
   width: 100%;
   padding-bottom: 3vh;
@@ -157,6 +160,9 @@
 
 #add-new-assignment-button {
   text-decoration: none;
+  display: flex;
+  justify-content: flex-end; /* Aligns child elements to the right */
+  width: 100%;
   margin-right: 5vw;
   margin-top: 2vh;
 }
