@@ -94,7 +94,7 @@ table td {
   max-height: 60vh;
   /* overflow-y: auto; */
   /* margin-right: 10vh; */
-  margin-left: 10vh;
+  /* margin-left: 15vh; */
   /* width: 35vw; */
   /* overflow-y: scroll; */
   /* padding-bottom: 10px; */
@@ -117,6 +117,15 @@ table td {
   margin-top: 20px;
 }
 
+#add-new-module-button {
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 5vw;
+  margin-top: 2vh;
+}
+
 @media (max-width: 480px) {
   .columnModules {
     display: flex;
@@ -126,8 +135,8 @@ table td {
     margin-top: 5vh;
     max-height: 60vh;
     /* overflow-y: auto; */
-    margin-right: 10vh;
-    margin-left: 5vh;
+    /* margin-right: 10vh; */
+    /* margin-left: 5vh; */
     /* width: 35vw; */
     /* overflow-y: scroll; */
     /* padding-bottom: 10px; */

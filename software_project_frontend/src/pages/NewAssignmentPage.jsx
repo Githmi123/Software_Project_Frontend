@@ -376,7 +376,16 @@ const NewAssignmentPage = () => {
           Back
         </Button> */}
         <h3 id="heading">New Assignment</h3>
-        <div style={{ backgroundColor: "white", width: "100%" }}>
+        <div
+          style={{
+            backgroundColor: "white",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div className="align">
             <span className="label1">Module</span>
             <div className="center">
@@ -432,13 +441,13 @@ const NewAssignmentPage = () => {
                 variant="outlined"
                 value={assignmentName}
                 onChange={handleAssignmentNameChange}
-                sx={{
-                  m: 0.5,
-                  maxWidth: 400,
-                  width: "46vh",
-                  padding: "0",
-                  position: "relative",
-                }}
+                // sx={{
+                //   m: 0.5,
+                //   maxWidth: 400,
+                //   width: "46vh",
+                //   padding: "0",
+                //   position: "relative",
+                // }}
               />
               {/* <Button onClick={handleNewAssignment} sx={{color:"white", backgroundColor:"#8080FF"}}>Add Assignment</Button> */}
             </div>
@@ -451,13 +460,13 @@ const NewAssignmentPage = () => {
                 variant="outlined"
                 value={schemepath}
                 onChange={handleSchemePathChange}
-                sx={{
-                  m: 0.5,
-                  width: "46vh",
-                  maxWidth: 400,
-                  padding: "0",
-                  position: "relative",
-                }}
+                // sx={{
+                //   m: 0.5,
+                //   width: "46vh",
+                //   maxWidth: 400,
+                //   padding: "0",
+                //   position: "relative",
+                // }}
               />
               <InputFileUploadButton onFileSelect={handleSelectedFileChange} />
               {/* <InputFileUploadButton onFileSelect={onFileSelect}/> */}

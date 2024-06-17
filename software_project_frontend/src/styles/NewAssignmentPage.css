@@ -1,13 +1,13 @@
 .align {
   display: flex;
-  margin-left: 33%;
+  /* margin-left: 33%; */
   flex-direction: column;
   margin-bottom: 3vh;
 }
 
 .label1 {
   /* margin: 2vh; */
-  margin-left: -1vh;
+  /* margin-left: -1vh; */
   display: flex;
   font-weight: bold;
   margin-top: 1vh;
@@ -17,7 +17,8 @@
 .center {
   display: flex;
   align-items: center;
-  width: "100vw";
+  /* width: "100vw"; */
+  gap: 5%;
   /* justify-content: center; */
 }
 
@@ -49,17 +50,27 @@
   /* margin-left: 40%; */
 }
 
+#outlined-basic {
+  margin: 0.5;
+  max-width: 400;
+  width: 46vw;
+  padding: 0;
+  position: relative;
+  height: 10vh;
+}
+
 @media (max-width: 768px) {
   .align {
     margin-left: 0;
     margin-bottom: 3vh;
   }
-  .label1 {
+  /* .label1 {
     margin-left: 30vw;
-  }
+  } */
   .center {
     flex-direction: column;
     align-items: center; /* Align items to the start */
+    row-gap: 15%;
   }
   #button-save-cancel {
     align-items: center;
@@ -80,10 +91,20 @@
   .center {
     flex-direction: column;
     align-items: center; /* Align items to the start */
+    gap: 5%;
   }
   #button-save-cancel {
     align-items: center;
     justify-content: center;
     margin-left: 0%;
+  }
+
+  #outlined-basic {
+    margin: 0.5;
+    max-width: 400;
+    width: 50vw;
+    padding: 0;
+    position: relative;
+    height: 10vh;
   }
 }

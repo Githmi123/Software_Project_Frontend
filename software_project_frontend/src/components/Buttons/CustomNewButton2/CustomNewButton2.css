@@ -18,12 +18,12 @@
   margin-bottom: 2vh !important;
 }
 
-.custom-upload-button {
+/* .custom-upload-button {
   margin: 0 !important;
   border-radius: 5px !important;
   width: auto !important;
   font-size: 10px !important;
-}
+} */
 
 @media (max-width: 868px) {
   .custom-button-2 {
@@ -36,12 +36,12 @@
     padding: 0 !important;
   }
 
-  .custom-upload-button {
+  /* .custom-upload-button {
     margin: 0 !important;
     border-radius: 5px !important;
     width: auto !important;
     font-size: 0 !important;
-  }
+  } */
 }
 
 @media (max-height: 400px) {

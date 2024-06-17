@@ -17,6 +17,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import { Delete, Edit } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
+import CustomNewButton2 from "../components/Buttons/CustomNewButton2/CustomNewButton2";
 
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -213,19 +214,21 @@ const MyModulesPage = () => {
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            marginRight: "2vw",
+            // display: "flex",
+            // flexDirection: "row",
+            // alignItems: "center",
+            // justifyContent: "space-evenly",
+            // marginRight: "2vw",
+            width: "100%",
           }}
         >
           {/* <Link to={`/Batches/${selectedModule}`}>
             <CustomNewButton text="View Module" />
           </Link> */}
 
-          <Link to="/NewModule" style={{ textDecoration: "none" }}>
-            <CustomNewButton text="New Module" onClick={handleNewModule} />
+          <Link to="/NewModule" id="add-new-module-button">
+            {/* <CustomNewButton text="New Module" onClick={handleNewModule} /> */}
+            <CustomNewButton2 text="New Module" onClick={handleNewModule} />
           </Link>
 
           {/* <Link to={`/EditModule/${selectedModule}`}>
@@ -236,7 +239,15 @@ const MyModulesPage = () => {
             <CustomNewButton onClick = {handleDeleteModule} text="Delete Module" />
           </Link> */}
         </div>
-        <div className="columnModules" style={{ width: "80%" }}>
+        <div
+          className="columnModules"
+          style={{
+            width: "80%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {loading ? (
             <div style={{ display: "flex", justifyContent: "center" }}>
               <CircularProgress />
