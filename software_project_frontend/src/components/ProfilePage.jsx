@@ -280,9 +280,7 @@ export default function ProfilePage() {
             }
           });
 
-          const response1 = await axios.get('http://localhost:3500/refresh/', {
-            withCredentials: true 
-        });
+          window.location.reload();
         console.log(response.data);
     
           if (response.data.profilePicUrl) {
