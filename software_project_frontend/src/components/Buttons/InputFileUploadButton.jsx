@@ -41,7 +41,7 @@ const InputFileUploadButton = ({ onFileSelect, text }) => {
         {text ? text : "Upload"}
         <VisuallyHiddenInput
           type="file"
-          accept=".xlsx, .xls, .csv"
+          accept=".xlsx, .xls, .csv, .jpg, .jpeg, .png"
           onChange={handleFileSelect}
         />
       </Button>

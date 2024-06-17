@@ -15,6 +15,10 @@
 .button-set {
     /* width: 100%; */
   }
+
+.hamburger-icon {
+  display: none !important;
+}
   
   @media (max-width: 1200px) {
     .button {
@@ -64,6 +68,8 @@
     .button .button-text {
         display: none !important;
     }
+
+
   }
 
   @media (max-height: 50px){
@@ -77,4 +83,22 @@
         height: 0;
         display: none;
       }
+
+      /* .hamburger-icon { */
+        /* display: block !important; */
+        /* flex-direction: column !important; */
+      /* align-items:center !important; */
+      /* justify-content:flex-start!important; */
+      /* display: flex !important; */
+      /* width: auto !important; */
+
+      /* margin-block-start: 0; */
+      /* padding-left: 0!important; */
+      /* height: 4px!important; */
+      /* margin-top: 0 !important; */
+      /* margin-left: 0 !important; */
+      /* } */
+
+     
+      
   }
