@@ -53,45 +53,53 @@ function Help() {
             {/* <h5>We're here to assist you</h5> */}
           </div>
 
-          <div id="help-support-options">
-            <div className="help-support-options-container">
-              <div className="help-support-options-circles">
-                <ContactMailIcon fontSize="large" color="primary" />
-              </div>
-              <div className="help-container-paragraph">
-                <p className="container-title">Chat</p>
-                <p>We’re here.</p>
-                <div className="help-contact-detail">
-                  <p>rapidscore123@gmail.com</p>
-                </div>
-              </div>
-            </div>
-            <div className="help-support-options-container">
-              <div className="help-support-options-circles">
-                <OndemandVideoIcon fontSize="large" color="primary" />
-              </div>
-              <div className="help-container-paragraph">
-                <p className="container-title">Our Tutorials</p>
-                <p>Helpful tutorials</p>
-                <div className="help-contact-detail">
-                  <p>view on youtube</p>
-                </div>
-              </div>
-            </div>
-            <div className="help-support-options-container">
-              <div className="help-support-options-circles">
-                <AddIcCallIcon fontSize="large" color="primary" />
-              </div>
-              <div className="help-container-paragraph">
-                <p className="container-title">Call Us</p>
-                <p>Reach out to us</p>
-                <div className="help-contact-detail">
-                  <p>(+94 11) 3243 223</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div style={{ backgroundColor: "#AFAFAF", marginTop: "5vh" }}>
+        <div id="help-support-options">
+  <div className="help-support-options-container">
+    <div className="help-support-options-circles">
+      <ContactMailIcon fontSize="large" color="primary" />
+    </div>
+    <div className="help-container-paragraph">
+      <p className="container-title">Chat</p>
+      <p>We’re here.</p>
+      <div className="help-contact-detail">
+        <p>apgs@gmail.com</p>
+      </div>
+    </div>
+  </div>
+  <div className="help-support-options-container">
+    <div className="help-support-options-circles">
+      <OndemandVideoIcon fontSize="large" color="primary" />
+    </div>
+    <div className="help-container-paragraph">
+      <p className="container-title">Our Tutorials</p>
+      <p>Helpful tutorials</p>
+      <div className="help-contact-detail">
+        <p>view on youtube</p>
+      </div>
+    </div>
+  </div>
+  <div className="help-support-options-container">
+    <div className="help-support-options-circles">
+      <AddIcCallIcon fontSize="large" color="primary" />
+    </div>
+    <div className="help-container-paragraph">
+      <p className="container-title">Call Us</p>
+      <p>Reach out to us</p>
+      <div className="help-contact-detail">
+        <p>+123 456 7890</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div
+            id="faq-up"
+            style={{
+              backgroundColor: "#AFAFAF",
+              // marginTop: "5vh",
+              width: "100%",
+            }}
+          >
             <div id="faq-image-container">
               <div
                 id="help-image-container-2"
