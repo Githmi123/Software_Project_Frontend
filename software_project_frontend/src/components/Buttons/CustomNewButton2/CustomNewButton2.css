@@ -1,0 +1,51 @@
+.custom-button-2 {
+  width: auto !important;
+  padding: 20px !important;
+  height: 10px !important;
+  color: black !important;
+  font-weight: bold !important;
+  text-transform: none !important;
+  background-color: #c3d3fb !important;
+  border-radius: 2vh !important;
+  font-size: 10px !important;
+}
+
+.custom-button-container-2 {
+  display: flex !important;
+  padding: 0 !important;
+  margin-left: auto !important; /* Pushes the button to the right */
+  margin-right: 5vw !important;
+  margin-bottom: 2vh !important;
+}
+
+.custom-upload-button {
+  margin: 0 !important;
+  border-radius: 5px !important;
+  width: auto !important;
+  font-size: 10px !important;
+}
+
+@media (max-width: 868px) {
+  .custom-button-2 {
+    font-size: 0 !important;
+    width: 2px !important;
+    height: 20px !important;
+  }
+
+  .custom-button-container-2 {
+    padding: 0 !important;
+  }
+
+  .custom-upload-button {
+    margin: 0 !important;
+    border-radius: 5px !important;
+    width: auto !important;
+    font-size: 0 !important;
+  }
+}
+
+@media (max-height: 400px) {
+  .custom-button-container-2 {
+    display: none !important;
+  }
+}

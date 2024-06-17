@@ -208,7 +208,8 @@ const MyModulesPage = () => {
         >
           Back
         </Button> */}
-        <h3 id="heading-mymodules">My Modules</h3>
+        {/* <h3 id="heading-mymodules">My Modules</h3> */}
+        <h3 id="heading">My Modules</h3>
 
         <div
           style={{

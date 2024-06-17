@@ -63,6 +63,14 @@ th {
   margin-bottom: 2vh;
 }
 
+#back-button {
+  width: 100px;
+  color: black;
+  height: 50px;
+  font-weight: bold;
+  margin-bottom: 2vh;
+}
+
 @media (min-width: 1120px) {
   #graded-answerscript {
     flex-direction: row;
@@ -134,6 +142,10 @@ th {
   .table-container {
     width: 100%;
   }
+  #back-button {
+    font-size: 0;
+    height: auto;
+  }
 }
 
 @media (max-width: 520px) {
@@ -162,5 +174,8 @@ th {
 
   .table-container {
     width: 100%;
+  }
+  #back-button {
+    display: none;
   }
 }

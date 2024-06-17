@@ -45,7 +45,7 @@ function Settings() {
           Back
         </Button> */}
         {/* <h3>Settings</h3> */}
-        <div id="setting-title-container">
+        {/* <div id="setting-title-container">
           <img src={setting} id="setting-image" />
           <div id="setting-titles">
             <h3 id="settings-title">Settings</h3>
@@ -57,7 +57,8 @@ function Settings() {
               Make the most of our platform by tailoring it to your needs.
             </p>
           </div>
-        </div>
+        </div> */}
+        <h3 id="heading">Settings</h3>
         <div
           style={{
             backgroundColor: "white",
