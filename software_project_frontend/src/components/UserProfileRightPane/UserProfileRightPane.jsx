@@ -12,39 +12,34 @@ import { useNavigate } from "react-router-dom";
 // import { Password } from "@mui/icons-material";
 
 export const UserProfileRightPane = () => {
-  const [profileData, setProfileData] = useState(
-    {
+  const [profileData, setProfileData] = useState({
     email: "",
     firstName: "",
     lastName: "",
-    password:"",
-    designation: ""
-    
-    }
-  );
+    password: "",
+    designation: "",
+  });
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
     setLoading(true);
     const response = await axios.get("http://localhost:3500/user");
-        setProfileData(response.data);
-        console.log("profile data : ", response.data);
+    setProfileData(response.data);
+    console.log("profile data : ", response.data);
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     async function getProfileData() {
       try {
         // await refreshAccessToken();
         await getData();
-
-        
       } catch (error) {
-        if(error.response && error.response.status === 401){
+        if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
           console.log("New access token: ", newAccessToken);
 
-          if(newAccessToken){
+          if (newAccessToken) {
             try {
               // await refreshAccessToken();
               await getData();
@@ -52,8 +47,7 @@ export const UserProfileRightPane = () => {
               console.error("Error fetching data:", error);
             }
           }
-        }
-        else{
+        } else {
           console.error("Error fetching data:", error);
         }
       }
@@ -70,20 +64,20 @@ export const UserProfileRightPane = () => {
   };
 
   const handleCancel = (event) => {
-    navigate('')
+    navigate("");
   };
 
   const save = async () => {
     setLoading(true);
     const body = {
-      newmail : profileData.email
-    }
+      newmail: profileData.email,
+    };
     const response = await axios.put("http://localhost:3500/user", body);
-      console.log("Finished sending request");
-      // navigate("/Dashboard");
-      console.log("new profile data :", profileData);
-      setLoading(false);
-  }
+    console.log("Finished sending request");
+    // navigate("/Dashboard");
+    console.log("new profile data :", profileData);
+    setLoading(false);
+  };
 
   const handleChangeEmail = async (e) => {
     try {
@@ -92,13 +86,12 @@ export const UserProfileRightPane = () => {
       await save();
       // await refreshAccessToken();
       console.log("Trying to save email");
-      
     } catch (error) {
-      if(error.response && error.response.status === 401){
+      if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
-        if(newAccessToken){
+        if (newAccessToken) {
           try {
             // await refreshAccessToken();
             await save();
@@ -106,39 +99,38 @@ export const UserProfileRightPane = () => {
             console.error("Error fetching data:", error);
           }
         }
-      }
-      else{
+      } else {
         console.error("Error fetching data:", error);
       }
     }
   };
 
-
-
   const navigate = useNavigate();
 
   const save2 = async () => {
     setLoading(true);
-    const response = await axios.post("http://localhost:3500/user", profileData);
-      console.log("Finished sending request");
-      handleChangeEmail();
-      navigate("/Dashboard");
-      console.log("new profile data :", profileData);
-      setLoading(false);
-  }
-  
+    const response = await axios.post(
+      "http://localhost:3500/user",
+      profileData
+    );
+    console.log("Finished sending request");
+    handleChangeEmail();
+    navigate("/Dashboard");
+    console.log("new profile data :", profileData);
+    setLoading(false);
+  };
+
   const handleSave = async (e) => {
     try {
       // await refreshAccessToken();
       console.log("Trying to save details");
       await save2();
-      
     } catch (error) {
-      if(error.response && error.response.status === 401){
+      if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
-        if(newAccessToken){
+        if (newAccessToken) {
           try {
             // await refreshAccessToken();
             await save2();
@@ -146,148 +138,155 @@ export const UserProfileRightPane = () => {
             console.error("Error fetching data:", error);
           }
         }
-      }
-      else{
+      } else {
         console.error("Error fetching data:", error);
       }
     }
   };
 
   return (
-    <div style={{width:"100%"}}>
-      
-      
-
+    <div style={{ width: "100%" }}>
       {/* <h1 id="heading">Settings</h1>
       <h6 id="heading" color='black' fontWeight= "bolder" style={{fontSize:"3vh"}}>Manage My Account</h6> */}
 
-      <div style={{width:"100%", display:"flex", flexDirection:"column", justifyContent:"left"}}>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "left",
+        }}
+      >
         {/* <div > */}
-          {/* <div className="label1-userprofile-left"> */}
-          <h2
-            style={{
-              fontSize: "15px",
-              marginLeft: "1vw",
-              // marginTop: "5vh",
-              color: "black",
-            }}
-          >
-            First Name
-          </h2>
-          <TextField
+        {/* <div className="label1-userprofile-left"> */}
+        <h2
+          style={{
+            fontSize: "15px",
+            marginLeft: "1vw",
+            // marginTop: "5vh",
+            color: "black",
+          }}
+        >
+          First Name
+        </h2>
+        <TextField
           hiddenLabel
           id="filled-hidden-label-small"
           variant="filled"
           // defaultValue="Module Code"
           placeholder={profileData.firstName}
-            name="firstName"
-            value={profileData.firstName}
-            onChange={handleChange}
-            style={{width: "80%"}}
-            sx={{
-              // marginLeft: 5,
-              marginTop: 0,
-              // marginRight: 5,
-              "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
-              },
-            }}
-          />
+          name="firstName"
+          value={profileData.firstName}
+          onChange={handleChange}
+          // style={{ width: "30vw" }}
+          sx={{
+            // marginLeft: 5,
+            marginTop: 0,
+            // width: "40vw",
+            // marginRight: 5,
+            "& input": {
+              fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+              padding: "8px 12px", // Adjust the padding to match the new font size
+            },
+          }}
+        />
 
-          <h2
-            style={{
-              fontSize: "15px",
-              marginLeft: "1vw",
-              color: "black",
-              marginTop: "1.5vh"
-            }}
-          >
-            Last Name
-          </h2>
-          <TextField
+        <h2
+          style={{
+            fontSize: "15px",
+            marginLeft: "1vw",
+            color: "black",
+            marginTop: "1.5vh",
+          }}
+        >
+          Last Name
+        </h2>
+        <TextField
           hiddenLabel
           id="filled-hidden-label-small"
           variant="filled"
           // defaultValue="Module Code"
           placeholder={profileData.lastName}
-            name="lastName"
-            value={profileData.lastName}
-            onChange={handleChange}
-            style={{width: "80%"}}
-            sx={{
-              // marginLeft: 5,
-              marginTop: 0,
-              // marginRight: 5,
-              "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
-              },
-            }}
-          />
+          name="lastName"
+          value={profileData.lastName}
+          onChange={handleChange}
+          // style={{ width: "30vw" }}
+          sx={{
+            // marginLeft: 5,
+            marginTop: 0,
+            // marginRight: 5,
+            "& input": {
+              fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+              padding: "8px 12px", // Adjust the padding to match the new font size
+            },
+          }}
+        />
 
-          <h2
-            style={{
-              fontSize: "15px",
-              marginLeft: "1vw",
-              color: "black",
-              marginTop: "1.5vh"
-            }}
-          >
-            Email
-          </h2>
-          <TextField
+        <h2
+          style={{
+            fontSize: "15px",
+            marginLeft: "1vw",
+            color: "black",
+            marginTop: "1.5vh",
+          }}
+        >
+          Email
+        </h2>
+        <TextField
           hiddenLabel
           id="filled-hidden-label-small"
           variant="filled"
           // defaultValue="Module Code"
           placeholder={profileData.email}
-            name="email"
-            value={profileData.email}
-            onChange={handleChange}
-            style={{width: "80%"}}
-            sx={{
-              // marginLeft: 5,
-              // marginTop: 0,
-              // marginRight: 5,
-              "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
-              },
-            }}
-          />
+          name="email"
+          value={profileData.email}
+          onChange={handleChange}
+          // style={{ width: "30vw" }}
+          sx={{
+            // marginLeft: 5,
+            // marginTop: 0,
+            // marginRight: 5,
+            "& input": {
+              fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+              padding: "8px 12px", // Adjust the padding to match the new font size
+            },
+          }}
+        />
 
-          <h2
-            style={{
-              fontSize: "15px",
-              marginLeft: "1vw",
-              color: "black",
-              marginTop: "1.5vh"
-            }}
-          >
-            Designation
-          </h2>
-          <TextField
+        <h2
+          style={{
+            fontSize: "15px",
+            marginLeft: "1vw",
+            color: "black",
+            marginTop: "1.5vh",
+          }}
+        >
+          Designation
+        </h2>
+        <TextField
           hiddenLabel
           id="filled-hidden-label-small"
           variant="filled"
           // defaultValue="Module Code"
           placeholder={profileData.designation}
-            name="designation"
-            value={profileData.designation}
-            onChange={handleChange}
-            style={{width: "80%"}}
-            sx={{
-              // marginLeft: 5,
-              // marginTop: 0,
-              // marginRight: 5,
-              "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
-              },
-            }}
-          />
-          <div style={{display:"flex", justifyContent:"center"}} className="userprofile-buttons2">
+          name="designation"
+          value={profileData.designation}
+          onChange={handleChange}
+          // style={{ width: "30vw" }}
+          sx={{
+            // marginLeft: 5,
+            // marginTop: 0,
+            // marginRight: 5,
+            "& input": {
+              fontSize: "1rem", // Adjust the font size to decrease the size of the text box
+              padding: "8px 12px", // Adjust the padding to match the new font size
+            },
+          }}
+        />
+        <div
+          style={{ display: "flex", justifyContent: "center" }}
+          className="userprofile-buttons2"
+        >
           <CustomButton
             className="label1-userprofile-left"
             text="Cancel"
@@ -302,7 +301,6 @@ export const UserProfileRightPane = () => {
             backgroundColor="#7894DB"
             textColor="white"
           />
-          
 
           {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"white", color:"#7894DB", width : "20vh", textTransform: "capitalize", border: "2px solid #7894DB"}}>Cancel</Button> */}
           {/* <Button variant="contained" style={{margin:"10px", backgroundColor:"#7894DB", width : "20vh", textTransform: "capitalize"}}>Save</Button> */}
@@ -312,7 +310,8 @@ export const UserProfileRightPane = () => {
   );
 };
 
-          {/* <h2
+{
+  /* <h2
             style={{
               fontSize: "19px",
               marginLeft: "35px",
@@ -374,10 +373,14 @@ export const UserProfileRightPane = () => {
                 padding: "8px 12px", // Adjust the padding to match the new font size
               },
             }}
-          /> */}
-           
-          {/* </TextField> */}
-            {/* <span className="label1-userprofile-left">First Name</span>
+          /> */
+}
+
+{
+  /* </TextField> */
+}
+{
+  /* <span className="label1-userprofile-left">First Name</span>
             <div id="space1">
               <TextField
                 id="outlined-basic"
@@ -387,10 +390,14 @@ export const UserProfileRightPane = () => {
                 value={profileData.firstName}
                 onChange={handleChange}
               />
-            </div> */}
-          {/* </div> */}
+            </div> */
+}
+{
+  /* </div> */
+}
 
-          {/* <div className="label1-userprofile-left">
+{
+  /* <div className="label1-userprofile-left">
             <span className="label2">Last Name</span>
             <div id="space2">
               <TextField
@@ -402,10 +409,14 @@ export const UserProfileRightPane = () => {
                 onChange={handleChange}
               />
             </div>
-          </div> */}
-        {/* </div> */}
+          </div> */
+}
+{
+  /* </div> */
+}
 
-        {/* <div style={{ display: "flex", flexDirection: "row" }}>
+{
+  /* <div style={{ display: "flex", flexDirection: "row" }}>
           <span className="label1-userprofile-left">Email</span>
           <div id="space3">
             <TextField
@@ -418,23 +429,31 @@ export const UserProfileRightPane = () => {
               onChange={handleChange}
             />
           </div>
-        </div> */}
+        </div> */
+}
 
-        {/*  <div>
+{
+  /*  <div>
             <span className='label1'>Address</span>
             <div id='space3'>
                 <TextField id="outlined-basic" label="Address" variant="outlined" style={{width: "140vh"}}/>
             </div>
-        </div> */}
+        </div> */
+}
 
-        {/* <div style={{ display: "flex", flexDirection: "row" }}> */}
-        {/*   <div>
+{
+  /* <div style={{ display: "flex", flexDirection: "row" }}> */
+}
+{
+  /*   <div>
                 <span className='label1'>Contact No.</span>
                 <div id='space1'>
                     <TextField id="outlined-basic" label="Contact No." variant="outlined"/>
                 </div>
-            </div> */}
-        {/* <div
+            </div> */
+}
+{
+  /* <div
           style={{ display: "flex", flexDirection: "row" }}
           className="label1-userprofile-left"
         >
@@ -448,9 +467,11 @@ export const UserProfileRightPane = () => {
               onChange={handleChange}
             />
           </div>
-        </div> */}
+        </div> */
+}
 
-        {/* <div
+{
+  /* <div
           style={{ display: "flex", flexDirection: "row" }}
           className="label1-userprofile-left"
         >
@@ -465,11 +486,15 @@ export const UserProfileRightPane = () => {
               onChange={handleChange}
             />
           </div>
-        </div> */}
+        </div> */
+}
 
-        {/* </div> */}
+{
+  /* </div> */
+}
 
-        {/*      <div style={{ display: 'flex', flexDirection: 'row' }}>
+{
+  /*      <div style={{ display: 'flex', flexDirection: 'row' }}>
             <span className='label1'>Educational Background</span>
             <div id='space3' style={{Height: "50vh"}}>
                  <TextField id="outlined-basic" label="Educational Background" variant="outlined" style={{width: "140vh", height: "50vh"}}/> 
@@ -485,8 +510,10 @@ export const UserProfileRightPane = () => {
 />
 
             </div>
-        </div> */}
-        {/* <div className="userprofile-buttons">
+        </div> */
+}
+{
+  /* <div className="userprofile-buttons">
           <CustomButton
             className="label1-userprofile-left"
             text="Change my password"
@@ -494,6 +521,5 @@ export const UserProfileRightPane = () => {
             backgroundColor="#8968CD"
             textColor="white"
           />
-        </div> */}
-
-        
+        </div> */
+}

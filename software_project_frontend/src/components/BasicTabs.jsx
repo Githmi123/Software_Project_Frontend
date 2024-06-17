@@ -11,6 +11,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import "../components/BasicTabs.css";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,12 +67,13 @@ export default function BasicTabs() {
     <Box sx={{ width: "auto", marginLeft: "3vw", marginRight: "3vw" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
+          id="setting-tabs"
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
           variant="fullWidth"
           // scrollButtons="auto",
-          width="5vw"
+          // sx={{ width: "40vw" }}
         >
           {/* <Tab label="Manage Account Info" {...a11yProps(0)} /> */}
           <Tab
@@ -82,7 +84,9 @@ export default function BasicTabs() {
               ) : (
                 <Grid container alignItems="center">
                   {/* <AccountCircleIcon sx={{ mr: 1 }} /> */}
-                  <Typography variant="body1">Manage my Account</Typography>
+                  <Typography variant="body1" sx={{ textAlign: "center" }}>
+                    Manage my Account
+                  </Typography>
                 </Grid>
               )
             }
@@ -97,7 +101,7 @@ export default function BasicTabs() {
               ) : (
                 <Grid container alignItems="center">
                   {/* <LockIcon sx={{ mr: 1 }} /> */}
-                  <Typography variant="body1">Change password</Typography>
+                  <Typography variant="body1">Change My password</Typography>
                 </Grid>
               )
             }
@@ -106,12 +110,21 @@ export default function BasicTabs() {
           {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <UserProfileRightPane />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <ChangePassword />
-      </CustomTabPanel>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          // width: "50vw",
+        }}
+      >
+        <CustomTabPanel value={value} index={0}>
+          <UserProfileRightPane />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <ChangePassword />
+        </CustomTabPanel>
+      </div>
       {/* <CustomTabPanel value={value} index={2}>
         Item Three
       </CustomTabPanel> */}
