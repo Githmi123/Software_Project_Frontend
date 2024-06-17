@@ -241,12 +241,12 @@ const MyModulesPage = () => {
         </div>
         <div
           className="columnModules"
-          style={{
-            width: "80%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          // style={{
+          //   width: "80%",
+          //   display: "flex",
+          //   justifyContent: "center",
+          //   alignItems: "center",
+          // }}
         >
           {loading ? (
             <div style={{ display: "flex", justifyContent: "center" }}>
