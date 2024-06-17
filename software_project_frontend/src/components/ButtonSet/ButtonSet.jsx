@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material'
+import { Button, IconButton, Stack } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ import refreshAccessToken from '../../services/AuthService';
 import  "./ButtonSet.css"
 import LeftPaneButton from '../Buttons/LeftPaneButton';
 import '../ButtonSet/ButtonSet.css'
+import MenuIcon from '@mui/icons-material/Menu';
 
 const buttonStyle = {
   textAlign: 'left',
@@ -26,10 +27,18 @@ const buttonStyle = {
 const ButtonSet = () => {
   const [selectedButton, setSelectedButton] = useState("");
   const [loading, setLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  // const [selectedButton, setSelectedButton] = useState("");
 
   const handleSelectedButton = (name) => {
       setSelectedButton(name);
   }
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+
   const buttonStyle = {
     backgroundColor: selectedButton === "/Dashboard" ? '#ff0000' : 'white',
             color: selectedButton === "/Dashboard" ? 'white' : 'black',
@@ -100,7 +109,13 @@ useEffect(() => {
 
 
   return (
-    <Stack direction='column' spacing={2} alignItems='center' alignContent='center' marginLeft={"3vh"} className='button-set'>
+    <div>
+
+    <IconButton className="hamburger-icon" onClick={handleMenuToggle}>
+        <MenuIcon />
+      </IconButton>
+
+    <Stack direction='column' spacing={2} alignItems='center' alignContent='center' marginLeft={"3vh"} className={`button-set ${menuOpen ? 'show' : ''}`}>
         {/* <Button className="button" style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '45px',}}} component={Link} to='/RecentPage'  startIcon={<DashboardIcon/>} endIcon={<ArrowForwardIosIcon/>}>Dashboard</Button>
         <Button className='button'  style={buttonStyle} sx={{textAlign:'left'}} startIcon={<AssignmentIcon/> } component={Link} to="/NewAssignment" endIcon={<ArrowForwardIosIcon/>}>New Assignment</Button>
         <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '39px',}}} component={Link} to='/MyModulePage' startIcon={<BookIcon/>} endIcon={<ArrowForwardIosIcon/>}>My Modules</Button>
@@ -116,6 +131,19 @@ useEffect(() => {
 
 
     </Stack>
+
+
+{menuOpen && (
+  <div className={`menu ${menuOpen ? 'show' : ''}`}>
+    <LeftPaneButton icon={DashboardIcon} name="Dashboard" link='/Dashboard' isSelected={selectedButton === "Dashboard"} onClick={() => handleSelectedButton('Dashboard')} />
+    <LeftPaneButton icon={AssignmentIcon} name="New Assignment" link='/NewAssignment' isSelected={selectedButton === "New Assignment"} onClick={() => handleSelectedButton("New Assignment")} />
+    <LeftPaneButton icon={BookIcon} name="My Modules" link='/MyModulePage' isSelected={selectedButton === "My Modules"} onClick={() => handleSelectedButton("My Modules")} />
+    <LeftPaneButton icon={SettingsIcon} name="Settings" link='/Settings' isSelected={selectedButton === "Settings"} onClick={() => handleSelectedButton("Settings")} />
+    <LeftPaneButton icon={LiveHelpIcon} name="Help" link='/Help' isSelected={selectedButton === "Help"} onClick={() => handleSelectedButton("Help")} />
+  </div>
+)}
+
+</div>
 
   )
 }
