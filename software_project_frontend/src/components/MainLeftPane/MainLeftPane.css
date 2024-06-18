@@ -1,50 +1,56 @@
 .maindiv-left {
   position: relative;
   display: flex;
-
-  /* width:5%; */
-  /* height: 100%; */
-  /* background-color: #d4eff5; */
-  /* flex:1; */
-  /* float:left; */
- 
   align-content: center;
- 
-  
   height: 100vh;
   background: #F8F4FC;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 18vw;
+  width: 250px;
 }
 
 .main-left {
   position: relative;
   display: flex;
-
-  /* width:5%; */
-  /* height: 100%; */
-  /* background-color: #d4eff5; */
-  /* flex:1; */
-  /* float:left; */
- 
   align-content: center;
- 
-  
   height: 100vh;
   background: #F8F4FC;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 18vw;
+  width: 250px;
 }
+
+.maindiv-left-pane {
+  position: relative;
+  display: flex;
+  align-content: center;
+  height: 100vh;
+  background: #F8F4FC;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 200px;
+}
+
+.main-left-pane {
+  position: relative;
+  display: flex;
+  align-content: center;
+  height: 100vh;
+  background: #F8F4FC;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 200px;
+}
+
 
 #main-left-pane-image {
   margin: 2%;
   margin-top: 10vh;
   margin-bottom: 5vh;
-  /* margin-left: 5vh; */
   height: auto;
   display: flex;
   justify-content: center;
@@ -52,105 +58,75 @@
   align-items: center;
   width: 200px;
 }
+
 #ProfileBar {
   display: flex;
   justify-content: flex-end;
-  /* height: 100vh; */
   flex-direction: column;
-  /* background-color: aqua; */
   align-items: center;
   width: inherit;
   background-color: "red";
+}
+
+#ProfileBar2 {
+  display: none;
+}
+#ProfileBar1 {
+  display: none;
 }
 
 #bottom-profile-set {
   margin-bottom: -15vh;
 }
 
-
-@media (max-width: 1200px) {
-  .maindiv-left {
-    width: 25vw;
-  }
+.hamburger-icons {
+  display: none !important;
 }
 
 
 @media (max-width: 768px), (max-height: 600px) {
   .maindiv-left {
     width: 40px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    /* flex-direction: row; */
-    justify-content: center;
-    align-items: center;
-
+    justify-content: space-between   !important;
+    flex-direction: column !important;
+    align-items:center !important;
   }
+
   .main-left {
-    width: 40px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    /* flex-direction: row; */
-    justify-content: center;
-    align-items: center;
-
-  }
-
-  #main-left-pane-image {
-    width: 0%;
-    margin: 0;
-  }
-
-  #ProfileBar {
-    display: flex;
-    justify-content: flex-end;
-    /* height: 100vh; */
-    flex-direction: column;
-    /* background-color: aqua; */
-    align-items: flex-end;
-    width: inherit;
-    /* background-color: "red"; */
-  }
-}
-
-@media (max-height: 300px){
-  .maindiv-left {
-    /* min-height: 100px; */
-    height: auto;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  .main-left {
-    width: 40px;
-    /* height: 100%; */
     display: none;
-    flex-direction: column;
-
-    /* flex-direction: row; */
-    justify-content: center;
-    align-items: center;
-
   }
 
-  #main-left-pane-image {
-    width: 0%;
-    margin: 0;
-  }
+ 
 
   #ProfileBar {
-    display: flex;
     justify-content: flex-end;
-    /* height: 100vh; */
     flex-direction: column;
-    /* background-color: aqua; */
     align-items: flex-end;
     width: inherit;
-    /* background-color: "red"; */
+  }
+
+  #ProfileBar1 {
+    display: none;
+  }
+
+  .hamburger-icons {
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: inherit !important;
+    /* height: 20px !important; */
+    /* background-color: red !important; */
+    margin-left: 15px;
+  }
+
+  #ProfileBar2 {
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 40px !important;
+    height: 40px !important;
+  
   }
 }
-
