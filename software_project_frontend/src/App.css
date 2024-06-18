@@ -1,37 +1,59 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
-  overflow-x: hidden;
-  overflow-y: hidden;
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #7894DB;
-  min-height: 100px;
-  
 }
 
-#root{
+#root {
   height: 100%;
   width: 100%;
-
 }
 
-#App{
+#App {
   height: 100%;
   width: 100%;
   background-color: #7894DB;
-  /* min-height: 300px; */
+  display: flex;
+  flex-direction: column;
 }
 
 .panes-container {
   display: flex;
-  justify-content: space-between; /* or any other flex properties as needed */
-  margin: 20px; /* Optional: add margin for spacing */
+  flex: 1;
+  min-height: 0; /* Ensures the container doesn't overflow */
 }
 
-.background{
-  /* background:  #7894DB; */
-  /* min-height: 300px; */
+.left-pane {
+  flex: 0 0 250px; /* Fixed width for left pane */
+  background-color: #f4f4f4; /* Example background */
+  overflow-y: auto;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+@media (max-width: 375px) { /* Adjustments for iPhone SE */
+  .left-pane {
+    flex: 0 0 200px; /* Adjust the width of the left pane */
+  }
+  
+  .panes-container {
+    flex-direction: column; /* Stack vertically on smaller screens */
+  }
+
+  .left-pane, .main-content {
+    flex: 1 0 auto; /* Make sure both panes take appropriate height */
+  }
 }

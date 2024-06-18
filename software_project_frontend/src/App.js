@@ -31,7 +31,7 @@ import { SnackbarProvider } from "notistack";
 function App() {
   return (
     <SnackbarProvider>
-    <div id="App" className="background" style={{ backgroundColor: "#7894DB" }}>
+    <div id="App" style={{ backgroundColor: "#7894DB" }}>
       <Router>
         <Routes>
           <Route exact path="/" element={<Login />}></Route>

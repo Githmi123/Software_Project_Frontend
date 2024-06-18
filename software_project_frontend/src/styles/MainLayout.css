@@ -1,15 +1,32 @@
 .main-layout {
-    display: flex;
-    height: 100vh; /* Ensures the layout takes full height */
+  display: flex;
+  height: 100vh; /* Use vh to ensure it takes full viewport height */
+}
+
+.left-pane {
+  width: 200px; /* Adjust width as needed */
+  background-color: #f4f4f4; /* Example background color */
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+.content {
+  flex: 1;
+  background-color: #fff; /* Example background color */
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 375px) { /* iPhone SE screen width */
+  .main-layout {
+    flex-direction: column; /* Stack vertically on smaller screens */
   }
-  
+
   .left-pane {
-    width: 200px; /* Adjust width as needed */
+    width: 100%; /* Full width for the left pane */
+    height: 200px; /* Adjust height as needed for the left pane */
   }
-  
+
   .content {
-    flex: 1;
-    /* display: flex; */
-    /* padding: 20px; */
+    flex: 1 0 auto; /* Make sure content takes appropriate height */
   }
-  
+}
