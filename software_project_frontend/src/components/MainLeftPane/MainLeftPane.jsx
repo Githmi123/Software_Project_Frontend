@@ -98,7 +98,9 @@ const MainLeftPane = () => {
         <ButtonSet />
       </div>
       {/* <div style={{backgroundColor:"#C3D3FB"}} id = "ProfileBar"> */}
+
       <div style={{ backgroundColor: "inherit" }} id="ProfileBar1">
+
 
         <AccountMenu />
       </div>

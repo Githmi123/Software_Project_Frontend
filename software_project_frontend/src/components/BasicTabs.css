@@ -1,0 +1,21 @@
+#setting-tabs {
+  width: 40vw;
+}
+
+@media (max-width: 678px) {
+  #setting-tabs {
+    width: 50vw;
+  }
+}
+
+@media (max-width: 590px) {
+  #setting-tabs {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 350px) {
+  #setting-tabs {
+    width: 85vw;
+  }
+}

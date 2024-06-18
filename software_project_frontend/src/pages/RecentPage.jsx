@@ -23,11 +23,13 @@ import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import { Delete, Edit } from "@mui/icons-material";
 import Avatar from "@mui/material/Avatar";
+import CustomNewButton2 from "../components/Buttons/CustomNewButton2/CustomNewButton2";
 
 import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { styled } from "@mui/system";
 
 import dayjs from "dayjs";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
@@ -44,8 +46,8 @@ const RecentPage = () => {
   const [moduleData, setModuleData] = useState([]);
   const [batchData, setBatchData] = useState([]);
   const [profileData, setProfileData] = useState("");
-  const [firstName, setFirstName] = useState("ABC");
-  const [lastName, setLastName] = useState("Perera");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [value, setValue] = React.useState(dayjs());
   const [progress, setProgress] = React.useState(10);
   const [loading, setLoading] = useState(false);
@@ -124,27 +126,27 @@ const RecentPage = () => {
       setAssignments(allAssignments);
       console.log("Assignments Data", allAssignments);
 
-      const allGrades = [];
-      for (const assignment of allAssignments) {
-        const { moduleCode, batch, assignmentId } = assignment;
+      // const allGrades = [];
+      // for (const assignment of allAssignments) {
+      //   const { moduleCode, batch, assignmentId } = assignment;
 
-        try {
-          // await refreshAccessToken();
+      //   try {
+      //     // await refreshAccessToken();
 
-          const response = await axios.get(
-            `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${''}`,
-            
-          );
+      //     const response = await axios.get(
+      //       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${''}`,
 
-          console.log("Details of the answer scripts:", response.data);
-          console.log(typeof response.data);
+      //     );
 
-          allGrades.push(response.data);
-        } catch (error) {
-          console.error("Error displaying answer scripts:", error);
-        }
-      }
-      setMarked(allGrades);
+      //     console.log("Details of the answer scripts:", response.data);
+      //     console.log(typeof response.data);
+
+      //     allGrades.push(response.data);
+      //   } catch (error) {
+      //     console.error("Error displaying answer scripts:", error);
+      //   }
+      // }
+      // setMarked(allGrades);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -152,34 +154,27 @@ const RecentPage = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        console.log("Fetching data");
-        // await refreshAccessToken();
-        console.log("after refresh");
-        const userResponse = await axios.get("http://localhost:3500/user");
-        const user = userResponse.data;
+  const getProfileData = async () => {
+    setLoading(true);
+    const userResponse = await axios.get("http://localhost:3500/user");
+    const user = userResponse.data;
 
-        setFirstName(user.firstname);
-        console.log("First name:", user.firstname); // Log the first name here
-        if (user.profilepic) {
-          setImageSRC(user.profilepic);
-        }
-        setLastName(user.lastname);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    console.log(user);
 
-    fetchProfileData();
-  }, []);
+    if (user.profilepic) {
+      setImageSRC(user.profilepic);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // await refreshAccessToken();
         await getData();
+        await getProfileData();
       } catch (error) {
         if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
@@ -189,6 +184,7 @@ const RecentPage = () => {
             try {
               // await refreshAccessToken();
               await getData();
+              await getProfileData();
             } catch (error) {
               console.error("Error fetching data:", error);
             }
@@ -239,7 +235,7 @@ const RecentPage = () => {
   const targetProgress = (2 / 3) * 100;
   useEffect(() => {
     const increment = targetProgress / 100;
-    const interval = 5;
+    const interval = 50;
 
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
@@ -276,42 +272,6 @@ const RecentPage = () => {
     );
   };
 
-  function CircularProgressWithLabel(props) {
-    return (
-      <Box sx={{ position: "relative", display: "inline-flex" }}>
-        <CircularProgress variant="determinate" {...props} />
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography variant="caption" component="div" color="white">
-            {`${Math.round(props.value)}%`}
-          </Typography>
-        </Box>
-      </Box>
-    );
-  }
-
-  CircularProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate variant.
-     * Value between 0 and 100.
-     * @default 0
-     */
-    value: PropTypes.number.isRequired,
-  };
-
-  var day = new Date();
-  var hr = day.getHours();
-
   const newLocal = "space";
 
   return (
@@ -332,141 +292,15 @@ const RecentPage = () => {
           >
             Back  
           </Button> */}
+        <h3 id="heading">Dashboard</h3>
         <div id="dashboard">
-          <h3 id="heading-dashboard">Dashboard</h3>
           <div style={{ width: "100%" }}>
-            <div
-              id="summary-and-calendar-raw"
-              style={{
-                width: "90%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#F7EFE5",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  // marginLeft: "5vh",
-                }}
-              >
-                <div id="hi-container">
-                  <Avatar sx={{ width: 55, height: 55 }}>
-                    <img
-                      src={imageSRC}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  </Avatar>
-                  <div id="hi-paragraphs">
-                    <p id="name-hi">
-                      Hi, {firstName} {lastName}
-                    </p>
-                    <p id="good-time">
-                      {"Good " +
-                        (hr < 12
-                          ? "Morning"
-                          : hr < 18
-                          ? "Afternoon"
-                          : "Evening")}
-                    </p>
-                  </div>
-                </div>
-                <div id="summary-graph">
-                  <Box
-                    display="flex"
-                    // marginLeft="1vw"
-                    // marginTop="1vh"
-                    // paddingTop="3vh"
-                  >
-                    <CircularProgressWithLabel
-                      value={progress}
-                      sx={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
-                  </Box>
-                  <div>
-                    <p>You have 60% to be marked</p>
-                    <p
-                      style={{
-                        marginBottom: "1vh",
-                        marginTop: "-3vh",
-                        fontSize: "1.5rem",
-                      }}
-                    >
-                      5
-                    </p>
-                    <p style={{ marginBottom: "1vh", marginTop: "-2vh" }}>5</p>
-                  </div>
-                </div>
-              </div>
+            <Link to={"/NewAssignment"} id="add-new-assignment-button">
+              {/* <CustomNewButton text="New Assignment" /> */}
+              <CustomNewButton2 text="New Assignment" />
+            </Link>
 
-              <div id="dashboard-details">
-                <p id="summary-detail">Summary Report</p>
-                <p>Modules : {moduleData.length}</p>
-                <p>Assignments : {assignments.length}</p>
-                <p>To be marked : 2</p>
-                <p>Marked : 5 </p>
-              </div>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateCalendar
-                  value={value}
-                  onChange={(newValue) => setValue(newValue)}
-                  // sx={{
-                  //   "& .MuiPickersDay-root": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersDay-root.Mui-selected": {
-                  //     backgroundColor: "white",
-                  //     color: "black",
-                  //   },
-                  //   "& .MuiPickersDay-root:hover": {
-                  //     backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-root": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-switchViewButton": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-label": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersCalendarHeader-iconButton": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersYear-root": {
-                  //     color: "white",
-                  //   },
-                  //   "& .MuiPickersMonth-root": {
-                  //     color: "white",
-                  //   },
-                  // }}
-                />
-              </LocalizationProvider>
-            </div>
             <div id="recent-assignments">
-              <div id="recent-assignment-title-and-button-raw">
-                <p>Recent Assignments</p>
-                <Link
-                  to={'/NewAssignment'}
-                  style={{
-                    textDecoration: "none",
-                    marginRight: "5vw",
-                    marginTop: "2vh",
-                  }}
-                >
-                  <CustomNewButton text="New Assignment" />
-                </Link>
-              </div>
-
               <div
                 id="dashbord-recent-assignment-table"
                 style={
@@ -478,60 +312,66 @@ const RecentPage = () => {
                   }
                 }
               >
-                <List
-                  sx={{
-                    width: "100%",
-                    bgcolor: "background.paper",
-                    overflow: "auto",
-                    height: "80%",
-                  }}
-                >
-                  {assignments.map((assignment, index) => (
-                    <ListItem
-                      key={assignment.assignmentId}
-                      secondaryAction={
-                        <div>
-                          <IconButton
-                            edge="end"
-                            aria-label="edit"
-                            onClick={() => handleEditAssignment(assignment)}
-                          >
-                            <Edit />
-                          </IconButton>
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            onClick={() => handleDeleteAssignment(assignment)}
-                          >
-                            <Delete />
-                          </IconButton>
-                        </div>
-                      }
-                      disablePadding
-                    >
-                      <ListItemButton
-                        onClick={() => handleSelection(assignment)}
+                {loading ? (
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <List
+                    sx={{
+                      width: "100%",
+                      bgcolor: "background.paper",
+                      overflow: "auto",
+                      height: "80%",
+                    }}
+                  >
+                    {assignments.map((assignment, index) => (
+                      <ListItem
+                        key={assignment.assignmentId}
+                        secondaryAction={
+                          <div>
+                            <IconButton
+                              edge="end"
+                              aria-label="edit"
+                              onClick={() => handleEditAssignment(assignment)}
+                            >
+                              <Edit />
+                            </IconButton>
+                            <IconButton
+                              edge="end"
+                              aria-label="delete"
+                              onClick={() => handleDeleteAssignment(assignment)}
+                            >
+                              <Delete />
+                            </IconButton>
+                          </div>
+                        }
+                        disablePadding
                       >
-                        <ListItemText
-                          primaryTypographyProps={{
-                            style: { fontSize: "2vh" },
-                          }}
-                          // secondaryTypographyProps={{ style: {  } }}
-                          primary={`${assignment.assignment} - ${assignment.moduleCode}`}
-                          secondary={
-                            <span>
-                              {assignment.batch} - {assignment.dateCreated}
-                            </span>
-                          }
-                          secondaryTypographyProps={{
-                            component: "span",
-                            style: { display: "inline", fontSize: "1.5vh" },
-                          }}
-                        />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
+                        <ListItemButton
+                          onClick={() => handleSelection(assignment)}
+                        >
+                          <ListItemText
+                            primaryTypographyProps={{
+                              style: { fontSize: "2vh" },
+                            }}
+                            // secondaryTypographyProps={{ style: {  } }}
+                            primary={`${assignment.assignment} - ${assignment.moduleCode}`}
+                            secondary={
+                              <span>
+                                {assignment.batch} - {assignment.dateCreated}
+                              </span>
+                            }
+                            secondaryTypographyProps={{
+                              component: "span",
+                              style: { display: "inline", fontSize: "1.5vh" },
+                            }}
+                          />
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
               </div>
             </div>
           </div>
