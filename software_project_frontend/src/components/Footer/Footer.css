@@ -1,10 +1,9 @@
 #footer {
-  background-color: #31326f;
+  background-color: #01427a;
   color: white;
   /* padding: 2rem 0; */
   text-align: center;
   /* height: content; */
-  
 }
 
 .footer-container {
@@ -52,11 +51,10 @@
   color: black;
 }
 
-h4{
-  font-size:larger;
+h4 {
+  font-size: larger;
 }
 
-p{
-  font-size: small
+p {
+  font-size: small;
 }
-

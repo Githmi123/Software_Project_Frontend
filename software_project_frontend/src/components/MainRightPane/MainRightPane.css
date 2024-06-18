@@ -11,16 +11,16 @@
 }
 
 /* Container styling */
-.container {
-  flex: 1; /* Take up all available space except the footer */
+.right-pane-container {
+  flex: 1;
   /* background-color: white; */
-  width: 75%;
+  width: 100%;
   display: flex;
   /* border-radius: 2vh; */
   flex-direction: column;
   margin: auto;
-  margin-bottom: 5vh;
-  margin-top: 8vh;
+  /* margin-bottom: 5vh; */
+  /* margin-top: 8vh; */
 }
 
 /* Footer styling */
@@ -31,6 +31,12 @@
   /* padding: 10px 0; */
   width: 100%;
   margin: 0;
-  /* Ensure the footer is at the bottom of the container */
+
   align-self: flex-end;
+}
+
+@media (min-width: 768px) {
+  .right-pane-container {
+    max-width: 100% !important;
+  }
 }

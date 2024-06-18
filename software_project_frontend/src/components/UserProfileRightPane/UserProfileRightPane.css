@@ -6,8 +6,6 @@
   border-radius: 5vh;
 
   flex-direction: column;
-
-
 }
 
 .notificationButton {
@@ -114,7 +112,11 @@
   justify-content: center;
 }
 
-h2{
+h2 {
   display: flex;
   justify-content: left;
+}
+
+#filled-hidden-label-small {
+  width: 30vw;
 }

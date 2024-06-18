@@ -4,8 +4,10 @@
 } */
 
 #heading-mymodules {
-  color: white;
+  color: black;
   margin-top: 5vh;
+  text-align: center;
+  margin-bottom: 5vh;
 }
 
 #mymodules-container {
@@ -84,15 +86,23 @@ table td {
 }
 
 .columnModules {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   margin-top: 5vh;
+  /* max-height: 60vh; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-height: 60vh;
+  overflow-y: auto;
+  width: 90%;
+  margin-left: 5%;
+  /* width: 80vw; */
   /* overflow-y: auto; */
-  margin-right: 10vh;
-  margin-left: 10vh;
+  /* margin-right: 10vh; */
+  /* margin-left: 15vh; */
   /* width: 35vw; */
   /* overflow-y: scroll; */
   /* padding-bottom: 10px; */
@@ -113,4 +123,13 @@ table td {
   color: black;
   /* margin-bottom: 5px; */
   margin-top: 20px;
+}
+
+#add-new-module-button {
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 5vw;
+  margin-top: 2vh;
 }

@@ -1,0 +1,37 @@
+#form-input-field {
+  margin: 0.5;
+  max-width: auto;
+  width: 50vw;
+}
+
+/* @media (max-width: 1340px) {
+  #form-input-field {
+    margin: 0.5;
+    max-width: auto;
+    width: 36vh;
+  }
+} */
+
+@media (max-width: 768px) {
+  #form-input-field {
+    margin: 0.5;
+    max-width: auto;
+    width: 50vw;
+  }
+}
+/* 
+@media (max-width: 768px) {
+  #form-input-field {
+    margin: 0.5;
+    max-width: auto;
+    width: 50vw;
+  }
+} */
+
+@media (max-width: 480px) {
+  #form-input-field {
+    margin: 0.5;
+    max-width: auto;
+    width: 50vw;
+  }
+}

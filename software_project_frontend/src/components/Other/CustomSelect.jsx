@@ -1,11 +1,12 @@
 import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import "../Other/CustomSelect.css";
 
 const CustomSelect = ({ label, value, onChange, options }) => {
   const newOptionLabel = label === "Module" ? "New Module" : "New Batch";
 
   return (
-    <FormControl sx={{ m: 0.5, maxWidth: "auto", width: "46vh" }}>
+    <FormControl id="form-input-field">
       <InputLabel id={`select-${label}-label`}>{label}</InputLabel>
       <Select
         labelId={`select-${label}-label`}

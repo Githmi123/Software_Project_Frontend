@@ -7,9 +7,7 @@ import Footer from "../Footer/Footer";
 const MainRightPane = ({ children }) => {
   return (
     <div className="maindiv-right">
-      <div className="container">
-        {children}
-      </div>
+      <div className="right-pane-container">{children}</div>
       <div id="footer_main_right_pane">
         <Footer />
       </div>
