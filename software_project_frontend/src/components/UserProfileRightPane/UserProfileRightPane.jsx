@@ -10,6 +10,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 // import { Password } from "@mui/icons-material";
+import { useSnackbar } from "notistack";
 
 export const UserProfileRightPane = () => {
   const [profileData, setProfileData] = useState({
@@ -20,6 +21,9 @@ export const UserProfileRightPane = () => {
     designation: "",
   });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const getData = async () => {
     setLoading(true);
@@ -57,6 +61,7 @@ export const UserProfileRightPane = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // const errorMessage = validateInput(name, value);
     setProfileData((prevProfileData) => ({
       ...prevProfileData,
       [name]: value,
@@ -109,15 +114,41 @@ export const UserProfileRightPane = () => {
 
   const save2 = async () => {
     setLoading(true);
-    const response = await axios.post(
-      "http://localhost:3500/user",
-      profileData
-    );
-    console.log("Finished sending request");
-    handleChangeEmail();
-    navigate("/Dashboard");
-    console.log("new profile data :", profileData);
-    setLoading(false);
+    try {
+      if (profileData.firstName == " ") {
+        enqueueSnackbar("Please enter a first name!", {
+          variant: "error",
+        });
+        save2();
+      } else if (profileData.lastName == " ") {
+        enqueueSnackbar("Please enter a last name!", {
+          variant: "error",
+        });
+        save2();
+      } else if (profileData.email == "") {
+        enqueueSnackbar("Please enter a valid email!", {
+          variant: "error",
+        });
+        save2();
+      } else if (profileData.designation == " ") {
+        enqueueSnackbar("Please enter the designation!", {
+          variant: "error",
+        });
+        save2();
+      } else {
+        const response = await axios.post(
+          "http://localhost:3500/user",
+          profileData
+        );
+        console.log("Finished sending request");
+        handleChangeEmail();
+        navigate("/Dashboard");
+        console.log("new profile data :", profileData);
+        setLoading(false);
+      }
+    } catch (e) {
+      console.log("error", e);
+    }
   };
 
   const handleSave = async (e) => {
@@ -125,6 +156,7 @@ export const UserProfileRightPane = () => {
       // await refreshAccessToken();
       console.log("Trying to save details");
       await save2();
+      enqueueSnackbar("Profile changed successfully!", { variant: "success" });
     } catch (error) {
       if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();

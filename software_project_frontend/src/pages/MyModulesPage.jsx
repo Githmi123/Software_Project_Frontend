@@ -252,6 +252,8 @@ const MyModulesPage = () => {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <CircularProgress />
             </div>
+          ) : tableDataModules.length === 0 ? (
+            <h5>No modules created</h5>
           ) : (
             <List
               sx={{
