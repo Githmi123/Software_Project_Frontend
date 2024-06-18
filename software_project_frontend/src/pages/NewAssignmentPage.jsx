@@ -460,6 +460,9 @@ const NewAssignmentPage = () => {
                 variant="outlined"
                 value={schemepath}
                 onChange={handleSchemePathChange}
+                sx={{
+                  marginBottom: "3vh",
+                }}
                 // sx={{
                 //   m: 0.5,
                 //   width: "46vh",
@@ -484,7 +487,7 @@ const NewAssignmentPage = () => {
           >
             {/* <CustomButton text = "Cancel" onClick = {handleCancel} backgroundColor = "white" textColor = "#7894DB" /> */}
 
-            <Link to="/RecentPage" style={{ textDecoration: "none" }}>
+            <Link to="/Dashboard" style={{ textDecoration: "none" }}>
               {" "}
               {/* Wrap the button with Link */}
               <CustomButton
