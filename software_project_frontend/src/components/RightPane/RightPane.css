@@ -257,6 +257,8 @@ transform: rotate(-45deg);
     position: relative;
     justify-content: center;
     flex-direction: column;
+    width: 200px;
+    align-items: center;
 }
 
 
@@ -276,6 +278,18 @@ transform: rotate(-45deg);
 
 
 @media (max-width: 768px){
+
+    .div{
+        /* display: flex;
+        position: relative; */
+        justify-content: center;
+        flex-direction: row;
+        width: 200px;
+        flex-wrap: wrap;
+    }
+
+    
+
     .RightPane{
         
         width: 100vw;
@@ -303,6 +317,8 @@ transform: rotate(-45deg);
             height: 60px;
             margin-top: 10px;
         }
+
+        
 }
 
 
@@ -311,6 +327,15 @@ transform: rotate(-45deg);
         
         height: 90vh;
         
+        }
+
+        .div{
+            /* display: flex;
+            position: relative; */
+            justify-content: center;
+            flex-direction: row;
+            width: 200px;
+            flex-wrap: wrap;
         }
 
         #RS{
@@ -327,6 +352,14 @@ transform: rotate(-45deg);
             height: 60px !important;
             width: 50px !important;
             
+          }
+
+          .sign-up-fields {
+            /* position: relative !important; */
+            width: 50px !important;
+            /* height: 5vh !important; */
+            /* color: #000000 !important; */
+            /* margin: 2% !important; */
           }
 
           #LogText{
@@ -349,13 +382,13 @@ transform: rotate(-45deg);
         position: relative; */
         justify-content: center;
         flex-direction: row;
-        width: 500px;
+        width: 200px;
         flex-wrap: wrap;
     }
 
     .sign-up-fields {
         /* position: relative !important; */
-        width: 180px !important;
+        /* width: 180px !important; */
         height: 5vh !important;
         color: #000000 !important;
         margin: 2% !important;
