@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 // import { Password } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
+import SignUpValidation from "../Validation/SignUpValidation";
 
 export const UserProfileRightPane = () => {
   const [profileData, setProfileData] = useState({
@@ -69,7 +70,7 @@ export const UserProfileRightPane = () => {
   };
 
   const handleCancel = (event) => {
-    navigate("");
+    navigate("/Dashboard");
   };
 
   const save = async () => {
@@ -112,69 +113,115 @@ export const UserProfileRightPane = () => {
 
   const navigate = useNavigate();
 
-  const save2 = async () => {
+  // const save2 = async () => {
+  //   setLoading(true);
+  //   try {
+  //     if (profileData.firstName == " ") {
+  //       enqueueSnackbar("Please enter a first name!", {
+  //         variant: "error",
+  //       });
+  //       save2();
+  //     } else if (profileData.lastName == " ") {
+  //       enqueueSnackbar("Please enter a last name!", {
+  //         variant: "error",
+  //       });
+  //       save2();
+  //     } else if (profileData.email == "") {
+  //       enqueueSnackbar("Please enter a valid email!", {
+  //         variant: "error",
+  //       });
+  //       save2();
+  //     } else if (profileData.designation == " ") {
+  //       enqueueSnackbar("Please enter the designation!", {
+  //         variant: "error",
+  //       });
+  //       save2();
+  //     } else {
+  //       const response = await axios.post(
+  //         "http://localhost:3500/user",
+  //         profileData
+  //       );
+  //       console.log("Finished sending request");
+  //       handleChangeEmail();
+  //       navigate("/Dashboard");
+  //       console.log("new profile data :", profileData);
+  //       setLoading(false);
+  //     }
+  //   } catch (e) {
+  //     console.log("error", e);
+  //   }
+  // };
+
+  const saveProfileData = async () => {
     setLoading(true);
     try {
-      if (profileData.firstName == " ") {
-        enqueueSnackbar("Please enter a first name!", {
-          variant: "error",
-        });
-        save2();
-      } else if (profileData.lastName == " ") {
-        enqueueSnackbar("Please enter a last name!", {
-          variant: "error",
-        });
-        save2();
-      } else if (profileData.email == "") {
-        enqueueSnackbar("Please enter a valid email!", {
-          variant: "error",
-        });
-        save2();
-      } else if (profileData.designation == " ") {
-        enqueueSnackbar("Please enter the designation!", {
-          variant: "error",
-        });
-        save2();
-      } else {
-        const response = await axios.post(
-          "http://localhost:3500/user",
-          profileData
-        );
-        console.log("Finished sending request");
-        handleChangeEmail();
-        navigate("/Dashboard");
-        console.log("new profile data :", profileData);
-        setLoading(false);
-      }
-    } catch (e) {
-      console.log("error", e);
-    }
-  };
-
-  const handleSave = async (e) => {
-    try {
-      // await refreshAccessToken();
-      console.log("Trying to save details");
-      await save2();
-      enqueueSnackbar("Profile changed successfully!", { variant: "success" });
+      const response = await axios.post(
+        "http://localhost:3500/user",
+        profileData
+      );
+      console.log("Finished sending request");
+      console.log("new profile data :", profileData);
+      setLoading(false);
+      return response.data;
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        const newAccessToken = await refreshAccessToken();
-        console.log("New access token: ", newAccessToken);
-
-        if (newAccessToken) {
-          try {
-            // await refreshAccessToken();
-            await save2();
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        }
-      } else {
-        console.error("Error fetching data:", error);
-      }
+      console.error("Error saving profile data:", error);
+      setLoading(false);
+      throw error;
     }
   };
+
+  const handleSave = async () => {
+    const errors = SignUpValidation(profileData);
+    setErrors(errors);
+    if (
+      errors.firstName === "" &&
+      errors.lastName === "" &&
+      errors.email === "" &&
+      // errors.password === "" &&
+      // errors.confirmPassword === "" &&
+      errors.designation === ""
+    )
+      try {
+        await saveProfileData();
+        enqueueSnackbar("Profile changed successfully!", {
+          variant: "success",
+        });
+        handleCancel();
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
+          if (newAccessToken) await saveProfileData();
+        } else {
+          console.error("Error saving data:", error);
+        }
+      }
+  };
+
+  // const handleSave = async (e) => {
+  //   try {
+  //     // await refreshAccessToken();
+  //     console.log("Trying to save details");
+  //     await save2();
+  //     enqueueSnackbar("Profile changed successfully!", { variant: "success" });
+  //   } catch (error) {
+  //     if (error.response && error.response.status === 401) {
+  //       const newAccessToken = await refreshAccessToken();
+  //       console.log("New access token: ", newAccessToken);
+
+  //       if (newAccessToken) {
+  //         try {
+  //           // await refreshAccessToken();
+  //           await save2();
+  //         } catch (error) {
+  //           console.error("Error fetching data:", error);
+  //         }
+  //       }
+  //     } else {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+  // };
 
   return (
     <div style={{ width: "100%" }}>
@@ -210,6 +257,11 @@ export const UserProfileRightPane = () => {
           name="firstName"
           value={profileData.firstName}
           onChange={handleChange}
+          helperText={
+            errors.firstName && (
+              <span className="text-danger">{errors.firstName}</span>
+            )
+          }
           // style={{ width: "30vw" }}
           sx={{
             // marginLeft: 5,
@@ -242,6 +294,11 @@ export const UserProfileRightPane = () => {
           name="lastName"
           value={profileData.lastName}
           onChange={handleChange}
+          helperText={
+            errors.lastName && (
+              <span className="text-danger">{errors.lastName}</span>
+            )
+          }
           // style={{ width: "30vw" }}
           sx={{
             // marginLeft: 5,
@@ -273,6 +330,9 @@ export const UserProfileRightPane = () => {
           name="email"
           value={profileData.email}
           onChange={handleChange}
+          helperText={
+            errors.email && <span className="text-danger">{errors.email}</span>
+          }
           // style={{ width: "30vw" }}
           sx={{
             // marginLeft: 5,
@@ -304,6 +364,11 @@ export const UserProfileRightPane = () => {
           name="designation"
           value={profileData.designation}
           onChange={handleChange}
+          helperText={
+            errors.designation && (
+              <span className="text-danger">{errors.designation}</span>
+            )
+          }
           // style={{ width: "30vw" }}
           sx={{
             // marginLeft: 5,

@@ -17,6 +17,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import refreshAccessToken from "../services/AuthService";
 import { NewUserProfileRightPane } from "../components/NewUserProfileRightPane/NewUserProfileRightPane";
 import SettingsRightPane from "../components/SettingsRightPane/SettingsRightPane";
+// import SignUpValidation from "../components/Validation/SignUpValidation";
 
 import setting from "../images/settings.png";
 
