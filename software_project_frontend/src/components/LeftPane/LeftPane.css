@@ -1,6 +1,6 @@
 .LeftPaneLog{
     display: flex;
-    height: 150vh;
+    height: 100vh;
     background: #FFFFFF;
     flex-direction: column;
     align-items: center;
