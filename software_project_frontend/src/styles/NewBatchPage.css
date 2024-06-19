@@ -32,6 +32,6 @@
   display: flex;
   /* justify-content: center; */
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   margin-left: 0;
 }

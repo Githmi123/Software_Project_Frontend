@@ -88,7 +88,7 @@ const DataVisualizationPage = () => {
       array.length;
     const standardDeviation = Math.sqrt(variance);
 
-    return [min, max, mean, mode, median, variance, standardDeviation];
+    return [min, max, parseFloat(mean.toFixed(3)), mode, parseFloat(median.toFixed(3)), parseFloat(variance.toFixed(3)), parseFloat(standardDeviation.toFixed(3))];
   }
 
   const fetch = async () =>

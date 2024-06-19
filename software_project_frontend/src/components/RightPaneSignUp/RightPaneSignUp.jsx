@@ -16,6 +16,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import SignUpValidation from '../Validation/SignUpValidation';
 import axios from 'axios';
 import '../RightPane/RightPane.css';
+import logo from '../../images/logo.png';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
@@ -32,6 +33,9 @@ import { useSnackbar } from 'notistack';
 
 
 export const RightPaneSignUp = () => {
+
+  axios.defaults.withCredentials = true;
+  axios.defaults.baseURL = "http://localhost:3500";
 
     const StyledTextField = styled(TextField)({
         '& .MuiInput-underline:before': {
@@ -83,6 +87,30 @@ export const RightPaneSignUp = () => {
     
     const navigate = useNavigate();
 
+    const submit = async () => {
+      setLoading(true);
+            
+              const payload = {
+                userName: values.username[0],
+                passWord: values.password[0],
+              };
+              await axios
+                .post("http://localhost:3500/auth", payload)
+        
+                .then((res) => {
+                  console.log(res.data);
+                  const { accessToken } = res.data;
+                  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                  // Cookies.set("accessToken", accessToken);
+           
+                  // console.log("2nd token");
+                  console.log(accessToken);
+        
+                  navigate("/Dashboard");
+                });
+              setLoading(false);
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const validationErrors = SignUpValidation(values);
@@ -99,14 +127,35 @@ export const RightPaneSignUp = () => {
         ) {
             try {
                 setLoading(true);
-                await axios.post("http://localhost:3500/register", values, {
+                const response = await axios.post("http://localhost:3500/register", values, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
-                enqueueSnackbar('New account created', { variant: 'success' });
-                navigate('/Dashboard');
-                setLoading(false);
+
+                if(response.status === 201){
+                  const payload = {
+                    userName: values.email,
+                    passWord: values.password,
+                  };
+                  await axios
+                    .post("http://localhost:3500/auth", payload)
+            
+                    .then((res) => {
+                      console.log(res.data);
+                      const { accessToken } = res.data;
+                      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                      // Cookies.set("accessToken", accessToken);
+               
+                      // console.log("2nd token");
+                      console.log(accessToken);
+                      enqueueSnackbar('New account created', { variant: 'success' });
+            
+                      navigate("/Dashboard");
+                    });
+                }
+                
+            
             } catch (error) {
               if (error.response && error.response.status === 409) {
                 setLoading(false);
@@ -139,9 +188,10 @@ export const RightPaneSignUp = () => {
             
         {/* <div className="RightPane1"> */}
            
-            <div >
+       
+                <img src={logo} alt="Logo" id='Logo-in-right-pane'></img>
                 <img src={ima} id='RS' alt="rs"/>
-            </div>
+         
 
             <div className="LogText">
                 Create An Account 

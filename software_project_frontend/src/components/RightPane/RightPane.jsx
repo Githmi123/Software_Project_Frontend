@@ -17,6 +17,7 @@ import LoginValidation from "../Validation/LoginValidation";
 import Cookies from "js-cookie";
 import refreshAccessToken from "../../services/AuthService";
 import { useSnackbar } from "notistack";
+import logo from '../../images/logo.png';
 
 // const getAccessToken = () => {
 //     return document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
@@ -175,6 +176,7 @@ export const RightPane = () => {
     // <div className="RightPane">
 
     <div data-testid="right-pane" className="RightPane">
+      <img src={logo} alt="Logo" id='Logo-in-right-pane'></img>
       <img src={rapidscore} id="RS" alt="rs" />
 
       <div className="LogText">Log into your account</div>

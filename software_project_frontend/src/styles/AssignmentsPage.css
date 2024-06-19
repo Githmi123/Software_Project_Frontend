@@ -141,7 +141,8 @@
 @media (max-width: 768px){
   #back-button{
     font-size: 0;
-    height: auto;
+    margin-top: 50px;
+    /* height: auto; */
   }
 
   #heading {
@@ -151,12 +152,3 @@
   }
 }
 
-@media (max-height: 300px){
-  #back-button{
-    display: none;
-  }
-
-  #heading {
-    display: none;
-  }
-}

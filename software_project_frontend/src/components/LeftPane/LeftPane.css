@@ -1,17 +1,17 @@
 .LeftPaneLog{
     display: flex;
-    height: 150vh;
+    height: 100vh;
     background: #FFFFFF;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     width: 500px;
 }
 
 #Logo{
     width: auto;
     height: 200px;     
-    margin-top: 200px;
+    /* margin-top: 200px; */
   
 }
 
