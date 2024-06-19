@@ -47,3 +47,21 @@
   align-items: center;
 }
 
+.batch-button {
+  margin: 10px !important;
+  background-color: #E3DDE8 !important;
+  color: black !important;
+  width: 500px !important;
+  text-transform: capitalize !important;
+  border-radius: 2vh !important;
+  border: 0px solid #7894DB !important;
+}
+
+
+@media (max-width: 768px){
+  .batch-button {
+
+    width: 150px !important;
+
+  }
+}

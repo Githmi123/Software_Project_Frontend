@@ -220,11 +220,12 @@ const EditModule = () => {
           <Link to="/MyModulePage" style={{ textDecoration: "none" }}>
             <Button
               sx={{
-                marginLeft: "15px",
+                // marginLeft: "15px",
                 color: "#7894DB",
                 backgroundColor: "white",
                 border: "1px solid #7894DB",
                 "&:hover": { backgroundColor: "#7894DB", color: "white" },
+                marginBottom: "10px"
               }}
             >
               Cancel
@@ -239,6 +240,7 @@ const EditModule = () => {
               backgroundColor: "white",
               border: "1px solid #7894DB",
               "&:hover": { backgroundColor: "#7894DB", color: "white" },
+              marginBottom: "10px"
             }}
           >
             Save

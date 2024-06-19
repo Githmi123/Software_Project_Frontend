@@ -186,15 +186,7 @@ const BatchesPage = () => {
               >
                 <Button
                   variant="contained"
-                  style={{
-                    margin: "10px",
-                    backgroundColor: "#E3DDE8",
-                    color: "black",
-                    width: "60vh",
-                    textTransform: "capitalize",
-                    borderRadius: "2vh",
-                    border: "0px solid #7894DB",
-                  }}
+                  className="batch-button"
                 >
                   {batch.batch}
                 </Button>
