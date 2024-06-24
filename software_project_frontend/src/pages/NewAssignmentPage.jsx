@@ -25,6 +25,7 @@ import CustomSelect from "../components/Other/CustomSelect";
 import InputFileUploadButton from "../components/Buttons/InputFileUploadButton";
 import CustomButton from "../components/Buttons/CustomButton";
 import { useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import refreshAccessToken from "../services/AuthService";
 
 const NewAssignmentPage = () => {
@@ -46,6 +47,8 @@ const NewAssignmentPage = () => {
   const [excelData, setExcelData] = useState(null);
 
   const navigate = useNavigate();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -118,10 +121,20 @@ const NewAssignmentPage = () => {
   //   setSelectedModule(event.target.value);
   // };
 
+  // const handleModuleChange = (event) => {
+  //   const value = event.target.value;
+  //   if (value === "new-module") {
+  //     console.log("New Module selected");
+  //     navigate("/NewModule");
+  //   } else {
+  //     setSelectedModule(value);
+  //     console.log("selected module: ", selectedModule);
+  //   }
+  // };
+
   const handleModuleChange = (event) => {
     const value = event.target.value;
     if (value === "new-module") {
-      console.log("New Module selected");
       navigate("/NewModule");
     } else {
       setSelectedModule(value);
@@ -138,6 +151,7 @@ const NewAssignmentPage = () => {
     } else if (selectedBatch === "new-batch") {
       navigate(`/NewBatchPage/${selectedModule}`);
     } else {
+      setSelectedBatch();
       navigate(`/NewBatchPage/${selectedModule}`);
     }
   };
@@ -149,7 +163,7 @@ const NewAssignmentPage = () => {
   const handleBatchChange = (event) => {
     const value = event.target.value;
     if (value === "new-batch") {
-      if (selectedModule === "") {
+      if (!selectedModule) {
         setSnackbarOpen(true);
       } else {
         navigate(`/NewBatchPage/${selectedModule}`);
@@ -157,8 +171,22 @@ const NewAssignmentPage = () => {
     } else {
       setSelectedBatch(value);
     }
-    //setSelectedBatch(event.target.value);
   };
+
+  // const handleBatchChange = (event) => {
+  //   const value = event.target.value;
+  //   if (value === "new-batch") {
+  //     if (selectedModule === "") {
+  //       setSnackbarOpen(true);
+  //     } else {
+  //       navigate(`/NewBatchPage/${selectedModule}`);
+  //     }
+  //   } else {
+  //     setSelectedBatch(value);
+  //     console.log("selected batch 2 : ", selectedBatch);
+  //   }
+  //   //setSelectedBatch(event.target.value);
+  // };
 
   const handleAssignmentNameChange = (event) => {
     setAssignmentName(event.target.value);
@@ -236,21 +264,27 @@ const NewAssignmentPage = () => {
       console.log("Started submitting");
       const formData = new FormData();
       console.log(selectedModuleCode);
+      console.log("selectedModuleCode:", selectedModuleCode);
+      console.log("batch:", batch);
+      console.log("selectedModule:", selectedModule);
+      console.log("selectedBatch:", selectedBatch);
 
-      formData.append(
-        "batch",
-        selectedModuleCode === "null" ? selectedBatch : batch
-      );
-      formData.append(
-        "modulecode",
-        selectedModuleCode === "null" ? selectedModule : selectedModuleCode
-      );
+      // formData.append(
+      //   "batch",
+      //   selectedModule === "null" ? selectedBatch : batch
+      // );
+      // formData.append(
+      //   "modulecode",
+      //   selectedModule === "null" ? selectedModule : selectedModule
+      // );
+      formData.append("batch", selectedBatch);
+      formData.append("modulecode", selectedModule);
       formData.append("assignmenttitle", assignmentName);
       formData.append("schemepath", schemepath);
       formData.append("scheme", selectedFile);
 
       const response = await axios.post(
-        `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`,
+        `http://localhost:3500/assignment/${selectedModule}/${selectedBatch}`,
         formData,
         {
           headers: {
@@ -261,11 +295,17 @@ const NewAssignmentPage = () => {
 
       if (response.status === 200) {
         console.log("Assignment is created!");
-        alert("Assignment is created successfully!");
+        enqueueSnackbar("Assignment created successfully!", {
+          variant: "success",
+        });
+        // alert("Assignment is created successfully!");
         navigate("/Dashboard");
       } else {
         console.error("Error creating assignment:", response.data);
-        alert("Error creating assignment. Please try again.");
+        enqueueSnackbar("Error creating assignment. Please try again", {
+          variant: "error",
+        });
+        // alert("Error creating assignment. Please try again.");
       }
     } catch (error) {
       if (error.response) {
