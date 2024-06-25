@@ -16,21 +16,7 @@ function Login() {
         <LeftPane />
         <RightPane />
         
-{/*         
-        <div id='rectangle1'>
-        </div>
 
-        <div id='rectangle2'>
-        </div>
-
-        <div id='rectangle3'>
-        </div> */}
-
-       {/*  <div id='rectangle4'>
-        </div>
-
-        <div id='rectangle5'>
-        </div> */}
         
 
     </div>

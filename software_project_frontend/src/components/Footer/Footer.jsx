@@ -1,8 +1,6 @@
 import React from "react";
 import "../Footer/Footer.css";
 import { Facebook, FacebookRounded, Instagram, Twitter } from "@mui/icons-material";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faFacebookF, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   return (

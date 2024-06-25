@@ -18,19 +18,10 @@ import IconButton from "@mui/material/IconButton";
 import { Delete, Edit } from "@mui/icons-material";
 import { useSnackbar } from "notistack";
 import CustomNewButton2 from "../components/Buttons/CustomNewButton2/CustomNewButton2";
-
 import Cookies from "js-cookie";
 import axios from "axios";
-
 import "../styles/MyModulesPage.css";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
-
-/*const table_data_modules = [
-  { Module_Code: "EE5262", Module_Name: "Database Systems", Credits: 2 },
-  { Module_Code: "EE5263", Module_Name: "Database Systems 2", Credits: 2 },
-  { Module_Code: "EE5264", Module_Name: "Database Systems 3", Credits: 2 },
-  { Module_Code: "EE5265", Module_Name: "Database Systems 4", Credits: 2 },
-];*/
 
 const headers = ["Module_Code", "Module_Name", "Credits"];
 
@@ -96,7 +87,7 @@ const MyModulesPage = () => {
 
           if (newAccessToken) {
             try {
-              // await refreshAccessToken();
+       
               await getData();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -112,141 +103,55 @@ const MyModulesPage = () => {
   }, [enqueueSnackbar]);
 
   const handleEditModule = async (modulecode) => {
-    // e.preventDefault();
-    // try {
-    //   console.log("handling edit module");
-    //   console.log(moduleData);
-    //   await refreshAccessToken();
-
-    //   await axios.post(
-    //       `http://localhost:3500/modules/edit/${selectedModule}`,
-    //       moduleData,
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${Cookies.get("accessToken")}`,
-    //         },
-    //       }
-    //   )
+   
 
     navigate(`/EditModule/${modulecode}`);
-    // } catch (error) {
-    //   console.error("Error editing module:", error);
-    // }
+    
   };
 
   const handleDeleteModule = async (modulecode) => {
     navigate(`/DeleteModule/${modulecode}`);
-    // e.preventDefault();
-    // try {
-    //   console.log("handling delete module");
-    //   console.log(moduleData);
-    //   await refreshAccessToken();
 
-    //   await axios.post(
-    //       `http://localhost:3500/modules/delete/${modulecode}`,
-    //       moduleData,
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${Cookies.get("accessToken")}`,
-    //         },
-    //       }
-    //   )
-
-    //   navigate("/MyModulePage");
-    // } catch (error) {
-    //   console.error("Error editing module:", error);
-    // }
   };
 
   const handleEditAssignment = (assignment) => {
-    // navigate(`/EditAssignment/${assignment.moduleCode}/${assignment.assignment}/${assignment.batch}/${assignment.assignmentId}`);
+   
   };
 
   const handleDeleteAssignment = (assignment) => {
-    // navigate(`/EditAssignment/${assignment.moduleCode}/${assignment.assignment}/${assignment.batch}/${assignment.assignmentId}`);
+ 
   };
 
   const handleNewModule = (event) => {};
 
-  /* const handleSelectedModule = (moduleCode) => {
-    setSelectedModule(moduleCode === selectedModule ? null : moduleCode);
-  }; */
-  /* const handleSelectedModule = (moduleCode) => {
-    setSelectedModule(moduleCode);
-  }; */
-  // const handleSelectedModule = (moduleCode) => {
-  //   setSelectedModule((prevModule) =>
-  //     prevModule === moduleCode ? null : moduleCode
-  //   );
-  // };
 
   const handleSelectedModule = (modulecode) => {
     console.log("Selected module code:", modulecode);
     setSelectedModule(modulecode);
     navigate(`/Batches/${modulecode}`);
   };
-  // const handleSelection = (assignment) => {
-  //   setSelectedRecentModule(assignment);
-  //   navigate(`/AnswerScripts/batch/${assignment.batch}/modulecode/${assignment.moduleCode}/assignmentid/${assignment.assignmentId}`);
-  // };
-  // answerScripts
-  //console.log("module code", selectedModule);
+
 
   return (
     <div className="align1">
       <MainRightPane>
-        {/* <Button
-        {/* <Button
-          sx={{
-            m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-          }}
-          startIcon={<ArrowBackIcon />}
-          onClick={() => window.history.back()}
-        >
-          Back
-        </Button> */}
-        {/* <h3 id="heading-mymodules">My Modules</h3> */}
+
         <h3 id="heading">My Modules</h3>
 
         <div
           style={{
-            // display: "flex",
-            // flexDirection: "row",
-            // alignItems: "center",
-            // justifyContent: "space-evenly",
-            // marginRight: "2vw",
+            
             width: "100%",
           }}
         >
-          {/* <Link to={`/Batches/${selectedModule}`}>
-            <CustomNewButton text="View Module" />
-          </Link> */}
 
           <Link to="/NewModule" id="add-new-module-button">
-            {/* <CustomNewButton text="New Module" onClick={handleNewModule} /> */}
             <CustomNewButton2 text="New Module" onClick={handleNewModule} />
           </Link>
-
-          {/* <Link to={`/EditModule/${selectedModule}`}>
-            <CustomNewButton onClick = {handleEditModule} text="Edit Module" />
-          </Link> */}
-
-          {/* <Link to={`/DeleteModule/${selectedModule}`}>
-            <CustomNewButton onClick = {handleDeleteModule} text="Delete Module" />
-          </Link> */}
         </div>
         <div
           className="columnModules"
-          // style={{
-          //   width: "80%",
-          //   display: "flex",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-          // }}
+
         >
           {loading ? (
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -258,7 +163,7 @@ const MyModulesPage = () => {
                 width: "100%",
                 bgcolor: "background.paper",
                 overflow: "auto",
-                height: "80%",
+                height: "100%",
               }}
             >
               {tableDataModules.map((module, index) => (
@@ -289,7 +194,7 @@ const MyModulesPage = () => {
                   >
                     <ListItemText
                       primaryTypographyProps={{ style: { fontSize: "2vh" } }}
-                      // secondaryTypographyProps={{ style: {  } }}
+
                       primary={`${module.modulecode} - ${module.modulename}`}
                       secondary={<span>Credits: {module.credits}</span>}
                       secondaryTypographyProps={{
@@ -303,31 +208,7 @@ const MyModulesPage = () => {
             </List>
           )}
         </div>
-        {/* <div className="columnModules">
-          <Box sx={{ height: '100%', width: '100%', display:"flex", justifyContent:"center" }}>
-            <DataGrid
-              rows={tableDataModules}
-              columns={columns}
-              getRowId={(row) => row.modulecode}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 5,
-                  },
-                },
-              }}
-              pageSizeOptions={[5]}
-              checkboxSelection
-              disableRowSelectionOnClick
-              onRowSelectionModelChange={(newSelection) => {
-                newSelection.forEach((moduleCode) => {
-                  handleSelectedModule(moduleCode);
-                });
-              }}
-              // isRowSelectable={(params) => params.row.moduleCode !== selectedModule}
-            />
-          </Box>
-        </div> */}
+        
       </MainRightPane>
     </div>
   );

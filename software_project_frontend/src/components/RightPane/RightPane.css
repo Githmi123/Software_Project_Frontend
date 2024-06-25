@@ -1,46 +1,40 @@
-.RightPane{
-position: relative;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-width: 70vw;
-height: 95vh;
-margin-left: 0vh;
-/* margin-right: 0vh; */
-/* top: 44px; */
-z-index: 2;
-background-color: #F5F5F5;
-/* mix-blend-mode: overlay; */
-/* box-shadow: 0px 1.2px 3  .6px rgba(0, 0, 0, 0.1), 0px 6.4px 14.4px rgba(0, 0, 0, 0.13); */
-border-radius: 30px;
-overflow: hidden;
-margin : 2.5%;
-}
-
-.RightPane1{
+.RightPane {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 70vw;
+    height: 95vh;
+    margin-left: 0vh;
+    z-index: 2;
+    background-color: #F5F5F5;
+    border-radius: 30px;
+    overflow: hidden;
+    margin: 2.5%;
+  }
+  
+  .RightPane1 {
     position: absolute;
     width: 145vh;
     height: 90vh;
-    /* margin-left: 75vh; */
     margin-top: -3%;
     z-index: 5;
-    background-color:transparent;
+    background-color: transparent;
     border-radius: 30px;
-    overflow: hidden; 
+    overflow: hidden;
     align-items: center;
     text-align: center;
     align-content: center;
-    }
-    
-#RS{
-    
+  }
+  
+  #RS {
     position: relative;
     width: auto;
     height: 120px;
-}
-
-.LogText{
+  }
+  
+  .LogText {
     margin-top: 2vh;
     margin-bottom: 2vh;
     position: relative;
@@ -50,219 +44,146 @@ margin : 2.5%;
     font-weight: bold;
     text-align: center;
     color: #212B27;
-    /* margin-left: 55vh; */
-}
-
-.textfield-login {
+  }
+  
+  .textfield-login {
     margin-top: 60px;
     position: relative !important;
     width: 300px !important;
     height: 60px !important;
     color: #000000 !important;
-    
   }
   
-
-.subtext{
-position: absolute;
-width: 395px;
-height: 104px;
-left: 183px;
-top: 598px;
-
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-display: flex;
-align-items: center;
-text-align: center;
-color: #000000;
-
-
-}
-
-.NoAccount{
-position: relative;
-flex-direction: row;
-width: 50vh;
-height: 10vh;
-/* left: 45vh;
-top: 80vh; */
-
-font-family: 'Roboto';
-font-style: italic;
-font-weight: 400;
-font-size: 1rem;
-text-align: center;
-color: #242D3F;
-
-}
-
-#rectangle1{
-position: absolute;
-width: 442.65px;
-height: 442.64px;
-left: 605px;
-top: -277px;
-
-background: rgba(87, 16, 238, 0.14);
-border-radius: 179px;
-transform: rotate(-45deg);
-overflow: 'hidden';
-
-
-}
-
-#rectangleContainer {
+  .subtext {
+    position: absolute;
+    width: 395px;
+    height: 104px;
+    left: 183px;
+    top: 598px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+  }
+  
+  .NoAccount {
+    position: relative;
+    flex-direction: row;
+    width: 50vh;
+    height: 10vh;
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center;
+    color: #242D3F;
+  }
+  
+  #rectangle1 {
+    position: absolute;
+    width: 442.65px;
+    height: 442.64px;
+    left: 605px;
+    top: -277px;
+    background: rgba(87, 16, 238, 0.14);
+    border-radius: 179px;
+    transform: rotate(-45deg);
+    overflow: 'hidden';
+  }
+  
+  #rectangleContainer {
     position: relative;
     overflow: hidden;
   }
-
-#rectangle2{
-position: absolute;
-width: 149.79px;
-height: 251.85px;
-left: 1382px;
-top: -25px;
-
-background: rgba(87, 16, 238, 0.14);
-border-radius: 160px;
-transform: rotate(-45deg);
-overflow: 'hidden';
-
-}
-
-#rectangle3{
-position: absolute;
-width: 750px;
-height: 750px;
-left: 700px;
-top: 298.33px;
-
-background: rgba(87, 16, 238, 0.14);
-border-radius: 160px;
-transform: rotate(-45deg);
-overflow: 'hidden';
-
-}
-
-#rectangle4{
-position: absolute;
-width: 132.7px;
-height: 141.66px;
-left: 484px;
-top: 221.83px;
-
-background: #7381DD;
-border-radius: 160px;
-transform: rotate(-45deg);
-
-}
-
-#rectangle5{
-position: absolute;
-width: 231.81px;
-height: 130.23px;
-left: 446px;
-top: 405.92px;
-
-background: rgba(87, 16, 238, 0.14);
-border-radius: 160px;
-transform: rotate(-45deg);
-
-
-}
-
-#divv{
+  
+  #rectangle2 {
+    position: absolute;
+    width: 149.79px;
+    height: 251.85px;
+    left: 1382px;
+    top: -25px;
+    background: rgba(87, 16, 238, 0.14);
+    border-radius: 160px;
+    transform: rotate(-45deg);
+    overflow: 'hidden';
+  }
+  
+  #rectangle3 {
+    position: absolute;
+    width: 750px;
+    height: 750px;
+    left: 700px;
+    top: 298.33px;
+    background: rgba(87, 16, 238, 0.14);
+    border-radius: 160px;
+    transform: rotate(-45deg);
+    overflow: 'hidden';
+  }
+  
+  #rectangle4 {
+    position: absolute;
+    width: 132.7px;
+    height: 141.66px;
+    left: 484px;
+    top: 221.83px;
+    background: #7381DD;
+    border-radius: 160px;
+    transform: rotate(-45deg);
+  }
+  
+  #rectangle5 {
+    position: absolute;
+    width: 231.81px;
+    height: 130.23px;
+    left: 446px;
+    top: 405.92px;
+    background: rgba(87, 16, 238, 0.14);
+    border-radius: 160px;
+    transform: rotate(-45deg);
+  }
+  
+  #divv {
     z-index: 6;
-} 
-
-.text-field-input-box {
+  }
+  
+  .text-field-input-box {
     display: flex;
     align-items: flex-end;
-}
-
-.text-field-icon {
+  }
+  
+  .text-field-icon {
     color: blueviolet;
     margin-right: 1;
     margin-top: 0.5;
     margin-bottom: 0.5;
-}
-
-#sign-up-form-div {
-  display: flex; /* Add this line to make it a flex container */
-  flex-direction: column; /* Ensure content is stacked vertically */
-  align-items: center; 
-  margin-top: 3vh;
-  margin-left: -10vh;
-}
-
-
-
-
-/* 
-.RightPaneContainer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  }
+  
+  #sign-up-form-div {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-}
-
-.RightPane {
+    margin-top: 3vh;
+    margin-left: -10vh;
+  }
+  
+  .whole {
     position: relative;
-    width: 450px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    box-shadow: 0px 1.2px 3.6px rgba(0, 0, 0, 0.1), 0px 6.4px 14.4px rgba(0, 0, 0, 0.13);
-    border-radius: 30px;
-    overflow: hidden;
-}
-
-#RS {
-    width: 358px;
-    height: 118px;
-    margin: 20px auto;
-    display: block;
-}
-
-#LogText {
-    font-family: 'Karla', sans-serif;
-    font-weight: 700;
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.NoAccount {
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 0.875rem;
-    text-align: center;
-    color: #242d3f;
-    margin-top: 20px;
-} */
-
-
-
-.whole{
-    position: relative;
-}
-
-.div{
+  }
+  
+  .div {
     display: flex;
     position: relative;
     justify-content: center;
     flex-direction: column;
     width: 200px;
     align-items: center;
-}
-
-
-.sign-up-fields {
+  }
+  
+  .sign-up-fields {
     position: relative !important;
     width: 60vh !important;
     height: 5vh !important;
@@ -270,130 +191,89 @@ transform: rotate(-45deg);
     margin: 2% !important;
   }
   
-  
-#Logo-in-right-pane{
+  #Logo-in-right-pane {
     display: none;
+  }
   
-}
-
-
-@media (max-width: 768px){
-
-    .div{
-        /* display: flex;
-        position: relative; */
-        justify-content: center;
-        flex-direction: row;
-        width: 200px;
-        flex-wrap: wrap;
+  @media (max-width: 768px) {
+    .div {
+      justify-content: center;
+      flex-direction: row;
+      width: 200px;
+      flex-wrap: wrap;
     }
-
-    
-
-    .RightPane{
-        
-        width: 100vw;
-        
-        }
-
-        .LogText{
-           
-            width: 600px;
-           
-        }
-
-        #Logo-in-right-pane{
-            display: flex;
-            width: auto;
-            height: 100px;     
-            margin-top: 40px;
-          
-        }
-
-        #RS{
-            /* margin-top: 2vh; */
-            /* position: relative; */
-            width: auto;
-            height: 60px;
-            margin-top: 10px;
-        }
-
-        
-}
-
-
-@media (max-height: 600px){
-    .RightPane{
-        
-        height: 90vh;
-        
-        }
-
-        .div{
-            /* display: flex;
-            position: relative; */
-            justify-content: center;
-            flex-direction: row;
-            width: 200px;
-            flex-wrap: wrap;
-        }
-
-        #RS{
-            /* margin-top: 2vh; */
-            /* position: relative; */
-            width: auto;
-            height: 40px;
-            margin-top: 10px;
-        }
-
-        
-          .textfield-login {
-            margin-top: 60px;
-            height: 60px !important;
-            width: 50px !important;
-            
-          }
-
-          .sign-up-fields {
-            /* position: relative !important; */
-            width: 50px !important;
-            /* height: 5vh !important; */
-            /* color: #000000 !important; */
-            /* margin: 2% !important; */
-          }
-
-          #LogText{
-            margin-top: 10px;
-        }
-
-       
-          
-}
-
-
-
-@media (max-height: 400px){
-    #LogText{
-        margin-top: 50px;
+  
+    .RightPane {
+      width: 100vw;
     }
-
-    .div{
-        /* display: flex;
-        position: relative; */
-        justify-content: center;
-        flex-direction: row;
-        width: 200px;
-        flex-wrap: wrap;
+  
+    .LogText {
+      width: 600px;
     }
-
+  
+    #Logo-in-right-pane {
+      display: flex;
+      width: auto;
+      height: 100px;
+      margin-top: 40px;
+    }
+  
+    #RS {
+      width: auto;
+      height: 60px;
+      margin-top: 10px;
+    }
+  }
+  
+  @media (max-height: 600px) {
+    .RightPane {
+      height: 90vh;
+    }
+  
+    .div {
+      justify-content: center;
+      flex-direction: row;
+      width: 200px;
+      flex-wrap: wrap;
+    }
+  
+    #RS {
+      width: auto;
+      height: 40px;
+      margin-top: 10px;
+    }
+  
+    .textfield-login {
+      margin-top: 60px;
+      height: 60px !important;
+      width: 50px !important;
+    }
+  
     .sign-up-fields {
-        /* position: relative !important; */
-        /* width: 180px !important; */
-        height: 5vh !important;
-        color: #000000 !important;
-        margin: 2% !important;
-      }
-
-
-    
-}
+      width: 50px !important;
+    }
+  
+    #LogText {
+      margin-top: 10px;
+    }
+  }
+  
+  @media (max-height: 400px) {
+    #LogText {
+      margin-top: 50px;
+    }
+  
+    .div {
+      justify-content: center;
+      flex-direction: row;
+      width: 200px;
+      flex-wrap: wrap;
+    }
+  
+    .sign-up-fields {
+      height: 5vh !important;
+      color: #000000 !important;
+      margin: 2% !important;
+    }
+  }
+  

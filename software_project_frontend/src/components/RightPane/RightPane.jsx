@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./RightPane.css";
-// import { MuiTextField } from './MuiTextField';
 import LogInButton from "../Buttons/LogInButton";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -19,9 +18,6 @@ import refreshAccessToken from "../../services/AuthService";
 import { useSnackbar } from "notistack";
 import logo from '../../images/logo.png';
 
-// const getAccessToken = () => {
-//     return document.cookie.split('; ').find(row => row.startsWith('accessToken=')).split('=')[1];
-// };
 
 export const RightPane = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -48,59 +44,11 @@ export const RightPane = () => {
     }));
   };
 
-  //     const response = await axios.post("http://localhost:3500/auth", values);
-  // const { accessToken } = response.data;
-  // const response1 = await axios.post("http://localhost:3500/auth", values,{
-  //     headers: {
-  //             'Content-Type': 'application/json',
-  //             'Authorization': 'Bearer '+accessToken
-  //         },
-  // });
+
 
   axios.defaults.withCredentials = true;
   axios.defaults.baseURL = "http://localhost:3500";
-  // const handleSubmit = async (event) => {
-  //     event.preventDefault();
-  //     try {
-  //         // headers: {
-  //         //     'Content-Type': 'application/json',
-  //         //     'Authorization': 'Bearer '+token
-  //         // },
-  //         const response = await axios.post("http://localhost:3500/auth", values, {
-  //             const { accessToken } = response.data;
-  //         })
-  //         .then(res => {
-  //             console.log(res.data)
-  //             navigate('/Dashboard')
-  //         })
 
-  //     } catch (error) {
-  //         console.error("Login error:", error);
-  //         setErrors({ message: "Failed to log in. Please try again." });
-
-  //     }
-
-  // };
-
-  //     axios.defaults.baseURL = 'http://localhost:3500'; // Set your base URL
-
-  // const handleSubmit = async (event) => {
-  //     event.preventDefault();
-  //     try {
-  //         const response = await axios.post("/auth", values);
-  //         const { accessToken } = response.data;
-
-  //         // Set Authorization header for all subsequent requests
-  //         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-  //         navigate('/Dashboard');
-  //     } catch (error) {
-  //         console.error("Login error:", error);
-  //         setErrors({ message: "Failed to log in. Please try again." });
-  //     }
-  // };
-
-  // const token = localStorage.getItem('accessToken');
 
   const submit = async () => {
     setLoading(true);
@@ -116,9 +64,7 @@ export const RightPane = () => {
                 console.log(res.data);
                 const { accessToken } = res.data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                // Cookies.set("accessToken", accessToken);
-         
-                // console.log("2nd token");
+
                 console.log(accessToken);
       
                 navigate("/Dashboard");
@@ -135,7 +81,7 @@ export const RightPane = () => {
       ))
       {
         try {
-          //const token = Cookies.get('accessToken');
+     
           await submit();
           
     
@@ -151,7 +97,7 @@ export const RightPane = () => {
   
             if(newAccessToken){
               try {
-                // await refreshAccessToken();
+            
                 await submit();
               } catch (error) {
                 console.error("Error fetching data:", error);
@@ -173,7 +119,7 @@ export const RightPane = () => {
   };
 
   return (
-    // <div className="RightPane">
+
 
     <div data-testid="right-pane" className="RightPane">
       <img src={logo} alt="Logo" id='Logo-in-right-pane'></img>
@@ -188,7 +134,7 @@ export const RightPane = () => {
         action=""
         onSubmit={handleSubmit}
       >
-        {/* <LogInButton/> */}
+  
         <TextField
           id="userName"
           placeholder="Email"
@@ -198,47 +144,7 @@ export const RightPane = () => {
           onChange={handleInput}
           helperText={errors.username && <span className="text-danger">{errors.username}</span>}
           className="textfield-login"
-          // InputProps={{ style: {
-          //     boxSizing: 'border-box',
-          //     position: 'absolute',
-          //     left: 0,
-          //     right: 0,
-          //     top: 0,
-          //     bottom: 0,
-          //     borderBottom: '0.5vh solid #5932EA',
-          //     borderRadius: '1vh'   },
-
-          // startAdornment: (
-          //     <InputAdornment position="start" style={{
-          //     position: 'absolute',
-          //     left: '4.38%',
-          //     right: '92.9%',
-          //     top: '0.5%',
-          //     bottom: '34.55%',
-          //     background: '#000000',
-          //     height: "0%"
-          //     }}>
-          //     <img src={username} alt="username" style={{ height: "2vh", width: "auto" }}/>
-          //     </InputAdornment>
-          // ),
-          // }}
-          // InputLabelProps={{
-          // style: {
-          //     position: 'absolute',
-          //     left: '8.23%',
-          //     right: '70.56%',
-          //     top: '5%',
-          //     bottom: '27.27%',
-          //     fontFamily: 'Roboto',
-          //     fontStyle: 'normal',
-          //     fontWeight: 800,
-          //     fontSize: '1.4rem',
-          //     lineHeight: '15vh',
-          //     display: 'flex',
-          //     alignItems: 'center',
-          //     color: '#000000',
-          // },
-          // }}
+       
         />
         
         <TextField
@@ -261,58 +167,11 @@ export const RightPane = () => {
               </IconButton>
             </InputAdornment>
             ),
-            // className="textfield-login"
+        
           }}
           
           className="textfield-login"
-          // InputProps={{ style: {
-          //     boxSizing: 'border-box',
-          //     position: 'absolute',
-          //     left: 0,
-          //     right: 0,
-          //     top: 0,
-          //     bottom: 0,
-          //     //borderBottom: '0.5vh solid #5932EA',
-          //     borderRadius: '1vh',
-          //     // Add other styles as needed
-          // }, startAdornment: (
-          //     <InputAdornment position="start" style={{
-          //     position: 'absolute',
-          //     left: '4.38%',
-          //     right: '92.9%',
-          //     top: '0.5%',
-          //     bottom: '34.55%',
-          //     background: '#000000',
-          //     height: "0%"
-          //     }}>
-          //     <img src={password} alt="rs" style={{ height: "15px", width: "auto" }}/>
-          //     <IconButton style={{left: "400px"}}
-          //             aria-label="toggle password visibility"
-          //             onClick={handleClickShowPassword}
-          //             edge="end"
-          //         >
-          //             {showPassword ? <VisibilityOff /> : <Visibility />}
-          //        </IconButton>
-          //     </InputAdornment>
-          // ),
-          // }}
-          // InputLabelProps={{
-          // style: {
-          //     position: 'absolute',
-          //     left: '10.23%',
-          //     right: '70.56%',
-          //     top: '5%',
-          //     bottom: '27.27%',
-          //     fontFamily: 'Roboto',
-          //     fontStyle: 'normal',
-          //     fontWeight: 800,
-          //     fontSize: '1.4rem',
-          //     lineHeight: '15vh',
-          //     display: 'flex',
-          //     alignItems: 'center',
-          //     color: '#000000',
-          // },
-          // }}
+       
         />
 
         <div
@@ -339,6 +198,5 @@ export const RightPane = () => {
       )}
     </div>
 
-    // </div>
   );
 };

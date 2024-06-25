@@ -24,13 +24,11 @@ import CommentIcon from "@mui/icons-material/Comment";
 import { Delete, Edit } from "@mui/icons-material";
 import Avatar from "@mui/material/Avatar";
 import CustomNewButton2 from "../components/Buttons/CustomNewButton2/CustomNewButton2";
-
 import PropTypes from "prop-types";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
-
 import dayjs from "dayjs";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -126,27 +124,6 @@ const RecentPage = () => {
       setAssignments(allAssignments);
       console.log("Assignments Data", allAssignments);
 
-      // const allGrades = [];
-      // for (const assignment of allAssignments) {
-      //   const { moduleCode, batch, assignmentId } = assignment;
-
-      //   try {
-      //     // await refreshAccessToken();
-
-      //     const response = await axios.get(
-      //       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${moduleCode}/assignmentid/${assignmentId}/studentid/${''}`,
-
-      //     );
-
-      //     console.log("Details of the answer scripts:", response.data);
-      //     console.log(typeof response.data);
-
-      //     allGrades.push(response.data);
-      //   } catch (error) {
-      //     console.error("Error displaying answer scripts:", error);
-      //   }
-      // }
-      // setMarked(allGrades);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -172,7 +149,7 @@ const RecentPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // await refreshAccessToken();
+    
         await getData();
         await getProfileData();
       } catch (error) {
@@ -182,7 +159,7 @@ const RecentPage = () => {
 
           if (newAccessToken) {
             try {
-              // await refreshAccessToken();
+           
               await getData();
               await getProfileData();
             } catch (error) {
@@ -198,39 +175,6 @@ const RecentPage = () => {
     fetchData();
   }, []);
 
-  // const handleDeleteAssignment = async (assignment) => {
-  //   console.log("handling delete assignment");
-  //   // e.preventDefault();
-  //   try {
-  //     console.log("handling delete assignment");
-  //     // console.log(moduleData);
-  //     // await refreshAccessToken();
-
-  //     // const moduleData = {
-  //     //   id : selectedRecentModule.assignmentId,
-  //     //   modulecode : selectedRecentModule.moduleCode,
-  //     //   batch : selectedRecentModule.batch
-  //     // }
-
-  //     await axios.delete(
-  //         `http://localhost:3500/assignment/${assignment.moduleCode}/${assignment.batch}/${assignment.assignmentId}`,
-  //         // moduleData,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${Cookies.get("accessToken")}`,
-  //           },
-  //         }
-  //     );
-
-  //     setAssignments(assignments.filter((a) => a.assignmentId != assignment.assignmentId));
-
-  //     console.log("Deleted Assignment");
-
-  //     // navigate("/MyModulePage");
-  //   } catch (error) {
-  //     console.error("Error editing module:", error);
-  //   }
-  // };
 
   const targetProgress = (2 / 3) * 100;
   useEffect(() => {
@@ -276,27 +220,14 @@ const RecentPage = () => {
 
   return (
     <div className="align1">
-      {/* <MainLeftPane/> */}
 
       <MainRightPane>
-        {/* <Button
-            sx={{
-              m: 2,
-              width: "100px",
-              height: "50px",
-              color: "black",
-              fontWeight: "bold",
-            }}
-            startIcon={<ArrowBackIcon />}
-            onClick={() => window.history.back()}
-          >
-            Back  
-          </Button> */}
+       
         <h3 id="heading">Dashboard</h3>
         <div id="dashboard">
           <div style={{ width: "100%" }}>
             <Link to={"/NewAssignment"} id="add-new-assignment-button">
-              {/* <CustomNewButton text="New Assignment" /> */}
+           
               <CustomNewButton2 text="New Assignment" />
             </Link>
 
@@ -305,10 +236,7 @@ const RecentPage = () => {
                 id="dashbord-recent-assignment-table"
                 style={
                   {
-                    // width: "90%",
-                    // display: "flex",
-                    // alignItems: "center",
-                    // justifyContent: "center",
+                    
                   }
                 }
               >
@@ -355,7 +283,7 @@ const RecentPage = () => {
                             primaryTypographyProps={{
                               style: { fontSize: "2vh" },
                             }}
-                            // secondaryTypographyProps={{ style: {  } }}
+                    
                             primary={`${assignment.assignment} - ${assignment.moduleCode}`}
                             secondary={
                               <span>
@@ -375,100 +303,7 @@ const RecentPage = () => {
               </div>
             </div>
           </div>
-          {/* <Button
-            sx={{
-              m: 2,
-              width: "100px",
-              height: "50px",
-              color: "black",
-              fontWeight: "bold",
-            }}
-            startIcon={<ArrowBackIcon />}
-            onClick={() => window.history.back()}
-          >
-            Back
-          </Button>
-          <h1 id="heading">Recents</h1>
-          <div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-end",
-                justifyContent: "right",
-              }}
-            >
-              <div style={{ width: "10vw" }}></div>
-              <Link
-                to={`/NewAssignment/${null}/${null}`}
-                style={{ textDecoration: "none" }}
-              >
-                <CustomNewButton text="New Assignment" />
-              </Link>
-            </div>
-            <div className="columnModules" style={{ width: "80%" }}>
-              {loading ? (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <CircularProgress />
-                </div>
-              ) : (
-                <List
-                  sx={{
-                    width: "100%",
-                    bgcolor: "background.paper",
-                    overflow: "auto",
-                    height: "80%",
-                  }}
-                >
-                  {assignments.map((assignment, index) => (
-                    <ListItem
-                      key={assignment.assignmentId}
-                      secondaryAction={
-                        <div>
-                          <IconButton
-                            edge="end"
-                            aria-label="edit"
-                            onClick={() => handleEditAssignment(assignment)}
-                          >
-                            <Edit />
-                          </IconButton>
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            onClick={() => handleDeleteAssignment(assignment)}
-                          >
-                            <Delete />
-                          </IconButton>
-                        </div>
-                      }
-                      disablePadding
-                    >
-                      <ListItemButton
-                        onClick={() => handleSelection(assignment)}
-                      >
-                        <ListItemText
-                          primaryTypographyProps={{
-                            style: { fontSize: "2vh" },
-                          }}
-                          // secondaryTypographyProps={{ style: {  } }}
-                          primary={`${assignment.assignment} - ${assignment.moduleCode}`}
-                          secondary={
-                            <span>
-                              {assignment.batch} - {assignment.dateCreated}
-                            </span>
-                          }
-                          secondaryTypographyProps={{
-                            component: "span",
-                            style: { display: "inline", fontSize: "1.5vh" },
-                          }}
-                        />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
-              )}
-            </div>
-          </div> */}
+        
         </div>
       </MainRightPane>
     </div>

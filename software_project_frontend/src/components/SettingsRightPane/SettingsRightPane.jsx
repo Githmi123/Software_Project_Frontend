@@ -7,20 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 function SettingsRightPane() {
   return (
     <div id="rightpane">
-      {/* <Button
-          sx={{
-            m: 2,
-            width: "100px",
-            height: "50px",
-            color: "black",
-            fontWeight: "bold",
-            marginLeft: "10vh",
-          }}
-          startIcon={<ArrowBackIcon />}
-          onClick={() => window.history.back()}
-        >
-          Back
-        </Button> */}
+      
       <div>
         <h1 id="heading">Settings</h1>
 

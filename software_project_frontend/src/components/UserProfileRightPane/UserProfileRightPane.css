@@ -1,10 +1,8 @@
 #rightpane {
   position: relative;
   display: flex;
-
   background-color: white;
   border-radius: 5vh;
-
   flex-direction: column;
 }
 
@@ -26,20 +24,10 @@
 
 #outlined-basic {
   height: 1.5vh;
-  /* margin-left: 2vh; */
-  /* display: flex; */
-  /* position: absolute; */
-  /* left: 10vh; */
-
   margin-right: 5vh;
-
-  /* border: 20px soild aqua; */
-  /* border-width: 2vh; */
-  /* border-color: aqua; */
 }
+
 .label1-userprofile-left {
-  /* margin: 2vh; */
-  /* margin-left: 5vh; */
   display: flex;
   font-weight: bold;
   margin-top: 2vh;
@@ -48,7 +36,6 @@
 }
 
 .label2 {
-  /* margin: 2vh; */
   margin-left: 5vh;
   margin-right: 5vh;
   display: flex;
@@ -59,7 +46,6 @@
 }
 
 .label3 {
-  /* margin: 2vh; */
   margin-right: 5vh;
   display: flex;
   font-weight: bold;
@@ -77,31 +63,23 @@
 
 #space1 {
   margin-left: 5vh;
-  /* border: 0.2vh solid aqua; */
 }
 
 #space2 {
   margin-right: 5vh;
   margin-left: 1.5vh;
-  /* border: 0.2vh solid aqua; */
 }
 
 #space3 {
   margin-left: 11.5vh;
-  /* border: 0.2vh solid aqua; */
-  /* width: 70vh; */
 }
 
 #rightpane-form {
   position: relative;
   display: flex;
-  /* margin-left: 18vw;
-  margin-right: 18vw; */
-  /* justify-content: center; */
   flex-direction: column;
   justify-content: left;
   align-items: flex-start;
-  /* margin-top: 7vh; */
 }
 
 .userprofile-buttons2 {

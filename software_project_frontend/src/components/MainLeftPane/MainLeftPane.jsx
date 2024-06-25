@@ -10,7 +10,6 @@ import AccountMenu from "../AccountMenu";
 import Divider from "@mui/material/Divider";
 import MenuIcon from '@mui/icons-material/Menu';
 
-// import { Drawer } from '@mui/material'
 
 const MainLeftPane = () => {
 
@@ -22,13 +21,6 @@ const MainLeftPane = () => {
     }
     setDrawerOpen(open);
   };
-
-
-  
-
-
-  
-  // const isMenuOpen = Boolean(anchorEl);
 
   return (
     <div className="maindiv-left">
@@ -63,41 +55,22 @@ const MainLeftPane = () => {
 
               <ButtonSet />
             </div>
-            {/* <div style={{ backgroundColor: "inherit" }} id="ProfileBar">
-              <AccountMenu />
-            </div> */}
+
           </div>
         </div>
       </Drawer>
 
-      {/* <Menu
-        anchorEl={anchorEl}
-        open={isMenuOpen}
-        onClose={handleMenuClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-      </Menu> */}
 
       <div className="main-left">
         <img
           id="main-left-pane-image"
           src={projectlogo}
-          // style={{ width: "50%" }}
+
         />
 
         <ButtonSet />
       </div>
-      {/* <div style={{backgroundColor:"#C3D3FB"}} id = "ProfileBar"> */}
+
 
       <div style={{ backgroundColor: "inherit" }} id="ProfileBar1">
 
@@ -105,15 +78,6 @@ const MainLeftPane = () => {
         <AccountMenu />
       </div>
 
-      {/* <div className="maindiv-left">
-        <img
-          id="main-left-pane-image"
-          src={projectlogo}
-          style={{ width: "50%" }}
-        />
-
-        <ButtonSet />
-      </div> */}
     </div>
   );
 };

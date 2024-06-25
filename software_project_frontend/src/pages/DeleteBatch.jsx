@@ -33,7 +33,7 @@ const DeleteBatch = () => {
   const {enqueueSnackbar} = useSnackbar();
 
   useEffect(() => {
-    setOpenDialog(true); // Open the dialog when the component mounts
+    setOpenDialog(true); 
   }, []);
 
   const deleteBatch = async () => {
@@ -58,7 +58,7 @@ const DeleteBatch = () => {
 
         if(newAccessToken){
           try {
-            // await refreshAccessToken();
+         
             await deleteBatch();
           } catch (error) {
             console.error("Error deleting batch:", error);
