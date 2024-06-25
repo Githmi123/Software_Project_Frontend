@@ -16,7 +16,7 @@ import { NewUserProfileRightPane } from "../components/NewUserProfileRightPane/N
 
 function UserProfile() {
   return (
-    <div id="body">
+    <div id="body1">
       {/* <UserProfileLeftPane></UserProfileLeftPane> */}
    
       {/* <UserProfileRightPane /> */}

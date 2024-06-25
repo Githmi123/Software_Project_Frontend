@@ -303,7 +303,7 @@ export default function ProfilePage() {
       
   return (
     <section style={{ backgroundColor: 'transparent'}}>
-      <MDBContainer style={{ justifyContent:"center", display:"flex", height:"100%", alignContent:"flex-start", margin:"0" }}>
+      <MDBContainer style={{ flexDirection:"column", justifyContent:"center", display:"flex", height:"100%", alignContent:"flex-start", margin:"0" }}>
       {/* <Button
           id = "back-button"
           startIcon={<ArrowBackIcon />}

@@ -54,6 +54,43 @@ const AnswerScriptsPage = () => {
     { field: "graded", headerName: "Graded", width: 150 },
   ];
 
+  // const [columns, setColumns] = useState([
+  //   { field: "studentid", headerName: "Student ID", width: 90 },
+  //   { field: "assignmentid", headerName: "Assignment ID", width: 150 },
+  //   { field: "marks", headerName: "Marks", width: 150 },
+  //   { field: "batch", headerName: "Batch", width: 150 },
+  //   { field: "modulecode", headerName: "Module Code", width: 150 },
+  //   { field: "fileid", headerName: "File ID", width: 150 },
+  //   { field: "graded", headerName: "Graded", width: 150 },
+  // ]);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     const newColumns = window.innerWidth < 600
+  //       ? [
+  //           { field: "studentid", headerName: "Student ID", width: 90 },
+  //           { field: "assignmentid", headerName: "Assignment ID", width: 150 },
+  //           { field: "marks", headerName: "Marks", width: 150 },
+  //         ]
+  //       : [
+  //           { field: "studentid", headerName: "Student ID", width: 90 },
+  //           { field: "assignmentid", headerName: "Assignment ID", width: 150 },
+  //           { field: "marks", headerName: "Marks", width: 150 },
+  //           { field: "batch", headerName: "Batch", width: 150 },
+  //           { field: "modulecode", headerName: "Module Code", width: 150 },
+  //           { field: "fileid", headerName: "File ID", width: 150 },
+  //           { field: "graded", headerName: "Graded", width: 150 },
+  //         ];
+
+  //     setColumns(newColumns);
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+  //   handleResize(); // Initial resize call
+
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
+
 
   const handleClick = () => {
     enqueueSnackbar('I love snacks.');
@@ -216,6 +253,18 @@ const AnswerScriptsPage = () => {
     setSelectedFiles(files);
   };
 
+  const handleSelectionModelChange = (newSelectionModel) => {
+    setSelectedAssignmentNos(newSelectionModel);
+
+    const selectedFileIds = newSelectionModel.map((id) => {
+      const script = answerScripts.find(script => script.assignmentid === id);
+      return script ? script.fileid : null;
+    }).filter(fileid => fileid !== null);
+
+    setSelectedFiles(selectedFileIds);
+};
+
+
   // const handleToggleAssignmentNo = (scriptId) => {
   //   console.log(scriptId);
   //   setSelectedAssignmentNos((prevSelectedAssignmentNos) => {
@@ -310,8 +359,9 @@ const AnswerScriptsPage = () => {
   const gradeSelected = async () => {
     setLoading(true);
     enqueueSnackbar('Answer scripts are being graded. This may take a few minutes. Please wait!', { variant: 'info' });
+    console.log("Assignment Nos:", selectedAssignmentNos);
         const response = await axios.post(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
           { selectedAssignmentNos }
         );
   
@@ -373,14 +423,16 @@ const AnswerScriptsPage = () => {
 
     
     const response = await axios.delete(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${answerScripts.fieid}`,
-      { selectedAssignmentNos }
+      
+      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
     );
-
+    console.log("These are sent", selectedFiles)
     console.log("These are selected", selectedAssignmentNos);
 
     console.log("Deleted selected answer scripts", response.data);
-    await fetchData();
+    enqueueSnackbar('Answer Script deleted successfully', { variant: 'success' });
+    window.location.reload();
+    
     
     
 
@@ -465,16 +517,16 @@ const AnswerScriptsPage = () => {
           }}
         >
           <CustomNewButton
-            text="Upload Answer Script"
+            text="Upload"
             onFileSelect={handleNewAnswerScript}
           />
-          <GradingButton
-            text="Grade all files"
+          {/* <GradingButton
+            text="Grade"
             onClick={handleGradeAllFiles}
             icon={AssignmentTurnedInIcon}
-          />
+          /> */}
           <GradingButton
-            text="Grade selected files"
+            text="Grade"
             onClick={handleGradeSelectedFiles}
             icon={CheckCircle}
           />
@@ -483,11 +535,11 @@ const AnswerScriptsPage = () => {
             to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <GradingButton text="Visualize a graph" icon={TrendingUp} />
+            <GradingButton text="Visualize" icon={TrendingUp} />
           </Link>
 
           <GradingButton
-            text="Delete selected files"
+            text="Delete"
             onClick={handleDeleteFiles}
             icon={Delete}
           />
@@ -503,7 +555,7 @@ const AnswerScriptsPage = () => {
     
       rows={answerScripts}
       columns={columns}
-      getRowId={(row) => row.studentid}
+      getRowId={(row) => row.fileid}
       initialState={{
         pagination: {
           paginationModel: {
@@ -522,7 +574,9 @@ const AnswerScriptsPage = () => {
       // }}
       onRowSelectionModelChange={(newSelection) => {
         setSelectedAssignmentNos(newSelection);
+        // setSelectedFiles(newSelection);
       }}
+      onSelectionModelChange={handleSelectionModelChange}
     
     />
 

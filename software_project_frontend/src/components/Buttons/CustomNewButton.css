@@ -26,7 +26,7 @@
   font-size: 10px !important;
 }
 
-@media (max-width: 868px) {
+@media (max-width: 500px) {
   .custom-button {
     /* font-size: 0 !important; */
     /* width: 0px !important; */

@@ -260,7 +260,7 @@ const NewAssignmentPage = () => {
     e.preventDefault();
 
     try {
-      await refreshAccessToken();
+      // await refreshAccessToken();
       console.log("Started submitting");
       const formData = new FormData();
       console.log(selectedModuleCode);
