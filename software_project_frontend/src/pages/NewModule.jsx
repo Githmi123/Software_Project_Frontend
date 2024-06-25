@@ -5,6 +5,10 @@ import { Button, CircularProgress, TextField, colors } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import Cookies from "js-cookie";
+
+import CustomSelect from "../components/Other/CustomSelect";
+
+
 import "../styles/MyModulesPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
@@ -17,7 +21,33 @@ const NewModule = () => {
     credits: "",
   });
   const [loading, setLoading] = useState(false);
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+  const [selectedUser, setSelectedUser] = useState("");
+  const [userOptions, setUserOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        await refreshAccessToken();
+
+        const userResponse = await axios.get("http://localhost:3500/user/all");
+        const users = userResponse.data;
+        console.log("useres", users);
+
+        const userOptions = users.map((user) => ({
+          key: user.userid,
+          value: user.email,
+          label: user.firstname + " " + user.lastname,
+        }));
+        setUserOptions(userOptions);
+        console.log(userOptions);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchAllUsers();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,71 +57,115 @@ const NewModule = () => {
     });
   };
 
-  const navigate = useNavigate();
+  const handleUserChange = (e) => {
+    setSelectedUser(e.target.value);
+    console.log("Selected user email:", e.target.value);
+  };
 
+  const navigate = useNavigate();
 
   const submit = async () => {
     setLoading(true);
-    await axios.post("http://localhost:3500/modules", moduleData);
+    try {
+      // Create module
+      await axios.post("http://localhost:3500/modules", moduleData);
+      console.log("Module is created!", moduleData);
 
+      console.log(moduleData.modulecode);
+      await axios.post(
+        `http://localhost:3500/modules/view/${moduleData.modulecode}/user`,
+        { usertoAdd: selectedUser }
+      );
+      console.log("User added to module!");
 
-      console.log("Module is created!");
-      console.log(moduleData);
       setLoading(false);
       navigate("/MyModulePage");
-      enqueueSnackbar('Module created successfully!', { variant: 'success' });
-      
-  }
+      enqueueSnackbar("Module created successfully and user added!", {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      setLoading(false);
+
+      if (error.response) {
+        if (error.response.status === 401) {
+          enqueueSnackbar("Unauthorized access. Please log in again.", {
+            variant: "error",
+          });
+        } else if (error.response.status === 409) {
+          enqueueSnackbar("Module already exists.", { variant: "error" });
+        } else if (error.response.status === 404) {
+          enqueueSnackbar("User not found.", { variant: "error" });
+        } else {
+          enqueueSnackbar("An error occurred while processing the request.", {
+            variant: "error",
+          });
+        }
+      } else {
+        enqueueSnackbar("An error occurred. Please try again later.", {
+          variant: "error",
+        });
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
-    if(moduleData.modulecode === '' || moduleData.modulename === '' || moduleData.credits === ''){
-      enqueueSnackbar('Please enter all the details.', { variant: 'error' });
-    }
-
-    else{
+    if (
+      moduleData.modulecode === "" ||
+      moduleData.modulename === "" ||
+      moduleData.credits === ""
+    ) {
+      enqueueSnackbar("Please enter all the details.", { variant: "error" });
+    } else {
       e.preventDefault();
-    try {
-      await submit();
-    } catch (error) {
-      if(error.response && error.response.status === 401){
-        const newAccessToken = await refreshAccessToken();
-        console.log("New access token: ", newAccessToken);
+      try {
+        await submit();
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken();
+          console.log("New access token: ", newAccessToken);
 
-        if(newAccessToken){
-          try {
-            await submit();
-          } catch (error) {
-      
-            if (error.response && error.response.status === 409) {
-              setLoading(false);
-              enqueueSnackbar('Module already exists.', { variant: 'error' });
-            } else {
-              setLoading(false);
-              console.error("Error fetching data:", error);
-              enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
+
+          if (newAccessToken) {
+            try {
+              // await refreshAccessToken();
+              await submit();
+            } catch (error) {
+              // if (error.response && error.response.status === 400) {
+              //   setLoading(false);
+              //   // enqueueSnackbar('Please enter all the details.', { variant: 'error' });
+              // }
+
+              if (error.response && error.response.status === 409) {
+                setLoading(false);
+                enqueueSnackbar("Module already exists.", { variant: "error" });
+              } else {
+                setLoading(false);
+                console.error("Error fetching data:", error);
+                enqueueSnackbar(
+                  "An error occurred while creating the module.",
+                  { variant: "error" }
+                );
+              }
+
             }
           }
+        } else if (error.response && error.response.status === 409) {
+          setLoading(false);
+          enqueueSnackbar("Module already exists.", { variant: "error" });
+        } else {
+          setLoading(false);
+          console.error("Error fetching data:", error);
+          enqueueSnackbar("An error occurred while creating the module.", {
+            variant: "error",
+          });
         }
       }
-      
-
-      else if (error.response && error.response.status === 409) {
-        setLoading(false);
-        enqueueSnackbar('Module already exists.', { variant: 'error' });
-      } else {
-        setLoading(false);
-        console.error("Error fetching data:", error);
-        enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
-      }
-     
     }
-    }
-    
   };
 
   return (
     <div className="align1">
-  
       <MainRightPane>
         <Button
           sx={{
@@ -205,6 +279,30 @@ const NewModule = () => {
             Credits
           </TextField>
 
+          <span className="label1">Add User</span>
+          <div className="center">
+            <div>
+              <CustomSelect
+                label="User"
+                value={selectedUser}
+                onChange={handleUserChange}
+                // options={userOptions}
+                options={userOptions.map((option) => ({
+                  key: option.key, // Ensure each option has a unique key
+                  value: option.value,
+                  label: option.label,
+                }))}
+                sx={{ marginLeft: "5vw" }}
+              />
+              {/* <Button
+                  onClick={handleAddModule}
+                  sx={{ color: "white", backgroundColor: "#8080FF" }}
+                >
+                  Add Module
+                </Button> */}
+            </div>
+          </div>
+
           <div
             style={{
               marginTop: "50px",
@@ -240,14 +338,12 @@ const NewModule = () => {
             >
               Save
             </Button>
-
-
-        </div>
-        {loading && (
-        <div style={{display: "flex", justifyContent:"center"}}><CircularProgress/></div>
-      )}
-        
-
+          </div>
+          {loading && (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <CircularProgress />
+            </div>
+          )}
         </div>
       </MainRightPane>
     </div>

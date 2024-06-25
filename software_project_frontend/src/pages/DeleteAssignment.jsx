@@ -27,13 +27,12 @@ const DeleteAssignment = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const {enqueueSnackbar} = useSnackbar();
-
+  const { enqueueSnackbar } = useSnackbar();
 
   const columns = [
-    { field: 'modulecode', headerName: 'Module Code', width: 150 },
-    { field: 'modulename', headerName: 'Module Name', width: 150 },
-    { field: 'credits', headerName: 'Credits', width: 150 },
+    { field: "modulecode", headerName: "Module Code", width: 150 },
+    { field: "modulename", headerName: "Module Name", width: 150 },
+    { field: "credits", headerName: "Credits", width: 150 },
   ];
 
   useEffect(() => {
@@ -46,33 +45,34 @@ const DeleteAssignment = () => {
       `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
     );
     console.log("Assignment is deleted !");
-    enqueueSnackbar('Assignment deleted successfully!', { variant: 'success' });
+    enqueueSnackbar("Assignment deleted successfully!", { variant: "success" });
     navigate("/Dashboard");
     setLoading(false);
-  }
+  };
 
   const handleDeleteConfirmation = async () => {
     console.log("Trying to delete assignment");
     try {
       await deleteAssignment();
     } catch (error) {
-      if(error.response && error.response.status === 401){
+      if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
-        if(newAccessToken){
+        if (newAccessToken) {
           try {
          
             await deleteAssignment();
           } catch (error) {
             console.error("Error fetching data:", error);
-            enqueueSnackbar('Failed to delete assignment.', { variant: 'error' });
+            enqueueSnackbar("Failed to delete assignment.", {
+              variant: "error",
+            });
           }
         }
-      }
-      else{
+      } else {
         console.error("Error fetching data:", error);
-        enqueueSnackbar('Failed to delete assignment.', { variant: 'error' });
+        enqueueSnackbar("Failed to delete assignment.", { variant: "error" });
       }
     }
   };
@@ -85,9 +85,9 @@ const DeleteAssignment = () => {
   return (
     <div>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{"Delete Module"}</DialogTitle>
+        <DialogTitle>{"Delete Assignment"}</DialogTitle>
         <DialogContent>
-          <div>Do you really want to delete this module?</div>
+          <div>Do you really want to delete this assignment?</div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">

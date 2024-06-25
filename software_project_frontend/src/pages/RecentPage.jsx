@@ -244,6 +244,8 @@ const RecentPage = () => {
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <CircularProgress />
                   </div>
+                ) : assignments.length === 0 ? (
+                  <h5>No assignments created</h5>
                 ) : (
                   <List
                     sx={{

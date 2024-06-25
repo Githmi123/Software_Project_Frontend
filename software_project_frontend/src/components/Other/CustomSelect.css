@@ -1,7 +1,7 @@
 #form-input-field {
   margin: 0.5;
   max-width: auto;
-  width: 50vw;
+  width: 25vw;
 }
 
 @media (max-width: 768px) {
@@ -17,5 +17,6 @@
     margin: 0.5;
     max-width: auto;
     width: 50vw;
+    height: 7vh;
   }
 }

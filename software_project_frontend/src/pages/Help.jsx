@@ -37,44 +37,44 @@ function Help() {
           >
           </div>
 
-        <div id="help-support-options">
-  <div className="help-support-options-container">
-    <div className="help-support-options-circles">
-      <ContactMailIcon fontSize="large" color="primary" />
-    </div>
-    <div className="help-container-paragraph">
-      <p className="container-title">Chat</p>
-      <p>We’re here.</p>
-      <div className="help-contact-detail">
-        <p>apgs@gmail.com</p>
-      </div>
-    </div>
-  </div>
-  <div className="help-support-options-container">
-    <div className="help-support-options-circles">
-      <OndemandVideoIcon fontSize="large" color="primary" />
-    </div>
-    <div className="help-container-paragraph">
-      <p className="container-title">Our Tutorials</p>
-      <p>Helpful tutorials</p>
-      <div className="help-contact-detail">
-        <p>view on youtube</p>
-      </div>
-    </div>
-  </div>
-  <div className="help-support-options-container">
-    <div className="help-support-options-circles">
-      <AddIcCallIcon fontSize="large" color="primary" />
-    </div>
-    <div className="help-container-paragraph">
-      <p className="container-title">Call Us</p>
-      <p>Reach out to us</p>
-      <div className="help-contact-detail">
-        <p>+123 456 7890</p>
-      </div>
-    </div>
-  </div>
-</div>
+          <div id="help-support-options">
+            <div className="help-support-options-container">
+              <div className="help-support-options-circles">
+                <ContactMailIcon fontSize="large" color="primary" />
+              </div>
+              <div className="help-container-paragraph">
+                <p className="container-title">Chat</p>
+                <p>We’re here.</p>
+                <div className="help-contact-detail">
+                  <p>apgs@gmail.com</p>
+                </div>
+              </div>
+            </div>
+            <div className="help-support-options-container">
+              <div className="help-support-options-circles">
+                <OndemandVideoIcon fontSize="large" color="primary" />
+              </div>
+              <div className="help-container-paragraph">
+                <p className="container-title">Our Tutorials</p>
+                <p>Helpful tutorials</p>
+                <div className="help-contact-detail">
+                  <p>view on youtube</p>
+                </div>
+              </div>
+            </div>
+            <div className="help-support-options-container">
+              <div className="help-support-options-circles">
+                <AddIcCallIcon fontSize="large" color="primary" />
+              </div>
+              <div className="help-container-paragraph">
+                <p className="container-title">Call Us</p>
+                <p>Reach out to us</p>
+                <div className="help-contact-detail">
+                  <p>+123 456 7890</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div
             id="faq-up"
@@ -115,11 +115,9 @@ function Help() {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  The LMS uses automated grading algorithms to quickly and
+                  Thi system uses automated grading algorithms to quickly and
                   accurately assess student submissions, reducing the need for
-                  manual grading. Teachers can set up grading rubrics and
-                  criteria in advance, allowing the system to handle the bulk of
-                  the grading process.
+                  manual grading.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -139,12 +137,9 @@ function Help() {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  The LMS provides a range of visualization tools, including
-                  charts and graphs, to help teachers analyze student
-                  performance. These tools can display data on individual
-                  student progress, class averages, and trends over time, making
-                  it easier to identify areas where students may need additional
-                  support.
+                  The system provides a visualization graph to help teachers
+                  analyze student performance by displaying data on class
+                  averages.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -164,11 +159,7 @@ function Help() {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  The LMS can automatically grade multiple-choice questions,
-                  true/false questions, short answer questions, and even some
-                  types of coding assignments. For assignments that require
-                  subjective evaluation, such as essays, teachers can use the
-                  system to provide guided grading support.
+                  The system can automatically grade multiple-choice questions.
                 </Typography>
               </AccordionDetails>
             </Accordion>
