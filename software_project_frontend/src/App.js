@@ -27,6 +27,8 @@ import DeleteAssignment from "./pages/DeleteAssignment";
 import EditAssignment from "./pages/EditAssignment";
 import MainLayout from "./pages/MainLayout";
 import { SnackbarProvider } from "notistack";
+import EditBatch from "./pages/EditBatch";
+import DeleteBatch from "./pages/DeleteBatch";
 
 function App() {
   return (
@@ -98,6 +100,16 @@ function App() {
                 exact
                 path="/DeleteModule/:selectedModuleCode"
                 element={<DeleteModule />}
+              ></Route>
+              <Route
+                exact
+                path="/EditBatch/:selectedModuleCode/:batch"
+                element={<EditBatch />}
+              ></Route>
+              <Route
+                exact
+                path="/DeleteBatch/:selectedModuleCode/:batch"
+                element={<DeleteBatch />}
               ></Route>
 
               <Route
