@@ -1,13 +1,7 @@
-/* #page{
-    background-color: #7894DB;
-} */
-
 .align1 {
   position: relative;
   display: flex;
-  /* justify-content: center; */
   flex-direction: row;
-  /* align-items: flex-start; */
   margin-left: 0;
   height: 100vh;
 }

@@ -1,10 +1,6 @@
 .newButton {
   display: flex;
   margin-left: auto;
-  /* position: relative; */
-  /* margin-right: 2vh; */
-  /* justify-content: space-between; */
-  /* align-items:end; */
 }
 
 #module-table-headers {
@@ -31,7 +27,6 @@
 .align1 {
   position: relative;
   display: flex;
-  /* justify-content: center; */
   flex-direction: row;
   align-items: flex-start;
   margin-left: 0;
@@ -39,7 +34,7 @@
 
 .buttonContainer {
   position: fixed;
-  bottom: 20vh; /* Adjust as needed */
+  bottom: 20vh;
   left: 45%;
   transform: translateX(-50%);
   display: flex;

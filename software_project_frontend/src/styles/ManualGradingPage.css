@@ -25,16 +25,15 @@ h5 {
 #paper-image {
   width: 25vw;
   height: 60vh;
-  /* margin-right: 3vw; */
 }
 
 .marking-scheme-table {
-  border-collapse: collapse; /* Ensure borders are collapsed */
+  border-collapse: collapse;
   width: 100%;
 }
 
 .marking-scheme-tabledata {
-  border: 1px solid black; /* Add black border to table cells */
+  border: 1px solid black;
   text-align: center !important;
   padding: 0.1vh;
 }
@@ -85,7 +84,6 @@ th {
   #paper-image {
     width: 25vw;
     height: 70vh;
-    /* margin-right: 3vw; */
   }
 
   .table-container {
@@ -107,7 +105,6 @@ th {
   #paper-image {
     width: 33vw;
     height: 55vh;
-    /* margin-right: 3vw; */
   }
 
   .table-container {
@@ -136,7 +133,6 @@ th {
   #paper-image {
     width: 50vw;
     height: 80vh;
-    /* margin-right: 3vw; */
   }
 
   .table-container {
@@ -169,7 +165,6 @@ th {
   #paper-image {
     width: 60vw;
     height: 70vh;
-    /* margin-right: 3vw; */
   }
 
   .table-container {

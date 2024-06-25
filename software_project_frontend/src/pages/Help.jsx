@@ -6,22 +6,16 @@ import help from "../images/help.png";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
-
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Fade from "@mui/material/Fade";
-
 import Footer from "../components/Footer/Footer";
 
 function Help() {
   const [expanded, setExpanded] = React.useState(false);
-
-  // const handleExpansion = () => {
-  //   setExpanded((prevExpanded) => !prevExpanded);
-  // };
 
   const handleExpansion = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -30,14 +24,7 @@ function Help() {
   return (
     <div className="align1">
       <MainRightPane>
-        {/* <div style={{display:"flex", justifyContent: "space-evenly", alignItems:"center", flexDirection:"row", margintop:"10vh", height: "100%"}}>
-                <div style={{display:"flex", justifyContent:"center", flexDirection:"column", alignItems:"center", width:"40%"}}>
-                    <h1>Support Center</h1>
-                    <p style={{color:"black", textAlign:"justify"}}>If you need assistance with uploading, grading, or managing answer scripts, please contact our support team for further guidance. Our goal is to ensure you have a smooth and efficient experience using our system.</p>
-                </div>
-                
-                <img src={help} id = "helpImage"/>
-            </div> */}
+
         <h3 id="heading">Contact Us</h3>
         <div id="help-backgroud">
           <div
@@ -48,9 +35,6 @@ function Help() {
               justifyContent: "center",
             }}
           >
-            {/* <h3>Contact Us</h3> */}
-
-            {/* <h5>We're here to assist you</h5> */}
           </div>
 
           <div id="help-support-options">
@@ -96,20 +80,12 @@ function Help() {
             id="faq-up"
             style={{
               backgroundColor: "#AFAFAF",
-              // marginTop: "5vh",
               width: "100%",
             }}
           >
             <div id="faq-image-container">
               <div
                 id="help-image-container-2"
-                // style={{
-                //   width: "80%",
-                //   alignItems: "center",
-                //   display: "flex",
-                //   flexDirection: "row",
-                //   marginBottom: "5vh",
-                // }}
               >
                 <div id="faq-image-para">
                   <p id="faq-title">FAQ</p>
@@ -125,7 +101,6 @@ function Help() {
           </div>
           <div style={{ width: "100%", margin: "auto" }}>
             {" "}
-            {/* Adjust width here */}
             <Accordion
               expanded={expanded === "panel1"}
               onChange={handleExpansion("panel1")}
@@ -188,52 +163,6 @@ function Help() {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-            {/* <Accordion
-              expanded={expanded === "panel4"}
-              onChange={handleExpansion("panel4")}
-              slotProps={{ transition: { timeout: 400 } }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel4-content"
-                id="panel4-header"
-              >
-                <Typography>
-                  Can teachers customize the grading criteria?
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Yes, teachers can customize grading criteria and rubrics for
-                  different types of assignments. The LMS allows for detailed
-                  configuration of grading parameters, ensuring that the grading
-                  process aligns with the teacher's expectations and educational
-                  standards.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion
-              expanded={expanded === "panel5"}
-              onChange={handleExpansion("panel5")}
-              slotProps={{ transition: { timeout: 400 } }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel5-content"
-                id="panel5-header"
-              >
-                <Typography>How secure is the data within the LMS?</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  The LMS employs robust security measures to protect student
-                  and teacher data. This includes encryption, regular security
-                  audits, and compliance with data protection regulations. User
-                  data is stored securely, and access is restricted to
-                  authorized personnel only.
-                </Typography>
-              </AccordionDetails>
-            </Accordion> */}
           </div>
         </div>
       </MainRightPane>

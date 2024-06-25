@@ -1,7 +1,5 @@
-import { Button, IconButton, Stack } from '@mui/material'
+import { IconButton, Stack } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
-
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BookIcon from '@mui/icons-material/Book';
@@ -15,20 +13,10 @@ import LeftPaneButton from '../Buttons/LeftPaneButton';
 import '../ButtonSet/ButtonSet.css'
 import MenuIcon from '@mui/icons-material/Menu';
 
-const buttonStyle = {
-  textAlign: 'left',
-  textTransform: 'none',
-  backgroundColor: 'white',
-  color: 'black',
-  width: '200px',
-  display: 'flex',
-};
-
 const ButtonSet = () => {
   const [selectedButton, setSelectedButton] = useState("");
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  // const [selectedButton, setSelectedButton] = useState("");
 
   const handleSelectedButton = (name) => {
       setSelectedButton(name);
@@ -37,16 +25,6 @@ const ButtonSet = () => {
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
-
-
-  const buttonStyle = {
-    backgroundColor: selectedButton === "/Dashboard" ? '#ff0000' : 'white',
-            color: selectedButton === "/Dashboard" ? 'white' : 'black',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    textAlign: 'left',
-    width: '100%',
-};
 
 
 const getData = async () => {
@@ -58,7 +36,6 @@ const getData = async () => {
     "http://localhost:3500/modules"
   );
   console.log(response.data);
-  // setTableDataModules(response.data);
 
   console.log(response.data);
 
@@ -91,7 +68,6 @@ useEffect(() => {
 
         if(newAccessToken){
           try {
-            // await refreshAccessToken();
             await getData();
           } catch (error) {
             console.error("Error fetching data:", error);
@@ -116,12 +92,6 @@ useEffect(() => {
       </IconButton>
 
     <Stack direction='column' spacing={2} alignItems='center' alignContent='center' marginLeft={"3vh"} className={`button-set ${menuOpen ? 'show' : ''}`}>
-        {/* <Button className="button" style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '45px',}}} component={Link} to='/RecentPage'  startIcon={<DashboardIcon/>} endIcon={<ArrowForwardIosIcon/>}>Dashboard</Button>
-        <Button className='button'  style={buttonStyle} sx={{textAlign:'left'}} startIcon={<AssignmentIcon/> } component={Link} to="/NewAssignment" endIcon={<ArrowForwardIosIcon/>}>New Assignment</Button>
-        <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '39px',}}} component={Link} to='/MyModulePage' startIcon={<BookIcon/>} endIcon={<ArrowForwardIosIcon/>}>My Modules</Button>
-        <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '65px',}}} startIcon={<SettingsIcon/>} endIcon={<ArrowForwardIosIcon/>}>Settings</Button>
-        <Button className='button' style={buttonStyle} sx={{'& .MuiButton-startIcon': {marginRight: '90px',}}} startIcon={<LiveHelpIcon/>} endIcon={<ArrowForwardIosIcon/>}>Help</Button>    */}
-
 
         <LeftPaneButton icon={DashboardIcon} name="Dashboard" link = '/Dashboard' isSelected={selectedButton === "Dashboard"} onClick={() => handleSelectedButton('Dashboard')}/>
         <LeftPaneButton icon={AssignmentIcon} name="New Assignment" link = '/NewAssignment' isSelected={selectedButton === "New Assignment"} onClick={() => handleSelectedButton("New Assignment")}/>

@@ -14,11 +14,9 @@ async function refreshAccessToken()
             throw new Error('Failed to refresh access token');
         }
 
-        // const data = await response.json();
-        // console.log(data);
         const { accessToken } = response.data;
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        // Cookies.set("accessToken", accessToken);
+
         return accessToken;
     }
     catch (error){

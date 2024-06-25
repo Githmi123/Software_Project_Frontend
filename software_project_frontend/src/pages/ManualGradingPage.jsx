@@ -9,7 +9,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { AlignHorizontalCenter, Check, Close } from "@mui/icons-material";
-
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -18,14 +17,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import answerscript1 from "../images/answerscript1.png";
 import "../styles/ManualGradingPage.css";
-
 import refreshAccessToken from "../services/AuthService";
-
 import { useParams, useNavigate } from "react-router-dom";
-
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -48,7 +43,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },
@@ -61,7 +55,6 @@ const ManualGradingPage = () => {
   useEffect(() => {
     const handleGrades = async () => {
       try {
-        // await refreshAccessToken();
 
         const response = await axios.get(
           `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
@@ -88,54 +81,9 @@ const ManualGradingPage = () => {
     return (
       <div
         id="column-div"
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   justifyContent: "space-between",
-        //   overflowY: "auto",
-        //   gap: "8vh",
-        // }}
+
       >
-        {/* <table
-          border="1"
-          style={{ width: "20vh", textAlign: "center" }}
-          id="table-marks"
-        >
-          <thead>
-            <tr>
-              <th>Question Number</th>
-              <th>Student Answer</th>
-              <th>Correct Answer</th>
-            </tr>
-          </thead>
-          <tbody>
-            {firstColumn.map((item, index) => (
-              <tr key={index} style={{ height: "1%" }}>
-                <td>{item.questionnumber}</td>
-                <td>{Number(item.student_answer) + 1}</td>
-                <td>{Number(item.correct_answer) + 1}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <table border="1" style={{ width: "30%", textAlign: "center" }}>
-          <thead>
-            <tr>
-              <th>Question Number</th>
-              <th>Student Answer</th>
-              <th>Correct Answer</th>
-            </tr>
-          </thead>
-          <tbody>
-            {secondColumn.map((item, index) => (
-              <tr key={index}>
-                <td>{item.questionnumber}</td>
-                <td>{Number(item.student_answer) + 1}</td>
-                <td>{Number(item.correct_answer) + 1}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
+       
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 200 }} aria-label="customized table">
             <TableHead>
@@ -143,21 +91,13 @@ const ManualGradingPage = () => {
                 <StyledTableCell>Question Number</StyledTableCell>
                 <StyledTableCell align="right">Student Answer</StyledTableCell>
                 <StyledTableCell align="right">Correct Answer</StyledTableCell>
-                {/* <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                <StyledTableCell align="right">
-                  Protein&nbsp;(g)
-                </StyledTableCell> */}
+                
               </TableRow>
             </TableHead>
             <TableBody>
               {firstColumn.map((item, index) => (
                 <StyledTableRow key={index}>
-                  {/* <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.calories}
-                  </StyledTableCell> */}
+                  
                   <StyledTableCell align="right">
                     {item.questionnumber}
                   </StyledTableCell>
@@ -179,21 +119,13 @@ const ManualGradingPage = () => {
                 <StyledTableCell>Question Number</StyledTableCell>
                 <StyledTableCell align="right">Student Answer</StyledTableCell>
                 <StyledTableCell align="right">Correct Answer</StyledTableCell>
-                {/* <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                <StyledTableCell align="right">
-                  Protein&nbsp;(g)
-                </StyledTableCell> */}
+              
               </TableRow>
             </TableHead>
             <TableBody>
               {secondColumn.map((item, index) => (
                 <StyledTableRow key={index}>
-                  {/* <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.calories}
-                  </StyledTableCell> */}
+               
                   <StyledTableCell align="right">
                     {item.questionnumber}
                   </StyledTableCell>
@@ -217,14 +149,7 @@ const ManualGradingPage = () => {
       <MainRightPane>
         <Button
           id="back-button"
-          // sx={{
-          //   // m: 2,
-          //   width: "100px",
-          //   height: "50px",
-          //   color: "black",
-          //   fontWeight: "bold",
-          //   marginBottom: "2vh",
-          // }}
+       
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
@@ -243,21 +168,13 @@ const ManualGradingPage = () => {
               Answer Script - {gradeData.infoResult[0].studentid}
             </h5>
           )}
-        {/* <p>{JSON.stringify(gradeData)}</p> */}
+    
         <div id="graded-answerscript">
           <img
             id="paper-image"
             src={gradeData.scriptUrl}
             alt="Answer Script"
-            // style={{
-            //   width: "60vh",
-            //   height: "80vh",
-            //   // width: "30vh",
-            //   // height: "40vh",
-            //   // marginLeft: "5vh",
-            //   // marginTop: "0vh",
-            //   marginRight: "5vh",
-            // }}
+         
           />
           <div id="marks-columns-div">{renderTable(gradeData.jsonAnswers)}</div>
         </div>

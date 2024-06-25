@@ -23,7 +23,6 @@ function CustomTabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      //   style={{marginLeft:"3vw"}}
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
@@ -57,10 +56,10 @@ export default function BasicTabs() {
   };
 
   const tabStyles = {
-    minWidth: "120px", // Minimum width for the tabs
-    width: "100%", // Full width within the container
-    display: "flex", // Flex display to align items
-    justifyContent: "center", // Center content
+    minWidth: "120px", 
+    width: "100%",
+    display: "flex", 
+    justifyContent: "center",
   };
 
   return (
@@ -72,10 +71,9 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
           variant="fullWidth"
-          // scrollButtons="auto",
-          // sx={{ width: "40vw" }}
+  
         >
-          {/* <Tab label="Manage Account Info" {...a11yProps(0)} /> */}
+         
           <Tab
             sx={tabStyles}
             label={
@@ -83,7 +81,7 @@ export default function BasicTabs() {
                 <AccountCircleIcon />
               ) : (
                 <Grid container alignItems="center">
-                  {/* <AccountCircleIcon sx={{ mr: 1 }} /> */}
+               
                   <Typography variant="body1" sx={{ textAlign: "center" }}>
                     Manage my Account
                   </Typography>
@@ -92,7 +90,7 @@ export default function BasicTabs() {
             }
             {...a11yProps(0)}
           />
-          {/* <Tab label="Manage My Password" {...a11yProps(1)} /> */}
+      
           <Tab
             sx={tabStyles}
             label={
@@ -100,14 +98,14 @@ export default function BasicTabs() {
                 <LockIcon />
               ) : (
                 <Grid container alignItems="center">
-                  {/* <LockIcon sx={{ mr: 1 }} /> */}
+         
                   <Typography variant="body1">Change My password</Typography>
                 </Grid>
               )
             }
             {...a11yProps(1)}
           />
-          {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
+      
         </Tabs>
       </Box>
       <div
@@ -115,7 +113,6 @@ export default function BasicTabs() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          // width: "50vw",
         }}
       >
         <CustomTabPanel value={value} index={0}>
@@ -125,9 +122,6 @@ export default function BasicTabs() {
           <ChangePassword />
         </CustomTabPanel>
       </div>
-      {/* <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel> */}
     </Box>
   );
 }

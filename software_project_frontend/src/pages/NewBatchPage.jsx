@@ -5,10 +5,8 @@ import MainRightPane from "../components/MainRightPane/MainRightPane";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CustomButton from "../components/Buttons/CustomButton";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
 import axios from "axios";
 import Cookies from "js-cookie";
-
 import "../styles/NewAssignmentPage.css";
 import "../styles/NewBatchPage.css";
 import refreshAccessToken from "../services/AuthService";
@@ -16,7 +14,6 @@ import { useSnackbar } from "notistack";
 
 const NewBatchPage = () => {
   const { selectedModuleCode } = useParams();
-  //console.log("in new batch page:", selectedModuleCode);
   const [batch, setBatch] = useState("");
 
   const navigate = useNavigate();
@@ -28,8 +25,6 @@ const NewBatchPage = () => {
     console.log("Batch Number:", value);
     setBatch(value);
   };
-
-  //console.log(batchNumber);
 
   const sendData = async () => {
     console.log("batch no value saves", batch);
@@ -54,13 +49,6 @@ const NewBatchPage = () => {
       else{
         await sendData();
       }
-      
-      // const accessToken = Cookies.get("accessToken");
-
-      // //console.log(accessToken);
-      // if (!accessToken) {
-      //   console.error("Access token not available");
-      // }
 
      
 
@@ -75,24 +63,24 @@ const NewBatchPage = () => {
 
         if (newAccessToken) {
           try {
-            // await refreshAccessToken();
+
             await sendData();
           } catch (error) {
             if (error.response && error.response.status === 409) {
-              // setLoading(false);
+  
               enqueueSnackbar('Module already exists.', { variant: 'error' });
             } else {
-              // setLoading(false);
+ 
               console.error("Error fetching data:", error);
               enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
             }
           }
         }
       } if (error.response && error.response.status === 409) {
-        // setLoading(false);
+    
         enqueueSnackbar('Module already exists.', { variant: 'error' });
       } else {
-        // setLoading(false);
+
         console.error("Error fetching data:", error);
         enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
       }
@@ -118,15 +106,14 @@ const NewBatchPage = () => {
             label="Batch Number"
             variant="outlined"
             onChange={handleBatchNumberChange}
-            //value={assignmentName}
-            //onChange={handleAssignmentNameChange}
+  
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem", 
+                padding: "8px 12px",
               },
             }}
           />

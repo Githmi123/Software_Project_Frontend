@@ -5,11 +5,9 @@ import { Button, TextField, colors } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import Cookies from "js-cookie";
-
 import "../styles/MyModulesPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
 
@@ -27,7 +25,7 @@ const EditModule = () => {
   useEffect(() => {
     const fetchModuleDetails = async () => {
       try {
-        // await refreshAccessToken();
+   
 
         console.log("selected module code :", selectedModuleCode);
         const response = await axios.get(
@@ -62,7 +60,6 @@ const EditModule = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // await refreshAccessToken();
       await submit();
       
       enqueueSnackbar(`Edited module successfully`, { variant: 'success' });
@@ -74,7 +71,6 @@ const EditModule = () => {
 
         if (newAccessToken) {
           try {
-            // await refreshAccessToken();
             await submit();
           } catch (error) {
             if (error.response && error.response.status === 400) {
@@ -122,7 +118,6 @@ const EditModule = () => {
             hiddenLabel
             id="filled-hidden-label-small"
             variant="filled"
-            // defaultValue="Module Code"
             placeholder="Module Code"
             name="modulecode"
             value={moduleData.modulecode}
@@ -133,8 +128,8 @@ const EditModule = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem",
+                padding: "8px 12px",
               },
             }}
           >
@@ -155,7 +150,6 @@ const EditModule = () => {
             hiddenLabel
             id="filled-hidden-label-small"
             variant="filled"
-            // defaultValue="Module Code"
             placeholder="Module Name"
             name="modulename"
             value={moduleData.modulename}
@@ -166,8 +160,8 @@ const EditModule = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem",
+                padding: "8px 12px",
               },
             }}
           >
@@ -188,7 +182,6 @@ const EditModule = () => {
             hiddenLabel
             id="filled-hidden-label-small"
             variant="filled"
-            // defaultValue="Module Code"
             placeholder="Credits"
             name="credits"
             value={moduleData.credits}
@@ -199,8 +192,8 @@ const EditModule = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem",
+                padding: "8px 12px",
               },
             }}
           >
@@ -215,12 +208,10 @@ const EditModule = () => {
             justifyContent: "center",
           }}
         >
-          {/* <Button sx={{marginLeft:'15px',color:'#7894DB',backgroundColor:'white', border: '1px solid #7894DB','&:hover': { backgroundColor: '#7894DB', color: 'white' }}}>Cancel</Button> */}
-
+          
           <Link to="/MyModulePage" style={{ textDecoration: "none" }}>
             <Button
               sx={{
-                // marginLeft: "15px",
                 color: "#7894DB",
                 backgroundColor: "white",
                 border: "1px solid #7894DB",

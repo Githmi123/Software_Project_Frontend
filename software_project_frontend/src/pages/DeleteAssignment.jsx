@@ -36,7 +36,7 @@ const DeleteAssignment = () => {
   ];
 
   useEffect(() => {
-    setOpenDialog(true); // Open the dialog when the component mounts
+    setOpenDialog(true); 
   }, []);
 
   const deleteAssignment = async () => {
@@ -61,7 +61,7 @@ const DeleteAssignment = () => {
 
         if (newAccessToken) {
           try {
-            // await refreshAccessToken();
+         
             await deleteAssignment();
           } catch (error) {
             console.error("Error fetching data:", error);

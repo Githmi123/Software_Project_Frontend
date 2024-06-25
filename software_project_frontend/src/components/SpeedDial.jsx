@@ -14,7 +14,7 @@ const actions = [
   { icon: <Phone />, name: 'Call us at +947812456' },
   { icon: <Email />, name: 'Send us an email at APGS@gmail.com' },
   { icon: <WhatsApp />, name: 'Message us on WhatsApp: +947812456' },
-//   { icon: <ShareIcon />, name: 'Share' },
+
 ];
 
 export default function OpenIconSpeedDial() {

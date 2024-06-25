@@ -1,4 +1,4 @@
-.LeftPaneLog{
+.LeftPaneLog {
     display: flex;
     height: 100vh;
     background: #FFFFFF;
@@ -8,45 +8,33 @@
     width: 500px;
 }
 
-#Logo{
+#Logo {
     width: auto;
-    height: 200px;     
-    /* margin-top: 200px; */
-  
+    height: 200px;
 }
 
-.APGSTexts{
+.APGSTexts {
     position: relative;
     font-weight: bold;
     font-size: 1.5rem;
     color: #000000;
-    /* margin-top: 5vh; */
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
-.subtext-leftpane{
+.subtext-leftpane {
     font-size: 1rem;
     color: #000000;
 }
 
-@media (max-width: 768px){
-    .LeftPaneLog{
+@media (max-width: 768px) {
+    .LeftPaneLog {
         display: none;
     }
-
-    
 }
 
-
-@media (max-height: 600px){
-    #Logo{
+@media (max-height: 600px) {
+    #Logo {
         width: auto;
-        height: 200px;   
+        height: 200px;
         margin-top: 50px;
-      
     }
-    
 }
-
-

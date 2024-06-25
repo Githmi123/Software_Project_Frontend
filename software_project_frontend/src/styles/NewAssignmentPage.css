@@ -1,6 +1,5 @@
 .align {
   display: flex;
-  /* margin-left: 33%; */
   flex-direction: column;
   margin-bottom: 3vh;
 }

@@ -24,7 +24,6 @@ const StyledBox = styled('div')(({ theme }) => ({
 }));
 
 const Puller = styled('div')(({ theme }) => ({
-//   width: "inherit",
   height: 6,
   backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
   borderRadius: 3,
@@ -41,7 +40,6 @@ function SwipeableEdgeDrawer(props) {
     setOpen(newOpen);
   };
 
-  // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -78,21 +76,19 @@ function SwipeableEdgeDrawer(props) {
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
             visibility: 'visible',
-            // right: 100,
-            // left: 0,
             width:"inherit"
           }}
         >
           <Puller />
-          {/* <Button onClick={toggleDrawer(true)}> */}
+       
           <div  sx={{ p: 2, color: 'text.secondary', width:"inherit" }}>
-          {/* <Box sx={{ textAlign: 'center', pt: 1 }}> */}
+        
         <Button onClick={toggleDrawer(true)}>Open</Button>
-      {/* </Box> */}
+
           <img src = {logo} style={{height: "5vh", marginLeft: "1vw"}}/>
           51 results
           </div>
-          {/* </Button> */}
+    
           
         </StyledBox>
         <StyledBox
@@ -100,7 +96,6 @@ function SwipeableEdgeDrawer(props) {
             px: 2,
             pb: 2,
             height: '100%',
-            // overflow: 'auto',
             width:"40vh"
           }}
         >
@@ -111,12 +106,6 @@ function SwipeableEdgeDrawer(props) {
   );
 }
 
-// SwipeableEdgeDrawer.propTypes = {
-//   /**
-//    * Injected by the documentation to work in an iframe.
-//    * You won't need it on your project.
-//    */
-//   window: PropTypes.func,
-// };
+
 
 export default SwipeableEdgeDrawer;

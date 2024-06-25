@@ -37,7 +37,7 @@ const EditAssignment = () => {
         );
         setModuleData(response.data[0]);
         console.log(moduleData);
-        setSchemePath(response.data[0].schemepath); // Update the schemepath state with the file name
+        setSchemePath(response.data[0].schemepath);
         console.log("schemepath:", moduleData.schemepath);
         console.log(moduleData.batch);
       } catch (error) {
@@ -105,7 +105,7 @@ const EditAssignment = () => {
 
         if (newAccessToken) {
           try {
-            // await refreshAccessToken();
+         
             await submit();
           } catch (error) {
             if (error.response && error.response.status === 400) {
@@ -128,8 +128,8 @@ const EditAssignment = () => {
   };
 
   const handleSelectedFileChange = (file) => {
-    setSelectedFile(file); // Store the selected file
-    setSchemePath(file.name); // Update the schemepath state with the file name
+    setSelectedFile(file); 
+    setSchemePath(file.name); 
 
   };
 
@@ -159,7 +159,7 @@ const EditAssignment = () => {
           hiddenLabel
           id="filled-hidden-label-small"
           variant="filled"
-          // defaultValue="Module Code"
+  
           placeholder="Assignment Name"
           name="assignmenttitle"
           value={moduleData ? moduleData.assignmenttitle : ""}
@@ -170,8 +170,8 @@ const EditAssignment = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "0.7rem",
+                padding: "8px 12px", 
               },
             }}
           >
@@ -187,7 +187,7 @@ const EditAssignment = () => {
           hiddenLabel
           id="filled-hidden-label-small"
           variant="filled"
-          // defaultValue="Module Code"
+  
           placeholder="Module Code"
           name="selectedModuleCode"
           value={moduleData && moduleData.modulecode ? moduleData.modulecode : ""}
@@ -198,8 +198,8 @@ const EditAssignment = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "0.7rem", 
+                padding: "8px 12px", 
               },
             }}
           >
@@ -215,7 +215,7 @@ const EditAssignment = () => {
           hiddenLabel
           id="filled-hidden-label-small"
           variant="filled"
-          // defaultValue="Module Code"
+       
           placeholder="Credits"
           name="batch"
           value={moduleData && moduleData.batch ? moduleData.batch : ""}
@@ -226,8 +226,8 @@ const EditAssignment = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "0.7rem", 
+                padding: "8px 12px", 
               },
             }}
           >
@@ -251,8 +251,8 @@ const EditAssignment = () => {
               marginBottom: 2,
               marginRight: 5,
               "& input": {
-                fontSize: "0.7rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "0.7rem", 
+                padding: "8px 12px", 
               },
             }}
             />
@@ -264,14 +264,13 @@ const EditAssignment = () => {
 
         <div
           style={{
-            // marginTop: "50px",
+     
             marginBottom:"1vh",
             display: "flex",
             justifyContent: "center",
           }}
         >
-          {/* <Button sx={{marginLeft:'15px',color:'#7894DB',backgroundColor:'white', border: '1px solid #7894DB','&:hover': { backgroundColor: '#7894DB', color: 'white' }}}>Cancel</Button> */}
-
+          
           <Link to="/Dashboard" style={{ textDecoration: "none" }}>
             <Button
               sx={{

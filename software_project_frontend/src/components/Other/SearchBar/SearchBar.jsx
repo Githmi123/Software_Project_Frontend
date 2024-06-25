@@ -35,7 +35,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   width: '100%',
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 2), // Adjusted padding here
+    padding: theme.spacing(1, 2),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
@@ -48,8 +48,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const StyledAppBar = styled(AppBar)({
-  backgroundColor: '#fff', // Set the background color
-  color: 'black', // Set the text color
+  backgroundColor: '#fff',
+  color: 'black',
   boxShadow: 'none'
 });
 

@@ -21,7 +21,6 @@ import GradingButton from "../components/Buttons/GradingButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-// import SnackBar from "../components/SnackBar";
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import refreshAccessToken from "../services/AuthService";
@@ -30,7 +29,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import axios from "axios";
-// import SnackBar from "../components/SnackBar";
 
 const AnswerScriptsPage = () => {
   const { selectedModuleCode, batch, assignmentid } = useParams();
@@ -43,6 +41,8 @@ const AnswerScriptsPage = () => {
   const [markingSnackbarOpen, setMarkingSnackbarOpen] = useState(false);
   const [failedGradingSnackbarOpen, setFailedGradingSnackbarOpen] = useState(false);
   const [noSelectionSnackbarOpen, setNoSelectionSnackbarOpen] = useState(false);
+  const [selectedStudentIds, setSelectedStudentIds] = useState([]);
+
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -51,45 +51,9 @@ const AnswerScriptsPage = () => {
     { field: "batch", headerName: "Batch", width: 150 },
     { field: "modulecode", headerName: "Module Code", width: 150 },
     { field: "fileid", headerName: "File ID", width: 150 },
-    { field: "graded", headerName: "Graded", width: 150 },
   ];
 
-  // const [columns, setColumns] = useState([
-  //   { field: "studentid", headerName: "Student ID", width: 90 },
-  //   { field: "assignmentid", headerName: "Assignment ID", width: 150 },
-  //   { field: "marks", headerName: "Marks", width: 150 },
-  //   { field: "batch", headerName: "Batch", width: 150 },
-  //   { field: "modulecode", headerName: "Module Code", width: 150 },
-  //   { field: "fileid", headerName: "File ID", width: 150 },
-  //   { field: "graded", headerName: "Graded", width: 150 },
-  // ]);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const newColumns = window.innerWidth < 600
-  //       ? [
-  //           { field: "studentid", headerName: "Student ID", width: 90 },
-  //           { field: "assignmentid", headerName: "Assignment ID", width: 150 },
-  //           { field: "marks", headerName: "Marks", width: 150 },
-  //         ]
-  //       : [
-  //           { field: "studentid", headerName: "Student ID", width: 90 },
-  //           { field: "assignmentid", headerName: "Assignment ID", width: 150 },
-  //           { field: "marks", headerName: "Marks", width: 150 },
-  //           { field: "batch", headerName: "Batch", width: 150 },
-  //           { field: "modulecode", headerName: "Module Code", width: 150 },
-  //           { field: "fileid", headerName: "File ID", width: 150 },
-  //           { field: "graded", headerName: "Graded", width: 150 },
-  //         ];
-
-  //     setColumns(newColumns);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-  //   handleResize(); // Initial resize call
-
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
+  
 
 
   const handleClick = () => {
@@ -158,7 +122,7 @@ const AnswerScriptsPage = () => {
   };
   const fetchAnswerscripts = async () => {
     try {
-      // await refreshAccessToken();
+  
       await fetchData();
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -167,7 +131,7 @@ const AnswerScriptsPage = () => {
 
         if (newAccessToken) {
           try {
-            // await refreshAccessToken();
+         
             await fetchData();
           } catch (error) {
             setLoading(false);
@@ -213,7 +177,7 @@ const AnswerScriptsPage = () => {
   useEffect(() => {
     const uploadNewAnswerscripts = async () => {
       try {
-        // await refreshAccessToken();
+       
         await upload();
         enqueueSnackbar('Answer script uploaded successfully!', { variant: 'success' });
       } catch (error) {
@@ -223,7 +187,7 @@ const AnswerScriptsPage = () => {
 
           if (newAccessToken) {
             try {
-              // await refreshAccessToken();
+          
               await upload();
               enqueueSnackbar('Answer script uploaded successfully!', { variant: 'success' });
             } catch (error) {
@@ -254,39 +218,18 @@ const AnswerScriptsPage = () => {
   };
 
   const handleSelectionModelChange = (newSelectionModel) => {
-    setSelectedAssignmentNos(newSelectionModel);
+    const selectedStudentIds = newSelectionModel.map((id) => {
+      const script = answerScripts.find(script => script.fileid === id);
+      return script ? script.studentid : null;
+    }).filter(studentid => studentid !== null);
+    
+    setSelectedStudentIds(selectedStudentIds);
+    setSelectedAssignmentNos(newSelectionModel); // Keep this line if you still need to manage selected assignment numbers
+  };
+  
 
-    const selectedFileIds = newSelectionModel.map((id) => {
-      const script = answerScripts.find(script => script.assignmentid === id);
-      return script ? script.fileid : null;
-    }).filter(fileid => fileid !== null);
 
-    setSelectedFiles(selectedFileIds);
-};
-
-
-  // const handleToggleAssignmentNo = (scriptId) => {
-  //   console.log(scriptId);
-  //   setSelectedAssignmentNos((prevSelectedAssignmentNos) => {
-  //     if (prevSelectedAssignmentNos.includes(scriptId)) {
-  //       return prevSelectedAssignmentNos.filter((id) => id !== scriptId);
-  //     } else {
-  //       return [...prevSelectedAssignmentNos, scriptId];
-  //     }
-  //   });
-
-  //   const selectedFile = answerScripts.find((script) => script.id === scriptId);
-
-  //   if (selectedFile) {
-  //     setSelectedFiles((prevSelectedFiles) => {
-  //       if (prevSelectedFiles.some((file) => file.id === scriptId)) {
-  //         return prevSelectedFiles.filter((file) => file.id !== scriptId);
-  //       } else {
-  //         return [...prevSelectedFiles, selectedFile];
-  //       }
-  //     });
-  //   }
-  // };
+ 
 
   const handleToggleAssignmentNo = (scriptId) => {
     setSelectedAssignmentNos((prevSelectedAssignmentNos) => {
@@ -312,7 +255,7 @@ const AnswerScriptsPage = () => {
     setLoading(true);
     enqueueSnackbar('Grading is starting. This may take a few minutes. Please wait!', { variant: 'info' });
     const response = await axios.post(
-      // `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+      
       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
       {}
     );
@@ -328,7 +271,7 @@ const AnswerScriptsPage = () => {
     
     console.log("Started Grading");
     try {
-      // setMarkingSnackbarOpen(true);
+     
       await grade();
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -337,7 +280,7 @@ const AnswerScriptsPage = () => {
 
         if (newAccessToken) {
           try {
-            // await refreshAccessToken();
+          
             await grade();
           } catch (error) {
             setLoading(false);
@@ -349,7 +292,7 @@ const AnswerScriptsPage = () => {
       } else {
         setLoading(false);
         console.error("Error fetching data:", error);
-        // setFailedGradingSnackbarOpen(true);
+      
         enqueueSnackbar('Error: Grading failed!', { variant: 'error' });
         
       }
@@ -359,21 +302,24 @@ const AnswerScriptsPage = () => {
   const gradeSelected = async () => {
     setLoading(true);
     enqueueSnackbar('Answer scripts are being graded. This may take a few minutes. Please wait!', { variant: 'info' });
-    console.log("Assignment Nos:", selectedAssignmentNos);
+    console.log("Assignment Nos:", selectedStudentIds);
         const response = await axios.post(
           `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
-          { selectedAssignmentNos }
+          { fileids: selectedAssignmentNos } 
         );
   
         console.log("Graded selected answer scripts", response.data);
         setLoading(false);
         enqueueSnackbar('Grading completed successfully!', { variant: 'success' });
+        window.location.reload();
+        enqueueSnackbar('Grading completed successfully!', { variant: 'success' });
+        
         
   }
 
   const handleGradeSelectedFiles = async () => {
     console.log("Started Grading Selected Files");
-    if(selectedAssignmentNos.length === 0){
+    if(selectedStudentIds.length === 0){
       enqueueSnackbar('Please select files to grade!', { variant: 'error' });
     }
     else{
@@ -386,7 +332,7 @@ const AnswerScriptsPage = () => {
   
           if (newAccessToken) {
             try {
-              // await refreshAccessToken();
+       
               await grade();
             } catch (error) {
               setLoading(false);
@@ -397,7 +343,7 @@ const AnswerScriptsPage = () => {
         } else {
           setLoading(false);
           console.error("Error fetching data:", error);
-          // setFailedGradingSnackbarOpen(true);
+
           enqueueSnackbar('Error: Grading failed!', { variant: 'error' });
           
         }
@@ -421,22 +367,44 @@ const AnswerScriptsPage = () => {
     console.log("These are selected", selectedAssignmentNos);
     
 
-    
-    const response = await axios.delete(
+    if(selectedAssignmentNos.length > 1){
+      const response = await axios.delete(
       
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
-    );
-    console.log("These are sent", selectedFiles)
-    console.log("These are selected", selectedAssignmentNos);
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid`, 
+        {data: { fileids: selectedAssignmentNos }}
+      );
+      console.log("These are sent", selectedFiles)
+      console.log("These are selected", selectedAssignmentNos);
+  
+      console.log("Deleted selected answer scripts", response.data);
+      
+      window.location.reload();
+      enqueueSnackbar('Answer Script deleted successfully', { variant: 'success' });
+      
+      
+      
+  
+      setLoading(false);
+    }
 
-    console.log("Deleted selected answer scripts", response.data);
-    enqueueSnackbar('Answer Script deleted successfully', { variant: 'success' });
-    window.location.reload();
+    else{
+      const response = await axios.delete(
+      
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
+      );
+      console.log("These are sent", selectedFiles)
+      console.log("These are selected", selectedAssignmentNos);
+  
+      console.log("Deleted selected answer scripts", response.data);
+      enqueueSnackbar('Answer Script deleted successfully', { variant: 'success' });
+      window.location.reload();
+      
+      
+      
+  
+      setLoading(false);
+    }
     
-    
-    
-
-    setLoading(false);
   };
 
   const handleDeleteFiles = async () => {
@@ -455,7 +423,7 @@ const AnswerScriptsPage = () => {
   
           if (newAccessToken) {
             try {
-              // await refreshAccessToken();
+         
               await deleteFiles();
             } catch (error) {
               setLoading(false);
@@ -477,7 +445,7 @@ const AnswerScriptsPage = () => {
   const handleRowClick = (params) => {
     const studentid = params.row.studentid;
     console.log("Row clicked for student ID:", studentid);
-    //navigate(`/ManualGradingPage/${studentid}`);
+
     navigate(
       `/ManualGradingPage/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
     );
@@ -488,17 +456,7 @@ const AnswerScriptsPage = () => {
     <div className="align1">
       <MainRightPane>
         <Button id = "back-button"
-          // sx={{
-            // m: 2,
-
-            // width: "100px",
-            // height: "50px",
-            // color: "black",
-            // fontWeight: "bold",
-            // marginBottom: "2vh",
-            
-
-          // }}
+    
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
@@ -520,11 +478,7 @@ const AnswerScriptsPage = () => {
             text="Upload"
             onFileSelect={handleNewAnswerScript}
           />
-          {/* <GradingButton
-            text="Grade"
-            onClick={handleGradeAllFiles}
-            icon={AssignmentTurnedInIcon}
-          /> */}
+       
           <GradingButton
             text="Grade"
             onClick={handleGradeSelectedFiles}
@@ -567,14 +521,11 @@ const AnswerScriptsPage = () => {
       checkboxSelection
       disableRowSelectionOnClick
       onRowClick={handleRowClick}
-      // onRowSelectionModelChange={(newSelection) => {
-      //   newSelection.forEach((scriptId) => {
-      //     handleToggleAssignmentNo(scriptId);
-      //   });
-      // }}
+   
       onRowSelectionModelChange={(newSelection) => {
         setSelectedAssignmentNos(newSelection);
-        // setSelectedFiles(newSelection);
+        handleSelectionModelChange(newSelection); 
+   
       }}
       onSelectionModelChange={handleSelectionModelChange}
     
@@ -590,42 +541,7 @@ const AnswerScriptsPage = () => {
           
           </Box>
 
-            {/* <table className="tableStyle2">
-
-            <tbody>
-              {answerScripts &&
-                answerScripts.map((script) => (
-                  <tr
-                    key={script.id}
-                    className="trStyleAnswerScript"
-                    style={{
-                      backgroundColor: selectedAssignmentNos.includes(script.id)
-                        ? "#F0F0F0"
-                        : "#E3DDE8",
-                    }}
-                  >
-                    <td>
-                      <Checkbox
-                        color="primary"
-                        checked={selectedAssignmentNos.includes(script.id)}
-                        onChange={() => handleToggleAssignmentNo(script.id)}
-                      />
-                    </td>
-                    <td onClick={() => handleToggleAssignmentNo(script.id)}>
-                      {script.studentid}
-                    </td>
-                    <td onClick={() => handleToggleAssignmentNo(script.id)}>
-                      {script.marks}
-                    </td>
-                    <td>
-                      <RemoveFileButton
-                        onClick={() => handleRemove(script.id)}
-                      />
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table> */}
+           
           </div>
 
         }
@@ -638,12 +554,7 @@ const AnswerScriptsPage = () => {
             position: "relative",
           }}
         >
-          {/* <Link
-            to="/Dashboard"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <GradingButton text="Dashboard" icon={DashboardIcon} />
-          </Link> */}
+          
         </div>
 
         <Snackbar

@@ -7,106 +7,88 @@
   z-index: 2;
   overflow-y: auto;
   width: 100%;
-  }
-  
-  .notificationButton {
-    border-radius: 50vh;
-    background-color: #7894db;
-    margin-right: 50vh;
-    border: 0vh;
-    height: 3vh;
-    width: 3vh;
-  }
-  
-  .row {
-    display: flex;
-    flex-direction: row;
-    align-content: flex-start;
-    position: relative;
-  }
-  
-  #outlined-basic {
-    height: 1.5vh;
-    /* margin-left: 2vh; */
-    /* display: flex; */
-    /* position: absolute; */
-    /* left: 10vh; */
-  
-    margin-right: 5vh;
-  
-    /* border: 20px soild aqua; */
-    /* border-width: 2vh; */
-    /* border-color: aqua; */
-  }
-  .label1-userprofile-left {
-    /* margin: 2vh; */
-    /* margin-left: 5vh; */
-    display: flex;
-    font-weight: bold;
-    margin-top: 2vh;
-    margin-bottom: 3vh;
-    position: relative;
-  }
-  
-  .label2 {
-    /* margin: 2vh; */
-    margin-left: 5vh;
-    margin-right: 5vh;
-    display: flex;
-    font-weight: bold;
-    margin-top: 2vh;
-    margin-bottom: 3vh;
-    position: relative;
-  }
-  
-  .label3 {
-    /* margin: 2vh; */
-    margin-right: 5vh;
-    display: flex;
-    font-weight: bold;
-    margin-top: 2vh;
-    margin-bottom: 1.5vh;
-    position: relative;
-  }
-  
-  #edit-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -5vh;
-  }
-  
-  #space1 {
-    margin-left: 5vh;
-    /* border: 0.2vh solid aqua; */
-  }
-  
-  #space2 {
-    margin-right: 5vh;
-    margin-left: 1.5vh;
-    /* border: 0.2vh solid aqua; */
-  }
-  
-  #space3 {
-    margin-left: 11.5vh;
-    /* border: 0.2vh solid aqua; */
-    /* width: 70vh; */
-  }
-  
-  #rightpane-form {
-    display: flex;
-    margin-left: 18vw;
-    margin-right: 18vw;
-    justify-content: center;
-    flex-direction: column;
-    /* margin-top: 7vh; */
-  }
-  
-  .userprofile-buttons {
-    display: flex;
-    flex-direction: row;
-    margin-top: 5vh;
-    align-items: center;
-    justify-content: center;
-  }
-  
+}
+
+.notificationButton {
+  border-radius: 50vh;
+  background-color: #7894db;
+  margin-right: 50vh;
+  border: 0vh;
+  height: 3vh;
+  width: 3vh;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  position: relative;
+}
+
+#outlined-basic {
+  height: 1.5vh;
+  margin-right: 5vh;
+}
+
+.label1-userprofile-left {
+  display: flex;
+  font-weight: bold;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+  position: relative;
+}
+
+.label2 {
+  margin-left: 5vh;
+  margin-right: 5vh;
+  display: flex;
+  font-weight: bold;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+  position: relative;
+}
+
+.label3 {
+  margin-right: 5vh;
+  display: flex;
+  font-weight: bold;
+  margin-top: 2vh;
+  margin-bottom: 1.5vh;
+  position: relative;
+}
+
+#edit-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -5vh;
+}
+
+#space1 {
+  margin-left: 5vh;
+}
+
+#space2 {
+  margin-right: 5vh;
+  margin-left: 1.5vh;
+}
+
+#space3 {
+  margin-left: 11.5vh;
+}
+
+#rightpane-form {
+  display: flex;
+  margin-left: 18vw;
+  margin-right: 18vw;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.userprofile-buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5vh;
+  align-items: center;
+  justify-content: center;
+}

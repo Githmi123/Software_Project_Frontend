@@ -3,8 +3,6 @@ import '../MainRightPane/MainRightPane.css'
 import { Box, Button } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-//import SearchBar from './SearchBar';
-
 
 const ScrollableMainRightPane = ({ children }) => {
   return (

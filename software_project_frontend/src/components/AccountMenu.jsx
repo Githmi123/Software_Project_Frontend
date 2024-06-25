@@ -47,9 +47,6 @@ export default function AccountMenu() {
     console.log("Deleting access token");
     delete axios.defaults.headers.common['Authorization'];
     console.log("Deleted access token");
-
-
-  // Cookies.remove("accessToken");
   navigate("/");
   setLoading(false);
   }
@@ -64,7 +61,6 @@ export default function AccountMenu() {
 
         if(newAccessToken){
           try {
-            // await refreshAccessToken();
             await logout();
           } catch (error) {
             console.error("Error logging out:", error);
@@ -107,13 +103,7 @@ export default function AccountMenu() {
 
         await getData();
 
-        // {
-        //   const imageBytes = new Uint8Array(user.profilepic.image.data);
-        //   const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
-        //   const imageURL = URL.createObjectURL(blob);
-
-        //   console.log(imageURL);
-        // }
+      
       } catch (error) {
         if(error.response && error.response.status === 401){
           const newAccessToken = await refreshAccessToken();
@@ -121,7 +111,7 @@ export default function AccountMenu() {
 
           if(newAccessToken){
             try { 
-              // await refreshAccessToken();
+        
               await getData();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -180,8 +170,6 @@ export default function AccountMenu() {
           elevation: 0,
           sx: {
             width: "auto",
-            // paddingLeft:"10px",
-            // paddingRight:"10px",
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mb: 20,
@@ -195,8 +183,6 @@ export default function AccountMenu() {
               content: '""',
               display: "block",
               position: "relative",
-              // top: 10,
-              // right: "20vw",
               width: 0,
               height: "auto",
               bgcolor: "background.paper",
@@ -240,22 +226,6 @@ export default function AccountMenu() {
           
           
         </MenuItem>
-        {/* <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem> */}
         <MenuItem onClick={handleLogout}>
         <Tooltip title = "Log Out" arrow>
           <ListItemIcon>

@@ -5,10 +5,11 @@ import { Button, CircularProgress, TextField, colors } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 import CustomSelect from "../components/Other/CustomSelect";
 
+
 import "../styles/MyModulesPage.css";
-// import "../styles/NewAssignmentPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
@@ -124,6 +125,7 @@ const NewModule = () => {
           const newAccessToken = await refreshAccessToken();
           console.log("New access token: ", newAccessToken);
 
+
           if (newAccessToken) {
             try {
               // await refreshAccessToken();
@@ -145,6 +147,7 @@ const NewModule = () => {
                   { variant: "error" }
                 );
               }
+
             }
           }
         } else if (error.response && error.response.status === 409) {
@@ -194,7 +197,6 @@ const NewModule = () => {
             hiddenLabel
             id="filled-hidden-label-small"
             variant="filled"
-            // defaultValue="Module Code"
             placeholder="Module Code"
             name="modulecode"
             value={moduleData.modulecode}
@@ -205,8 +207,8 @@ const NewModule = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem",
+                padding: "8px 12px",
               },
             }}
           >
@@ -227,7 +229,6 @@ const NewModule = () => {
             hiddenLabel
             id="filled-hidden-label-small"
             variant="filled"
-            // defaultValue="Module Code"
             placeholder="Module Name"
             name="modulename"
             value={moduleData.modulename}
@@ -238,8 +239,8 @@ const NewModule = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem",
+                padding: "8px 12px",
               },
             }}
           >
@@ -260,7 +261,6 @@ const NewModule = () => {
             hiddenLabel
             id="filled-hidden-label-small"
             variant="filled"
-            // defaultValue="Module Code"
             placeholder="Credits"
             name="credits"
             value={moduleData.credits}
@@ -271,8 +271,8 @@ const NewModule = () => {
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem",
+                padding: "8px 12px",
               },
             }}
           >
@@ -312,12 +312,11 @@ const NewModule = () => {
               justifyContent: "center",
             }}
           >
-            {/* <Button sx={{marginLeft:'15px',color:'#7894DB',backgroundColor:'white', border: '1px solid #7894DB','&:hover': { backgroundColor: '#7894DB', color: 'white' }}}>Cancel</Button> */}
-
+         
             <Link to="/MyModulePage" style={{ textDecoration: "none" }}>
               <Button
                 sx={{
-                  // marginLeft: "15px",
+  
                   color: "#7894DB",
                   backgroundColor: "white",
                   border: "1px solid #7894DB",

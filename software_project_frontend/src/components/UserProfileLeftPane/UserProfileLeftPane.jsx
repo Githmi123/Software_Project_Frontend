@@ -56,7 +56,7 @@ export const UserProfileLeftPane = () => {
       });
 
       setProfileImage(URL.createObjectURL(file));
-      //setProfilePicUrl(responseProfilepicture.data.profilepicUrl);
+
       console.log("Profile picture updated:");
     } catch (error) {
       console.error("Error uploading profile picture:", error);
@@ -69,7 +69,7 @@ export const UserProfileLeftPane = () => {
         <div id="ringcontainer">
           <img src={ring} id="ring"></img>
           <img src={profileImage} id="user1"></img>
-          {/* <img src={profile.profilepic} id="user1"></img> */}
+    
         </div>
         <div id="text">
           <h2>
@@ -79,19 +79,7 @@ export const UserProfileLeftPane = () => {
             Driving excellence in education with cutting-edge technology
           </p>
         </div>
-        {/*   <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            // marginTop: "5vh",
-            // marginLeft: "8vh",
-          }}
-        >
-          <CustomNewButton
-            text="Change Profile Picture"
-            onFileSelect={handleNewProfilePicture}
-          />
-        </div> */}
+       
         <div className="greytext">
           <label htmlFor="upload-button">
             <CustomNewButton
@@ -100,13 +88,7 @@ export const UserProfileLeftPane = () => {
               style={{ marginLeft: "12vh" }}
             />
           </label>
-          {/*   <input
-            id="upload-button"
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleNewProfilePicture}
-          /> */}
+   
         </div>
       </div>
 
@@ -117,10 +99,7 @@ export const UserProfileLeftPane = () => {
         <span className="greytext">{profile.designation}</span>
         <i className="fas fa-envelope"></i>
         <span className="greytext">{profile.email}</span>
-        {/*  <i className="fas fa-phone-alt"></i>
-        <span className="greytext">+94772452625</span>
-        <i className="fas fa-map-marker-alt"></i>
-        <span className="greytext">No. 47/220, Lake street, Colombo 07</span> */}
+    
       </div>
       <img src={stars} id="stars"></img>
     </div>
