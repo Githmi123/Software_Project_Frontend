@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Fade from "@mui/material/Fade";
 import Footer from "../components/Footer/Footer";
+import { Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Help() {
   const [expanded, setExpanded] = React.useState(false);
@@ -24,6 +26,20 @@ function Help() {
   return (
     <div className="align1">
       <MainRightPane>
+      <Button
+          sx={{
+            // m: 2,
+            width: "100px",
+            height: "50px",
+            color: "black",
+            fontWeight: "bold",
+            marginBottom: "2vh",
+          }}
+          startIcon={<ArrowBackIcon />}
+          onClick={() => window.history.back()}
+        >
+          Back
+        </Button>
 
         <h3 id="heading">Contact Us</h3>
         <div id="help-backgroud">

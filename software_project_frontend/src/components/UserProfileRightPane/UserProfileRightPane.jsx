@@ -118,6 +118,7 @@ export const UserProfileRightPane = () => {
 
   const handleSave = async (e) => {
     try {
+
       console.log("Trying to save details");
       await save2();
     } catch (error) {
@@ -192,6 +193,7 @@ export const UserProfileRightPane = () => {
           name="lastName"
           value={profileData.lastName}
           onChange={handleChange}
+
           sx={{
             marginTop: 0,
             "& input": {

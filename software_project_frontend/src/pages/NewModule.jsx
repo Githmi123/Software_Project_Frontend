@@ -321,6 +321,7 @@ const NewModule = () => {
                   backgroundColor: "white",
                   border: "1px solid #7894DB",
                   "&:hover": { backgroundColor: "#7894DB", color: "white" },
+                  marginBottom:"15px "
                 }}
               >
                 Cancel
@@ -336,6 +337,7 @@ const NewModule = () => {
                 backgroundColor: "white",
                 border: "1px solid #7894DB",
                 "&:hover": { backgroundColor: "#7894DB", color: "white" },
+                marginBottom:"15px "
               }}
             >
               Save

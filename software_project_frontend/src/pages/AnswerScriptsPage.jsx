@@ -224,7 +224,7 @@ const AnswerScriptsPage = () => {
     }).filter(studentid => studentid !== null);
     
     setSelectedStudentIds(selectedStudentIds);
-    setSelectedAssignmentNos(newSelectionModel); // Keep this line if you still need to manage selected assignment numbers
+    setSelectedAssignmentNos(newSelectionModel); 
   };
   
 

@@ -12,8 +12,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import refreshAccessToken from "../services/AuthService";
 import { NewUserProfileRightPane } from "../components/NewUserProfileRightPane/NewUserProfileRightPane";
 import SettingsRightPane from "../components/SettingsRightPane/SettingsRightPane";
-
-
 import setting from "../images/settings.png";
 import "../styles/Settings.css";
 
@@ -22,7 +20,20 @@ function Settings() {
     <div id="body">
 
       <MainRightPane>
-
+      <Button
+          sx={{
+            // m: 2,
+            width: "100px",
+            height: "50px",
+            color: "black",
+            fontWeight: "bold",
+            marginBottom: "2vh",
+          }}
+          startIcon={<ArrowBackIcon />}
+          onClick={() => window.history.back()}
+        >
+          Back
+        </Button>
         <h3 id="heading">Settings</h3>
         <div
           style={{
