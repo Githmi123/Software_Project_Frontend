@@ -1,5 +1,4 @@
 import React from 'react'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { Button, Tooltip } from '@mui/material'
 import './GradingButton.css';
 

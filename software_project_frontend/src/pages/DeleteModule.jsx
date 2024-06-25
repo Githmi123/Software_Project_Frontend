@@ -37,7 +37,7 @@ const DeleteModule = () => {
   const {enqueueSnackbar} = useSnackbar();
 
   useEffect(() => {
-    setOpenDialog(true); // Open the dialog when the component mounts
+    setOpenDialog(true); 
   }, []);
 
   const deleteModule = async () => {
@@ -61,7 +61,7 @@ const DeleteModule = () => {
 
         if(newAccessToken){
           try {
-            // await refreshAccessToken();
+        
             await deleteModule();
           } catch (error) {
             console.error("Error deleting module:", error);

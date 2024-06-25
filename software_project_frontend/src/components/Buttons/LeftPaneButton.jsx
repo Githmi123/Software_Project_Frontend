@@ -1,8 +1,6 @@
 import { Button, Tooltip } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import { Height } from '@mui/icons-material';
 import '../ButtonSet/ButtonSet.css'
 
 
@@ -12,15 +10,13 @@ function LeftPaneButton({ icon: Icon, name, link, isSelected, onClick }) {
     
   
 
-        const buttonStyle = {
-        backgroundColor: isSelected ? '#7894DB' : 'inherit', // Change to the color you want
-        color: isSelected ? 'white' : 'black', // Change to the color you want
+    const buttonStyle = {
+        backgroundColor: isSelected ? '#7894DB' : 'inherit',
+        color: isSelected ? 'white' : 'black',
         display: 'flex',
         justifyContent: 'flex-start',
         textAlign: 'left',
         width: '10%',
-        
-        // Height:"auto"
     };
 
     

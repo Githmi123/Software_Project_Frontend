@@ -74,7 +74,6 @@ export default function ProfilePage() {
       }
       else{
         setEmail(preEmail);
-      // Email is not changed
       setEmailChanged(false);
       console.log('Email not changed:', newEmail);
       }
@@ -91,13 +90,12 @@ export default function ProfilePage() {
       designation: designation
     }
     const response = await axios.post("http://localhost:3500/user", data);
-    // setEdit(true);
     setTempFirstName(firstName);
     setTempLastName(lastName);
     setTempDesignation(designation);
     if (emailChanged) {
-      await handleSaveEmail(); // Call handleSaveEmail if email has changed
-      setEmailChanged(false); // Reset emailChanged flag
+      await handleSaveEmail();
+      setEmailChanged(false);
     }
     setEdit(false);
     setLoading(false);
@@ -111,7 +109,6 @@ export default function ProfilePage() {
 
     console.log("saved : ", response.data);
     setLoading(false);
-    // setEdit(false);
     enqueueSnackbar('Email changed. Please log in again.', { variant: 'warning' });
     navigate('/');
     }
@@ -125,7 +122,6 @@ export default function ProfilePage() {
         enqueueSnackbar('This email is already taken!', { variant: 'error' });
       } else {
         setLoading(false);
-        // setLoading(false);
         setEdit(true);
         setEmail(preEmail);
         enqueueSnackbar('Failed to edit profile. Please enter all the details', { variant: 'error' }); 
@@ -135,7 +131,6 @@ export default function ProfilePage() {
 
   const handleSave = async() => {
     try {
-      // await refreshAccessToken();
       await save();
 
       
@@ -147,7 +142,6 @@ export default function ProfilePage() {
 
         if(newAccessToken){
           try {
-            // await refreshAccessToken();
             await save();
             enqueueSnackbar('Profile edited successfully!', { variant: 'success' });
           } catch (error) {
@@ -179,7 +173,6 @@ export default function ProfilePage() {
   useEffect(() => {
     async function getProfileData() {
       try {
-        // await refreshAccessToken();
         await getData();
         
       } catch (error) {
@@ -189,7 +182,6 @@ export default function ProfilePage() {
   
           if(newAccessToken){
             try {
-              // await refreshAccessToken();
               await getData();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -209,7 +201,6 @@ export default function ProfilePage() {
   const getData2 = async () => {
     setLoading(true);
     console.log("Fetching data");
-    // await refreshAccessToken();
     console.log("after refresh");
     const userResponse = await axios.get(
       "http://localhost:3500/user"
@@ -236,13 +227,6 @@ export default function ProfilePage() {
         const fetchData = async () => {
           try {
             await getData2();
-            // {
-            //   const imageBytes = new Uint8Array(user.profilepic.image.data);
-            //   const blob = new Blob([imageBytes], { type: 'image/jpeg' }); // Adjust the type as per your image format
-            //   const imageURL = URL.createObjectURL(blob);
-            
-            //   console.log(imageURL);
-            // }
           } catch (error) {
             if(error.response && error.response.status === 401){
               const newAccessToken = await refreshAccessToken();
@@ -250,7 +234,6 @@ export default function ProfilePage() {
       
               if(newAccessToken){
                 try {
-                  // await refreshAccessToken();
                   await getData2();
                 } catch (error) {
                   console.error("Error fetching data:", error);
@@ -304,16 +287,8 @@ export default function ProfilePage() {
   return (
     <section style={{ backgroundColor: 'transparent'}}>
       <MDBContainer style={{ flexDirection:"column", justifyContent:"center", display:"flex", height:"100%", alignContent:"flex-start", margin:"0" }}>
-      {/* <Button
-          id = "back-button"
-          startIcon={<ArrowBackIcon />}
-          onClick={() => window.history.back()}
-        >
-          Back
-        </Button>
-        <h1 id="heading">My Profile</h1> */}
         <div id="setting-title-container">
-          {/* <img src={setting} id="setting-image" /> */}
+       
           <div id="setting-titles">
             <h3 id="settings-title">Hello, {tempFirstName}!</h3>
             <h5 id="settings-sub-title">
@@ -353,7 +328,7 @@ export default function ProfilePage() {
                   />
                   <label htmlFor="upload-profile-pic">
                     <InputImageButton onFileSelect={handleProfilePicChange} text = "Change Profile Picture"/> 
-                    {/* <MDBBtn>Change Profile Picture</MDBBtn> */}
+                 
                   </label>
                 </div>
               </MDBCardBody>
@@ -409,23 +384,10 @@ export default function ProfilePage() {
                 <MDBRow>
                 {edit ? ('') : (<Button style={{backgroundColor:"#4169E1", color:"white", fontSize:"10px", width:"auto" }} onClick={handleEdit}>Edit Profile</Button>)}
                   
-                  {/* <MDBBtn style={{width:"auto"}} >Edit Profile</MDBBtn> */}
+              
                   {edit ? (<Button style={{backgroundColor:"#4169E1", color:"white", fontSize:"10px", width:"auto" }} onClick={handleSave}>Save</Button>) : ("")}
-                  {/* <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
-                  </MDBCol> */}
-                {/* </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Address</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
-                  </MDBCol> */}
+              
+            
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>

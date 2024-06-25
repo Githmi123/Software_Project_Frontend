@@ -1,10 +1,6 @@
 .newButton {
   display: flex;
   margin-left: auto;
-  /* position: relative; */
-  /* margin-right: 2vh; */
-  /* justify-content: space-between; */
-  /* align-items:end; */
 }
 
 #module-table-headers {
@@ -28,28 +24,14 @@
   margin-left: 7vh;
 }
 
-/* .options-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.option {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-} */
 
 .tableStyle {
   width: 80%;
-  /* overflow-y: auto; */
 }
 
 .theadStyle {
   color: #b5b7c0;
   font-weight: lighter;
-  /* display: flex;
-    flex-direction: row; */
 }
 
 .trStyle {
@@ -67,8 +49,6 @@
   overflow-y: auto;
   margin-right: 10vh;
   margin-left: 10vh;
-  /* overflow-y: scroll; */
-  /* padding-bottom: 10px; */
 }
 
 .trStyleAnswerScript {
@@ -79,8 +59,8 @@
 }
 
 .tableStyle td {
-  padding: 5px; /* Adjust the padding as needed */
-  font-size: 14px; /* Adjust the font size as needed */
+  padding: 5px;
+  font-size: 14px; 
 }
 
 .tableStyle2 {
@@ -111,7 +91,6 @@
 .align1 {
   position: relative;
   display: flex;
-  /* justify-content: center; */
   flex-direction: row;
   align-items: flex-start;
   margin-left: 0;
@@ -142,7 +121,6 @@
   #back-button{
     font-size: 0;
     margin-top: 50px;
-    /* height: auto; */
   }
 
   #heading {

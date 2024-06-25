@@ -5,24 +5,18 @@ import { Button, Checkbox, CircularProgress } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { LineChart } from "@mui/x-charts/LineChart";
 import refreshAccessToken from "../services/AuthService";
-
 import DownloadIcon from "@mui/icons-material/Download";
-
 import CustomButton from "../components/Buttons/CustomButton";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
-
 import "../styles/AssignmentsPage.css";
 import ScrollableMainRightPane from "../components/MainRightPane/ScrollableMainRightPane";
-// import BarChart from '../components/Other/BarChartComponent'
 import BasicArea from "../components/BasicArea";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { BarChart } from "@mui/x-charts/BarChart";
 import FolderList from "../components/FolderList";
-import '../styles/DataVisualizationPage.css'
-
-//import XLSX from "xlsx";
+import '../styles/DataVisualizationPage.css';
 import * as XLSX from "xlsx";
 
 const DataVisualizationPage = () => {
@@ -99,7 +93,7 @@ const DataVisualizationPage = () => {
       );
       if (response.data && typeof response.data.rows === "object") {
         const assignmentData = response.data.rows;
-        //console.log("Assigment id 1 : ", assignmentid);
+      
         console.log("Assignment data fine : ", typeof assignmentData);
         console.log("Assignment data fine : ", assignmentData);
 
@@ -133,7 +127,7 @@ const DataVisualizationPage = () => {
 
           if(newAccessToken){
             try {
-              // await refreshAccessToken();
+            
               await fetch();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -162,7 +156,7 @@ const DataVisualizationPage = () => {
     const { marks } = response.data;
     if (marks && Array.isArray(marks)) {
       const marksArray = marks.map((marksObject) => marksObject.marks);
-      // setMarksArray(marksArray);
+ 
 
       console.log("Array of marks : ", marksArray);
       const data = groupData(marksArray);
@@ -190,7 +184,7 @@ const DataVisualizationPage = () => {
 
           if(newAccessToken){
             try {
-              // await refreshAccessToken();
+        
               await getData();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -214,7 +208,7 @@ const DataVisualizationPage = () => {
       );
 
       setReportData(answerScriptData.data.rows);
-      //console.log("repto data", typeof reportData);
+  
       console.log("report data Json", JSON.stringify(reportData));
 
       const answerScriptsData = answerScriptData.data.rows;
@@ -234,7 +228,7 @@ const DataVisualizationPage = () => {
 
           if(newAccessToken){
             try {
-              // await refreshAccessToken();
+       
               await getAnswerScripts();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -318,24 +312,11 @@ const DataVisualizationPage = () => {
               ]}
               width={500}
               height={300}
-              // xAxisLabel = "Score"
-              // yAxisLabel="No.of students"
+       
             />
-            {/* <button onClick={handleOnExport}>Export as excel file</button> */}
+          
             <Button className='export-button'
-              // sx={{
-              //   width: "auto",
-              //   padding: "3vh",
-              //   height: "2vh",
-              //   color: "black",
-              //   fontWeight: "bold",
-              //   textTransform: "none",
-              //   backgroundColor: "#C3D3FB",
-              //   borderRadius: "2vh",
-              //   fontSize: "1.5vh",
-              //   marginLeft: "5vh",
-              // }}
-              // startIcon={<AddCircleIcon />}
+             
               startIcon={<DownloadIcon />}
               onClick={handleOnExport}
             >
@@ -351,7 +332,7 @@ const DataVisualizationPage = () => {
             median={parameters[4]}
             variance={parameters[5]}
             standardDeviation={parameters[6]}
-            // id="folder-list"
+  
             
           />
           </div>

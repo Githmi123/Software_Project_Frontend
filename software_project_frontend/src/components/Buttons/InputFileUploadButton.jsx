@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
-import { Button, InputAdornment, TextField, Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import './CustomNewButton.css';
 
@@ -23,7 +23,7 @@ const InputFileUploadButton = ({ onFileSelect, text }) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setSelectedFile(file);
-      onFileSelect(file); // Pass the selected file to the parent component
+      onFileSelect(file); 
     }
   };
 

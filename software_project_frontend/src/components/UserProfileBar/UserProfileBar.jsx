@@ -36,7 +36,7 @@ function UserProfileBar() {
 
   const handleLogin = async () => {
     try {
-      // await refreshAccessToken();
+      
       await logout();
       
     } catch (error) {
@@ -46,7 +46,7 @@ function UserProfileBar() {
 
         if(newAccessToken){
           try {
-            // await refreshAccessToken();
+        
             await logout();
           } catch (error) {
             console.error("Error logging out:", error);
@@ -63,7 +63,7 @@ function UserProfileBar() {
   const getData = async () => {
     setLoading(true);
     console.log("Fetching data");
-        // await refreshAccessToken();
+       
         console.log("after refresh");
         const userResponse = await axios.get("http://localhost:3500/user");
         const user = userResponse.data;
@@ -79,7 +79,7 @@ function UserProfileBar() {
           user.profilepic.image.data
         ) {
           const imageBytes = new Uint8Array(user.profilepic.image.data);
-          const blob = new Blob([imageBytes], { type: "image/jpeg" }); // Adjust the type as per your image format
+          const blob = new Blob([imageBytes], { type: "image/jpeg" }); 
           const imageURL = URL.createObjectURL(blob);
           setImageSRC(imageURL);
           console.log(imageURL);
@@ -99,7 +99,7 @@ function UserProfileBar() {
   
           if(newAccessToken){
             try {
-              // await refreshAccessToken();
+         
               await logout();
             } catch (error) {
               console.error("Error fetching data:", error);

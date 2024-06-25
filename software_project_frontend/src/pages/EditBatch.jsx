@@ -16,7 +16,7 @@ import { useSnackbar } from "notistack";
 
 const EditBatch = () => {
   const { selectedModuleCode, batch } = useParams();
-  //console.log("in new batch page:", selectedModuleCode);
+
   const [batch_, setBatch] = useState("");
 
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const EditBatch = () => {
     setBatch(value);
   };
 
-  //console.log(batchNumber);
+
 
   const sendData = async () => {
     console.log("batch no value saves", batch_);
@@ -49,25 +49,19 @@ const EditBatch = () => {
     e.preventDefault();
     try {
       if(batch_ === batch){
-        // enqueueSnackbar('Please enter a batch', { variant: 'error' });
+    
       }
       else{
         await sendData();
       }
-      
-      // const accessToken = Cookies.get("accessToken");
 
-      // //console.log(accessToken);
-      // if (!accessToken) {
-      //   console.error("Access token not available");
-      // }
 
      
 
       
     } catch (error) {
       if(batch_ === batch){
-        // enqueueSnackbar('Please enter a batch', { variant: 'error' });
+   
       }
       else if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
@@ -75,24 +69,24 @@ const EditBatch = () => {
 
         if (newAccessToken) {
           try {
-            // await refreshAccessToken();
+        
             await sendData();
           } catch (error) {
             if (error.response && error.response.status === 409) {
-              // setLoading(false);
+       
               enqueueSnackbar('Batch already exists.', { variant: 'error' });
             } else {
-              // setLoading(false);
+  
               console.error("Error fetching data:", error);
               enqueueSnackbar('An error occurred while editting the batch.', { variant: 'error' });
             }
           }
         }
       } if (error.response && error.response.status === 409) {
-        // setLoading(false);
+        
         enqueueSnackbar('Batch already exists.', { variant: 'error' });
       } else {
-        // setLoading(false);
+    
         console.error("Error fetching data:", error);
         enqueueSnackbar('An error occurred while editting the batch.', { variant: 'error' });
       }
@@ -118,15 +112,14 @@ const EditBatch = () => {
             placeholder ={batch}
             variant="filled"
             onChange={handleBatchNumberChange}
-            //value={assignmentName}
-            //onChange={handleAssignmentNameChange}
+  
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", // Adjust the font size to decrease the size of the text box
-                padding: "8px 12px", // Adjust the padding to match the new font size
+                fontSize: "1rem", 
+                padding: "8px 12px", 
               },
             }}
           />

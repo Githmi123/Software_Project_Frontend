@@ -1,5 +1,3 @@
-// jest.mock('../../images/logo.png', () => '../../__mocks__/logo.png.js');
-
 
 import React from 'react';
 import { render } from '@testing-library/react';
