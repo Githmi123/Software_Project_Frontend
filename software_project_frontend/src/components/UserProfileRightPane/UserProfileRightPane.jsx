@@ -387,7 +387,8 @@ export const UserProfileRightPane = () => {
           <CustomButton
             className="label1-userprofile-left"
             text="Cancel"
-            onClick={() => window.history.back()}
+            // onClick={() => window.history.back()}
+            onClick={handleCancel}
             backgroundColor="white"
             textColor="#7894DB"
           />
