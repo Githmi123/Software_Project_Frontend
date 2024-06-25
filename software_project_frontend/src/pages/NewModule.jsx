@@ -279,27 +279,29 @@ const NewModule = () => {
             Credits
           </TextField>
 
-          <span className="label1">Add User</span>
-          <div className="center">
+          {/* <span id="add-user-label">Add User</span> */}
+          <h2
+            style={{
+              fontSize: "19px",
+              marginLeft: "35px",
+              marginTop: "5vh",
+              color: "black",
+            }}
+          >
+            Add User
+          </h2>
+          <div id="user-div-center">
             <div>
               <CustomSelect
                 label="User"
                 value={selectedUser}
                 onChange={handleUserChange}
-                // options={userOptions}
                 options={userOptions.map((option) => ({
-                  key: option.key, // Ensure each option has a unique key
+                  key: option.key,
                   value: option.value,
                   label: option.label,
                 }))}
-                sx={{ marginLeft: "5vw" }}
               />
-              {/* <Button
-                  onClick={handleAddModule}
-                  sx={{ color: "white", backgroundColor: "#8080FF" }}
-                >
-                  Add Module
-                </Button> */}
             </div>
           </div>
 
