@@ -10,11 +10,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-
-import { useSnackbar } from "notistack";
-import SignUpValidation from "../Validation/SignUpValidation";
-
-
 export const UserProfileRightPane = () => {
   const [profileData, setProfileData] = useState({
     email: "",
@@ -24,9 +19,6 @@ export const UserProfileRightPane = () => {
     designation: "",
   });
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const getData = async () => {
     setLoading(true);
@@ -39,7 +31,6 @@ export const UserProfileRightPane = () => {
   useEffect(() => {
     async function getProfileData() {
       try {
-    
         await getData();
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -48,7 +39,6 @@ export const UserProfileRightPane = () => {
 
           if (newAccessToken) {
             try {
-          
               await getData();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -64,7 +54,6 @@ export const UserProfileRightPane = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // const errorMessage = validateInput(name, value);
     setProfileData((prevProfileData) => ({
       ...prevProfileData,
       [name]: value,
@@ -72,7 +61,7 @@ export const UserProfileRightPane = () => {
   };
 
   const handleCancel = (event) => {
-    navigate("/Dashboard");
+    navigate("");
   };
 
   const save = async () => {
@@ -90,9 +79,9 @@ export const UserProfileRightPane = () => {
   const handleChangeEmail = async (e) => {
     try {
       console.log("Started requesting to change email");
- 
+
       await save();
-    
+
       console.log("Trying to save email");
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -101,7 +90,6 @@ export const UserProfileRightPane = () => {
 
         if (newAccessToken) {
           try {
-          
             await save();
           } catch (error) {
             console.error("Error fetching data:", error);
@@ -115,102 +103,43 @@ export const UserProfileRightPane = () => {
 
   const navigate = useNavigate();
 
-  // const save2 = async () => {
-  //   setLoading(true);
-  //   try {
-  //     if (profileData.firstName == " ") {
-  //       enqueueSnackbar("Please enter a first name!", {
-  //         variant: "error",
-  //       });
-  //       save2();
-  //     } else if (profileData.lastName == " ") {
-  //       enqueueSnackbar("Please enter a last name!", {
-  //         variant: "error",
-  //       });
-  //       save2();
-  //     } else if (profileData.email == "") {
-  //       enqueueSnackbar("Please enter a valid email!", {
-  //         variant: "error",
-  //       });
-  //       save2();
-  //     } else if (profileData.designation == " ") {
-  //       enqueueSnackbar("Please enter the designation!", {
-  //         variant: "error",
-  //       });
-  //       save2();
-  //     } else {
-  //       const response = await axios.post(
-  //         "http://localhost:3500/user",
-  //         profileData
-  //       );
-  //       console.log("Finished sending request");
-  //       handleChangeEmail();
-  //       navigate("/Dashboard");
-  //       console.log("new profile data :", profileData);
-  //       setLoading(false);
-  //     }
-  //   } catch (e) {
-  //     console.log("error", e);
-  //   }
-  // };
-
-  const saveProfileData = async () => {
+  const save2 = async () => {
     setLoading(true);
-    try {
-
-    
-      console.log("Trying to save details");
-      await save2();
-
-    } catch (error) {
-      console.error("Error saving profile data:", error);
-      setLoading(false);
-      throw error;
-    }
+    const response = await axios.post(
+      "http://localhost:3500/user",
+      profileData
+    );
+    console.log("Finished sending request");
+    handleChangeEmail();
+    navigate("/Dashboard");
+    console.log("new profile data :", profileData);
+    setLoading(false);
   };
 
+  const handleSave = async (e) => {
+    try {
+      console.log("Trying to save details");
+      await save2();
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        const newAccessToken = await refreshAccessToken();
+        console.log("New access token: ", newAccessToken);
 
         if (newAccessToken) {
           try {
-         
             await save2();
           } catch (error) {
             console.error("Error fetching data:", error);
           }
-
         }
+      } else {
+        console.error("Error fetching data:", error);
       }
+    }
   };
-
-  // const handleSave = async (e) => {
-  //   try {
-  //     // await refreshAccessToken();
-  //     console.log("Trying to save details");
-  //     await save2();
-  //     enqueueSnackbar("Profile changed successfully!", { variant: "success" });
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       const newAccessToken = await refreshAccessToken();
-  //       console.log("New access token: ", newAccessToken);
-
-  //       if (newAccessToken) {
-  //         try {
-  //           // await refreshAccessToken();
-  //           await save2();
-  //         } catch (error) {
-  //           console.error("Error fetching data:", error);
-  //         }
-  //       }
-  //     } else {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   }
-  // };
 
   return (
     <div style={{ width: "100%" }}>
-     
-
       <div
         style={{
           width: "100%",
@@ -219,7 +148,6 @@ export const UserProfileRightPane = () => {
           justifyContent: "left",
         }}
       >
-     
         <h2
           style={{
             fontSize: "15px",
@@ -237,8 +165,6 @@ export const UserProfileRightPane = () => {
           name="firstName"
           value={profileData.firstName}
           onChange={handleChange}
-
-
           sx={{
             marginTop: 0,
             "& input": {
@@ -266,9 +192,6 @@ export const UserProfileRightPane = () => {
           name="lastName"
           value={profileData.lastName}
           onChange={handleChange}
-
-
-
           sx={{
             marginTop: 0,
             "& input": {
@@ -296,12 +219,10 @@ export const UserProfileRightPane = () => {
           name="email"
           value={profileData.email}
           onChange={handleChange}
-
-
           sx={{
             "& input": {
-              fontSize: "1rem", 
-              padding: "8px 12px", 
+              fontSize: "1rem",
+              padding: "8px 12px",
             },
           }}
         />
@@ -324,11 +245,10 @@ export const UserProfileRightPane = () => {
           name="designation"
           value={profileData.designation}
           onChange={handleChange}
-
           sx={{
             "& input": {
               fontSize: "1rem",
-              padding: "8px 12px", 
+              padding: "8px 12px",
             },
           }}
         />
@@ -339,8 +259,7 @@ export const UserProfileRightPane = () => {
           <CustomButton
             className="label1-userprofile-left"
             text="Cancel"
-            // onClick={() => window.history.back()}
-            onClick={handleCancel}
+            onClick={() => window.history.back()}
             backgroundColor="white"
             textColor="#7894DB"
           />
@@ -351,8 +270,6 @@ export const UserProfileRightPane = () => {
             backgroundColor="#7894DB"
             textColor="white"
           />
-
-          
         </div>
       </div>
     </div>
