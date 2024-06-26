@@ -37,9 +37,15 @@ const CustomSelect = ({ label, value, onChange, options }) => {
     setFilter(""); // Reset filter when dropdown closes
   };
 
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filteredOptions = options.filter((option) => {
+    const labelAsString =
+      typeof option.label === "number"
+        ? option.label.toString()
+        : (option.label || "").toString();
+
+    // Now, check if labelAsString (which is guaranteed to be a string) contains the filter string
+    return labelAsString.toLowerCase().includes(filter.toLowerCase());
+  });
 
   return (
     <FormControl id="form-input-field">
@@ -81,9 +87,7 @@ const CustomSelect = ({ label, value, onChange, options }) => {
             {option.label}
           </MenuItem>
         ))}
-        <MenuItem value={`new-${label.toLowerCase()}`}>
-          {newOptionLabel}
-        </MenuItem>
+        <MenuItem value={`new`}>{newOptionLabel}</MenuItem>
       </Select>
     </FormControl>
   );
