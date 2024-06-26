@@ -94,7 +94,6 @@ table td {
   font-size: 15px;
   margin-left: 35px;
   color: black;
-
 }
 
 .heading-style-input {
@@ -113,21 +112,9 @@ table td {
   margin-top: 2vh;
 }
 
-@media (max-width: 780px) {
-  #user-div-center {
-    display: flex;
-    align-items: center;
-    gap: 5%;
-    margin-left: 35px;
-  }
+#user-div-center {
+  display: flex;
+  align-items: center;
+  gap: 5%;
+  margin-left: 35px;
 }
-
-@media (min-width: 780px) {
-  #user-div-center {
-    display: flex;
-    align-items: center;
-    gap: 5%;
-    margin-left: 35px;
-    /* margin-left: 3.5vw; */
-  }
-
