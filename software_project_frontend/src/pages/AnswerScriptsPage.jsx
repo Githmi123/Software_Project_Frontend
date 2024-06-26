@@ -307,10 +307,10 @@ const AnswerScriptsPage = () => {
     // Update state with selected files
     const newFileDetails = convertedFiles
       .map((file) => {
-        const fileNameParts = file.name.split("-");
+        const fileNameParts = file.file.name.split("-");
 
         if (fileNameParts.length < 2) {
-          console.error(`Invalid filename format: ${file.name}`);
+          console.error(`Invalid filename format: ${file.file.name}`);
           return null;
         }
 
