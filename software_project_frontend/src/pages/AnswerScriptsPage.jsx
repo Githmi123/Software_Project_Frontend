@@ -43,6 +43,8 @@ const AnswerScriptsPage = () => {
     useState(false);
   const [noSelectionSnackbarOpen, setNoSelectionSnackbarOpen] = useState(false);
   const [selectedStudentIds, setSelectedStudentIds] = useState([]);
+  const [noAnswerScripts, setNoAnswerScripts] = useState("");
+  const [fileDetails, setFileDetails] = useState([]);
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -66,6 +68,15 @@ const AnswerScriptsPage = () => {
     { field: "modulecode", headerName: "Module Code", width: 150 },
     { field: "fileid", headerName: "File ID", width: 150 },
   ];
+
+  const customLocaleText = {
+    ...DataGrid.defaultProps?.localeText, // Use optional chaining to prevent errors
+    selectionCount: (count) =>
+      `${count} ${count === 1 ? "answer script" : "answer scripts"} selected`,
+  };
+
+  // console.log("DataGrid: ", DataGrid);
+  // console.log("DataGrid defaultProps: ", DataGrid.defaultProps);
 
   const handleClick = () => {
     enqueueSnackbar("I love snacks.");
@@ -121,6 +132,8 @@ const AnswerScriptsPage = () => {
     );
     console.log("after fetching");
     const answerScriptsData = response.data.rows;
+    // console.log("no or added rows:", response.data.rowCount);
+    setNoAnswerScripts(response.data.rowCount);
 
     console.log(response.data);
     if (answerScriptsData) {
@@ -183,9 +196,12 @@ const AnswerScriptsPage = () => {
     const uploadNewAnswerscripts = async () => {
       try {
         await upload();
-        enqueueSnackbar("Answer script uploaded successfully!", {
-          variant: "success",
-        });
+        enqueueSnackbar(
+          `${noAnswerScripts} answer scripts uploaded successfully!`,
+          {
+            variant: "success",
+          }
+        );
       } catch (error) {
         if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
@@ -220,9 +236,44 @@ const AnswerScriptsPage = () => {
     }
   }, [selectedFiles, selectedModuleCode, batch, assignmentid]);
 
+  // const handleNewAnswerScript = (event) => {
+  //   const files = Array.from(event.target.files);
+  //   setSelectedFiles(files);
+  // };
+
   const handleNewAnswerScript = (event) => {
     const files = Array.from(event.target.files);
+    const newFileDetails = files
+      .map((file) => {
+        const fileNameParts = file.name.split("-");
+
+        if (fileNameParts.length < 2) {
+          console.error(`Invalid filename format: ${file.name}`);
+          return null;
+        }
+
+        const id = fileNameParts[0]?.trim();
+
+        const lastNameWithExtension = fileNameParts[1]?.trim();
+        const lastName = lastNameWithExtension.slice(
+          0,
+          lastNameWithExtension.lastIndexOf(".")
+        );
+        const [firstname, lastname] = lastName.split(" ") ?? ["", ""];
+
+        console.log("id:", id, "firstname:", firstname, "lastname:", lastname);
+
+        return {
+          id,
+          firstname,
+          lastname,
+          fileObject: file,
+        };
+      })
+      .filter(Boolean); // Filter out null values from map
+
     setSelectedFiles(files);
+    setFileDetails(newFileDetails);
   };
 
   const handleSelectionModelChange = (newSelectionModel) => {
@@ -470,14 +521,12 @@ const AnswerScriptsPage = () => {
             onClick={handleGradeSelectedFiles}
             icon={CheckCircle}
           />
-
           <Link
             to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <GradingButton text="Visualize" icon={TrendingUp} />
           </Link>
-
           <GradingButton
             text="Delete"
             onClick={handleDeleteFiles}
@@ -513,6 +562,8 @@ const AnswerScriptsPage = () => {
                 pageSizeOptions={[5]}
                 checkboxSelection
                 disableRowSelectionOnClick
+                // localeText={customLocaleText}
+                localeText={customLocaleText}
                 onRowClick={handleRowClick}
                 onRowSelectionModelChange={(newSelection) => {
                   setSelectedAssignmentNos(newSelection);
