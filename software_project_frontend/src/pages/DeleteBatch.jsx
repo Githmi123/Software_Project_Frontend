@@ -27,48 +27,43 @@ const DeleteBatch = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
-
-
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    setOpenDialog(true); 
+    setOpenDialog(true);
   }, []);
 
   const deleteBatch = async () => {
     setLoading(true);
     const response = await axios.delete(
       `http://localhost:3500/batch/${selectedModuleCode}`,
-      { batch: batch }
+      { data: { batch: batch } }
     );
     console.log("Batch is deleted !");
-    enqueueSnackbar('Batch deleted successfully.', { variant: 'success' });
+    enqueueSnackbar("Batch deleted successfully.", { variant: "success" });
     navigate(`/Batches/${selectedModuleCode}`);
     setLoading(false);
-  }
+  };
 
   const handleDeleteConfirmation = async () => {
     try {
       await deleteBatch();
     } catch (error) {
-      if(error.response && error.response.status === 401){
+      if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
-        if(newAccessToken){
+        if (newAccessToken) {
           try {
-         
             await deleteBatch();
           } catch (error) {
             console.error("Error deleting batch:", error);
-            enqueueSnackbar('Failed to delete batch.', { variant: 'error' });
+            enqueueSnackbar("Failed to delete batch.", { variant: "error" });
           }
         }
-      }
-      else{
+      } else {
         console.error("Error deleting batch:", error);
-        enqueueSnackbar('Failed to delete batch.', { variant: 'error' });
+        enqueueSnackbar("Failed to delete batch.", { variant: "error" });
       }
     }
   };
@@ -81,7 +76,7 @@ const DeleteBatch = () => {
   return (
     <div>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{"Delete Module"}</DialogTitle>
+        <DialogTitle>{"Delete Batch"}</DialogTitle>
         <DialogContent>
           <div>Do you really want to delete this batch?</div>
         </DialogContent>

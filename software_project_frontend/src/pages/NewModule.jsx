@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 
 import CustomSelect from "../components/Other/CustomSelect";
 
-
 import "../styles/MyModulesPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
@@ -38,6 +37,7 @@ const NewModule = () => {
           key: user.userid,
           value: user.email,
           label: user.firstname + " " + user.lastname,
+          profilePicture: user.profilepic,
         }));
         setUserOptions(userOptions);
         console.log(userOptions);
@@ -125,7 +125,6 @@ const NewModule = () => {
           const newAccessToken = await refreshAccessToken();
           console.log("New access token: ", newAccessToken);
 
-
           if (newAccessToken) {
             try {
               // await refreshAccessToken();
@@ -147,7 +146,6 @@ const NewModule = () => {
                   { variant: "error" }
                 );
               }
-
             }
           }
         } else if (error.response && error.response.status === 409) {
@@ -290,16 +288,38 @@ const NewModule = () => {
           >
             Add Lecturer
           </h2>
+
           <div id="user-div-center">
             <div>
               <CustomSelect
                 label="User"
                 value={selectedUser}
                 onChange={handleUserChange}
+                // options={userOptions.map((option) => ({
+                //   key: option.key,
+                //   value: option.value,
+                //   label: option.label,
+                // }))}
                 options={userOptions.map((option) => ({
                   key: option.key,
                   value: option.value,
-                  label: option.label,
+                  label: (
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      {option.profilePicture && (
+                        <img
+                          src={option.profilePicture}
+                          alt="Profile"
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "50%",
+                            marginRight: "8px",
+                          }}
+                        />
+                      )}
+                      {option.label}
+                    </div>
+                  ),
                 }))}
               />
             </div>
@@ -312,11 +332,9 @@ const NewModule = () => {
               justifyContent: "center",
             }}
           >
-         
             <Link to="/MyModulePage" style={{ textDecoration: "none" }}>
               <Button
                 sx={{
-  
                   color: "#7894DB",
                   backgroundColor: "white",
                   border: "1px solid #7894DB",
