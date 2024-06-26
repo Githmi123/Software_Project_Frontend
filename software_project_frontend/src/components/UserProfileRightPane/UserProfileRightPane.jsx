@@ -31,7 +31,6 @@ export const UserProfileRightPane = () => {
   useEffect(() => {
     async function getProfileData() {
       try {
-    
         await getData();
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -40,7 +39,6 @@ export const UserProfileRightPane = () => {
 
           if (newAccessToken) {
             try {
-          
               await getData();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -81,9 +79,9 @@ export const UserProfileRightPane = () => {
   const handleChangeEmail = async (e) => {
     try {
       console.log("Started requesting to change email");
- 
+
       await save();
-    
+
       console.log("Trying to save email");
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -92,7 +90,6 @@ export const UserProfileRightPane = () => {
 
         if (newAccessToken) {
           try {
-          
             await save();
           } catch (error) {
             console.error("Error fetching data:", error);
@@ -121,7 +118,7 @@ export const UserProfileRightPane = () => {
 
   const handleSave = async (e) => {
     try {
-    
+
       console.log("Trying to save details");
       await save2();
     } catch (error) {
@@ -131,7 +128,6 @@ export const UserProfileRightPane = () => {
 
         if (newAccessToken) {
           try {
-         
             await save2();
           } catch (error) {
             console.error("Error fetching data:", error);
@@ -145,8 +141,6 @@ export const UserProfileRightPane = () => {
 
   return (
     <div style={{ width: "100%" }}>
-     
-
       <div
         style={{
           width: "100%",
@@ -155,7 +149,6 @@ export const UserProfileRightPane = () => {
           justifyContent: "left",
         }}
       >
-     
         <h2
           style={{
             fontSize: "15px",
@@ -230,8 +223,8 @@ export const UserProfileRightPane = () => {
           onChange={handleChange}
           sx={{
             "& input": {
-              fontSize: "1rem", 
-              padding: "8px 12px", 
+              fontSize: "1rem",
+              padding: "8px 12px",
             },
           }}
         />
@@ -257,7 +250,7 @@ export const UserProfileRightPane = () => {
           sx={{
             "& input": {
               fontSize: "1rem",
-              padding: "8px 12px", 
+              padding: "8px 12px",
             },
           }}
         />
@@ -279,8 +272,6 @@ export const UserProfileRightPane = () => {
             backgroundColor="#7894DB"
             textColor="white"
           />
-
-          
         </div>
       </div>
     </div>
