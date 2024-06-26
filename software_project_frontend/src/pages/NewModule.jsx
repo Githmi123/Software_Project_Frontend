@@ -288,7 +288,7 @@ const NewModule = () => {
               color: "black",
             }}
           >
-            Add User
+            Add Lecturer
           </h2>
           <div id="user-div-center">
             <div>

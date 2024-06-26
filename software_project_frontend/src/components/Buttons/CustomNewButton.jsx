@@ -42,7 +42,7 @@ const CustomNewButton = ({ text, onFileSelect }) => {
       <VisuallyHiddenInput
         ref={fileInputRef}
         type="file"
-        accept=".jpeg, .png, .jpg"
+        accept=".jpeg, .png, .jpg, .pdf"
         multiple
         onChange={handleFileSelect}
       />
