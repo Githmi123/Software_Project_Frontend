@@ -246,10 +246,14 @@ const DataVisualizationPage = () => {
   const handleOnExport = () => {
     const filteredData = reportData
       .filter((item) => item.marks !== -1)
-      .map(({ studentid, marks }) => ({
-        studentid,
-        marks,
-      }));
+      .map(({ studentid, marks }) => {
+        const [courseCode, name] = studentid.split("-");
+        return {
+          StudentID: courseCode.trim(),
+          Name: name.trim(),
+          Marks: marks,
+        };
+      });
     var wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(filteredData);
 

@@ -45,6 +45,7 @@ const AnswerScriptsPage = () => {
   const [selectedStudentIds, setSelectedStudentIds] = useState([]);
   const [noAnswerScripts, setNoAnswerScripts] = useState("");
   const [fileDetails, setFileDetails] = useState([]);
+  const [valueCount, setValueCount] = useState("");
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -127,21 +128,36 @@ const AnswerScriptsPage = () => {
     setLoading(true);
     console.log("fetching answer scripts");
 
+    // console.log("no of answer scripts:", noAnswerScripts);
+
     const response = await axios.get(
       `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
     );
     console.log("after fetching");
     const answerScriptsData = response.data.rows;
-    // console.log("no or added rows:", response.data.rowCount);
+
+    console.log("value:", response.data.rowCount);
     setNoAnswerScripts(response.data.rowCount);
 
+    const newlyAddedCount = response.data.rowCount - noAnswerScripts;
+
+    if (newlyAddedCount > 0) {
+      enqueueSnackbar(
+        `${newlyAddedCount} answer scripts uploaded successfully!`,
+        { variant: "success" }
+      );
+    }
+
+    console.log("no of answer scripts after:", response.data.rowCount);
     console.log(response.data);
+
     if (answerScriptsData) {
       console.log("no answer scripts uploaded");
       setAnswerScripts(answerScriptsData);
     }
     setLoading(false);
   };
+
   const fetchAnswerscripts = async () => {
     try {
       await fetchData();
@@ -189,6 +205,11 @@ const AnswerScriptsPage = () => {
 
     console.log("Uploaded Answer Scripts:", response.data);
     fetchAnswerscripts();
+
+    enqueueSnackbar(
+      `${selectedFiles.length} answer scripts uploaded successfully!`,
+      { variant: "success" }
+    );
     setLoading(false);
   };
 
@@ -196,12 +217,6 @@ const AnswerScriptsPage = () => {
     const uploadNewAnswerscripts = async () => {
       try {
         await upload();
-        enqueueSnackbar(
-          `${noAnswerScripts} answer scripts uploaded successfully!`,
-          {
-            variant: "success",
-          }
-        );
       } catch (error) {
         if (error.response && error.response.status === 401) {
           const newAccessToken = await refreshAccessToken();
@@ -358,16 +373,42 @@ const AnswerScriptsPage = () => {
       { variant: "info" }
     );
     console.log("Assignment Nos:", selectedStudentIds);
-    const response = await axios.post(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
-      { fileids: selectedAssignmentNos }
-    );
 
-    console.log("Graded selected answer scripts", response.data);
-    setLoading(false);
-    enqueueSnackbar("Grading completed successfully!", { variant: "success" });
-    window.location.reload();
-    enqueueSnackbar("Grading completed successfully!", { variant: "success" });
+    try {
+      const response = await axios.post(
+        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
+        { fileids: selectedAssignmentNos }
+      );
+
+      console.log("Graded selected answer scripts", response.data);
+
+      setLoading(false);
+      enqueueSnackbar("Grading completed successfully!", {
+        variant: "success",
+      });
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error("Error grading answer scripts:", error);
+      setLoading(false);
+      enqueueSnackbar(
+        "Failed to grade answer scripts. Please try again later.",
+        { variant: "error" }
+      );
+    }
+
+    // const response = await axios.post(
+    //   `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
+    //   { fileids: selectedAssignmentNos }
+    // );
+
+    // console.log("Graded selected answer scripts", response.data);
+    // setLoading(false);
+    // enqueueSnackbar("Grading completed successfully!", { variant: "success" });
+    // window.location.reload();
+    // enqueueSnackbar("Grading completed successfully!", { variant: "success" });
   };
 
   const handleGradeSelectedFiles = async () => {
