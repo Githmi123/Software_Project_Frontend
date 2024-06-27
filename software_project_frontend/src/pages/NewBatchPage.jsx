@@ -11,6 +11,7 @@ import "../styles/NewAssignmentPage.css";
 import "../styles/NewBatchPage.css";
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const NewBatchPage = () => {
   const { selectedModuleCode } = useParams();
@@ -18,7 +19,7 @@ const NewBatchPage = () => {
 
   const navigate = useNavigate();
 
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleBatchNumberChange = (e) => {
     const value = e.target.value;
@@ -29,69 +30,62 @@ const NewBatchPage = () => {
   const sendData = async () => {
     console.log("batch no value saves", batch);
 
-      await axios.post(
-        `http://localhost:3500/batch/${selectedModuleCode}`,
-        { batch: batch }
-      );
+    await axios.post(`${baseUrl}/batch/${selectedModuleCode}`, {
+      batch: batch,
+    });
 
-      console.log("Batch is created!");
-      enqueueSnackbar('Batch added successfully!', { variant: 'success' });
+    console.log("Batch is created!");
+    enqueueSnackbar("Batch added successfully!", { variant: "success" });
 
-      navigate(`/Batches/${selectedModuleCode}`);
-  }
+    navigate(`/Batches/${selectedModuleCode}`);
+  };
 
   const handleNewBatch = async (e) => {
     e.preventDefault();
     try {
-      if(batch === ''){
-        enqueueSnackbar('Please enter a batch', { variant: 'error' });
-      }
-      else{
+      if (batch === "") {
+        enqueueSnackbar("Please enter a batch", { variant: "error" });
+      } else {
         await sendData();
       }
-
-     
-
-      
     } catch (error) {
-      if(batch === ''){
-        enqueueSnackbar('Please enter a batch', { variant: 'error' });
-      }
-      else if (error.response && error.response.status === 401) {
+      if (batch === "") {
+        enqueueSnackbar("Please enter a batch", { variant: "error" });
+      } else if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
         if (newAccessToken) {
           try {
-
             await sendData();
           } catch (error) {
             if (error.response && error.response.status === 409) {
-  
-              enqueueSnackbar('Module already exists.', { variant: 'error' });
+              enqueueSnackbar("Module already exists.", { variant: "error" });
             } else {
- 
               console.error("Error fetching data:", error);
-              enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
+              enqueueSnackbar("An error occurred while creating the module.", {
+                variant: "error",
+              });
             }
           }
         }
-      } if (error.response && error.response.status === 409) {
-    
-        enqueueSnackbar('Module already exists.', { variant: 'error' });
+      }
+      if (error.response && error.response.status === 409) {
+        enqueueSnackbar("Module already exists.", { variant: "error" });
       } else {
-
         console.error("Error fetching data:", error);
-        enqueueSnackbar('An error occurred while creating the module.', { variant: 'error' });
+        enqueueSnackbar("An error occurred while creating the module.", {
+          variant: "error",
+        });
       }
     }
   };
 
   return (
     <div className="align1">
-  
       <MainRightPane>
-        <Button id = "back-button"
+        <Button
+          id="back-button"
           startIcon={<ArrowBackIcon />}
           onClick={() => navigate(-1)}
         >
@@ -106,29 +100,27 @@ const NewBatchPage = () => {
             label="Batch Number"
             variant="outlined"
             onChange={handleBatchNumberChange}
-  
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", 
+                fontSize: "1rem",
                 padding: "8px 12px",
               },
             }}
           />
         </div>
         <div
-            style={{
-              marginTop: "20px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-        <Button id="add-button" 
-            onClick={handleNewBatch} variant="contained">
-          Add
-        </Button>
+          style={{
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button id="add-button" onClick={handleNewBatch} variant="contained">
+            Add
+          </Button>
         </div>
       </MainRightPane>
     </div>

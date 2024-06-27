@@ -23,6 +23,7 @@ import refreshAccessToken from "../services/AuthService";
 import { useParams, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -55,9 +56,8 @@ const ManualGradingPage = () => {
   useEffect(() => {
     const handleGrades = async () => {
       try {
-
         const response = await axios.get(
-          `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
+          `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
         );
 
         console.log("Details of the answer scripts :", response.data);
@@ -79,11 +79,7 @@ const ManualGradingPage = () => {
     const secondColumn = questions.slice(25, 50);
 
     return (
-      <div
-        id="column-div"
-
-      >
-       
+      <div id="column-div">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 200 }} aria-label="customized table">
             <TableHead>
@@ -91,13 +87,11 @@ const ManualGradingPage = () => {
                 <StyledTableCell>Question Number</StyledTableCell>
                 <StyledTableCell align="right">Student Answer</StyledTableCell>
                 <StyledTableCell align="right">Correct Answer</StyledTableCell>
-                
               </TableRow>
             </TableHead>
             <TableBody>
               {firstColumn.map((item, index) => (
                 <StyledTableRow key={index}>
-                  
                   <StyledTableCell align="right">
                     {item.questionnumber}
                   </StyledTableCell>
@@ -119,13 +113,11 @@ const ManualGradingPage = () => {
                 <StyledTableCell>Question Number</StyledTableCell>
                 <StyledTableCell align="right">Student Answer</StyledTableCell>
                 <StyledTableCell align="right">Correct Answer</StyledTableCell>
-              
               </TableRow>
             </TableHead>
             <TableBody>
               {secondColumn.map((item, index) => (
                 <StyledTableRow key={index}>
-               
                   <StyledTableCell align="right">
                     {item.questionnumber}
                   </StyledTableCell>
@@ -149,7 +141,6 @@ const ManualGradingPage = () => {
       <MainRightPane>
         <Button
           id="back-button"
-       
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
@@ -168,14 +159,9 @@ const ManualGradingPage = () => {
               Answer Script - {gradeData.infoResult[0].studentid}
             </h5>
           )}
-    
+
         <div id="graded-answerscript">
-          <img
-            id="paper-image"
-            src={gradeData.scriptUrl}
-            alt="Answer Script"
-         
-          />
+          <img id="paper-image" src={gradeData.scriptUrl} alt="Answer Script" />
           <div id="marks-columns-div">{renderTable(gradeData.jsonAnswers)}</div>
         </div>
       </MainRightPane>

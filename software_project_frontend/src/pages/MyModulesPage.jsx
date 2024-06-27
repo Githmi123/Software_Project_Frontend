@@ -22,6 +22,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import "../styles/MyModulesPage.css";
 import CustomNewButton from "../components/Buttons/CustomNewButton";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const headers = ["Module_Code", "Module_Name", "Credits"];
 
@@ -48,7 +49,7 @@ const MyModulesPage = () => {
     console.log("Fetching modules data");
     setLoading(true);
 
-    const response = await axios.get("http://localhost:3500/modules");
+    const response = await axios.get(`${baseUrl}/modules`);
     console.log(response.data);
     setTableDataModules(response.data);
 
@@ -87,7 +88,6 @@ const MyModulesPage = () => {
 
           if (newAccessToken) {
             try {
-       
               await getData();
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -103,27 +103,18 @@ const MyModulesPage = () => {
   }, [enqueueSnackbar]);
 
   const handleEditModule = async (modulecode) => {
-   
-
     navigate(`/EditModule/${modulecode}`);
-    
   };
 
   const handleDeleteModule = async (modulecode) => {
     navigate(`/DeleteModule/${modulecode}`);
-
   };
 
-  const handleEditAssignment = (assignment) => {
-   
-  };
+  const handleEditAssignment = (assignment) => {};
 
-  const handleDeleteAssignment = (assignment) => {
- 
-  };
+  const handleDeleteAssignment = (assignment) => {};
 
   const handleNewModule = (event) => {};
-
 
   const handleSelectedModule = (modulecode) => {
     console.log("Selected module code:", modulecode);
@@ -131,11 +122,10 @@ const MyModulesPage = () => {
     navigate(`/Batches/${modulecode}`);
   };
 
-
   return (
     <div className="align1">
       <MainRightPane>
-      <Button
+        <Button
           sx={{
             // m: 2,
             width: "100px",
@@ -153,19 +143,14 @@ const MyModulesPage = () => {
 
         <div
           style={{
-            
             width: "100%",
           }}
         >
-
           <Link to="/NewModule" id="add-new-module-button">
             <CustomNewButton2 text="New Module" onClick={handleNewModule} />
           </Link>
         </div>
-        <div
-          className="columnModules"
-
-        >
+        <div className="columnModules">
           {loading ? (
             <div style={{ display: "flex", justifyContent: "center" }}>
               <CircularProgress />
@@ -209,7 +194,6 @@ const MyModulesPage = () => {
                   >
                     <ListItemText
                       primaryTypographyProps={{ style: { fontSize: "2vh" } }}
-
                       primary={`${module.modulecode} - ${module.modulename}`}
                       secondary={<span>Credits: {module.credits}</span>}
                       secondaryTypographyProps={{
@@ -223,7 +207,6 @@ const MyModulesPage = () => {
             </List>
           )}
         </div>
-        
       </MainRightPane>
     </div>
   );

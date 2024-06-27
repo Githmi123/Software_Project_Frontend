@@ -20,6 +20,7 @@ import { useParams } from "react-router-dom";
 
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const DeleteBatch = () => {
   const { selectedModuleCode, batch } = useParams();
@@ -36,7 +37,7 @@ const DeleteBatch = () => {
   const deleteBatch = async () => {
     setLoading(true);
     const response = await axios.delete(
-      `http://localhost:3500/batch/${selectedModuleCode}`,
+      `${baseUrl}/batch/${selectedModuleCode}`,
       { data: { batch: batch } }
     );
     console.log("Batch is deleted !");

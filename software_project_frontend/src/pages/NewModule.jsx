@@ -12,6 +12,7 @@ import "../styles/MyModulesPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const NewModule = () => {
   const [moduleData, setModuleData] = useState({
@@ -29,7 +30,7 @@ const NewModule = () => {
       try {
         await refreshAccessToken();
 
-        const userResponse = await axios.get("http://localhost:3500/user/all");
+        const userResponse = await axios.get(`${baseUrl}/user/all`);
         const users = userResponse.data;
         console.log("useres", users);
 
@@ -68,12 +69,12 @@ const NewModule = () => {
     setLoading(true);
     try {
       // Create module
-      await axios.post("http://localhost:3500/modules", moduleData);
+      await axios.post(`${baseUrl}/modules`, moduleData);
       console.log("Module is created!", moduleData);
 
       console.log(moduleData.modulecode);
       await axios.post(
-        `http://localhost:3500/modules/view/${moduleData.modulecode}/user`,
+        `${baseUrl}/modules/view/${moduleData.modulecode}/user`,
         { usertoAdd: selectedUser }
       );
       console.log("User added to module!");
@@ -339,7 +340,7 @@ const NewModule = () => {
                   backgroundColor: "white",
                   border: "1px solid #7894DB",
                   "&:hover": { backgroundColor: "#7894DB", color: "white" },
-                  marginBottom:"15px "
+                  marginBottom: "15px ",
                 }}
               >
                 Cancel
@@ -355,7 +356,7 @@ const NewModule = () => {
                 backgroundColor: "white",
                 border: "1px solid #7894DB",
                 "&:hover": { backgroundColor: "#7894DB", color: "white" },
-                marginBottom:"15px "
+                marginBottom: "15px ",
               }}
             >
               Save
