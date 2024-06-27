@@ -123,7 +123,6 @@ const RecentPage = () => {
       }
       setAssignments(allAssignments);
       console.log("Assignments Data", allAssignments);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -149,7 +148,6 @@ const RecentPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-    
         await getData();
         await getProfileData();
       } catch (error) {
@@ -159,7 +157,6 @@ const RecentPage = () => {
 
           if (newAccessToken) {
             try {
-           
               await getData();
               await getProfileData();
             } catch (error) {
@@ -174,7 +171,6 @@ const RecentPage = () => {
 
     fetchData();
   }, []);
-
 
   const targetProgress = (2 / 3) * 100;
   useEffect(() => {
@@ -220,26 +216,16 @@ const RecentPage = () => {
 
   return (
     <div className="align1">
-
       <MainRightPane>
-       
         <h3 id="heading">Dashboard</h3>
         <div id="dashboard">
           <div style={{ width: "100%" }}>
             <Link to={"/NewAssignment"} id="add-new-assignment-button">
-           
               <CustomNewButton2 text="New Assignment" />
             </Link>
 
             <div id="recent-assignments">
-              <div
-                id="dashbord-recent-assignment-table"
-                style={
-                  {
-                    
-                  }
-                }
-              >
+              <div id="dashbord-recent-assignment-table" style={{}}>
                 {loading ? (
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <CircularProgress />
@@ -248,6 +234,7 @@ const RecentPage = () => {
                   <h5>No assignments created</h5>
                 ) : (
                   <List
+                    id="recent-list"
                     sx={{
                       width: "100%",
                       bgcolor: "background.paper",
@@ -285,7 +272,6 @@ const RecentPage = () => {
                             primaryTypographyProps={{
                               style: { fontSize: "2vh" },
                             }}
-                    
                             primary={`${assignment.assignment} - ${assignment.moduleCode}`}
                             secondary={
                               <span>
@@ -305,7 +291,6 @@ const RecentPage = () => {
               </div>
             </div>
           </div>
-        
         </div>
       </MainRightPane>
     </div>

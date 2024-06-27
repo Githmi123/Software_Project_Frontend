@@ -2,7 +2,7 @@
   "name": "new_app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5000/",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -34,6 +34,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
     "recharts": "^2.12.2",
+    "selenium": "^2.20.0",
     "styled-components": "^6.1.11",
     "tr46": "^5.0.0",
     "web-vitals": "^2.1.4",
