@@ -21,6 +21,7 @@ const BatchesPage = () => {
   const [loading, setLoading] = useState(false);
 
   const [moduleData, setModuleData] = useState(null);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ const BatchesPage = () => {
   const getData = async () =>{
     setIsLoading(true);
     const response = await axios.get(
-      `http://localhost:3500/batch/${selectedModuleCode}`
+      `${baseUrl}/batch/${selectedModuleCode}`
     );
     setBatches(response.data);
     console.log("batches", response.data);
@@ -85,7 +86,7 @@ const BatchesPage = () => {
   const getModuleData = async () => {
     setLoading(true);
     const moduleResponse = await axios.get(
-      "http://localhost:3500/modules"
+      `${baseUrl}/modules`
     );
 
     const module = moduleResponse.data.find(

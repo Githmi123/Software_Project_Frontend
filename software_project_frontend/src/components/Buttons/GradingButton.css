@@ -17,7 +17,7 @@
   
   @media (max-width: 500px) {
     .new-module-button {
-      font-size: 0 !important;
+      font-size: 7px !important;
       width: 2px !important;
     }
 

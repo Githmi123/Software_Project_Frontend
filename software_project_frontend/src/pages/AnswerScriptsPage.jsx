@@ -50,6 +50,8 @@ const AnswerScriptsPage = () => {
   const [fileDetails, setFileDetails] = useState([]);
   const [valueCount, setValueCount] = useState("");
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -135,7 +137,7 @@ const AnswerScriptsPage = () => {
     // console.log("no of answer scripts:", noAnswerScripts);
 
     const response = await axios.get(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
     );
     console.log("after fetching");
     const answerScriptsData = response.data.rows;
@@ -218,7 +220,7 @@ const AnswerScriptsPage = () => {
     // selectedFiles.forEach((file) => formData.append("scripts", file.file));
     console.log("Form Data: ", formData);
     const response = await axios.post(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
       formData,
       {
         headers: {
@@ -307,10 +309,10 @@ const AnswerScriptsPage = () => {
     // Update state with selected files
     const newFileDetails = convertedFiles
       .map((file) => {
-        const fileNameParts = file.name.split("-");
+        const fileNameParts = file.file.name.split("-");
 
         if (fileNameParts.length < 2) {
-          console.error(`Invalid filename format: ${file.name}`);
+          console.error(`Invalid filename format: ${file.file.name}`);
           return null;
         }
 
@@ -403,7 +405,7 @@ const AnswerScriptsPage = () => {
       { variant: "info" }
     );
     const response = await axios.post(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
       {}
     );
 
@@ -450,7 +452,7 @@ const AnswerScriptsPage = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
         { fileids: selectedAssignmentNos }
       );
 
@@ -532,7 +534,7 @@ const AnswerScriptsPage = () => {
 
     if (selectedAssignmentNos.length > 1) {
       const response = await axios.delete(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid`,
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid`,
         { data: { fileids: selectedAssignmentNos } }
       );
       console.log("These are sent", selectedFiles);
@@ -548,7 +550,7 @@ const AnswerScriptsPage = () => {
       setLoading(false);
     } else {
       const response = await axios.delete(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
       );
       console.log("These are sent", selectedFiles);
       console.log("These are selected", selectedAssignmentNos);

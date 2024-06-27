@@ -19,10 +19,11 @@ export const UserProfileRightPane = () => {
     designation: "",
   });
   const [loading, setLoading] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const getData = async () => {
     setLoading(true);
-    const response = await axios.get("http://localhost:3500/user");
+    const response = await axios.get(`${baseUrl}/user`);
     setProfileData(response.data);
     console.log("profile data : ", response.data);
     setLoading(false);
@@ -69,7 +70,7 @@ export const UserProfileRightPane = () => {
     const body = {
       newmail: profileData.email,
     };
-    const response = await axios.put("http://localhost:3500/user", body);
+    const response = await axios.put(`${baseUrl}/user`, body);
     console.log("Finished sending request");
 
     console.log("new profile data :", profileData);
@@ -106,7 +107,7 @@ export const UserProfileRightPane = () => {
   const save2 = async () => {
     setLoading(true);
     const response = await axios.post(
-      "http://localhost:3500/user",
+      `${baseUrl}/user`,
       profileData
     );
     console.log("Finished sending request");

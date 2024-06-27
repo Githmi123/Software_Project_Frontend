@@ -28,6 +28,7 @@ export default function AccountMenu() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [loading, setLoading] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,7 +43,7 @@ export default function AccountMenu() {
     console.log("Logging out");
 
 
-    await axios.get("http://localhost:3500/logout", { withCredentials: true });
+    await axios.get(`${baseUrl}/logout`, { withCredentials: true });
 
     console.log("Deleting access token");
     delete axios.defaults.headers.common['Authorization'];
@@ -78,7 +79,7 @@ export default function AccountMenu() {
   const getData = async () => {
     setLoading(true);
     const userResponse = await axios.get(
-      "http://localhost:3500/user"
+      `${baseUrl}/user`
     );
     const user = userResponse.data;
 
