@@ -22,14 +22,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 
-import { SnackbarProvider, useSnackbar } from "notistack";
-import PropTypes from "prop-types";
-// import LinearProgress from "@mui/material/LinearProgress";
-import Typography from "@mui/material/Typography";
-import LinearProgress, {
-  LinearProgressProps,
-} from "@mui/material/LinearProgress";
-
+import { SnackbarProvider, useSnackbar } from 'notistack';
 import * as pdfjsLib from "pdfjs-dist/webpack";
 
 import refreshAccessToken from "../services/AuthService";
@@ -38,22 +31,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import axios from "axios";
-
-function LinearProgressWithLabel(props) {
-  const { value, timeLeft, totalTime } = props;
-  return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress variant="determinate" {...props} />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.value
-        )}%`}</Typography>
-      </Box>
-    </Box>
-  );
-}
 
 const AnswerScriptsPage = () => {
   const { selectedModuleCode, batch, assignmentid } = useParams();
@@ -72,7 +49,6 @@ const AnswerScriptsPage = () => {
   const [noAnswerScripts, setNoAnswerScripts] = useState("");
   const [fileDetails, setFileDetails] = useState([]);
   const [valueCount, setValueCount] = useState("");
-  // const [progress, setProgress] = useState(0);
 
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -103,11 +79,15 @@ const AnswerScriptsPage = () => {
   const customLocaleText = {
     ...DataGrid.defaultProps?.localeText, // Use optional chaining to prevent errors
     selectionCount: (count) =>
-      `${count} ${count === 1 ? "answer script" : "answer scripts"} selected`,
+      ${count} ${count === 1 ? "answer script" : "answer scripts"} selected,
   };
 
   // console.log("DataGrid: ", DataGrid);
   // console.log("DataGrid defaultProps: ", DataGrid.defaultProps);
+
+  const handleClick = () => {
+    enqueueSnackbar("I love snacks.");
+  };
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -157,7 +137,7 @@ const AnswerScriptsPage = () => {
     // console.log("no of answer scripts:", noAnswerScripts);
 
     const response = await axios.get(
-      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
+      ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}
     );
     console.log("after fetching");
     const answerScriptsData = response.data.rows;
@@ -168,10 +148,10 @@ const AnswerScriptsPage = () => {
     const newlyAddedCount = response.data.rowCount - noAnswerScripts;
 
     if (newlyAddedCount > 0) {
-      // enqueueSnackbar(
-      //   `${newlyAddedCount} answer scripts uploaded successfully!`,
-      //   { variant: "success" }
-      // );
+      enqueueSnackbar(
+        ${newlyAddedCount} answer scripts uploaded successfully!,
+        { variant: "success" }
+      );
     }
 
     console.log("no of answer scripts after:", response.data.rowCount);
@@ -239,9 +219,8 @@ const AnswerScriptsPage = () => {
     // console.log("Selected:", selectedFiles);
     // selectedFiles.forEach((file) => formData.append("scripts", file.file));
     console.log("Form Data: ", formData);
-
     const response = await axios.post(
-      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+      ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid},
       formData,
       {
         headers: {
@@ -250,24 +229,14 @@ const AnswerScriptsPage = () => {
       }
     );
 
-      console.log("Uploaded Answer Scripts:", response.data);
-      fetchAnswerscripts();
+    console.log("Uploaded Answer Scripts:", response.data);
+    fetchAnswerscripts();
 
-      enqueueSnackbar(
-        `${selectedFiles.length} answer scripts uploaded successfully!`,
-        { variant: "success" }
-      );
-    } catch (error) {
-      console.error("Error uploading answer scripts:", error);
-      enqueueSnackbar(
-        `Failed to upload answer scripts. Please try again later.`,
-        { variant: "error" }
-      );
-    } finally {
-      setLoading(false);
-    }
-
-    // setLoading(false);
+    enqueueSnackbar(
+      ${selectedFiles.length} answer scripts uploaded successfully!,
+      { variant: "success" }
+    );
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -343,7 +312,7 @@ const AnswerScriptsPage = () => {
         const fileNameParts = file.file.name.split("-");
 
         if (fileNameParts.length < 2) {
-          console.error(`Invalid filename format: ${file.file.name}`);
+          console.error(Invalid filename format: ${file.file.name});
           return null;
         }
 
@@ -436,7 +405,7 @@ const AnswerScriptsPage = () => {
       { variant: "info" }
     );
     const response = await axios.post(
-      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+      ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade,
       {}
     );
 
@@ -480,16 +449,14 @@ const AnswerScriptsPage = () => {
       { variant: "info" }
     );
     console.log("Assignment Nos:", selectedStudentIds);
-    console.log("no of graded files:", selectedStudentIds.length);
 
     try {
       const response = await axios.post(
-        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
+        ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted,
         { fileids: selectedAssignmentNos }
       );
 
       console.log("Graded selected answer scripts", response.data);
-      console.log("no of graded files:", selectedStudentIds.length);
 
       setLoading(false);
       enqueueSnackbar("Grading completed successfully!", {
@@ -509,7 +476,7 @@ const AnswerScriptsPage = () => {
     }
 
     // const response = await axios.post(
-    //   `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
+    //   http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted,
     //   { fileids: selectedAssignmentNos }
     // );
 
@@ -567,7 +534,7 @@ const AnswerScriptsPage = () => {
 
     if (selectedAssignmentNos.length > 1) {
       const response = await axios.delete(
-        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid`,
+        ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid,
         { data: { fileids: selectedAssignmentNos } }
       );
       console.log("These are sent", selectedFiles);
@@ -576,21 +543,14 @@ const AnswerScriptsPage = () => {
       console.log("Deleted selected answer scripts", response.data);
 
       window.location.reload();
-
-      enqueueSnackbar(
-        `${selectedAssignmentNos.length} answer scripts deleted successfully`,
-        {
-          variant: "success",
-        }
-      );
-      // enqueueSnackbar("Answer Script deleted successfully", {
-      //   variant: "success",
-      // });
+      enqueueSnackbar("Answer Script deleted successfully", {
+        variant: "success",
+      });
 
       setLoading(false);
     } else {
       const response = await axios.delete(
-        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
+        ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}
       );
       console.log("These are sent", selectedFiles);
       console.log("These are selected", selectedAssignmentNos);
@@ -645,7 +605,7 @@ const AnswerScriptsPage = () => {
     console.log("Row clicked for student ID:", studentid);
 
     navigate(
-      `/ManualGradingPage/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
+      /ManualGradingPage/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}
     );
   };
 
@@ -679,7 +639,7 @@ const AnswerScriptsPage = () => {
             icon={CheckCircle}
           />
           <Link
-            to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
+            to={/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <GradingButton text="Visualize" icon={TrendingUp} />
@@ -740,6 +700,7 @@ const AnswerScriptsPage = () => {
             position: "relative",
           }}
         ></div>
+
         <Snackbar
           open={gradingSnackbarOpen}
           autoHideDuration={6000}
