@@ -17,6 +17,7 @@ const ButtonSet = () => {
   const [selectedButton, setSelectedButton] = useState("");
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const handleSelectedButton = (name) => {
       setSelectedButton(name);
@@ -33,7 +34,7 @@ const getData = async () => {
  
 
   const response = await axios.get(
-    "http://localhost:3500/modules"
+    `${baseUrl}/modules`
   );
   console.log(response.data);
 

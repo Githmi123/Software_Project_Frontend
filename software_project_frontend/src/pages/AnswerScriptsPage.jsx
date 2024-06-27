@@ -21,6 +21,7 @@ import GradingButton from "../components/Buttons/GradingButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
+
 import { SnackbarProvider, useSnackbar } from "notistack";
 import PropTypes from "prop-types";
 // import LinearProgress from "@mui/material/LinearProgress";
@@ -28,6 +29,8 @@ import Typography from "@mui/material/Typography";
 import LinearProgress, {
   LinearProgressProps,
 } from "@mui/material/LinearProgress";
+
+import * as pdfjsLib from "pdfjs-dist/webpack";
 
 import refreshAccessToken from "../services/AuthService";
 
@@ -65,10 +68,14 @@ const AnswerScriptsPage = () => {
     useState(false);
   const [noSelectionSnackbarOpen, setNoSelectionSnackbarOpen] = useState(false);
   const [selectedStudentIds, setSelectedStudentIds] = useState([]);
+
   const [noAnswerScripts, setNoAnswerScripts] = useState("");
   const [fileDetails, setFileDetails] = useState([]);
   const [valueCount, setValueCount] = useState("");
   // const [progress, setProgress] = useState(0);
+
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
 
   const columns = [
     { field: "studentid", headerName: "Student ID", width: 90 },
@@ -150,7 +157,7 @@ const AnswerScriptsPage = () => {
     // console.log("no of answer scripts:", noAnswerScripts);
 
     const response = await axios.get(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
     );
     console.log("after fetching");
     const answerScriptsData = response.data.rows;
@@ -210,18 +217,38 @@ const AnswerScriptsPage = () => {
   const upload = async () => {
     setLoading(true);
     const formData = new FormData();
-    selectedFiles.forEach((file) => formData.append("scripts", file));
-    console.log("Form Data: ", formData);
-    try {
-      const response = await axios.post(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+    for (const file of selectedFiles) {
+      if (file.url) {
+        // If file has a URL, it's a PDF converted to an image
+        try {
+          // Fetch the image from the URL
+          const imageResponse = await fetch(file.url);
+          const imageBlob = await imageResponse.blob();
+  
+          // Append the image blob to FormData under the key "scripts"
+          formData.append("scripts", imageBlob, file.file.name);
+        } catch (error) {
+          console.error("Error fetching image:", error);
+          // Handle error fetching image (e.g., notify user)
         }
-      );
+      } else {
+        // Otherwise, append the original file to FormData under the key "scripts"
+        formData.append("scripts", file.file);
+      }
+    }
+    // console.log("Selected:", selectedFiles);
+    // selectedFiles.forEach((file) => formData.append("scripts", file.file));
+    console.log("Form Data: ", formData);
+
+    const response = await axios.post(
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
       console.log("Uploaded Answer Scripts:", response.data);
       fetchAnswerscripts();
@@ -286,14 +313,37 @@ const AnswerScriptsPage = () => {
   //   setSelectedFiles(files);
   // };
 
-  const handleNewAnswerScript = (event) => {
+  const handleNewAnswerScript = async (event) => {
     const files = Array.from(event.target.files);
-    const newFileDetails = files
+
+    console.log("Files:", files)
+    const convertedFiles = await Promise.all(
+      files.map(async (file) => {
+        if (file.type === "application/pdf") {
+          const images = await convertPdfToImages(file);
+          return images.map((image) => ({
+            file: image.file,
+            url: image.url,
+          }));
+        } else {
+          return { file }; // Wrap non-PDF files in the same structure
+        }
+      })
+    ).then((results) => {
+      // Flatten the array of arrays into a single array of files
+      return results.flat();
+    });
+  
+    // Log converted files for debugging
+    console.log("Converted Files:", convertedFiles);
+  
+    // Update state with selected files
+    const newFileDetails = convertedFiles
       .map((file) => {
-        const fileNameParts = file.name.split("-");
+        const fileNameParts = file.file.name.split("-");
 
         if (fileNameParts.length < 2) {
-          console.error(`Invalid filename format: ${file.name}`);
+          console.error(`Invalid filename format: ${file.file.name}`);
           return null;
         }
 
@@ -316,9 +366,36 @@ const AnswerScriptsPage = () => {
         };
       })
       .filter(Boolean); // Filter out null values from map
-
-    setSelectedFiles(files);
+    setSelectedFiles(convertedFiles);
     setFileDetails(newFileDetails);
+  };
+
+  const convertPdfToImages = async (file) => {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const numPages = pdf.numPages;
+    const images = [];
+
+    for (let i = 1; i <= numPages; i++) {
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({ scale: 1 });
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+      };
+
+      await page.render(renderContext).promise;
+      const imageUrl = canvas.toDataURL("image/jpeg");
+      images.push({ file, url: imageUrl }); // Store file and its image URL
+    }
+
+    return images;
+
   };
 
   const handleSelectionModelChange = (newSelectionModel) => {
@@ -359,7 +436,7 @@ const AnswerScriptsPage = () => {
       { variant: "info" }
     );
     const response = await axios.post(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
       {}
     );
 
@@ -407,7 +484,7 @@ const AnswerScriptsPage = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
         { fileids: selectedAssignmentNos }
       );
 
@@ -490,7 +567,7 @@ const AnswerScriptsPage = () => {
 
     if (selectedAssignmentNos.length > 1) {
       const response = await axios.delete(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid`,
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid`,
         { data: { fileids: selectedAssignmentNos } }
       );
       console.log("These are sent", selectedFiles);
@@ -513,7 +590,7 @@ const AnswerScriptsPage = () => {
       setLoading(false);
     } else {
       const response = await axios.delete(
-        `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
       );
       console.log("These are sent", selectedFiles);
       console.log("These are selected", selectedAssignmentNos);

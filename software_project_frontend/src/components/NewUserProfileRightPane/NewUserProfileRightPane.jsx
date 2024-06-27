@@ -14,13 +14,14 @@ import MainRightPane from "../MainRightPane/MainRightPane";
 
 export const NewUserProfileRightPane = () => {
   const [profileData, setProfileData] = useState("");
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     async function getProfileData() {
       try {
       
 
-        const response = await axios.get("http://localhost:3500/user");
+        const response = await axios.get(`${baseUrl}/user`);
         setProfileData(response.data);
         console.log("profile data : ", response.data);
       } catch (error) {
@@ -45,7 +46,7 @@ export const NewUserProfileRightPane = () => {
   const handleSave = async (e) => {
     try {
       await refreshAccessToken();
-      await axios.post("http://localhost:3500/user", profileData);
+      await axios.post(`${baseUrl}/user`, profileData);
       navigate("/Dashboard");
       console.log("new profile data :", profileData);
     } catch (error) {

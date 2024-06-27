@@ -13,6 +13,8 @@ export const ChangePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const navigate = useNavigate();
 
   const handleChangeCurrentPassword = (e) => {
@@ -31,7 +33,7 @@ export const ChangePassword = () => {
     setLoading(true);
     if (password === confirmPassword) {
       console.log("Trying to save password");
-      const response = await axios.put("http://localhost:3500/user/password", {
+      const response = await axios.put(`${baseUrl}/user/password`, {
         oldPassword: currentPassword,
         newPassword: password,
       });

@@ -32,7 +32,8 @@ import { useSnackbar } from 'notistack';
 export const RightPaneSignUp = () => {
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = "http://localhost:3500";
+  // axios.defaults.baseURL = "http://localhost:3500";
+  
 
     const StyledTextField = styled(TextField)({
         '& .MuiInput-underline:before': {
@@ -52,6 +53,7 @@ export const RightPaneSignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+    const baseUrl = process.env.REACT_APP_BASE_URL;
 
     const {enqueueSnackbar} = useSnackbar();
 
@@ -92,7 +94,7 @@ export const RightPaneSignUp = () => {
                 passWord: values.password[0],
               };
               await axios
-                .post("http://localhost:3500/auth", payload)
+                .post(`${baseUrl}/auth`, payload)
         
                 .then((res) => {
                   console.log(res.data);
@@ -122,7 +124,7 @@ export const RightPaneSignUp = () => {
         ) {
             try {
                 setLoading(true);
-                const response = await axios.post("http://localhost:3500/register", values, {
+                const response = await axios.post(`${baseUrl}/register`, values, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -134,12 +136,17 @@ export const RightPaneSignUp = () => {
                     passWord: values.password,
                   };
                   await axios
-                    .post("http://localhost:3500/auth", payload)
+                    .post(`${baseUrl}/auth`, payload)
             
                     .then((res) => {
-                      console.log(res.data);
+                      console.log("Response:",res.data);
                       const { accessToken } = res.data;
-                      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                      // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                      axios.post(`${baseUrl}/auth`, payload, {
+                        headers: {
+                          'Authorization': `Bearer ${accessToken}`
+                        }
+                      });
           
                       console.log(accessToken);
                       enqueueSnackbar('New account created', { variant: 'success' });
