@@ -79,7 +79,7 @@ const AnswerScriptsPage = () => {
   const customLocaleText = {
     ...DataGrid.defaultProps?.localeText, // Use optional chaining to prevent errors
     selectionCount: (count) =>
-      ${count} ${count === 1 ? "answer script" : "answer scripts"} selected,
+      `${count} ${count === 1 ? "answer script" : "answer scripts"} selected`,
   };
 
   // console.log("DataGrid: ", DataGrid);
@@ -137,7 +137,7 @@ const AnswerScriptsPage = () => {
     // console.log("no of answer scripts:", noAnswerScripts);
 
     const response = await axios.get(
-      ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
     );
     console.log("after fetching");
     const answerScriptsData = response.data.rows;
@@ -149,7 +149,7 @@ const AnswerScriptsPage = () => {
 
     if (newlyAddedCount > 0) {
       enqueueSnackbar(
-        ${newlyAddedCount} answer scripts uploaded successfully!,
+        `${newlyAddedCount} answer scripts uploaded successfully!`,
         { variant: "success" }
       );
     }
@@ -220,7 +220,7 @@ const AnswerScriptsPage = () => {
     // selectedFiles.forEach((file) => formData.append("scripts", file.file));
     console.log("Form Data: ", formData);
     const response = await axios.post(
-      ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid},
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`,
       formData,
       {
         headers: {
@@ -233,7 +233,7 @@ const AnswerScriptsPage = () => {
     fetchAnswerscripts();
 
     enqueueSnackbar(
-      ${selectedFiles.length} answer scripts uploaded successfully!,
+      `${selectedFiles.length} answer scripts uploaded successfully!`,
       { variant: "success" }
     );
     setLoading(false);
@@ -312,7 +312,7 @@ const AnswerScriptsPage = () => {
         const fileNameParts = file.file.name.split("-");
 
         if (fileNameParts.length < 2) {
-          console.error(Invalid filename format: ${file.file.name});
+          console.error(`Invalid filename format: ${file.file.name}`);
           return null;
         }
 
@@ -405,7 +405,7 @@ const AnswerScriptsPage = () => {
       { variant: "info" }
     );
     const response = await axios.post(
-      ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade,
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/grade`,
       {}
     );
 
@@ -452,7 +452,7 @@ const AnswerScriptsPage = () => {
 
     try {
       const response = await axios.post(
-        ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted,
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
         { fileids: selectedAssignmentNos }
       );
 
@@ -476,7 +476,7 @@ const AnswerScriptsPage = () => {
     }
 
     // const response = await axios.post(
-    //   http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted,
+    //   `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/gradeseleted`,
     //   { fileids: selectedAssignmentNos }
     // );
 
@@ -534,7 +534,7 @@ const AnswerScriptsPage = () => {
 
     if (selectedAssignmentNos.length > 1) {
       const response = await axios.delete(
-        ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid,
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid`,
         { data: { fileids: selectedAssignmentNos } }
       );
       console.log("These are sent", selectedFiles);
@@ -550,7 +550,7 @@ const AnswerScriptsPage = () => {
       setLoading(false);
     } else {
       const response = await axios.delete(
-        ${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}
+        `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/fileid/${selectedAssignmentNos}`
       );
       console.log("These are sent", selectedFiles);
       console.log("These are selected", selectedAssignmentNos);
@@ -605,7 +605,7 @@ const AnswerScriptsPage = () => {
     console.log("Row clicked for student ID:", studentid);
 
     navigate(
-      /ManualGradingPage/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}
+      `/ManualGradingPage/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}/studentid/${studentid}`
     );
   };
 
@@ -639,7 +639,7 @@ const AnswerScriptsPage = () => {
             icon={CheckCircle}
           />
           <Link
-            to={/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}}
+            to={`/DataVisualization/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <GradingButton text="Visualize" icon={TrendingUp} />
