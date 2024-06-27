@@ -50,6 +50,8 @@ export default function ProfilePage() {
   const [tempLastName, setTempLastName] = useState("");
   const [tempDesignation, setTempDesignation] = useState("");
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const {enqueueSnackbar} = useSnackbar();
   const navigate = useNavigate();
 
@@ -89,7 +91,7 @@ export default function ProfilePage() {
       lastName: lastName,
       designation: designation
     }
-    const response = await axios.post("http://localhost:3500/user", data);
+    const response = await axios.post(`${baseUrl}/user`, data);
     setTempFirstName(firstName);
     setTempLastName(lastName);
     setTempDesignation(designation);
@@ -105,7 +107,7 @@ export default function ProfilePage() {
   const handleSaveEmail = async () => {
     try{
       setLoading(true);
-    const response = await axios.put("http://localhost:3500/user", {newmail: email});
+    const response = await axios.put(`${baseUrl}/user`, {newmail: email});
 
     console.log("saved : ", response.data);
     setLoading(false);
@@ -162,7 +164,7 @@ export default function ProfilePage() {
 
   const getData = async () => {
     setLoading(true);
-    const response = await axios.get("http://localhost:3500/user");
+    const response = await axios.get(`${baseUrl}/user`);
     setProfileData(response.data);
     console.log("profile data : ", response.data);
     setEmail(response.data.email);
@@ -203,7 +205,7 @@ export default function ProfilePage() {
     console.log("Fetching data");
     console.log("after refresh");
     const userResponse = await axios.get(
-      "http://localhost:3500/user"
+      `${baseUrl}/user`
     );
     const user = userResponse.data;
 
@@ -257,7 +259,7 @@ export default function ProfilePage() {
     
         try {
           setLoading(true);
-          const response = await axios.post("http://localhost:3500/user/profile", formData, {
+          const response = await axios.post(`${baseUrl}/user/profile`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }

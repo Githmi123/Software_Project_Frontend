@@ -15,6 +15,8 @@ function UserProfileBar() {
   const [loading, setLoading] = useState(false);
   const space = "    ";
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const navigate = useNavigate();
 
   const handleProfile = () => {
@@ -25,7 +27,7 @@ function UserProfileBar() {
     setLoading(true);
     console.log("Loggings out");
 
-    await axios.get("http://localhost:3500/logout", { withCredentials: true });
+    await axios.get(`${baseUrl}/logout`, { withCredentials: true });
 
     console.log("Deleting access token");
     delete axios.defaults.headers.common['Authorization'];
@@ -65,7 +67,7 @@ function UserProfileBar() {
     console.log("Fetching data");
        
         console.log("after refresh");
-        const userResponse = await axios.get("http://localhost:3500/user");
+        const userResponse = await axios.get(`${baseUrl}/user`);
         const user = userResponse.data;
 
         setFirstName(user.firstname);

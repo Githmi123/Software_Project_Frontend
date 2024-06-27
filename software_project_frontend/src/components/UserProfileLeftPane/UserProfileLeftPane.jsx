@@ -17,12 +17,14 @@ export const UserProfileLeftPane = () => {
   const [profile, setProfile] = useState("");
   const [profileImage, setProfileImage] = useState(profileimage);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   useEffect(() => {
     async function getUserProfileData() {
       try {
         await refreshAccessToken();
 
-        const response = await axios.get("http://localhost:3500/user", {
+        const response = await axios.get(`${baseUrl}/user`, {
           headers: {
             Authorization: `Bearer ${Cookies.get("accessToken")}`,
           },
@@ -49,7 +51,7 @@ export const UserProfileLeftPane = () => {
     try {
       await refreshAccessToken();
 
-      await axios.post("http://localhost:3500/user/profile", formData, {
+      await axios.post(`${baseUrl}/user/profile`, formData, {
         headers: {
           Authorization: `Bearer ${Cookies.get("accessToken")}`,
         },

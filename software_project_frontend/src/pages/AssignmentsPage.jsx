@@ -26,10 +26,12 @@ const AssignmentsPage = () => {
   const [tableDataAssignments, setTableDataAssignments] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const fetch = async () => {
     setLoading(true);
     const response = await axios.get(
-      `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`
+      `${baseUrl}/assignment/${selectedModuleCode}/${batch}`
     );
     if (response.data && Array.isArray(response.data.rows)) {
      

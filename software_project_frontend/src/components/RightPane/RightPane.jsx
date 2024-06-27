@@ -23,6 +23,8 @@ export const RightPane = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const {enqueueSnackbar} = useSnackbar();
 
   const handleClickShowPassword = () => {
@@ -47,7 +49,7 @@ export const RightPane = () => {
 
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = "http://localhost:3500";
+  // axios.defaults.baseURL = "http://localhost:3500";
 
 
   const submit = async () => {
@@ -58,7 +60,7 @@ export const RightPane = () => {
               passWord: values.password[0],
             };
             await axios
-              .post("http://localhost:3500/auth", payload)
+              .post(`${baseUrl}/auth`, payload)
       
               .then((res) => {
                 console.log(res.data);
