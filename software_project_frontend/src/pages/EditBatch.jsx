@@ -13,6 +13,7 @@ import "../styles/NewAssignmentPage.css";
 import "../styles/NewBatchPage.css";
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const EditBatch = () => {
   const { selectedModuleCode, batch } = useParams();
@@ -21,7 +22,7 @@ const EditBatch = () => {
 
   const navigate = useNavigate();
 
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleBatchNumberChange = (e) => {
     const value = e.target.value;
@@ -29,75 +30,63 @@ const EditBatch = () => {
     setBatch(value);
   };
 
-
-
   const sendData = async () => {
     console.log("batch no value saves", batch_);
 
-      await axios.put(
-        `http://localhost:3500/batch/${selectedModuleCode}`,
-        { newBatch: batch_ }
-      );
+    await axios.put(`${baseUrl}/batch/${selectedModuleCode}`, {
+      newBatch: batch_,
+    });
 
-      console.log("Batch is created!", batch_);
-      enqueueSnackbar('Batch editted successfully!', { variant: 'success' });
+    console.log("Batch is created!", batch_);
+    enqueueSnackbar("Batch editted successfully!", { variant: "success" });
 
-      navigate(`/Batches/${selectedModuleCode}`);
-  }
+    navigate(`/Batches/${selectedModuleCode}`);
+  };
 
   const handleEditBatch = async (e) => {
     e.preventDefault();
     try {
-      if(batch_ === batch){
-    
-      }
-      else{
+      if (batch_ === batch) {
+      } else {
         await sendData();
       }
-
-
-     
-
-      
     } catch (error) {
-      if(batch_ === batch){
-   
-      }
-      else if (error.response && error.response.status === 401) {
+      if (batch_ === batch) {
+      } else if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
         if (newAccessToken) {
           try {
-        
             await sendData();
           } catch (error) {
             if (error.response && error.response.status === 409) {
-       
-              enqueueSnackbar('Batch already exists.', { variant: 'error' });
+              enqueueSnackbar("Batch already exists.", { variant: "error" });
             } else {
-  
               console.error("Error fetching data:", error);
-              enqueueSnackbar('An error occurred while editting the batch.', { variant: 'error' });
+              enqueueSnackbar("An error occurred while editting the batch.", {
+                variant: "error",
+              });
             }
           }
         }
-      } if (error.response && error.response.status === 409) {
-        
-        enqueueSnackbar('Batch already exists.', { variant: 'error' });
+      }
+      if (error.response && error.response.status === 409) {
+        enqueueSnackbar("Batch already exists.", { variant: "error" });
       } else {
-    
         console.error("Error fetching data:", error);
-        enqueueSnackbar('An error occurred while editting the batch.', { variant: 'error' });
+        enqueueSnackbar("An error occurred while editting the batch.", {
+          variant: "error",
+        });
       }
     }
   };
 
   return (
     <div className="align1">
-  
       <MainRightPane>
-        <Button id = "back-button"
+        <Button
+          id="back-button"
           startIcon={<ArrowBackIcon />}
           onClick={() => navigate(-1)}
         >
@@ -109,32 +98,30 @@ const EditBatch = () => {
           <span id="label1-new-batch-page">Batch Number</span>
           <TextField
             id="filled-hidden-label-small"
-            placeholder ={batch}
+            placeholder={batch}
             variant="filled"
             onChange={handleBatchNumberChange}
-  
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "1rem", 
-                padding: "8px 12px", 
+                fontSize: "1rem",
+                padding: "8px 12px",
               },
             }}
           />
         </div>
         <div
-            style={{
-              marginTop: "20px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-        <Button id="add-button" 
-            onClick={handleEditBatch} variant="contained">
-          Edit
-        </Button>
+          style={{
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Button id="add-button" onClick={handleEditBatch} variant="contained">
+            Edit
+          </Button>
         </div>
       </MainRightPane>
     </div>

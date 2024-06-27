@@ -13,17 +13,15 @@ import { useParams } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
 import InputFileUploadButton from "../components/Buttons/InputFileUploadButton";
 import { useSnackbar } from "notistack";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const EditAssignment = () => {
   const { selectedModuleCode, batch, selectedAssignmentId } = useParams();
-  const [moduleData, setModuleData] = useState(
-    null
-
-  );
+  const [moduleData, setModuleData] = useState(null);
   const [selectedFile, setSelectedFile] = useState("");
   const [schemepath, setSchemePath] = useState("");
 
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchAssignmentDetails = async () => {
@@ -33,7 +31,7 @@ const EditAssignment = () => {
         console.log("selected module code :", selectedModuleCode);
         console.log(batch, selectedAssignmentId);
         const response = await axios.get(
-          `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
+          `${baseUrl}/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
         );
         setModuleData(response.data[0]);
         console.log(moduleData);
@@ -46,7 +44,7 @@ const EditAssignment = () => {
     };
 
     fetchAssignmentDetails();
-  }, [selectedModuleCode, batch, selectedAssignmentId ]);
+  }, [selectedModuleCode, batch, selectedAssignmentId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,76 +59,65 @@ const EditAssignment = () => {
   const submit = async () => {
     console.log(moduleData);
 
-      await axios.put(
-        `http://localhost:3500/assignment/${moduleData.modulecode}/${moduleData.batch}/${moduleData.assignmentid}`,
-        
-          moduleData
-        
-      );
+    await axios.put(
+      `${baseUrl}0/assignment/${moduleData.modulecode}/${moduleData.batch}/${moduleData.assignmentid}`,
 
-      console.log("assignment title updated");
+      moduleData
+    );
 
-      if(selectedFile != ""){
-        const formData = new FormData();
+    console.log("assignment title updated");
+
+    if (selectedFile != "") {
+      const formData = new FormData();
       formData.append("scheme", selectedFile);
 
       await axios.put(
-        `http://localhost:3500/assignment/${moduleData.modulecode}/${moduleData.batch}/scheme/${moduleData.assignmentid}`,
+        `${baseUrl}/assignment/${moduleData.modulecode}/${moduleData.batch}/scheme/${moduleData.assignmentid}`,
         formData,
         {
           headers: {
-            
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      }
-      
+    }
 
-      enqueueSnackbar(`Edited assignment successfully`, { variant: 'success' });
-      navigate("/Dashboard");
-  }
+    enqueueSnackbar(`Edited assignment successfully`, { variant: "success" });
+    navigate("/Dashboard");
+  };
 
   const handleSubmit = async (e) => {
     console.log("submitting values");
     e.preventDefault();
     try {
       await submit();
-      
     } catch (error) {
-      
       if (error.response && error.response.status === 401) {
         const newAccessToken = await refreshAccessToken();
         console.log("New access token: ", newAccessToken);
 
         if (newAccessToken) {
           try {
-         
             await submit();
           } catch (error) {
             if (error.response && error.response.status === 400) {
-              enqueueSnackbar('No changes made', { variant: 'info' });
-            } 
-            else {
-              enqueueSnackbar(`Error editing assignment`, { variant: 'error' });
+              enqueueSnackbar("No changes made", { variant: "info" });
+            } else {
+              enqueueSnackbar(`Error editing assignment`, { variant: "error" });
             }
-            
           }
         }
-      } 
-      else if (error.response && error.response.status === 400) {
-        enqueueSnackbar('No changes made', { variant: 'info' });
-      } 
-      else {
-        enqueueSnackbar(`Error editing assignment`, { variant: 'error' });
+      } else if (error.response && error.response.status === 400) {
+        enqueueSnackbar("No changes made", { variant: "info" });
+      } else {
+        enqueueSnackbar(`Error editing assignment`, { variant: "error" });
       }
     }
   };
 
   const handleSelectedFileChange = (file) => {
-    setSelectedFile(file); 
-    setSchemePath(file.name); 
-
+    setSelectedFile(file);
+    setSchemePath(file.name);
   };
 
   const handleSchemePathChange = (event) => {
@@ -139,142 +126,126 @@ const EditAssignment = () => {
 
   return (
     <div className="align1">
-    
       <MainRightPane>
         <Button
-          id = "back-button"
+          id="back-button"
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
           Back
         </Button>
         <h1 id="heading">Edit Assignment: {selectedAssignmentId}</h1>
-        <div className="alignment" style={{margin:"5vh", marginTop:"1vh"}}>
-          <h2 className="heading-style-input1"
-           
-          >
-            Assignment Name
-          </h2>
+        <div className="alignment" style={{ margin: "5vh", marginTop: "1vh" }}>
+          <h2 className="heading-style-input1">Assignment Name</h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-  
-          placeholder="Assignment Name"
-          name="assignmenttitle"
-          value={moduleData ? moduleData.assignmenttitle : ""}
-          onChange={handleChange}
-            style={{width: "max-width"}}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            placeholder="Assignment Name"
+            name="assignmenttitle"
+            value={moduleData ? moduleData.assignmenttitle : ""}
+            onChange={handleChange}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
                 fontSize: "0.7rem",
-                padding: "8px 12px", 
+                padding: "8px 12px",
               },
             }}
           >
             Assignment Name
           </TextField>
 
-          <h2
-            className="heading-style-input"
-          >
-            Module Code
-          </h2>
+          <h2 className="heading-style-input">Module Code</h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-  
-          placeholder="Module Code"
-          name="selectedModuleCode"
-          value={moduleData && moduleData.modulecode ? moduleData.modulecode : ""}
-          onChange={handleChange}
-            style={{width:"max-width"}}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            placeholder="Module Code"
+            name="selectedModuleCode"
+            value={
+              moduleData && moduleData.modulecode ? moduleData.modulecode : ""
+            }
+            onChange={handleChange}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.7rem", 
-                padding: "8px 12px", 
+                fontSize: "0.7rem",
+                padding: "8px 12px",
               },
             }}
           >
             Module Code
           </TextField>
 
-          <h2
-            className="heading-style-input"
-          >
-            Batch
-          </h2>
+          <h2 className="heading-style-input">Batch</h2>
           <TextField
-          hiddenLabel
-          id="filled-hidden-label-small"
-          variant="filled"
-       
-          placeholder="Credits"
-          name="batch"
-          value={moduleData && moduleData.batch ? moduleData.batch : ""}
-          onChange={handleChange}
-            style={{width: "max-width"}}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            placeholder="Credits"
+            name="batch"
+            value={moduleData && moduleData.batch ? moduleData.batch : ""}
+            onChange={handleChange}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginTop: 0,
               marginRight: 5,
               "& input": {
-                fontSize: "0.7rem", 
-                padding: "8px 12px", 
+                fontSize: "0.7rem",
+                padding: "8px 12px",
               },
             }}
           >
             Batch
           </TextField>
 
-          <h2
-            className="heading-style-input"
-          >
-            Change Marking Scheme
-          </h2>
+          <h2 className="heading-style-input">Change Marking Scheme</h2>
           <TextField
-              hiddenLabel
-              id="filled-hidden-label-small"
-              variant="filled"
-              value={moduleData && moduleData.schemepath ? schemepath : ""}
-              onChange={handleSchemePathChange}
-              style={{width: "max-width"}}
+            hiddenLabel
+            id="filled-hidden-label-small"
+            variant="filled"
+            value={moduleData && moduleData.schemepath ? schemepath : ""}
+            onChange={handleSchemePathChange}
+            style={{ width: "max-width" }}
             sx={{
               marginLeft: 5,
               marginBottom: 2,
               marginRight: 5,
               "& input": {
-                fontSize: "0.7rem", 
-                padding: "8px 12px", 
+                fontSize: "0.7rem",
+                padding: "8px 12px",
               },
             }}
+          />
+          <div
+            style={{ width: "auto", display: "flex", justifyContent: "right" }}
+          >
+            <InputFileUploadButton
+              onFileSelect={handleSelectedFileChange}
+              text="Change Marking Scheme"
             />
-            <div style={{width:"auto", display:"flex", justifyContent:"right"}}><InputFileUploadButton onFileSelect={handleSelectedFileChange} text = "Change Marking Scheme" />
-</div>
-            
+          </div>
         </div>
-      
 
         <div
           style={{
-     
-            marginBottom:"1vh",
+            marginBottom: "1vh",
             display: "flex",
             justifyContent: "center",
           }}
         >
-          
           <Link to="/Dashboard" style={{ textDecoration: "none" }}>
             <Button
               sx={{
-                paddingRight:"20px",
+                paddingRight: "20px",
                 paddingLeft: "20px",
                 marginLeft: "15px",
                 color: "#7894DB",
@@ -290,7 +261,7 @@ const EditAssignment = () => {
           <Button
             onClick={handleSubmit}
             sx={{
-              paddingRight:"20px",
+              paddingRight: "20px",
               paddingLeft: "20px",
               marginLeft: "15px",
               color: "#7894DB",

@@ -18,6 +18,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import FolderList from "../components/FolderList";
 import "../styles/DataVisualizationPage.css";
 import * as XLSX from "xlsx";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const DataVisualizationPage = () => {
   const { selectedModuleCode, batch, assignmentid } = useParams();
@@ -104,7 +105,7 @@ const DataVisualizationPage = () => {
   const fetch = async () => {
     setLoading(true);
     const response = await axios.get(
-      `http://localhost:3500/assignment/${selectedModuleCode}/${batch}`
+      `${baseUrl}/assignment/${selectedModuleCode}/${batch}`
     );
     if (response.data && typeof response.data.rows === "object") {
       const assignmentData = response.data.rows;
@@ -155,7 +156,7 @@ const DataVisualizationPage = () => {
   const getData = async () => {
     setLoading(true);
     const response = await axios.get(
-      `http://localhost:3500/report/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
+      `${baseUrl}/report/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
     );
 
     console.log("Response : ", response.data);
@@ -207,7 +208,7 @@ const DataVisualizationPage = () => {
   const getAnswerScripts = async () => {
     setLoading(true);
     const answerScriptData = await axios.get(
-      `http://localhost:3500/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
+      `${baseUrl}/answerscript/batch/${batch}/modulecode/${selectedModuleCode}/assignmentid/${assignmentid}`
     );
 
     setReportData(answerScriptData.data.rows);

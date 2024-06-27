@@ -35,6 +35,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import image from "../images/image.png";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const headers = ["Assignment", "Batch", "Date Created"];
 
@@ -64,7 +65,7 @@ const RecentPage = () => {
     console.log("No need to refresh");
 
     try {
-      const modulesResponse = await axios.get("http://localhost:3500/modules");
+      const modulesResponse = await axios.get(`${baseUrl}/modules`);
       const modules = modulesResponse.data;
       const formattedModules = modules.map((module) => ({
         moduleCode: module.modulecode,
@@ -78,7 +79,7 @@ const RecentPage = () => {
       const allBatches = [];
       for (const module of modules) {
         const batchResponse = await axios.get(
-          `http://localhost:3500/batch/${module.modulecode}`
+          `${baseUrl}/batch/${module.modulecode}`
         );
         const batches = batchResponse.data.map((batch) => ({
           moduleCode: module.modulecode,
@@ -94,7 +95,7 @@ const RecentPage = () => {
       const allAssignments = [];
       for (const batch of allBatches) {
         const assignmentResponse = await axios.get(
-          `http://localhost:3500/assignment/${batch.moduleCode}/${batch.batch}`
+          `${baseUrl}/assignment/${batch.moduleCode}/${batch.batch}`
         );
         const assignmentsData = assignmentResponse.data;
 
@@ -123,7 +124,6 @@ const RecentPage = () => {
       }
       setAssignments(allAssignments);
       console.log("Assignments Data", allAssignments);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -133,7 +133,7 @@ const RecentPage = () => {
 
   const getProfileData = async () => {
     setLoading(true);
-    const userResponse = await axios.get("http://localhost:3500/user");
+    const userResponse = await axios.get(`${baseUrl}/user`);
     const user = userResponse.data;
 
     setFirstName(user.firstName);
@@ -149,7 +149,6 @@ const RecentPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-    
         await getData();
         await getProfileData();
       } catch (error) {
@@ -159,7 +158,6 @@ const RecentPage = () => {
 
           if (newAccessToken) {
             try {
-           
               await getData();
               await getProfileData();
             } catch (error) {
@@ -174,7 +172,6 @@ const RecentPage = () => {
 
     fetchData();
   }, []);
-
 
   const targetProgress = (2 / 3) * 100;
   useEffect(() => {
@@ -220,26 +217,16 @@ const RecentPage = () => {
 
   return (
     <div className="align1">
-
       <MainRightPane>
-       
         <h3 id="heading">Dashboard</h3>
         <div id="dashboard">
           <div style={{ width: "100%" }}>
             <Link to={"/NewAssignment"} id="add-new-assignment-button">
-           
               <CustomNewButton2 text="New Assignment" />
             </Link>
 
             <div id="recent-assignments">
-              <div
-                id="dashbord-recent-assignment-table"
-                style={
-                  {
-                    
-                  }
-                }
-              >
+              <div id="dashbord-recent-assignment-table" style={{}}>
                 {loading ? (
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <CircularProgress />
@@ -285,7 +272,6 @@ const RecentPage = () => {
                             primaryTypographyProps={{
                               style: { fontSize: "2vh" },
                             }}
-                    
                             primary={`${assignment.assignment} - ${assignment.moduleCode}`}
                             secondary={
                               <span>
@@ -305,7 +291,6 @@ const RecentPage = () => {
               </div>
             </div>
           </div>
-        
         </div>
       </MainRightPane>
     </div>

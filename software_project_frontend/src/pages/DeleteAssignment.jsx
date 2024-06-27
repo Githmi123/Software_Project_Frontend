@@ -20,6 +20,7 @@ import { useParams } from "react-router-dom";
 
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const DeleteAssignment = () => {
   const { selectedModuleCode, batch, selectedAssignmentId } = useParams();
@@ -36,13 +37,13 @@ const DeleteAssignment = () => {
   ];
 
   useEffect(() => {
-    setOpenDialog(true); 
+    setOpenDialog(true);
   }, []);
 
   const deleteAssignment = async () => {
     setLoading(true);
     const response = await axios.delete(
-      `http://localhost:3500/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
+      `${baseUrl}/assignment/${selectedModuleCode}/${batch}/${selectedAssignmentId}`
     );
     console.log("Assignment is deleted !");
     enqueueSnackbar("Assignment deleted successfully!", { variant: "success" });
@@ -61,7 +62,6 @@ const DeleteAssignment = () => {
 
         if (newAccessToken) {
           try {
-         
             await deleteAssignment();
           } catch (error) {
             console.error("Error fetching data:", error);

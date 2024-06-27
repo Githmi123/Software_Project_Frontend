@@ -25,6 +25,7 @@ import CustomButton from "../components/Buttons/CustomButton";
 import { useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import refreshAccessToken from "../services/AuthService";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const NewAssignmentPage = () => {
   const [moduleOptions, setModuleOptions] = useState([]);
@@ -37,10 +38,8 @@ const NewAssignmentPage = () => {
   const { selectedModuleCode, batch } = useParams();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-
   const [excelFile, setExcelFile] = useState(null);
   const [typeError, setTypeError] = useState(null);
-
 
   const [excelData, setExcelData] = useState(null);
 
@@ -60,9 +59,7 @@ const NewAssignmentPage = () => {
       try {
         await refreshAccessToken();
 
-        const modulesResponse = await axios.get(
-          "http://localhost:3500/modules"
-        );
+        const modulesResponse = await axios.get(`${baseUrl}/modules`);
         const modules = modulesResponse.data;
         const moduleOptions = modules.map((module) => ({
           value: module.modulecode,
@@ -80,11 +77,10 @@ const NewAssignmentPage = () => {
   useEffect(() => {
     const fetchBatches = async () => {
       try {
-
         await refreshAccessToken();
 
         const batchResponse = await axios.get(
-          `http://localhost:3500/batch/${selectedModule}`
+          `${baseUrl}/batch/${selectedModule}`
         );
         const batches = batchResponse.data;
 
@@ -108,7 +104,6 @@ const NewAssignmentPage = () => {
 
   console.log("batches : ", batchOptions);
   console.log("Selected Batch:", selectedBatch);
-
 
   const handleModuleChange = (event) => {
     const value = event.target.value;
@@ -149,7 +144,6 @@ const NewAssignmentPage = () => {
     } else {
       setSelectedBatch(value);
     }
-
   };
 
   // const handleBatchChange = (event) => {
@@ -175,9 +169,8 @@ const NewAssignmentPage = () => {
     setSchemePath(event.target.value);
   };
 
-
   const handleSelectedFileChange = (file) => {
-    setSelectedFile(file); 
+    setSelectedFile(file);
     setSchemePath(file.name);
   };
 
@@ -224,7 +217,7 @@ const NewAssignmentPage = () => {
       formData.append("scheme", selectedFile);
 
       const response = await axios.post(
-        `http://localhost:3500/assignment/${selectedModule}/${selectedBatch}`,
+        `${baseUrl}/assignment/${selectedModule}/${selectedBatch}`,
         formData,
         {
           headers: {
@@ -264,13 +257,12 @@ const NewAssignmentPage = () => {
       }
       console.error("Error config:", error.config);
     }
-
   };
 
   return (
     <div className="align1">
       <MainRightPane>
-      <Button
+        <Button
           sx={{
             // m: 2,
             width: "100px",
@@ -305,7 +297,6 @@ const NewAssignmentPage = () => {
                   onChange={handleModuleChange}
                   options={moduleOptions}
                 />
-           
               </div>
             </div>
 
@@ -319,10 +310,7 @@ const NewAssignmentPage = () => {
                   options={batchOptions}
                   sx={{ width: 400 }}
                 />
-             
               </div>
-
-            
             </div>
 
             <span className="label1">Assignment Name</span>
@@ -333,9 +321,7 @@ const NewAssignmentPage = () => {
                 variant="outlined"
                 value={assignmentName}
                 onChange={handleAssignmentNameChange}
-                
               />
-             
             </div>
 
             <span className="label1">Marking Scheme</span>
@@ -346,10 +332,8 @@ const NewAssignmentPage = () => {
                 variant="outlined"
                 value={schemepath}
                 onChange={handleSchemePathChange}
-
               />
               <InputFileUploadButton onFileSelect={handleSelectedFileChange} />
-      
             </div>
           </div>
           <div
@@ -357,14 +341,10 @@ const NewAssignmentPage = () => {
             style={{
               display: "flex",
               flexDirection: "row",
-         
             }}
           >
-         
-
             <Link to="/Dashboard" style={{ textDecoration: "none" }}>
               {" "}
-     
               <CustomButton
                 text="Cancel"
                 onClick={handleCancel}
@@ -379,8 +359,6 @@ const NewAssignmentPage = () => {
               backgroundColor="#7894DB"
               textColor="white"
             />
-
-
           </div>
         </div>
         <Snackbar
@@ -403,4 +381,3 @@ const NewAssignmentPage = () => {
 };
 
 export default NewAssignmentPage;
-

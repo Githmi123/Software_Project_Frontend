@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import refreshAccessToken from "../services/AuthService";
 import { useSnackbar } from "notistack";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const EditModule = () => {
   const { selectedModuleCode } = useParams();
@@ -19,17 +20,14 @@ const EditModule = () => {
     credits: "",
   });
 
-
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchModuleDetails = async () => {
       try {
-   
-
         console.log("selected module code :", selectedModuleCode);
         const response = await axios.get(
-          `http://localhost:3500/modules/view/${selectedModuleCode}`
+          `${baseUrl}/modules/view/${selectedModuleCode}`
         );
         setModuleData(response.data);
       } catch (error) {
@@ -52,17 +50,17 @@ const EditModule = () => {
 
   const submit = async () => {
     await axios.post(
-      `http://localhost:3500/modules/edit/${selectedModuleCode}`,
+      `${baseUrl}/modules/edit/${selectedModuleCode}`,
       moduleData
     );
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await submit();
-      
-      enqueueSnackbar(`Edited module successfully`, { variant: 'success' });
+
+      enqueueSnackbar(`Edited module successfully`, { variant: "success" });
       navigate("/MyModulePage");
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -74,29 +72,25 @@ const EditModule = () => {
             await submit();
           } catch (error) {
             if (error.response && error.response.status === 400) {
-              enqueueSnackbar('No changes made', { variant: 'info' });
-            } 
-            else {
-              enqueueSnackbar(`Error editing module`, { variant: 'error' });
+              enqueueSnackbar("No changes made", { variant: "info" });
+            } else {
+              enqueueSnackbar(`Error editing module`, { variant: "error" });
             }
-            
           }
         }
-      } 
-      else if (error.response && error.response.status === 400) {
-        enqueueSnackbar('No changes made', { variant: 'info' });
-      } 
-      else {
-        enqueueSnackbar(`Error editing module`, { variant: 'error' });
+      } else if (error.response && error.response.status === 400) {
+        enqueueSnackbar("No changes made", { variant: "info" });
+      } else {
+        enqueueSnackbar(`Error editing module`, { variant: "error" });
       }
     }
   };
 
   return (
     <div className="align1">
-    
       <MainRightPane>
-        <Button id = "back-button"
+        <Button
+          id="back-button"
           startIcon={<ArrowBackIcon />}
           onClick={() => window.history.back()}
         >
@@ -208,7 +202,6 @@ const EditModule = () => {
             justifyContent: "center",
           }}
         >
-          
           <Link to="/MyModulePage" style={{ textDecoration: "none" }}>
             <Button
               sx={{
@@ -216,7 +209,7 @@ const EditModule = () => {
                 backgroundColor: "white",
                 border: "1px solid #7894DB",
                 "&:hover": { backgroundColor: "#7894DB", color: "white" },
-                marginBottom: "10px"
+                marginBottom: "10px",
               }}
             >
               Cancel
@@ -231,7 +224,7 @@ const EditModule = () => {
               backgroundColor: "white",
               border: "1px solid #7894DB",
               "&:hover": { backgroundColor: "#7894DB", color: "white" },
-              marginBottom: "10px"
+              marginBottom: "10px",
             }}
           >
             Save

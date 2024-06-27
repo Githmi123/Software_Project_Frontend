@@ -38,25 +38,38 @@
   left: 45%;
   transform: translateX(-50%);
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-user-section {
+  bottom: 20vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .batch-button {
   margin: 10px !important;
-  background-color: #E3DDE8 !important;
+  background-color: #e3dde8 !important;
   color: black !important;
   width: 500px !important;
   text-transform: capitalize !important;
   border-radius: 2vh !important;
-  border: 0px solid #7894DB !important;
+  border: 0px solid #7894db !important;
 }
 
+#user-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .batch-button {
-
     width: 150px !important;
-
   }
 }
